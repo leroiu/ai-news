@@ -1,0 +1,90 @@
+# ============================================================
+# Knowledge Card: Kling
+# ============================================================
+
+id: kling
+name: Kling (可灵)
+type: model
+aliases:
+  - Kling
+  - kling
+  - 可灵
+  - 可灵AI
+  - Kling AI
+  - 快手可灵
+  - Kuaishou Kling
+
+release_date: 2024-06
+status: active
+
+company: Kuaishou (快手)
+creators:
+  - 快手 AI 团队
+
+tags:
+  - video-generation
+  - chinese
+  - kuaishou
+  - ai-video
+  - sora-competitor
+  - multimodal
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  快手推出的 AI 视频生成大模型，中国首个达到 Sora 级画质的
+  视频生成模型。Kling 基于 3D VAE + Diffusion Transformer，
+  支持文生视频、图生视频，最长 2 分钟。国际版 Kling AI 在
+  海外市场表现强劲。
+
+significance: |
+  Kling 的核心意义在于"率先实现 Sora 级视频生成的中国模型"。
+  2024 年 6 月发布时是全球第二个达到该水平的视频生成模型，
+  且在运动幅度、物理合理性方面有独特优势。
+
+  技术特色：
+  - 3D VAE 压缩：在空间和时间维度上高效压缩视频
+  - 长视频能力：支持 2 分钟视频生成
+  - 快手生态：从训练数据到分发场景的全链条优势
+  - 国际化：Kling AI 海外版用户增长迅猛
+
+  Kling + Seedance 2.0 构成了中国视频生成的双雄格局。
+
+background: |
+  快手是仅次于抖音的全球第二大短视频平台（MAU 超 7 亿），在
+  视频理解/生成方面有天然的数据和场景优势。2024 年 6 月 Kling
+  发布即引发全球关注，2025 年持续迭代，2026 年 Kling 2.0 发布。
+
+related:
+  - seedance-2
+  - sora
+  - ai-video-generation
+  - bytedance-ai
+
+depends_on:
+  - diffusion
+  - transformer
+
+influenced:
+  - ai-video-generation
+
+architecture: 3D VAE + Diffusion Transformer
+modalities:
+  - text
+  - image
+  - video
+license: proprietary
+
+timeline:
+  - date: 2024-06
+    event: Kling 1.0 发布，中国首个 Sora 级视频生成模型
+  - date: 2024-07
+    event: Kling AI 国际版上线
+  - date: 2025-06
+    event: Kling 1.5 发布，增强画质和运动控制
+  - date: 2026-03
+    event: Kling 2.0 发布，支持 2 分钟视频
+
+sources:
+  official: https://klingai.com

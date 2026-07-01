@@ -159,7 +159,7 @@ def sync_cards(include_drafts: bool = False):
     print(f"{'='*60}")
 
     # 重建嵌入向量
-    from src.embeddings import rebuild_card_embeddings
+    from src.engine.embeddings import rebuild_card_embeddings
     log.info("重建卡片嵌入向量...")
     emb_result = rebuild_card_embeddings()
     log.info(f"嵌入: {emb_result['embedded']} 新建, "

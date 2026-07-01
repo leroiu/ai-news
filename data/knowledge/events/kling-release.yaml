@@ -1,0 +1,68 @@
+# ============================================================
+# Knowledge Card: Kling Release
+# ============================================================
+
+id: kling-release
+name: Kling 发布
+type: event
+aliases:
+  - Kling 发布
+  - kling-release
+  - 可灵发布
+  - Kling launch
+
+release_date: 2024-06
+status: active
+
+creators:
+  - 快手
+
+tags:
+  - video-generation
+  - chinese
+  - kuaishou
+  - milestone
+  - sora-competitor
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  2024 年 6 月，快手发布 Kling AI 视频生成大模型，成为中国
+  首个达到 Sora 级画质的视频生成模型，也是全球第二个达到该
+  水平的模型。引发全球 AI 社区对中国视频生成能力的关注。
+
+significance: |
+  Kling 的发布具有多重意义：
+  - 中国第一个 Sora 级视频生成模型，打破"只有美国能做视频生成"的认知
+  - 快手从小众视频平台跃升为 AI 技术公司
+  - 引发中国视频生成创业热潮（之后 Seedance/Vidu 等涌现）
+  - 证明中国在视频数据处理方面有独特优势
+
+  Kling 发布后，快手的股价和品牌认知度大幅提升。Kling 国际版
+  Kling AI 在海外市场也获得大量用户，成为"中国技术出口"的案例。
+
+background: |
+  2024 年 2 月 Sora 发布引发全球震动。仅 4 个月后，2024 年 6 月
+  快手 Kling 发布，成为全球第一个正面回应 Sora 的竞品。这一
+  速度震惊了全球 AI 社区。Kling 基于快手海量视频数据训练，
+  在运动幅度和物理合理性方面甚至有超越 Sora 的表现。
+
+related:
+  - kling
+  - sora-release
+  - seedance-2-release
+  - ai-video-generation
+
+timeline:
+  - date: 2024-02
+    event: OpenAI Sora 发布，引发视频生成热潮
+  - date: 2024-06
+    event: Kling 1.0 发布，中国首个 Sora 级视频生成模型
+  - date: 2024-07
+    event: Kling AI 国际版上线
+  - date: 2024-12
+    event: Kling 被《MIT Technology Review》评为年度突破
+
+sources:
+  official: https://klingai.com

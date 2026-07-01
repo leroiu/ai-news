@@ -1,0 +1,89 @@
+# ============================================================
+# Knowledge Card: MiniMax-01
+# ============================================================
+
+id: minimax-01
+name: MiniMax-01
+type: model
+aliases:
+  - MiniMax-01
+  - minimax-01
+  - MiniMax01
+  - MiniMax 01
+
+release_date: 2025-01
+status: active
+
+company: MiniMax
+creators:
+  - MiniMax
+
+tags:
+  - llm
+  - chinese
+  - long-context
+  - linear-attention
+  - open-source
+  - multimodal
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  MiniMax 的旗舰大模型，456B 参数，采用 Lightning Attention 线性
+  注意力机制实现 4M token 超长上下文。支持文本、语音、视频
+  多模态交互，以极低推理成本著称。
+
+significance: |
+  MiniMax-01 的核心突破在于线性注意力（Linear Attention）——
+  传统 Transformer 的注意力计算复杂度随序列长度呈 O(n²) 增长，
+  而 Lightning Attention 降到 O(n)，使得 4M token 上下文
+  成为可能且推理成本可控。
+
+  这意味着 MiniMax-01 可以在单次推理中处理：
+  - 约 300 万汉字（约 10 本书的体量）
+  - 完整代码仓库
+  - 超长对话历史
+
+  此外，MiniMax-01 是少数同时擅长语音合成和文本生成的模型，
+  在多模态交互场景（语音对话 AI）有独特定位。
+
+background: |
+  MiniMax 团队在长序列建模方面有深厚积累。2025 年 1 月发布
+  MiniMax-01 论文（Lightning Attention），引起学术界和工业界
+  广泛关注。456B 参数的模型以相对较低的推理成本实现了超长
+  上下文能力。
+
+related:
+  - minimax
+  - kimi
+  - long-context-research
+  - gpt-4
+  - deepseek-v3
+
+depends_on:
+  - transformer
+  - attention-mechanism
+
+influenced:
+  - long-context-research
+  - linear-attention
+
+architecture: Lightning Attention (Linear Attention)
+parameters: "456B"
+modalities:
+  - text
+  - voice
+  - video
+license: partially-open
+
+timeline:
+  - date: 2025-01
+    event: MiniMax-01 发布 + Lightning Attention 论文
+  - date: 2025-03
+    event: 开源 MiniMax-01 轻量版
+  - date: 2025-06
+    event: 海螺 AI 全面升级至 MiniMax-01
+
+sources:
+  official: https://www.minimaxi.com

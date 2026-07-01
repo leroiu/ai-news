@@ -1,0 +1,80 @@
+# ============================================================
+# Knowledge Card: MiniMax
+# ============================================================
+
+id: minimax
+name: MiniMax
+type: company
+aliases:
+  - MiniMax
+  - minimax
+  - 稀宇科技
+  - 海螺AI
+
+release_date: 2021-12
+status: active
+
+creators:
+  - 闫俊杰
+  - 杨斌
+
+tags:
+  - chinese
+  - llm
+  - multimodal
+  - video-generation
+  - voice
+  - southeast-asia
+  - unicorn
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  MiniMax（稀宇科技）是中国多模态 AI 公司，以海螺 AI（Hailuo AI）
+  产品闻名，在语音合成、视频生成和东南亚出海方面独树一帜。
+  MiniMax-01 模型以 456B 参数和 4M token 上下文窗口著称。
+
+significance: |
+  MiniMax 的独特之处在于"多模态 + 出海"双引擎战略。海螺 AI 在
+  东南亚市场表现强劲，是中国 AI 出海最成功的案例之一。
+
+  技术上，MiniMax-01 采用创新的 Lightning Attention 线性注意力
+  机制，实现 4M token 的超长上下文。语音合成（TTS）技术被广泛
+  采用于游戏、社交、内容创作场景。
+
+  MiniMax 的差异化路线：不追求通用 AGI，而是聚焦多模态交互
+  （语音+视频+文本），瞄准娱乐和内容创作市场。
+
+background: |
+  闫俊杰（前商汤科技高管）2021 年创立 MiniMax，早期以语音合成
+  和虚拟人技术切入。2023 年发布海螺 AI 对话助手，2024 年推出
+  视频生成能力，2025 年 MiniMax-01 模型发布，同时海螺 AI 在
+  东南亚多国 APP Store 登顶。
+
+related:
+  - minimax-01
+  - seedance-2
+  - kling
+  - sora
+  - suno
+  - voice-cloning
+
+influenced:
+  - ai-video-generation
+  - chinese-ai-global-expansion
+
+timeline:
+  - date: 2021-12
+    event: MiniMax 成立
+  - date: 2023-06
+    event: 海螺 AI（Hailuo AI）发布
+  - date: 2024-03
+    event: 视频生成模型发布
+  - date: 2025-01
+    event: MiniMax-01 发布（456B，4M token 上下文）
+  - date: 2025-06
+    event: 海螺 AI 在东南亚多国 App Store 登顶
+
+sources:
+  official: https://www.minimaxi.com

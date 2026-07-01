@@ -1,0 +1,91 @@
+# ============================================================
+# Knowledge Card: GLM-4
+# ============================================================
+
+id: glm-4
+name: GLM-4
+type: model
+aliases:
+  - GLM-4
+  - glm-4
+  - GLM4
+  - ChatGLM-4
+  - 智谱GLM4
+  - GLM-4.5
+
+release_date: 2024-01
+status: active
+
+company: 智谱 AI (Zhipu AI)
+creators:
+  - 智谱 AI
+  - 唐杰团队
+
+tags:
+  - llm
+  - chinese
+  - multilingual
+  - tool-use
+  - open-source
+  - glm
+  - all-tools
+  - multimodal
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  智谱 AI 的旗舰大模型，采用自研 GLM 架构和 All-Tools 设计。
+  GLM-4 可自主调用搜索、代码解释器、文生图等多种工具，在中文
+  理解和多工具协同方面表现突出。
+
+significance: |
+  GLM-4 的核心创新在于 All-Tools 架构——模型被训练为自主决定
+  何时调用何种工具，而不是依赖外部编排。这使 GLM-4 在复杂任务
+  （如"帮我搜索最新 AI 新闻，分析趋势并生成图表"）中表现出
+  更强的自主规划能力。
+
+  GLM 架构（General Language Model）不同于 GPT 的 decoder-only，
+  采用双向注意力 + 自回归的混合设计，在中英双语理解上具有
+  独特优势。
+
+  GLM-4 系列包含多个尺寸（9B/128B），开源社区版本 ChatGLM
+  在中国开发者中广泛使用。
+
+background: |
+  智谱 GLM 路线始于 2021 年的 GLM-10B，2023 年 ChatGLM-6B
+  开源引发中国大模型开发者热潮。2024 年 1 月 GLM-4 正式发布，
+  引入 All-Tools 架构。2025 年 5 月 GLM-4.5 发布，性能进一步提升。
+
+related:
+  - zhipu-ai
+  - gpt-4
+  - deepseek-v3
+  - qwen-2.5
+  - tool-use
+
+depends_on:
+  - transformer
+  - attention-mechanism
+
+influenced:
+  - chinese-open-source-llm
+  - tool-use
+
+architecture: GLM (General Language Model)
+parameters: "128B (旗舰版)"
+modalities:
+  - text
+  - image
+license: partially-open
+
+timeline:
+  - date: 2024-01
+    event: GLM-4 正式发布，All-Tools 架构
+  - date: 2024-06
+    event: GLM-4-9B 开源
+  - date: 2025-05
+    event: GLM-4.5 发布
+
+sources:
+  official: https://open.bigmodel.cn

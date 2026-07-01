@@ -1,0 +1,85 @@
+# ============================================================
+# Knowledge Card: Moonshot AI
+# ============================================================
+
+id: moonshot-ai
+name: 月之暗面 (Moonshot AI)
+type: company
+aliases:
+  - 月之暗面
+  - Moonshot
+  - moonshot
+  - Moonshot AI
+  - 月之暗面科技
+
+release_date: 2023-04
+status: active
+
+creators:
+  - 杨植麟
+  - 周昕宇
+  - 吴育昕
+
+tags:
+  - chinese
+  - llm
+  - long-context
+  - kimi
+  - ai-assistant
+  - unicorn
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  月之暗面是中国 AI 独角兽，由清华/CMU 背景的杨植麟创立。核心产品
+  Kimi 以超长上下文（200 万 token）为差异化优势，是中国用户量最大
+  的 AI 助手之一。2024 年融资超 10 亿美元，估值超 30 亿。
+
+significance: |
+  月之暗面的核心竞争力在于长上下文技术。Kimi 率先将上下文窗口
+  扩展到 200 万 token（约 300 万字），可以实现整本书级别的理解和
+  分析。这一能力在长文档总结、代码库分析、学术论文审阅等场景中
+  具有明显优势。
+
+  杨植麟本人是 Transformer-XL 和 XLNet 的核心作者之一，在长序列
+  建模领域有深厚的学术积累。月之暗面的技术路线是"长上下文优先"，
+  与 OpenAI/Google 的"通用能力优先"形成差异化。
+
+  2024 年获得阿里巴巴领投的超 10 亿美元融资，估值跃升为中国
+  AI 独角兽第一梯队。
+
+background: |
+  杨植麟（清华本科、CMU 博士）是 Transformer-XL/XLNet 核心作者。
+  2023 年 4 月创立月之暗面，2023 年 10 月发布 Kimi Chat，
+  2024 年 3 月 Kimi 上下文窗口扩至 200 万 token，引发行业震动。
+  2024-2025 年 Kimi 用户量持续增长，推出 k1.5 视觉思考模型。
+
+related:
+  - kimi
+  - deepseek
+  - zhipu-ai
+  - transformer
+  - long-running-agent
+  - anthropic
+
+influenced:
+  - chinese-ai-boom
+  - long-context-research
+
+timeline:
+  - date: 2023-04
+    event: 月之暗面成立
+  - date: 2023-10
+    event: Kimi Chat 首发
+  - date: 2024-03
+    event: Kimi 上下文窗口扩至 200 万 token
+  - date: 2024-08
+    event: 阿里领投超 10 亿美元，估值超 30 亿美元
+  - date: 2025-01
+    event: 发布 k1.5 视觉思考模型
+  - date: 2025-06
+    event: Kimi 月活用户超 1 亿
+
+sources:
+  official: https://www.moonshot.cn

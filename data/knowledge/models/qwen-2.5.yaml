@@ -1,0 +1,96 @@
+# ============================================================
+# Knowledge Card: Qwen 2.5
+# ============================================================
+
+id: qwen-2.5
+name: Qwen 2.5
+type: model
+aliases:
+  - Qwen 2.5
+  - qwen-2.5
+  - Qwen2.5
+  - 通义千问 2.5
+  - 通义千问2.5
+
+release_date: 2025-01
+status: active
+
+company: Alibaba (阿里巴巴)
+creators:
+  - 阿里云通义团队
+
+tags:
+  - llm
+  - chinese
+  - open-source
+  - multilingual
+  - coding
+  - math
+  - qwen
+  - alibaba
+  - apache-2.0
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  阿里巴巴通义团队的开源大模型，涵盖 0.5B 到 72B 多个尺寸。
+  Qwen 2.5 在数学、编程、多语言理解等基准测试中表现顶尖，
+  是 HuggingFace 上下载量最高的开源 LLM 系列之一。
+
+significance: |
+  Qwen 2.5 是全球最成功的开源大模型家族之一。其最大特点是
+  "全尺寸覆盖 + Apache 2.0 协议"——从 0.5B 的嵌入式模型到
+  72B 的旗舰模型，全部开源且商业友好，极大降低了企业和开发者
+  部署大模型的门槛。
+
+  技术特点：
+  - 数学推理顶尖：MATH 基准 >90%，在开源模型中领先
+  - 编程能力强：HumanEval 得分 85%+
+  - 多语言支持：中英双语 + 27 种语言
+  - 长上下文：支持 128K token
+  - 生态完善：HuggingFace Transformers、vLLM、Ollama 等
+    推理框架全面支持
+
+  Qwen 2.5 的成功证明了开源模式在 LLM 领域的可行性。
+
+background: |
+  阿里 Qwen 系列始于 2023 年 4 月的通义千问。2024 年 6 月
+  Qwen 2.0 开源即引发全球关注。2025 年 1 月 Qwen 2.5 发布，
+  在数学和代码基准上实现显著跃升。HuggingFace 累计下载量
+  在 2025 年中突破 1 亿次。
+
+related:
+  - alibaba-ai
+  - qwen-3
+  - tongyi-qianwen
+  - deepseek-v3
+  - glm-4
+  - llama-4
+  - gpt-4
+
+depends_on:
+  - transformer
+
+influenced:
+  - chinese-open-source-llm
+  - cost-efficient-llm-wave
+
+architecture: Dense Transformer
+parameters: "0.5B / 1.5B / 3B / 7B / 14B / 32B / 72B"
+modalities:
+  - text
+license: Apache 2.0
+
+timeline:
+  - date: 2023-04
+    event: 通义千问大模型首发
+  - date: 2024-06
+    event: Qwen 2.0 系列开源
+  - date: 2025-01
+    event: Qwen 2.5 发布，数学/代码基准顶尖
+  - date: 2025-06
+    event: HuggingFace 累计下载超 1 亿次
+
+sources:
+  official: https://github.com/QwenLM/Qwen2.5

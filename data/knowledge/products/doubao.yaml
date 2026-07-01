@@ -1,0 +1,79 @@
+# ============================================================
+# Knowledge Card: Doubao
+# ============================================================
+
+id: doubao
+name: 豆包 (Doubao)
+type: product
+aliases:
+  - 豆包
+  - Doubao
+  - doubao
+  - 豆包APP
+  - 字节豆包
+
+release_date: 2024-05
+status: active
+
+company: ByteDance (字节跳动)
+creators:
+  - 字节跳动 Flow 团队
+
+tags:
+  - ai-assistant
+  - chinese
+  - consumer-ai
+  - chatbot
+  - multimodal
+  - mobile-app
+  - bytedance
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  字节跳动推出的 AI 助手 APP，中国月活最高的 C 端 AI 产品
+  （2025 年 MAU 超 2 亿）。支持文本对话、AI 搜索、文档分析、
+  图像生成、语音对话，深度整合抖音/头条生态。
+
+significance: |
+  豆包是中国 AI 应用"卷价格、卷体验"的典型代表。以极低成本
+  API（一度低至 ¥0.0008/千 token）和简洁流畅的产品体验，
+  快速占领中国 AI 助手市场。
+
+  核心优势：
+  - 用户体验好：APP 启动快、回复流畅、UI 简洁
+  - 生态绑定深：与抖音/TikTok/飞书/今日头条打通
+  - 价格极低：API 定价约为 GPT-4o 的 1/10 以下
+  - 功能全面：搜索/写作/翻译/生图/语音/AI角色
+
+  豆包的成功代表了字节"以应用场景拉动技术"的 AI 战略。
+
+background: |
+  豆包 2024 年 5 月正式上线，初期依托抖音/TikTok 流量快速增长。
+  2024 年底 MAU 超 1 亿，2025 年中 MAU 超 2 亿，超越 ChatGPT
+  成为中国 MAU 最高的 AI 应用。2025 年推出 PC 版、浏览器插件、
+  AI 搜索等多个入口。
+
+related:
+  - bytedance-ai
+  - jimeng
+  - chatgpt
+  - kimi
+  - deepseek
+
+depends_on:
+  - bytedance-ai
+
+timeline:
+  - date: 2024-05
+    event: 豆包 APP 正式上线
+  - date: 2024-12
+    event: MAU 突破 1 亿
+  - date: 2025-03
+    event: 豆包 PC 版 + 浏览器插件发布
+  - date: 2025-06
+    event: MAU 突破 2 亿，中国最大 C 端 AI 产品
+
+sources:
+  official: https://www.doubao.com
