@@ -1,0 +1,64 @@
+id: claude-sonnet-4-6
+name: Claude Sonnet 4.6
+type: model
+aliases:
+  - Claude Sonnet 4.6
+  - Sonnet 4.6
+  - claude-sonnet-4-6
+
+release_date: 2025-10
+status: active
+
+company: Anthropic
+creators:
+  - Anthropic
+
+tags:
+  - llm
+  - coding
+  - fast
+  - anthropic
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  Anthropic 的快速高效模型，速度价格比最优。
+  Claude Code 默认引擎，日常编码任务的首选。
+
+significance: |
+  Sonnet 4.6 是速度/质量/成本三位一体的最优解。
+  在保持高质量代码生成的同时，推理速度是 Opus 的 3-5 倍，
+  API 成本仅为 Opus 的 ~29%。
+
+  这种"快模型 + 慢模型"的产品设计（Sonnet 快速 → Opus 深度）
+  是 Anthropic 区别于 OpenAI 的核心策略之一。
+  Claude Code 用 Sonnet 处理 80% 日常任务，Opus 处理复杂问题。
+
+background: |
+  Claude Sonnet 系列定位为"工作马"，快且便宜但不牺牲质量。
+  Sonnet 4.6 是这一系列的最成熟版本，
+  Claude Fable 5 发布后仍作为"Fast Mode"引擎存在。
+
+related:
+  - anthropic
+  - claude-opus-4-8
+  - claude-fable-5
+  - claude-code
+
+depends_on:
+  - transformer
+  - rlhf
+
+parameters: "未公开披露"
+architecture: "未公开披露"
+license: proprietary
+
+timeline:
+  - date: 2025-10
+    event: Claude Sonnet 4.6 发布（与 Opus 4.8 同日）
+  - date: 2026-06
+    event: 作为 Claude Code "Fast mode" 引擎
+
+sources:
+  official: https://anthropic.com

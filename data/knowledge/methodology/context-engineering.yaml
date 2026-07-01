@@ -1,0 +1,63 @@
+id: context-engineering
+name: Context Engineering
+type: methodology
+tags:
+- context
+- prompt-engineering
+- memory
+- agent
+- llm
+- claude-code
+importance: 4
+confidence: confirmed
+summary: '系统化设计和优化 LLM 的上下文窗口内容，包括 system prompt、memory、rules、
+
+  hook 等所有 AI 能"看到"的信息。
+
+  '
+significance: 'Context Engineering 将 "Prompt Engineering" 升级为系统工程：
+
+  不只是写一段 prompt，而是设计 AI 在对话中能看到的一切——
+
+  包括 CLAUDE.md、memory 文件、governance 规则、project 上下文、hook 反馈。
+
+
+  这在 Claude Code 等技术中得到充分体现：一个 Agent 的有效性
+
+  很大程度上取决于 contexts 的质量和结构。
+
+
+  核心原则：Context 越结构化，AI 越可预测。
+
+  '
+domain: Agent 设计
+source_articles:
+- Context Engineering for AI Agents — multiple sources
+- Claude Code CLAUDE.md 设计实践
+related:
+- prompt-engineering
+- agent
+- harness-engineering
+- memory-architecture
+depends_on:
+- prompt-engineering
+evolution:
+- date: 2023
+  event: 从 Prompt Engineering 中分化出来
+- date: 2024
+  event: Claude Code CLAUDE.md 普及 Context 设计
+- date: 2026
+  event: Context Guardian Hook 实现自动化维护
+sources:
+  official: https://docs.anthropic.com/en/docs/claude-code
+timeline:
+- date: 2023-03
+  event: GPT-4 128K 发布，「上下文窗口」成为产品差异化核心
+- date: 2024-03
+  event: Claude 3 200K 上下文 + Anthropic System Prompt 最佳实践文档发布
+- date: 2024-11
+  event: Gemini 1.5 Pro 1M 上下文 + Anthropic MCP 上下文注入标准发布
+- date: 2025-02
+  event: Claude Code 发布 CLAUDE.md 约定，成为上下文工程最佳实践参考实现
+- date: 2025-06
+  event: Context Architecture 方法论成形：分层文档 + Memory + Rules + Hooks 系统化

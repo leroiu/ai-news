@@ -1,0 +1,89 @@
+# ============================================================
+# Knowledge Card: AI Hallucination
+# ============================================================
+
+id: hallucination
+name: AI Hallucination (AI幻觉)
+type: concept
+aliases:
+  - AI Hallucination
+  - 幻觉
+  - Hallucination
+  - 事实性错误
+  - confabulation
+
+release_date: 2018
+status: active
+
+tags:
+  - safety
+  - reliability
+  - factuality
+  - rag
+  - grounding
+  - llm-limitations
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  AI 模型生成看似合理但实际不准确或虚构的内容的现象，
+  是 LLM 在实际应用中面临的最大挑战之一。
+
+significance: |
+  AI 幻觉是 LLM 从"酷炫玩具"到"可信赖工具"的最大障碍。
+
+  幻觉类型：
+  - 事实性幻觉：编造不存在的事件、人物、论文引用
+  - 忠实性幻觉：偏离用户指令或上下文
+  - 逻辑性幻觉：推理过程中的逻辑跳跃或矛盾
+
+  为什么 LLM 会产生幻觉：
+  - 本质上是"下一个 token 预测器"，不是"事实核查器"
+  - 训练数据的分布偏差和过时信息
+  - 缺乏真实的因果理解和世界模型
+
+  应对方案：
+  - RAG：检索外部知识库进行事实核查
+  - Grounding：将输出与可靠来源绑定
+  - 引用机制：要求模型标注信息来源
+  - Multi-agent Verification：多模型交叉验证
+
+  在医疗、法律、金融等高风险领域，幻觉是最需要解决的问题。
+  2025-2026 年，各 LLM API 普遍增加了 hallucination detection
+  和 grounding 功能。
+
+background: |
+  2018 年 GPT-2 时代已观察到幻觉现象，但规模较小。
+  2022 年 ChatGPT 发布后，"AI 编造事实"成为大众关注话题。
+  2023-2024 年 RAG 成为对抗幻觉的主流方案。
+  2025 年各 LLM 提供商推出 grounding/事实核查 API。
+
+related:
+  - rag
+  - rlhf
+  - ai-alignment
+  - gpt-4
+  - claude-fable-5
+
+influenced:
+  - rag
+  - grounding
+  - factuality-research
+
+timeline:
+  - date: 2018
+    event: GPT-2 时代首次报导幻觉现象
+  - date: 2022-11
+    event: ChatGPT 发布，"AI 幻觉"成为大众话题
+  - date: 2023
+    event: RAG 成为对抗幻觉的主流方案
+  - date: 2024
+    event: 各 LLM 提供商推出引用/来源标注功能
+  - date: 2025
+    event: Grounding API 成为 LLM 平台标配
+
+sources:
+  wikipedia: https://en.wikipedia.org/wiki/Hallucination_(artificial_intelligence)
+
+domain: "reliability"

@@ -1,0 +1,66 @@
+id: llama-4
+name: Llama 4
+type: model
+aliases:
+  - Llama 4
+  - Llama4
+  - LLaMA 4
+
+release_date: 2025-04
+status: active
+
+company: Meta AI
+creators:
+  - Meta AI
+
+tags:
+  - llm
+  - open-source
+  - meta
+  - coding
+  - multilingual
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  Meta 最新开源旗舰 LLM，MoE 架构，首次引入原生多模态。
+  开源社区最广泛使用的基础模型之一。
+
+significance: |
+  Llama 4 是开源 AI 的重大升级：
+  - 首次使用 MoE 架构（活跃参数远小于总参数，成本更低）
+  - 原生多模态（文本 + 图像理解）
+  - 多语言能力大幅提升（首次在训练中就平衡多种语言）
+
+  开源策略使得 Llama 4 成为全球 AI 创业公司、学术研究的
+  事实标准。数千个衍生模型在 HuggingFace 上可获得。
+
+background: |
+  Meta 自 Llama 3 后加速迭代，Llama 4 对标 GPT-4/Claude 3.5 级性能。
+  Llama 4.5 在 2026 年更新，加入了更强的 Agent 能力和工具使用。
+
+related:
+  - meta-ai
+  - llama
+  - open-source-ai
+  - yann-lecun
+
+depends_on:
+  - transformer
+  - moe
+
+parameters: "总量 ~400B (MoE, 活跃 ~80B)"
+architecture: MoE (Mixture of Experts)
+license: "Llama Community License (开放权重)"
+
+timeline:
+  - date: 2025-04
+    event: Llama 4 发布
+  - date: 2025-06
+    event: Llama 4 Instruct 微调版
+  - date: 2026-03
+    event: Llama 4.5 发布
+
+sources:
+  official: https://ai.meta.com/llama

@@ -1,0 +1,81 @@
+# ============================================================
+# Knowledge Card: Vector Database
+# ============================================================
+
+id: vector-database
+name: Vector Database (向量数据库)
+type: tech
+aliases:
+  - Vector Database
+  - 向量数据库
+  - Vector DB
+  - vector-database
+  - Vector Store
+
+release_date: 2019
+status: active
+
+tags:
+  - database
+  - embeddings
+  - rag
+  - search
+  - retrieval
+  - semantic-search
+  - ai-infrastructure
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  专门存储和检索高维向量嵌入的数据库，是 RAG（检索增强生成）
+  和语义搜索的核心基础设施组件。
+
+significance: |
+  向量数据库的兴起与 LLM 应用爆发直接相关。
+
+  传统数据库擅长精确匹配（SQL WHERE name = 'xxx'），
+  但无法处理"找到与这句话意思最相似的段落"这类查询。
+  向量数据库通过 ANN（近似最近邻）算法实现毫秒级的语义搜索。
+
+  关键角色：
+  - RAG 的"记忆层"：存储文档嵌入，检索最相关知识
+  - Agent 的长期记忆：存储对话历史嵌入
+  - 多模态搜索：图片、音频、视频嵌入
+
+  代表产品：Pinecone、Weaviate、Milvus、Qdrant、Chroma。
+  2024 年后，PostgreSQL（pgvector）和 Elasticsearch 也加入
+  向量搜索能力，"向量化"成为数据库标配。
+
+background: |
+  2019 年前，Faiss（Meta）是主要的向量搜索库。
+  2019-2021 年 Milvus、Pinecone 等专用向量数据库相继出现。
+  2023 年 LLM 应用爆发，向量数据库成为 RAG 生态的标配。
+  2024 年后传统数据库纷纷内置向量搜索。
+
+related:
+  - rag
+  - embeddings
+  - transformer
+  - llm
+  - semantic-search
+
+influenced:
+  - rag
+
+timeline:
+  - date: 2019
+    event: Milvus 开源，向量数据库概念形成
+  - date: 2021
+    event: Pinecone 发布，首个托管向量数据库
+  - date: 2023
+    event: LLM 应用爆发，向量数据库成 RAG 标配
+  - date: 2024
+    event: pgvector 普及，传统数据库集成向量搜索
+  - date: 2025
+    event: 向量搜索成为数据库标准功能
+
+sources:
+  wikipedia: https://en.wikipedia.org/wiki/Vector_database
+
+category: 数据基础设施

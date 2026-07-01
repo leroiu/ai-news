@@ -1,0 +1,98 @@
+# ============================================================
+# Knowledge Card: Transformer Paper
+# ============================================================
+
+id: transformer-paper
+name: '"Attention Is All You Need" 论文发表'
+type: event
+aliases:
+  - Transformer 论文
+  - Attention Is All You Need
+  - Transformer 发表
+
+release_date: 2017-06-12
+status: active
+
+tags:
+  - milestone
+  - paper
+  - transformer
+  - architecture
+  - google
+  - ai-history
+  - breakthrough
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  Google Brain 团队发表 Transformer 架构论文，提出完全基于
+  注意力机制的序列模型。这篇论文奠定了现代大语言模型的基础。
+
+significance: |
+  "Attention Is All You Need" 是 AI 历史上最重要的论文之一。
+
+  在 Transformer 之前，NLP 主流架构是 RNN/LSTM/GRU ——
+  串行处理、训练慢、长序列效果差。Transformer 用完全基于
+  注意力机制的并行架构彻底改变了这一局面：
+
+  - 训练效率提升 10-100 倍（完全并行）
+  - 长距离依赖问题得到根本性解决
+  - 催生了 BERT、GPT、T5 等一系列预训练大模型
+  - 最终扩散到计算机视觉（ViT）、语音、多模态等所有领域
+
+  可以说，没有 Transformer 就没有 GPT，没有 ChatGPT，
+  没有今天的一切大语言模型。Transformer 是当代 AI 的基石。
+
+background: |
+  2017 年 6 月，Google Brain / Google Research 的 8 位作者
+  （Vaswani et al.）在 NIPS 2017 发表该论文。
+
+  核心创新：
+  1. Self-Attention 机制 — 序列中每个位置直接关注所有其他位置
+  2. Multi-Head Attention — 并行学习多种注意力模式
+  3. Positional Encoding — 保留位置信息
+  4. Encoder-Decoder 架构 — 编码器处理输入，解码器生成输出
+
+  论文最初为机器翻译设计，但很快被扩展到所有 NLP 任务。
+  截至 2026 年被引用超 150,000 次，是 CS 领域引用最高的论文之一。
+
+related:
+  - bert
+  - gpt-3
+  - gpt-4
+  - google
+  - attention-mechanism
+
+depends_on:
+  - attention-mechanism
+
+influenced:
+  - bert
+  - gpt-3
+  - gpt-4
+  - claude
+  - deepseek-v3
+  - all-llms
+  - vision-transformer
+  - multimodal-ai
+
+timeline:
+  - date: 2014
+    event: Bahdanau Attention 提出（NMT 中首次使用注意力）
+  - date: 2017-06-12
+    event: '"Attention Is All You Need" 在 arXiv 发表'
+  - date: 2017-12
+    event: 论文在 NIPS 2017 正式发表
+  - date: 2018-10
+    event: BERT — Encoder-only Transformer 刷新 11 项 NLP 纪录
+  - date: 2020-05
+    event: GPT-3 — Decoder-only Transformer 展示涌现能力
+  - date: 2022-11
+    event: ChatGPT — Transformer 走进大众生活
+  - date: 2026
+    event: 引用超 150,000 次，AI 领域最影响力论文之一
+
+sources:
+  paper: https://arxiv.org/abs/1706.03762
+  wikipedia: https://en.wikipedia.org/wiki/Transformer_(deep_learning_architecture)

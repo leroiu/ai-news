@@ -1,0 +1,72 @@
+id: ai-evaluation
+name: AI Evaluation
+type: methodology
+tags:
+- evaluation
+- benchmarking
+- testing
+- quality
+- llm
+importance: 4
+confidence: confirmed
+summary: '系统化评估 AI 模型和 AI 系统输出质量的方法论。
+
+  包括基准测试、人工评估、LLM-as-Judge、红队测试等。
+
+  '
+significance: 'AI Evaluation 是"如何知道 AI 好不好用"的系统方法。
+
+  没有好的评估，就没有可靠的 AI 产品。
+
+
+  核心维度：
+
+  - 能力评估：MMLU、HumanEval、SWE-bench 等基准
+
+  - 安全评估：红队测试、越狱检测、毒性检测
+
+  - 任务评估：特定业务场景的准确率/召回率
+
+  - 对比评估：A/B 测试模型或 Prompt 版本
+
+  - LLM-as-Judge：用更强的模型评估输出质量
+
+
+  2025-2026 年趋势：从"基准数字"转向"任务驱动的真实评估"。
+
+  SWE-bench Verified 比 MMLU 分数更有说服力。
+
+  '
+domain: AI 质量保证
+source_articles:
+- Holistic Evaluation of Language Models (Stanford HELM)
+- 'SWE-bench: Can Language Models Resolve Real-World GitHub Issues?'
+related:
+- prompt-engineering
+- guardrails
+- reflection
+- fine-tuning
+evolution:
+- date: 2018
+  event: GLUE / SuperGLUE 基准
+- date: 2021
+  event: MMLU 发布
+- date: 2023
+  event: LLM-as-Judge 方法（MT-Bench, AlpacaEval）
+- date: 2024
+  event: SWE-bench 成为编码能力标准
+- date: 2025-2026
+  event: 任务驱动评估取代简单基准
+timeline:
+- date: 2018
+  event: GLUE 基准发布，首次统一 NLU 评估标准（9 任务）
+- date: '2019'
+  event: SuperGLUE 发布，GPT-3 后 GLUE 被"超额完成"，需要更难基准
+- date: 2020
+  event: MMLU 发布（57 学科、15908 道选择题），成为 LLM 知识评估事实标准
+- date: 2022-11
+  event: HELM (Stanford CRFM) 发布，首次系统化多维评估 LLM（准确率、公平性、毒性等）
+- date: 2023-05
+  event: Chatbot Arena (LMSYS) 上线，引入 Elo 人工投票排名，成为最受关注的 LLM 排行榜
+- date: 2024-10
+  event: SWE-bench Verified 发布，成为代码 Agent 能力评估标准

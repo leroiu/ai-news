@@ -1,0 +1,94 @@
+# ============================================================
+# Knowledge Card: Claude 4
+# ============================================================
+
+id: claude-4
+name: Claude 4
+type: model
+aliases:
+  - Claude 4
+  - Claude4
+  - Claude-4
+
+release_date: 2025-05
+status: active
+
+company: Anthropic
+creators:
+  - Anthropic
+
+tags:
+  - llm
+  - reasoning
+  - coding
+  - safety
+  - agent
+  - anthropic
+  - computer-use
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  Anthropic 的第四代旗舰模型系列，在编程、推理和安全对齐上显著提升。
+  引入 Computer Use 和增强的 Tool Use 能力，是 Agent 场景的主力模型。
+
+significance: |
+  Claude 4 系列是 Anthropic 从"安全 AI"走向"实用 AI"的关键转折：
+  - 编程能力首次在多个基准上超越 GPT-4
+  - Computer Use 功能让 AI 可以直接操作电脑界面
+  - 在安全对齐与能力之间取得更好平衡
+
+  Claude 4 的发布直接推动了"Agent-Native"编程工具的爆发——
+  Claude Code / Codex 等工具依赖 Claude 4 的推理和工具使用能力。
+
+background: |
+  Anthropic 在 2024-2025 年间加速迭代，Claude 3 系列（Haiku/Sonnet/Opus）
+  后快速推出 Claude 4。Claude 4 引入了：
+  - 128K+ 上下文窗口
+  - 增强的 Tool Use / Structured Output
+  - Computer Use（屏幕理解 + 鼠标键盘操作）
+  - 显著改进的多语言能力（中文、日文等）
+
+  Claude 4 系列包含多个变体（类似 Claude 3 的分级策略），
+  其中 Claude Opus 4.8 在 2025 年底成为编程 Agent 的首选模型。
+
+related:
+  - anthropic
+  - claude-fable-5
+  - claude-opus-4-8
+  - gpt-4
+  - cursor
+  - claude-ai
+  - computer-use
+
+depends_on:
+  - claude-3
+  - constitutional-ai
+  - rlhf
+  - transformer
+
+influenced:
+  - claude-fable-5
+  - claude-code
+  - coding-agent
+
+parameters: "未公开"
+modalities:
+  - text
+  - image
+license: proprietary
+architecture: 未公开
+
+timeline:
+  - date: 2024-03
+    event: Claude 3 系列发布 (Haiku/Sonnet/Opus)
+  - date: 2024-10
+    event: Computer Use 功能发布
+  - date: 2025-05
+    event: Claude 4 系列发布
+  - date: 2025-10
+    event: Claude Code 正式上线
+
+sources:
+  official: https://www.anthropic.com

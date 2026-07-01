@@ -1,0 +1,81 @@
+id: xai
+name: xAI
+type: company
+aliases:
+  - xAI
+  - x.ai
+  - Elon Musk AI
+
+release_date: 2023-07-12
+status: active
+
+creators:
+  - Elon Musk
+
+tags:
+  - company
+  - llm
+  - grok
+  - twitter
+  - startup
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  Elon Musk 创办的 AI 公司，开发 Grok 系列模型。
+  2025 年完成 $6B 融资，建设全球最大 GPU 集群之一（Colossus）。
+
+significance: |
+  xAI 是 Elon Musk 对 OpenAI 的"复仇式创业"——Musk 2018 年
+  离开 OpenAI 董事会后，多次公开批评其背离了非营利初衷。
+  xAI 的使命是"Understand the Universe"。
+
+  Grok 模型以"反 woke"风格和实时 X/Twitter 数据接入为差异化卖点。
+  2024-2025 年建成的 Colossus 超级计算机（200K H100 GPU）
+  使 xAI 拥有全球顶尖的训练基础设施。
+
+  与 Tesla 的协同（Optimus 机器人、FSD）是 xAI 的独特优势。
+
+background: |
+  2023-07: Musk 宣布成立 xAI
+  2023-11: Grok-1 发布（X Premium+ 订阅）
+  2024-03: Grok-1 开源
+  2024-12: Colossus 超级计算机建成（200K GPU）
+  2025: $6B 新一轮融资，估值 $50B+
+  2026: Grok-3 推出
+
+related:
+  - elon-musk
+  - tesla
+  - openai
+  - grok
+  - twitter
+
+influenced:
+  - grok
+  - twitter-ai
+
+timeline:
+  - date: 2023-07-12
+    event: xAI 成立
+  - date: 2023-11
+    event: Grok-1 发布（X Premium+ 独家）
+  - date: 2024-03
+    event: Grok-1 开源
+  - date: 2024-12
+    event: Colossus 超算建成（200K H100）
+  - date: 2025-05
+    event: $6B 融资，估值 $50B
+  - date: 2025-2026
+    event: Grok-2/3 持续迭代
+
+sources:
+  official: https://x.ai
+
+headquarters: "Austin, TX"
+founded: 2023
+funding_total: "$6B+ (2025)"
+business_model: "X Premium+ 订阅 + API"
+key_products:
+  - grok

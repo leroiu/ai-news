@@ -1,0 +1,86 @@
+# ============================================================
+# Knowledge Card: TensorFlow
+# ============================================================
+
+id: tensorflow
+name: TensorFlow
+type: tech
+aliases:
+  - tensorflow
+  - TensorFlow
+  - tf
+  - TensorFlow框架
+
+release_date: 2015-11
+status: active
+
+company: Google
+creators:
+  - Jeff Dean
+  - Rajat Monga
+
+tags:
+  - deep-learning
+  - framework
+  - google
+  - open-source
+  - training
+  - inference
+  - production-ml
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  Google 开源的深度学习框架，曾是 AI 产业最主流框架。
+  虽然研究领域被 PyTorch 超越，但在生产部署和移动端仍有广泛应用。
+
+significance: |
+  TensorFlow 是深度学习框架的先驱之一。
+
+  2015-2020 年是 TensorFlow 的黄金时代：静态计算图、
+  TensorFlow Serving、TF Lite、TF.js 形成了完整的
+  "训练→部署→移动端→浏览器"产品矩阵。Google 内部
+  所有 AI 产品（搜索、翻译、推荐）都基于 TensorFlow。
+
+  2020 年后被 PyTorch 超越的原因：
+  - 静态图 API 不够 Pythonic，调试困难
+  - 社区迁移：Hugging Face 转向 PyTorch-first
+  - Google 自己在 JAX 上投入增加
+
+  尽管如此，TensorFlow 在生产 ML 领域仍有大量用户：
+  TF Serving 是企业级部署的事实标准之一，TFLite 在
+  移动设备上的推理无可替代。
+
+background: |
+  2015 年 Google 开源 TensorFlow（基于内部 DistBelief 系统）。
+  2016 年 TensorFlow 1.0 发布，静态计算图。
+  2019 年 TensorFlow 2.0 引入 Eager Execution，但迁移成本高。
+  2020 年后研究社区逐渐转向 PyTorch。
+  2023 年 Google 合并 TensorFlow 和 JAX 团队。
+
+related:
+  - google-deepmind
+  - pytorch
+  - jax
+  - bert
+
+influenced:
+  - bert
+  - google-deepmind
+
+timeline:
+  - date: 2015-11
+    event: TensorFlow 0.1 开源
+  - date: 2017-02
+    event: TensorFlow 1.0 发布
+  - date: 2019-09
+    event: TensorFlow 2.0 发布，引入 Eager Execution
+  - date: 2023
+    event: Google 合并 TF 和 JAX 团队
+
+sources:
+  official: https://www.tensorflow.org
+  github: https://github.com/tensorflow/tensorflow
+
+category: 深度学习框架

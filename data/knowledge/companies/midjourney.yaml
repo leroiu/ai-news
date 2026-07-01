@@ -1,0 +1,83 @@
+# ============================================================
+# Knowledge Card: Midjourney
+# ============================================================
+
+id: midjourney
+name: Midjourney
+type: company
+aliases:
+  - Midjourney
+  - MidJourney
+
+release_date: 2021
+status: active
+
+creators:
+  - David Holz
+
+tags:
+  - company
+  - image-generation
+  - generative-ai
+  - creative-tools
+  - diffusion-model
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  全球最知名的 AI 图像生成公司之一，以极高的美学质量和艺术风格著称。
+  从 Discord Bot 起步，未融资独立运营，创造了独特的社区驱动增长模式。
+
+significance: |
+  Midjourney 证明了 AI 创意工具的商业价值：
+  - 在 Text-to-Image 领域与 DALL-E、Stable Diffusion 三足鼎立
+  - 美学质量被公认为行业最高（尤其 V5-V7 版本）
+  - 社区驱动模式（Discord 数千万用户）与 OpenAI/Stability AI 形成差异化
+
+  Midjourney 代表了 AI 公司的另一种可能性——不依赖巨额融资，
+  通过产品质量和社区运营实现盈利。2024 年推出 Web 版后用户增长更快。
+
+background: |
+  由 David Holz（Leap Motion 前 CEO）于 2021 年创立。
+  最初以 Discord Bot 形式提供服务，用户通过 `/imagine` 指令生成图像。
+
+  关键版本：
+  - V3 (2021): 首个广泛使用的版本
+  - V4 (2022): 质量飞跃，开始产生"Midjourney 风格"
+  - V5 (2023): 照片级真实感
+  - V6 (2024): 更好的文字渲染和构图理解
+  - V7 (2025): 支持参考图、角色一致性
+
+  2024 年推出独立 Web 应用，不再依赖 Discord。
+  公司未进行任何外部融资，完全自给自足。
+
+related:
+  - stable-diffusion
+  - dalle
+  - diffusion-model
+  - image-generation
+
+depends_on:
+  - diffusion-model
+  - stable-diffusion
+
+influenced:
+  - ai-art
+  - generative-design
+  - creative-tools
+
+timeline:
+  - date: 2021
+    event: Midjourney 成立，Discord Bot 内测
+  - date: 2022-07
+    event: V3 公测 → 引爆社交网络
+  - date: 2023
+    event: V5 照片级真实感
+  - date: 2024
+    event: 推出 Web 应用，脱离 Discord
+  - date: 2025
+    event: V7 — 角色一致性 + 视频生成预览
+
+sources:
+  official: https://www.midjourney.com

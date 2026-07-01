@@ -1,0 +1,90 @@
+# ============================================================
+# Knowledge Card: JAX
+# ============================================================
+
+id: jax
+name: JAX
+type: tech
+aliases:
+  - jax
+  - JAX
+  - JAX/Flax
+  - Google JAX
+
+release_date: 2018-12
+status: active
+
+company: Google DeepMind
+creators:
+  - Matthew Johnson
+  - Roy Frostig
+
+tags:
+  - deep-learning
+  - framework
+  - google
+  - research
+  - functional
+  - jit
+  - open-source
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  Google 开发的高性能数值计算框架，以函数式编程和自动微分
+  为核心设计，在 AI 研究前沿和 Google 内部大规模训练中
+  应用广泛。
+
+significance: |
+  JAX 代表了与 PyTorch 截然不同的设计哲学：函数式、
+  可组合、JIT 编译。它更接近 NumPy，通过 XLA 编译器
+  将代码编译为高效的 GPU/TPU 指令。
+
+  核心特性：
+  - JIT 编译：@jit 装饰器自动优化和编译
+  - vmap/pjit：自动向量化和并行化
+  - 函数式：无状态、纯函数，天然适合分布式
+  - Flax/Haiku：基于 JAX 的神经网络库
+
+  DeepMind 几乎所有最新研究都基于 JAX：AlphaFold、
+  Gemini 训练、Gato、RT-2 等。
+  Google TPU 与 JAX 深度绑定，是最佳 TPU 编程接口。
+
+  虽然 JAX 在"框架战争"中不太可能超越 PyTorch 的社区规模，
+  但它在尖端研究和 Google 内部生态中的地位不可替代。
+
+background: |
+  2018 年 Google Brain 团队发布 JAX（最初是 Autograd 的延续）。
+  2020 年 DeepMind 全面转向 JAX，Flax 成为官方 NN 库。
+  2023 年 Google 合并 Brain 和 DeepMind，JAX 成为统一研究平台。
+  2024 年 Gemini 训练基于 JAX/TPU v5。
+
+related:
+  - google-deepmind
+  - tensorflow
+  - pytorch
+  - gemini
+
+depends_on:
+  - google-deepmind
+
+influenced:
+  - gemini
+  - alphafold
+
+timeline:
+  - date: 2018-12
+    event: JAX 首次在 GitHub 开源
+  - date: 2020
+    event: DeepMind 全面转向 JAX
+  - date: 2023
+    event: Google Brain + DeepMind 合并，JAX 成统一研究框架
+  - date: 2024
+    event: Gemini 基于 JAX/TPU 训练
+
+sources:
+  official: https://jax.readthedocs.io
+  github: https://github.com/google/jax
+
+category: 深度学习框架

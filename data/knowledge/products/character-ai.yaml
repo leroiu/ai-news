@@ -1,0 +1,81 @@
+# ============================================================
+# Knowledge Card: Character.AI
+# ============================================================
+
+id: character-ai
+name: Character.AI
+type: product
+aliases:
+  - Character.AI
+  - c.ai
+  - Character AI
+  - C.AI
+
+release_date: 2022-09
+status: active
+
+company: Character Technologies
+creators:
+  - Noam Shazeer
+  - Daniel De Freitas
+
+tags:
+  - chatbot
+  - consumer
+  - entertainment
+  - social
+  - characters
+  - mobile
+
+importance: 3
+confidence: confirmed
+
+summary: |
+  AI 角色聊天平台，用户可以与 AI 生成的角色（名人、历史人物、
+  原创角色）进行对话，是最早验证 AI to C 商业模式的产品之一。
+
+significance: |
+  Character.AI 证明了 AI 的消费级市场潜力。
+
+  由 Transformer 论文作者 Noam Shazeer 和前 Google Brain
+  研究员创立，Character.AI 是最早大规模应用 LLM 的 C 端产品。
+  年轻用户（尤其是 Z 世代）在平台上花费大量时间，
+  与 AI 角色进行"无限对话"。
+
+  商业模型验证：
+  - DAU 增长快：上线半年内 DAU 破百万
+  - 用户粘性极高：平均会话时长 2+ 小时
+  - 订阅制：c.ai+ 提供更快的响应和更好的模型
+
+  2024 年被 Google 以 $2.7B（估值）收购/合作，
+  创始团队回归 Google DeepMind。这次"收购-回归"
+  成为 AI 创业圈的重要案例。
+
+background: |
+  2021 年 Noam Shazeer 离开 Google 创立 Character.AI。
+  2022 年 9 月 Beta 上线，首个大型 LLM C 端消费产品。
+  2023 年 DAU 快速增长，成为最受欢迎的 AI 聊天应用。
+  2024 年 Google 以 $2.7B 收购，创始团队回归 DeepMind。
+
+related:
+  - transformer
+  - google-deepmind
+  - gpt-4
+
+depends_on:
+  - transformer
+  - gpt-4
+
+timeline:
+  - date: 2021
+    event: Noam Shazeer 离开 Google 创立 Character.AI
+  - date: 2022-09
+    event: Character.AI Beta 上线
+  - date: 2023
+    event: DAU 破百万，最受欢迎 AI C 端应用
+  - date: 2024
+    event: Google $2.7B 收购，创始团队回归 DeepMind
+
+sources:
+  official: https://character.ai
+  wikipedia: https://en.wikipedia.org/wiki/Character.ai

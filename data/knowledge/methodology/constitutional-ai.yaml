@@ -1,0 +1,59 @@
+id: constitutional-ai
+name: Constitutional AI
+type: methodology
+release_date: 2022-12-15
+status: active
+tags:
+  - safety
+  - alignment
+  - rlhf
+  - anthropic
+  - training
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  Anthropic 发明的 AI 对齐方法：用一套"宪法"原则让 AI
+  自我监督和自我修正，替代人类反馈的 RLHF。
+
+significance: |
+  Constitutional AI (CAI) 是 Anthropic 对 AI 安全最核心的贡献。
+  不同于 RLHF（需要大量人类标注员判断"什么是好/坏回答"），
+  CAI 让模型自己根据一套明确的原则（Constitution）进行自我批评和修正。
+
+  优势：可扩展（不需要大量人类标注）、透明（Constitution 是公开的）、
+  可审计（每条原则的效果可独立评估）。
+
+  Claude 全系列模型的核心安全机制都是基于 CAI。
+  2024-2026 年 CAI 已被多家 AI 公司借鉴。
+
+domain: "AI 对齐与安全"
+
+background: |
+  2022 年 12 月 Anthropic 发表 CAI 论文，提出用一套"宪法"
+  原则让 AI 自我监督和自我修正，替代人类反馈的 RLHF。
+  优势：可扩展、透明（Constitution 公开）、可审计。
+  Claude 全系列模型均基于 CAI 训练。
+  2023 年 3 月 Claude 首次发布，2024-2026 年多家公司借鉴。
+
+source_articles:
+  - "Constitutional AI: Harmlessness from AI Feedback (Bai et al., 2022)"
+  - Anthropic's Claude Constitution documentation
+
+related:
+  - rlhf
+  - anthropic
+  - claude-fable-5
+  - safety
+
+timeline:
+  - date: 2022-12
+    event: CAI 论文发表（Anthropic）
+  - date: 2023-03
+    event: Claude 首次发布（CAI 训练）
+  - date: 2024-2026
+    event: CAI 被多家公司借鉴
+
+sources:
+  paper: https://arxiv.org/abs/2212.08073

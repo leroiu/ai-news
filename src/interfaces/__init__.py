@@ -1,0 +1,1 @@
+"""Interfaces layer — shared types and utilities with zero dependencies on other src packages."""

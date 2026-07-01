@@ -1,0 +1,68 @@
+id: memory-architecture
+name: Memory Architecture
+type: methodology
+tags:
+- memory
+- agent
+- context
+- rag
+- knowledge
+- state-management
+importance: 4
+confidence: confirmed
+summary: 'AI Agent 的长期和短期记忆系统设计方法论。
+
+  从 session memory 到 persistent knowledge，
+
+  从向量检索到结构化卡片。
+
+  '
+significance: 'Memory 决定了 AI Agent 能"记住"什么、能跨多长时间工作。
+
+  短期记忆 = 上下文窗口管理，长期记忆 = RAG + Knowledge Base。
+
+
+  2024-2026 年 Memory 架构从"把所有东西塞进 context"
+
+  演进为"分层记忆"——工作记忆 / 短期记忆 / 长期记忆 / 知识库。
+
+
+  AI Intelligence Platform 自身的 Knowledge Card、Inbox 归档、
+
+  Context Guardian 都是 Memory Architecture 的具体实践。
+
+  '
+domain: Agent 设计
+source_articles:
+- 'MemGPT: Towards LLMs as Operating Systems (2023)'
+- Claude Code project_memory.md + HANDOVER.md 设计
+related:
+- rag
+- context-engineering
+- long-running-agent
+- knowledge-card
+depends_on:
+- agent
+- rag
+evolution:
+- date: 2023-10
+  event: MemGPT 论文提出分层记忆
+- date: 2024
+  event: RAG + Agent Memory 融合
+- date: 2025
+  event: Claude Code project_memory 模式
+- date: 2026-06
+  event: AI Intelligence Platform Knowledge Card 体系
+sources:
+  paper: https://arxiv.org/abs/2310.08560
+timeline:
+- date: 2023-05
+  event: LangChain Memory 模块发布，ConversationBuffer/Summary 记忆模式普及
+- date: 2023-10
+  event: MemGPT 论文发表（UC Berkeley），提出 OS 式虚拟上下文管理（分页/交换）
+- date: 2024-04
+  event: Mem0 开源发布，向量化长期记忆 + 结构化知识图谱融合
+- date: 2024-11
+  event: Letta (MemGPT 商业化) + Claude persistent memory 先后发布
+- date: 2025-06
+  event: 分层记忆架构成为标准：Session → Project → Workspace → Global Memory

@@ -1,0 +1,88 @@
+# ============================================================
+# Knowledge Card: AI Alignment
+# ============================================================
+
+id: ai-alignment
+name: AI Alignment (AI对齐)
+type: concept
+aliases:
+  - AI Alignment
+  - 对齐
+  - Alignment
+  - 价值对齐
+  - 对齐问题
+
+release_date: 2016
+status: active
+
+tags:
+  - ai-safety
+  - alignment
+  - rlhf
+  - constitutional-ai
+  - ethics
+  - governance
+  - anthropic
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  确保 AI 系统的目标、行为和价值观与人类意图保持一致的核心问题，
+  被称为"AI 时代最重要的技术挑战"。
+
+significance: |
+  随着 AI 能力指数级增长，对齐（Alignment）从哲学问题
+  变成了紧迫的工程挑战。
+
+  核心问题：
+  - 目标错位（Goal Misgeneralization）：AI 学会了训练目标的外在表现
+    而不是真正意图
+  - 奖励 hacking：AI 找到优化奖励函数的捷径而非真正完成任务
+  - 可解释性：我们不知道大模型内部到底在"想"什么
+  - 规模化失控：模型越大，对齐越难
+
+  主要对齐技术：
+  - RLHF（OpenAI）：用人类偏好训练奖励模型
+  - Constitutional AI（Anthropic）：用宪法原则约束模型行为
+  - DPO：跳过奖励模型，直接优化偏好
+  - RLAIF：用 AI 代替人类进行反馈
+
+  2024-2025 年，多个国家成立 AI Safety Institute。
+  Anthropic 的"负责任扩展政策"(RSP) 和 OpenAI 的
+  "Preparedness Framework" 成为行业对齐治理样板。
+
+background: |
+  早期的"机器人三定律"概念。2016 年后 RLHF 等技术将对齐工程化。
+  2022-2023 年 ChatGPT/Claude 证明了 RLHF 和 CAI 的效果。
+  2024 年 Anthropic 发表 "Core Views on AI Safety"。
+  2025 年多国成立 AI Safety Institute。
+
+related:
+  - rlhf
+  - constitutional-ai
+  - agi
+  - anthropic
+  - openai
+
+influenced:
+  - rlhf
+  - constitutional-ai
+  - ai-governance
+
+timeline:
+  - date: 2017
+    event: RLHF 论文发表，对齐工程化
+  - date: 2022
+    event: Anthropic 提出 Constitutional AI
+  - date: 2023
+    event: RLHF 和 CAI 成为主流对齐方法
+  - date: 2024
+    event: 各 AI Lab 发布安全框架（RSP/Preparedness）
+  - date: 2025
+    event: 多国成立 AI Safety Institute
+
+sources:
+  wikipedia: https://en.wikipedia.org/wiki/AI_alignment
+
+domain: "ai-safety"

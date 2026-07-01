@@ -1,0 +1,64 @@
+id: guardrails
+name: Guardrails
+type: methodology
+tags:
+- safety
+- validation
+- security
+- llm
+- production
+importance: 3
+confidence: confirmed
+summary: '在 AI 系统中设置安全护栏的方法论。包括输入验证、输出过滤、
+
+  内容安全检测、PII 脱敏、事实性校验等。
+
+  '
+significance: 'Guardrails 是将 AI 从"能用"提升到"敢用"的关键技术。
+
+  企业客户最关心的问题不是模型多强，而是"会不会出安全事故"。
+
+
+  核心能力：
+
+  - Input Guard: 拦截有害注入/越狱攻击
+
+  - Output Guard: 过滤有害/违规/幻觉内容
+
+  - PII Detection: 检测和脱敏个人身份信息
+
+  - Factuality Check: 校验输出是否与给定事实一致
+
+  - Rate Limiting: 防止滥用
+
+
+  2025-2026 年 Guardrails AI、NVIDIA NeMo Guardrails、
+
+  Guardrails Hub 等工具生态日趋成熟。
+
+  '
+domain: AI 安全与合规
+source_articles: []
+related:
+- constitutional-ai
+- safety
+- ai-evaluation
+- prompt-engineering
+evolution:
+- date: 2023
+  event: NVIDIA NeMo Guardrails 开源
+- date: 2024
+  event: Guardrails AI Hub 上线
+- date: 2025-2026
+  event: Guardrails 成为企业 AI 部署标配
+timeline:
+- date: 2022-12
+  event: Anthropic 发表 Constitutional AI 论文，提出用"宪法原则"自我监督替代 RLHF
+- date: 2023-04
+  event: NVIDIA NeMo Guardrails 开源发布，首个企业级 LLM 护栏框架
+- date: 2023-10
+  event: OpenAI 内容安全 API（Moderation API）广泛采用，输入输出过滤成为标准实践
+- date: 2024-04
+  event: Meta 发布 Llama Guard 系列，开源可定制安全分类器
+- date: 2025-03
+  event: Anthropic 发布 ASL (AI Safety Levels) 框架，护栏从 Prompt 层升级到系统架构层

@@ -1,0 +1,90 @@
+id: fei-fei-li
+name: Fei-Fei Li
+type: person
+aliases:
+  - Fei-Fei Li
+  - 李飞飞
+  - Li Fei-Fei
+
+release_date: 1976-07-03
+status: active
+
+company: Stanford HAI / World Labs
+creators: []
+
+tags:
+  - person
+  - researcher
+  - computer-vision
+  - imagenet
+  - stanford
+  - ai-ethics
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  Stanford 教授，"AI 教母"，ImageNet 创建者，Stanford HAI 联合主任。
+  2024 年创办 World Labs（空间智能公司），估值 $1B+。
+
+significance: |
+  Fei-Fei Li 2009 年创建的 ImageNet（1400 万张标注图像）
+  及其年度竞赛（ILSVRC）是深度学习革命的关键催化剂。
+  2012 年 AlexNet 在 ImageNet 上的突破性表现直接引爆了这一轮 AI 革命。
+
+  她的工作还有两个重要维度：
+  - AI 伦理与公平：Stanford HAI 是 AI 政策研究的最重要学术中心
+  - AI 在医疗中的应用：Ambient Intelligence in Healthcare
+
+  2024 年创办 World Labs（空间智能），
+  致力于让 AI 理解和生成 3D 世界，填补 2D→3D 的感知鸿沟。
+
+background: |
+  中国北京出生，15 岁移民美国。普林斯顿本科，Caltech 博士。
+  2009 年创建 ImageNet（当时学界整体不看好大规模数据集）。
+
+  2013-2018: Stanford AI Lab 主任
+  2017-2018: Google Cloud AI/ML 首席科学家
+  2019: 创办 Stanford HAI
+  2024: 创办 World Labs
+
+related:
+  - imagenet
+  - alexnet
+  - computer-vision
+  - andrej-karpathy
+  - stanford
+
+influenced:
+  - image-classification
+  - computer-vision
+  - ai-ethics
+  - alexnet
+
+timeline:
+  - date: 1976-07-03
+    event: 出生于北京
+  - date: 2009
+    event: 发布 ImageNet（1400 万图像，2 万类别）
+  - date: 2012
+    event: AlexNet 在 ImageNet 上突破（深度学习爆发）
+  - date: 2017
+    event: Google Cloud AI/ML 首席科学家
+  - date: 2019
+    event: 创办 Stanford HAI
+  - date: 2024
+    event: 创办 World Labs（空间智能，$1B+ 估值）
+
+sources:
+  wikipedia: https://en.wikipedia.org/wiki/Fei-Fei_Li
+
+role: Professor & Co-Director
+affiliations:
+  - stanford
+  - world-labs
+  - google (former)
+known_for:
+  - ImageNet
+  - Stanford HAI
+  - AI 伦理倡导
+  - World Labs (空间智能)

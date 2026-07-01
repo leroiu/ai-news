@@ -1,0 +1,85 @@
+# ============================================================
+# Knowledge Card: Windsurf
+# ============================================================
+
+id: windsurf
+name: Windsurf
+type: product
+aliases:
+  - Windsurf
+  - Codeium
+  - Windsurf IDE
+  - Windsurf Editor
+
+release_date: 2024-06
+status: active
+
+company: Codeium (Exafunction)
+creators:
+  - Varun Mohan
+  - Douglas Chen
+
+tags:
+  - code-editor
+  - developer-tools
+  - agent
+  - ai-coding
+  - copilot
+  - ide
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  Codeium 公司推出的 AI 原生代码编辑器，强调"流程状态"（Flow State）
+  的 AI 编程体验，是 Cursor 和 GitHub Copilot 最强大的竞品。
+
+significance: |
+  Windsurf 和 Cursor 代表了 AI 编程工具的"第二波"——
+  不是简单的代码补全插件，而是完整的 AI 原生 IDE。
+
+  Windsurf 的差异化：
+  - Flow State：AI 持续理解用户意图，保持编程"心流"
+  - Cascade：多步骤 AI 代理任务执行
+  - 多模型：支持 GPT-4、Claude 等模型切换
+  - 更快的推理速度：自研推理优化
+
+  Windsurf/Cursor 之争推动了整个 AI 编程工具市场的创新：
+  从 Copilot 的代码补全 → Cursor 的多文件编辑 →
+  Windsurf 的 Flow State 持续感知 → 最终目标是完全自主编程。
+
+  AI 编程工具 2025-2026 年市场规模超百亿美元，
+  Windsurf 是其中增长最快的产品之一。
+
+background: |
+  2022 年 Codeium 成立（原名 Exafunction）。
+  2024 年 Windsurf Editor 发布，定价策略直接对标 Cursor。
+  2025 年推出 Cascade Agent 模式。
+  2026 年用户突破 200 万。
+
+related:
+  - cursor
+  - github-copilot
+  - gpt-4
+  - claude-fable-5
+
+depends_on:
+  - gpt-4
+  - claude
+
+influenced:
+  - ai-coding-tools
+  - developer-agent
+
+timeline:
+  - date: 2022
+    event: Codeium 成立
+  - date: 2024-06
+    event: Windsurf Editor 发布
+  - date: 2025
+    event: Cascade Agent 模式上线
+  - date: 2026
+    event: 用户突破 200 万
+
+sources:
+  official: https://codeium.com/windsurf

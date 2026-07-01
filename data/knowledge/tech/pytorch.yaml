@@ -1,0 +1,97 @@
+# ============================================================
+# Knowledge Card: PyTorch
+# ============================================================
+
+id: pytorch
+name: PyTorch
+type: tech
+aliases:
+  - pytorch
+  - PyTorch
+  - torch
+  - PyTorch框架
+
+release_date: 2016-10
+status: active
+
+company: Meta AI
+creators:
+  - Soumith Chintala
+  - Adam Paszke
+  - Sam Gross
+
+tags:
+  - deep-learning
+  - framework
+  - open-source
+  - training
+  - inference
+  - python
+  - facebook
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  Meta AI 开源的深度学习框架，以动态计算图和 Pythonic API 著称，
+  是 AI 研究和产业界使用最广泛的训练框架。
+
+significance: |
+  PyTorch 是当前 AI 产业最重要的基础设施之一。从最初的
+  TensorFlow 竞争中逆袭，到 2022 年后几乎垄断学术研究和
+  大部分产业应用，PyTorch 的成功源于其 Pythonic 设计和
+  动态计算图（eager execution）。
+
+  关键优势：
+  - 动态图：调试友好，像写 Python 一样写神经网络
+  - 生态：Hugging Face Transformers、torchvision、torchaudio
+  - 分布式：torch.distributed + FSDP 支持千卡训练
+  - 部署：TorchScript → PyTorch 2.0 compile → ExecuTorch
+
+  几乎所有开源大模型都用 PyTorch 训练：LLaMA、Mistral、
+  DeepSeek、Qwen、Stable Diffusion 等。
+  PyTorch 的成功也让 Meta 在 AI 基础设施层拥有巨大影响力。
+
+background: |
+  2016 年 Meta AI（当时 Facebook AI Research）开源 PyTorch，
+  最初基于 Torch（Lua）重写为 Python 版本。
+
+  2017-2019 年：与 TensorFlow 激烈竞争，研究者逐渐转向 PyTorch。
+  2020 年后：PyTorch 在学术界成为绝对主流（NeurIPS 等顶会 >80%
+  论文使用 PyTorch）。
+  2022 年：PyTorch 基金会成立，移交给 Linux 基金会治理。
+  2023-2025 年：torch.compile 和 FSDP 大幅提升性能，
+  成为大模型训练的事实标准。
+
+related:
+  - tensorflow
+  - meta-ai
+  - transformer
+  - cuda
+  - jax
+
+depends_on:
+  - cuda
+
+influenced:
+  - llama-4
+  - deepseek-r1
+  - stable-diffusion
+
+timeline:
+  - date: 2016-10
+    event: PyTorch 0.1 首次开源发布
+  - date: 2018-12
+    event: PyTorch 1.0 发布，引入 TorchScript
+  - date: 2022-09
+    event: PyTorch 基金会成立，加入 Linux 基金会
+  - date: 2023-03
+    event: PyTorch 2.0 发布，引入 torch.compile
+  - date: 2025
+    event: 成为 AI 训练领域绝对主导框架
+
+sources:
+  official: https://pytorch.org
+  github: https://github.com/pytorch/pytorch
+
+category: 深度学习框架

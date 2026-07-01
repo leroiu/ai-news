@@ -1,0 +1,103 @@
+# ============================================================
+# Knowledge Card: GPT-4
+# ============================================================
+
+id: gpt-4
+name: GPT-4
+type: model
+aliases:
+  - GPT-4
+  - GPT4
+  - gpt4
+  - GPT 4
+  - gpt-4
+
+release_date: 2023-03-14
+status: active
+
+company: OpenAI
+creators:
+  - OpenAI
+
+tags:
+  - llm
+  - multimodal
+  - reasoning
+  - coding
+  - api
+  - openai
+  - chatgpt
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  OpenAI 首个大规模多模态 LLM，文本+图像输入，
+  推理能力远超 GPT-3.5，成为 ChatGPT Plus 的核心引擎。
+
+significance: |
+  GPT-4 是 LLM 成熟期的标志。它在律师考试、医学执照考试、
+  研究生入学考试中表现优异，首次让人感到"AI 真的能和人类竞争"。
+
+  GPT-4 引入了多模态能力（图像输入），并提供了 Function Calling API，
+  为后来的 AI Agent 生态奠定了基础。它的发布直接推动了
+  Google 加速推出 Gemini、Anthropic 推出 Claude 3 等竞争产品。
+
+  即使到 2026 年，GPT-4 仍被广泛用作 comparison baseline——
+  评测新模型时几乎总是会与 GPT-4 对比。
+
+background: |
+  OpenAI 在 GPT-3.5 发布仅 4 个月后推出 GPT-4，远超行业预期。
+  训练始于 2022 年中，使用了 Microsoft Azure 基础设施。
+
+  关键技术特性：
+  - 多模态：首次支持图像作为输入
+  - 128K 上下文窗口（GPT-4 Turbo 后）
+  - Function Calling API
+  - JSON Mode 强制输出
+
+  2023 年 11 月发布 GPT-4 Turbo（降低成本、扩展上下文窗口）。
+  2024 年 5 月发布 GPT-4o（Omni，统一文本/图像/音频）。
+
+related:
+  - chatgpt
+  - gpt-4o
+  - gpt-5
+  - openai
+  - rlhf
+  - multimodal-llm
+
+depends_on:
+  - transformer
+  - rlhf
+  - gpt-3
+
+influenced:
+  - gpt-4o
+  - gpt-5
+  - claude-3
+  - gemini
+  - multimodal-llm-wave
+
+parameters: "~1.8T (MoE, 参数未官方确认)"
+modalities:
+  - text
+  - image
+license: proprietary
+architecture: MoE (Mixture of Experts)
+
+timeline:
+  - date: 2023-03-14
+    event: GPT-4 正式发布（文本+图像）
+  - date: 2023-07-06
+    event: Code Interpreter 功能上线
+  - date: 2023-11-06
+    event: GPT-4 Turbo 发布（128K 上下文，更低成本）
+  - date: 2024-04-09
+    event: GPT-4 Turbo with Vision 正式可用
+  - date: 2024-05-13
+    event: GPT-4o 发布，取代 GPT-4 Turbo
+
+sources:
+  official: https://openai.com/research/gpt-4
+  paper: https://arxiv.org/abs/2303.08774

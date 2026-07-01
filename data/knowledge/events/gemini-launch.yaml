@@ -1,0 +1,83 @@
+# ============================================================
+# Knowledge Card: Gemini Launch
+# ============================================================
+
+id: gemini-launch
+name: Google Gemini 发布
+type: event
+aliases:
+  - Gemini 发布
+  - Gemini launch
+  - Google Gemini
+
+release_date: 2023-12-06
+status: active
+
+tags:
+  - milestone
+  - google
+  - llm
+  - multimodal
+  - ai-history
+  - breakthrough
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  Google DeepMind 发布 Gemini 系列模型，Google 在 ChatGPT 冲击后
+  的首个真正强有力的反击。Gemini Ultra 在多项基准上超越 GPT-4。
+
+significance: |
+  Gemini 发布是 Google 在 AI 竞赛中的"背水一战"。
+
+  在 ChatGPT 发布一整年后，Google 终于拿出了能与 GPT-4
+  正面竞争的产品。Gemini 的核心差异化：
+  - 原生多模态（从训练开始就是多模态，非后期拼接）
+  - Ultra 版本在 MMLU 等 30/32 项基准上超越 GPT-4
+  - 深度整合 Google 生态（Search / Workspace / Android）
+  - 支持 2M token 超长上下文（Pro 版本）
+
+  虽然发布时因演示视频"剪辑争议"引发一些批评，
+  但 Gemini 系列确实证明了 Google 在 AI 领域的深厚积累。
+  此后 Gemini 2.0（2024）、2.5（2025）持续迭代，
+  Google 重回 AI 第一梯队。
+
+background: |
+  ChatGPT 发布后 Google 内部发布"Code Red"。
+  将 Google Brain 和 DeepMind 合并为 Google DeepMind。
+  Gemini 是合并后的第一个成果。
+
+  发布时包含三个版本：
+  - Ultra（最强，对标 GPT-4）
+  - Pro（主流，对标 GPT-3.5）
+  - Nano（端侧，Pixel 设备）
+
+related:
+  - deepmind
+  - gpt-4-release
+  - chatgpt-launch
+  - google
+
+depends_on:
+  - transformer
+  - deepmind
+
+influenced:
+  - google-ai-strategy
+  - ai-competition
+
+timeline:
+  - date: 2023-04
+    event: Google Brain + DeepMind 合并为 Google DeepMind
+  - date: 2023-12-06
+    event: Gemini 1.0 发布（Ultra / Pro / Nano 三个版本）
+  - date: 2024-02
+    event: Gemini 1.5 Pro 发布（1M token 上下文）
+  - date: 2024-12
+    event: Gemini 2.0 Flash 发布
+  - date: 2025-12
+    event: Gemini 2.5 发布
+
+sources:
+  official: https://deepmind.google/technologies/gemini/

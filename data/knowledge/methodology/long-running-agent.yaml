@@ -1,0 +1,72 @@
+id: long-running-agent
+name: Long-Running Agent
+type: methodology
+tags:
+- agent
+- autonomy
+- reliability
+- memory
+- context
+- orchestration
+importance: 4
+confidence: confirmed
+summary: '设计和运行能持续数小时甚至数天的自主 AI Agent 的方法论，
+
+  解决状态管理、上下文压缩、故障恢复等核心挑战。
+
+  '
+significance: 'Long-Running Agent 是 AI Agent 从"一次性对话"走向
+
+  "持续自主工作"的关键挑战。核心问题包括：
+
+  - 上下文窗口管理（什么时候 compact）
+
+  - 任务状态持久化（停了怎么恢复）
+
+  - 长周期任务分解（大任务拆小任务）
+
+  - 自主决策边界（什么可以自己决定）
+
+
+  Anthropic 和 OpenAI 都在 2025-2026 年大量投入这个方向。
+
+  Claude Code 的长时间 session、自动 compact、Context Guardian
+
+  都是对这个问题的方法论实践。
+
+  '
+domain: Agent 工程
+source_articles:
+- The long-running agent problem — Anthropic
+- Building effective agents — Anthropic Blog
+related:
+- agent
+- harness-engineering
+- context-engineering
+- memory-architecture
+- planning
+depends_on:
+- agent
+- context-engineering
+evolution:
+- date: 2024-03
+  event: Claude 3 Opus 支持长对话
+- date: 2024-12
+  event: Anthropic 发表 Agent 设计指南
+- date: 2025-06
+  event: Claude Code 支持长时间自主运行
+- date: 2026-06
+  event: Context Guardian Hook 系统化解决 LLRA
+sources:
+  official: https://www.anthropic.com/research/building-effective-agents
+timeline:
+- date: 2023-03
+  event: AutoGPT/AgentGPT 爆火，首次尝试让 Agent 持续运行数小时（但成功率低）
+- date: 2024-03
+  event: Devin (Cognition AI) 发布，宣称可独立完成 Upwork 任务（数小时代理工作）
+- date: 2024-10
+  event: Claude Computer Use 发布，长运行 Agent 有了桌面操作能力
+- date: 2025-02
+  event: Claude Code 支持持续数小时的编码 Session，长运行 Agent 生产化里程碑
+- date: 2025-06
+  event: 多家长运行 Agent 框架（Manus、Adept、SWE-agent）在生产环境稳定运行

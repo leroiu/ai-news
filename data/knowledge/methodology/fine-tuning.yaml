@@ -1,0 +1,62 @@
+id: fine-tuning
+name: Fine-Tuning
+type: methodology
+release_date: 2018-10-11
+status: active
+tags:
+  - training
+  - adaptation
+  - lora
+  - transfer-learning
+  - llm
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  在预训练模型基础上用特定数据继续训练以适应特定任务/领域。
+  包括全量微调、LoRA、QLoRA、指令微调等多种范式。
+
+significance: |
+  Fine-Tuning 是让通用模型变成专用模型的核心方法。
+  关键里程碑：
+  - 2020: GPT-3 Few-Shot 认为微调不重要
+  - 2021: LoRA 让个人也能微调大模型
+  - 2022-2023: 指令微调（Instruct Tuning）成为标配
+  - 2024: 直接偏好优化（DPO）替代部分 RLHF
+  - 2025-2026: 微调逐渐被 Context Engineering 部分替代
+
+  趋势：从"微调模型"到"微调 + 上下文"混合策略。
+
+domain: "模型适配"
+
+background: |
+  BERT 时代（2018）微调是 NLP 标配——预训练 + 下游任务微调。
+  GPT-3（2020）一度宣告"微调不再重要"，但 LoRA（2021）
+  以 10-100 倍成本降低让微调重新成为关键工具。
+  2022-2023 指令微调（Instruct Tuning）成为大模型发布标配。
+  2024 年 DPO（直接偏好优化）开始替代部分 RLHF 场景。
+  2025-2026 微调与 Context Engineering 走向混合策略。
+
+source_articles:
+  - "LoRA: Low-Rank Adaptation of Large Language Models (Hu et al., 2021)"
+  - "Direct Preference Optimization (Rafailov et al., 2023)"
+
+related:
+  - lora
+  - rlhf
+  - prompt-engineering
+  - context-engineering
+
+timeline:
+  - date: 2018
+    event: BERT Fine-Tuning 时代
+  - date: 2021-06
+    event: LoRA 论文（低成本微调）
+  - date: 2022-2023
+    event: Instruct Tuning 成为大模型标配
+  - date: 2024
+    event: DPO 替代 RLHF 部分场景
+
+sources:
+  paper: https://arxiv.org/abs/2106.09685

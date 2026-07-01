@@ -1,0 +1,96 @@
+id: demis-hassabis
+name: Demis Hassabis
+type: person
+aliases:
+  - Demis Hassabis
+  - Hassabis
+  - Demis
+
+release_date: 1976-07-27
+status: active
+
+company: Google DeepMind
+creators: []
+
+tags:
+  - person
+  - ceo
+  - researcher
+  - deepmind
+  - alphafold
+  - reinforcement-learning
+  - nobel-prize
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  Google DeepMind 联合创始人兼 CEO，AlphaFold 之父，
+  2014 年将 DeepMind 以 $500M 出售给 Google。2024 年获诺贝尔化学奖。
+
+significance: |
+  Hassabis 将神经科学灵感注入 AI 研究，开创了"用游戏训练通用智能"的路径。
+  AlphaGo (2016) 击败李世石，震惊全球——这是 AI 首次在顶级智力竞技中超越人类。
+
+  AlphaFold 2/3 解决了困扰生物学 50 年的蛋白质折叠问题，
+  2024 年因此获得诺贝尔化学奖（与 John Jumper 共享），
+  标志着 AI 在基础科学领域达到了诺贝尔奖级别的影响力。
+
+  2025 年 Google 将 Google Brain 与 DeepMind 合并后，
+  Hassabis 成为 Google 的 AI 总负责人，统领 Gemini 全系产品。
+
+background: |
+  伦敦出生，剑桥计算机科学毕业，UCL 神经科学博士。
+  少年象棋天才（13 岁达到大师级别），曾任游戏设计师。
+
+  2010: 联合创立 DeepMind
+  2014: Google $500M 收购 DeepMind
+  2016: AlphaGo 战胜李世石
+  2020: AlphaFold 2 解决蛋白质折叠问题
+  2023: Google DeepMind 合并 Google Brain
+  2024: 诺贝尔化学奖（AlphaFold）
+  2025-2026: Gemini 3.x 系列发布
+
+related:
+  - google-deepmind
+  - alphafold
+  - gemini
+  - alphago
+  - google
+
+influenced:
+  - google-deepmind
+  - alphafold
+  - gemini
+  - reinforcement-learning
+
+timeline:
+  - date: 1976-07-27
+    event: 出生于伦敦
+  - date: 2010
+    event: 联合创立 DeepMind
+  - date: 2014
+    event: Google 以 $500M 收购 DeepMind
+  - date: 2016-03
+    event: AlphaGo 击败李世石
+  - date: 2020-11
+    event: AlphaFold 2 解决蛋白质折叠
+  - date: 2023-04
+    event: DeepMind 与 Google Brain 合并
+  - date: 2024-10
+    event: 获诺贝尔化学奖
+  - date: 2025-12
+    event: Google AI 总负责人
+
+sources:
+  wikipedia: https://en.wikipedia.org/wiki/Demis_Hassabis
+
+role: CEO
+affiliations:
+  - google-deepmind
+  - google
+known_for:
+  - AlphaGo
+  - AlphaFold
+  - DeepMind 联合创始人
+  - 2024 诺贝尔化学奖

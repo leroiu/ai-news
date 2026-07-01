@@ -1,0 +1,82 @@
+# ============================================================
+# Knowledge Card: MoE (Mixture of Experts)
+# ============================================================
+
+id: moe
+name: Mixture of Experts (MoE)
+type: concept
+aliases:
+  - MoE
+  - Mixture of Experts
+  - 混合专家
+  - Sparse MoE
+  - moe
+
+release_date: 2017-01-01
+status: active
+
+tags:
+  - architecture
+  - efficiency
+  - sparse
+  - training
+  - inference
+  - transformer
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  一种神经网络架构，每次推理只激活部分"专家"子网络。
+  以更少计算量获得更大模型容量，是实现千亿/万亿参数模型的
+  关键架构选择。
+
+significance: |
+  MoE 解决了大模型的根本矛盾：想要更好的能力需要更多参数，
+  但更多参数意味着更高的推理成本。
+
+  MoE 让"参数多但计算少"成为可能——虽然模型有千亿参数，
+  但每次推理只激活 10-20% 的专家，推理成本可控。
+
+  几乎所有顶级模型都在使用 MoE 或其变体：
+  - GPT-4 (MoE, ~1.8T)
+  - Gemini (MoE 变体)
+  - DeepSeek V3 (671B MoE, 37B 激活)
+  - Mixtral (8x7B MoE)
+
+  MoE 也是降低训练成本的关键——DeepSeek V3 以 $5.6M 训练
+  达到 GPT-4 级性能，MoE 功不可没。
+
+background: |
+  MoE 概念可追溯到 1991 年。2017 年 Google 将 MoE 与 LSTM 结合。
+  2021 年 Google 发布 Switch Transformer（Trillion 参数 MoE）。
+  2023 年起 MoE 成为大模型主流架构选择。
+
+related:
+  - deepseek-v3
+  - gpt-4
+  - gemini
+  - transformer
+  - scaling-law
+
+influenced:
+  - deepseek-v3
+  - gpt-4
+  - gemini
+
+timeline:
+  - date: 1991
+    event: MoE 概念首次提出（Jacobs et al.）
+  - date: 2017
+    event: Google 将 MoE 与 LSTM 结合，首次大规模应用
+  - date: 2021-01
+    event: Google Switch Transformer — 首个 Trillion 参数 MoE 模型
+  - date: 2023
+    event: GPT-4、Mixtral 采用 MoE，成为大模型主流架构
+  - date: 2024-12
+    event: DeepSeek V3 — 671B MoE 以 $5.6M 训练达到 GPT-4 级性能
+
+sources:
+  paper: https://arxiv.org/abs/2101.03961
+
+domain: "architecture"

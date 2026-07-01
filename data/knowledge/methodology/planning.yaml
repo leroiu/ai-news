@@ -1,0 +1,67 @@
+id: planning
+name: Planning
+type: methodology
+tags:
+- agent
+- reasoning
+- task-decomposition
+- orchestration
+- workflow
+importance: 4
+confidence: confirmed
+summary: 'AI Agent 将复杂任务分解为可执行子步骤的方法论。
+
+  将"帮我做 X"转化为"步骤1→步骤2→步骤3→完成"的计划树。
+
+  '
+significance: 'Planning 使 Agent 能够处理超出一个回复范围的复杂任务。
+
+  从单一的"回答问题"升级到"执行一个项目"。
+
+
+  常见范式：Plan-and-Execute、Tree-of-Thought、Graph-of-Thought。
+
+  Claude Code 的 Plan Mode、task breakdown 都是 Planning 的实践。
+
+
+  核心挑战：计划过于刚性 vs 过于灵活之间的平衡。
+
+  2026 年趋势：动态 Planning——Agent 在执行中实时调整计划。
+
+  '
+domain: Agent 能力
+source_articles:
+- 'Tree of Thoughts: Deliberate Problem Solving (2023)'
+- Plan-and-Solve Prompting (2023)
+related:
+- agent
+- reflection
+- harness-engineering
+- ai-workflow
+depends_on:
+- agent
+influenced:
+- plan-mode
+- task-orchestrator
+evolution:
+- date: 2022-10
+  event: ReAct 引入 Reasoning+Acting
+- date: 2023-05
+  event: Tree of Thoughts 论文
+- date: 2024
+  event: Plan Mode 成为 AI 编程工具标配
+- date: 2026
+  event: 动态 Planning 探索中
+sources:
+  paper: https://arxiv.org/abs/2305.10601
+timeline:
+- date: 2022-10
+  event: ReAct 论文发表（Google），推理+行动交替，成为 Agent 规划的基础范式
+- date: 2023-03
+  event: Plan-and-Solve 论文发布，显式规划步骤再执行
+- date: 2023-05
+  event: Tree-of-Thoughts (Yao et al.) 发布，BFS/DFS 式多路径探索规划
+- date: 2024-10
+  event: OpenAI o1 发布，模型内部 CoT 规划 + 外部工具调用规划融合
+- date: 2025-02
+  event: Claude Code Plan Mode 发布，人在回路规划审批成为生产实践

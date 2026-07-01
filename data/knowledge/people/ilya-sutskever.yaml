@@ -1,0 +1,95 @@
+id: ilya-sutskever
+name: Ilya Sutskever
+type: person
+aliases:
+  - Ilya Sutskever
+  - Sutskever
+  - Ilya
+
+release_date: 1986-12-08
+status: active
+
+company: SSI (Safe Superintelligence Inc.)
+creators: []
+
+tags:
+  - person
+  - researcher
+  - openai
+  - deep-learning
+  - alexnet
+  - ssi
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  OpenAI 联合创始人、前首席科学家，AlexNet 共同发明者，
+  2024 年离开 OpenAI 创办 Safe Superintelligence Inc. (SSI)。
+
+significance: |
+  Ilya Sutskever 是深度学习历史中最重要的人物之一。
+  2012 年作为 AlexNet 的第一作者开启了深度学习革命，
+  随后在 Google Brain 发明了 Sequence-to-Sequence 模型。
+
+  作为 OpenAI 首席科学家，他领导了 GPT-2/3/4 的技术方向。
+  2023 年 11 月参与解雇 Sam Altman 的决定性投票是 AI 行业最戏剧性的事件，
+  揭示了他对 AI 安全极端担忧的立场。
+
+  2024 年 6 月创办 SSI，专注"安全的超级智能"，
+  第一轮融资 $1B，估值 $5B。
+
+background: |
+  出生于俄罗斯，在以色列长大，后移居加拿大。
+  师从 Geoffrey Hinton，在多伦多大学获得博士学位。
+
+  2012: AlexNet（ImageNet 冠军，深度学习爆发点）
+  2014: Sequence-to-Sequence 模型（Google Brain）
+  2015: 联合创立 OpenAI
+  2023-11: 投票解雇 Altman，后公开道歉
+  2024-05: 离开 OpenAI
+  2024-06: 创办 SSI
+
+related:
+  - openai
+  - gpt-4
+  - alexnet
+  - geoffrey-hinton
+  - sam-altman
+  - ssi
+
+influenced:
+  - gpt-4
+  - gpt-3
+  - openai
+  - deep-learning
+
+timeline:
+  - date: 1986-12-08
+    event: 出生于俄罗斯
+  - date: 2012
+    event: AlexNet 赢得 ImageNet 竞赛（深度学习爆发）
+  - date: 2014
+    event: 发明 Seq2Seq 模型（Google Brain）
+  - date: 2015-12
+    event: 联合创立 OpenAI
+  - date: 2023-11-17
+    event: 参与投票解雇 Sam Altman
+  - date: 2024-05
+    event: 离开 OpenAI
+  - date: 2024-06
+    event: 创办 SSI，融资 $1B
+
+sources:
+  wikipedia: https://en.wikipedia.org/wiki/Ilya_Sutskever
+
+role: CEO & Co-founder
+affiliations:
+  - ssi
+  - openai (former)
+  - google-brain (former)
+known_for:
+  - AlexNet 第一作者
+  - OpenAI 联合创始人
+  - Seq2Seq 发明
+  - SSI 创始人

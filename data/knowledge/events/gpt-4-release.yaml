@@ -1,0 +1,94 @@
+# ============================================================
+# Knowledge Card: GPT-4 Release
+# ============================================================
+
+id: gpt-4-release
+name: GPT-4 发布
+type: event
+aliases:
+  - GPT-4 launch
+  - GPT-4 发布
+  - GPT-4 release
+
+release_date: 2023-03-14
+status: active
+
+tags:
+  - milestone
+  - openai
+  - llm
+  - multimodal
+  - ai-history
+  - breakthrough
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  OpenAI 发布 GPT-4，首个在专业考试中超越人类的多模态大模型。
+  标志着 LLM 从"对话工具"向"专业智能助手"的质变。
+
+significance: |
+  GPT-4 是 LLM 发展史上的另一个分水岭。它不仅比 GPT-3.5
+  强得多，更重要的是它展示了多模态理解和专家级推理能力：
+
+  - 律师资格考试（BAR）排名前 10%（GPT-3.5 是后 10%）
+  - USABO 生物奥赛前 1%
+  - GRE Verbal 前 1%
+  - 首次支持图像输入（虽然当时未公开开放）
+
+  GPT-4 发布后：
+  - 确立了 OpenAI 不可撼动的领先地位（2023 全年）
+  - "GPT-4 级性能"成为所有竞品模型的追赶目标
+  - Microsoft Copilot / Bing Chat 等生态整合加速
+  - 引发了对"AGI 接近"的热烈讨论和恐慌
+  - 全球 AI 安全呼吁达到顶峰（"暂停 6 个月"公开信）
+
+  这篇 98 页的 GPT-4 技术报告几乎没有公开任何技术细节，
+  同时开启了前沿模型"只谈能力不谈实现"的趋势。
+
+background: |
+  GPT-4 为 MoE 架构（Mixture of Experts），~1.8T 参数
+  （8×220B 专家，每次激活 2 个）。训练于 2022 年 8 月完成，
+  之后进行了 8 个月的 RLHF 和安全测试。
+
+  发布方式：GPT-4 API + ChatGPT Plus 同步上线。
+  2023 年 7 月开放 Code Interpreter。
+  2023 年 11 月发布 GPT-4 Turbo（128K 上下文，更低成本）。
+  2024 年 4 月 GPT-4 Turbo with Vision 正式可用。
+  2024 年 5 月 GPT-4o 取代 GPT-4 Turbo。
+
+related:
+  - gpt-3-release
+  - chatgpt
+  - openai
+  - claude-fable-5
+  - moe
+
+depends_on:
+  - gpt-3-release
+  - moe
+
+influenced:
+  - claude-fable-5
+  - gemini
+  - deepseek-v3
+  - gpt-5
+
+timeline:
+  - date: 2022-08
+    event: GPT-4 训练完成
+  - date: 2023-03-14
+    event: GPT-4 正式发布（文本 + 图像输入）
+  - date: 2023-07-06
+    event: Code Interpreter 功能上线
+  - date: 2023-11-06
+    event: GPT-4 Turbo 发布（128K 上下文）
+  - date: 2024-04-09
+    event: GPT-4 Turbo with Vision 可用
+  - date: 2024-05-13
+    event: GPT-4o 发布，取代 GPT-4 Turbo
+
+sources:
+  paper: https://arxiv.org/abs/2303.08774
+  official: https://openai.com/research/gpt-4

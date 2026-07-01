@@ -1,0 +1,88 @@
+# ============================================================
+# Knowledge Card: Cursor
+# ============================================================
+
+id: cursor
+name: Cursor
+type: product
+aliases:
+  - Cursor IDE
+  - Cursor AI
+  - cursor.com
+
+release_date: 2023-08
+status: active
+
+company: Anysphere
+creators:
+  - Michael Truell
+  - Sualeh Asif
+  - Arvid Lunnemark
+  - Aman Sanger
+
+tags:
+  - product
+  - code-editor
+  - developer-tools
+  - agent
+  - ai-coding
+  - vscode
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  AI 原生代码编辑器，基于 VS Code 深度集成 AI Agent。
+  支持代码生成、重构、调试、多文件编辑，是 AI 编程工具的标杆产品。
+
+significance: |
+  Cursor 重新定义了"AI 编程"——不只是代码补全，
+  而是 AI 作为编程搭档，理解整个代码库、跨文件编辑、
+  自主调试和修复 Bug。
+
+  它的出现推动了两大趋势：
+  1. AI 编程从"辅助"到"代理"——Cursor Agent 可以独立完成
+     多步骤编程任务，开发者从写代码变成"指导和审查 AI 写代码"
+  2. IDE 重新成为战场——GitHub Copilot、Zed、Windsurf 等
+     竞品加速追赶，AI 编程工具市场爆发
+
+  Cursor 在 2024-2025 年快速增长，成为开发者必装工具之一。
+  到 2026 年估值已超 $10B。它证明了"垂直 Agent 工具"
+  比通用 AI 助手更有市场。
+
+background: |
+  Anysphere 由 MIT 学生创立，2023 年获 OpenAI Startup Fund 投资。
+  Cursor 基于 VS Code 开源代码构建，深度定制 AI 体验。
+
+  2024 年推出 Agent 模式，支持自主完成多步骤任务。
+  2025 年推出团队版。
+  2026 年深度整合 Claude Fable 5 等最新模型。
+
+related:
+  - github-copilot
+  - claude-fable-5
+  - gpt-4
+  - agent
+
+depends_on:
+  - gpt-4
+  - claude
+
+influenced:
+  - ai-coding-tools
+  - developer-agent
+
+timeline:
+  - date: 2023-08
+    event: Cursor 首次发布
+  - date: 2024-03
+    event: Agent 模式上线
+  - date: 2024-09
+    event: 用户突破百万
+  - date: 2025
+    event: 整合 Claude Code + 团队版
+  - date: 2026
+    event: 估值超 $10B，成为 AI 编程工具标杆
+
+sources:
+  official: https://cursor.com

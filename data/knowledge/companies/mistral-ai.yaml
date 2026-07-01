@@ -1,0 +1,83 @@
+id: mistral-ai
+name: Mistral AI
+type: company
+aliases:
+  - Mistral AI
+  - Mistral
+  - Mistral 7B
+
+release_date: 2023-04
+status: active
+
+creators:
+  - Arthur Mensch
+  - Guillaume Lample
+  - Timothée Lacroix
+
+tags:
+  - company
+  - llm
+  - open-source
+  - europe
+  - france
+  - startup
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  欧洲最领先的 AI 创业公司，法国独角兽。
+  以小型高效的开源模型（Mistral 7B）起步，后转向商业闭源。
+
+significance: |
+  Mistral AI 是"欧洲 AI 独立性"的旗帜。三位创始人出身 Meta AI，
+  2023 年仅用 4 周融资 $120M（种子轮破纪录），估值 $3B。
+
+  Mistral 7B（2023-09）证明了小型模型可以匹敌大得多的模型，
+  参数效率极致优化。后续 Mixtral (MoE)、Mistral Large 2 持续迭代。
+
+  2024 年从纯开源转向"开源 + 商业"混合策略，
+  2025 年完成 ~$650M 融资，2026 年估值 $10B+。
+
+background: |
+  Mistral 由三位法国 AI 科学家在巴黎创立，出身 Meta FAIR。
+  快速崛起为欧洲估值最高的 AI 纯初创公司。
+
+related:
+  - llama
+  - moe
+  - meta-ai
+  - open-source-ai
+  - europe-ai
+
+influenced:
+  - efficient-llm
+  - europe-ai
+  - small-model-movement
+
+timeline:
+  - date: 2023-04
+    event: Mistral AI 成立（三位 Meta FAIR 前员工）
+  - date: 2023-06
+    event: $120M 种子轮（欧洲史上最大种子轮）
+  - date: 2023-09
+    event: Mistral 7B 发布（小模型极致优化）
+  - date: 2023-12
+    event: Mixtral 8x7B (MoE) 发布
+  - date: 2024-06
+    event: $650M 新一轮融资（$6B 估值）
+  - date: 2025-2026
+    event: Mistral Large 2/3 发布，$10B+ 估值
+
+sources:
+  official: https://mistral.ai
+
+headquarters: "Paris, France"
+founded: 2023
+funding_total: "$1B+"
+business_model: "开源模型 + API 服务 + 企业定制"
+key_products:
+  - mistral-7b
+  - mixtral
+  - mistral-large
+  - le-chat

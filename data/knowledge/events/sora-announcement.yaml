@@ -1,0 +1,83 @@
+# ============================================================
+# Knowledge Card: Sora Announcement
+# ============================================================
+
+id: sora-announcement
+name: OpenAI Sora 发布
+type: event
+aliases:
+  - Sora 发布
+  - Sora announcement
+  - OpenAI Sora
+
+release_date: 2024-02-15
+status: active
+
+tags:
+  - milestone
+  - openai
+  - video-generation
+  - multimodal
+  - ai-history
+  - breakthrough
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  OpenAI 发布 Sora，文本生成视频模型，可生成长达 60 秒的
+  高质量视频。标志着 AI 从"理解世界"进化到"模拟世界"。
+
+significance: |
+  Sora 的发布震惊了影视、广告和创意行业。它生成的视频质量
+  远超已有的 Runway / Pika 等产品，展示了对物理世界的深刻理解。
+
+  几个标志性意义：
+  - 首次证明了"世界模型"的可行性——通过视频学习物理规律
+  - 视频生成从短片段（2-4秒）跨越到 60 秒叙事级别
+  - 引发了影视行业对"AI 取代人类创作者"的深度焦虑
+  - 推动了 AI 安全讨论——deepfake 威胁升级
+  - 中国视频生成模型（可灵/Kling 等）加速追赶
+
+  Sora 发布后经历了近一年的内测，直到 2024 年 12 月
+  才正式向 ChatGPT Plus 用户开放。
+
+background: |
+  2024 年 2 月 15 日 OpenAI 以"研究预览"形式发布 Sora。
+  最初仅向少数艺术家和红队测试者开放。
+
+  技术：Diffusion Transformer（DiT）架构，将视频视为时空 patch
+  序列。训练数据来源未公开。
+
+  2024 年 12 月 Sora 正式上线（Sora Turbo），
+  集成到 ChatGPT Plus/Pro 订阅。
+
+related:
+  - gpt-4
+  - openai
+  - video-generation
+  - deepfake
+  - multimodal-ai
+
+depends_on:
+  - diffusion-models
+  - transformer
+
+influenced:
+  - kling
+  - runway
+  - video-generation-industry
+  - hollywood-ai-debate
+
+timeline:
+  - date: 2024-02-15
+    event: Sora 研究预览发布（60秒高质量视频）
+  - date: 2024-03
+    event: 全球影视行业震动，Tyler Perry 暂停 $800M 制片厂扩建
+  - date: 2024-12
+    event: Sora Turbo 正式上线，面向 ChatGPT Plus/Pro 用户
+  - date: 2025
+    event: Sora 持续迭代，成为视频生成标杆
+
+sources:
+  official: https://openai.com/sora

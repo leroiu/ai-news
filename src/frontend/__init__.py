@@ -1,0 +1,1 @@
+"""Frontend layer — HTML page generators. May import from engine/ and interfaces/."""

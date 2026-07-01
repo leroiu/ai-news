@@ -1,0 +1,73 @@
+id: multi-agent-systems
+name: Multi-Agent Systems
+type: methodology
+tags:
+- agent
+- orchestration
+- llm
+- collaboration
+- architecture
+importance: 4
+confidence: confirmed
+summary: '多个 AI Agent 协同工作的方法论。包括角色分工、通信协议、
+
+  任务分解、结果聚合等模式。
+
+  '
+significance: '多 Agent 系统是 2025-2026 年 AI 工程最热门的前沿方向。
+
+  单个 LLM 的能力有限，但多个 Agent 分工协作可以：
+
+  - 分解复杂任务（规划 Agent → 编码 Agent → 测试 Agent → 审查 Agent）
+
+  - 交叉验证（多个 Agent 从不同角度审查同一输出）
+
+  - 角色扮演（模拟用户/专家/审查者多方对话）
+
+
+  关键模式：
+
+  - Supervisor-Worker: 一个主管 Agent 分配任务
+
+  - Peer-to-Peer: Agent 之间平等通信
+
+  - Adversarial: 对抗性协作（吹毛求疵 + 改进）
+
+  - Hierarchical: 多层嵌套 Agent 网络
+
+
+  Anthropic 的 Workflow/Agent 工具、OpenAI Swarm、LangGraph
+
+  都是多 Agent 系统的基础设施。
+
+  '
+domain: Agent 架构
+source_articles:
+- 'AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation (Microsoft, 2023)'
+- 'ChatDev: Communicative Agents for Software Development (2023)'
+related:
+- agent-orchestration
+- tool-use
+- planning
+- reflection
+- harness-engineering
+evolution:
+- date: 2023
+  event: AutoGen / ChatDev / MetaGPT 等框架出现
+- date: 2024
+  event: CrewAI / LangGraph 等生产级框架
+- date: 2025
+  event: Claude Code Workflow（多 Agent 编排）
+- date: 2026
+  event: 多 Agent 成为 AI 工程标准范式
+timeline:
+- date: 2023-03
+  event: CAMEL 论文发布，首次系统化探索角色分工多 Agent 对话（LLM 研究员+程序员）
+- date: 2023-08
+  event: Microsoft AutoGen 开源，生产级多 Agent 对话框架
+- date: 2024-01
+  event: CrewAI 发布，基于角色的多 Agent 协作框架受企业欢迎
+- date: 2024-11
+  event: Anthropic MCP 协议发布，多 Agent 间工具共享标准化
+- date: 2025-03
+  event: Claude Code Workflow 多 Agent 编排发布，Pipeline/Parallel 模式内置

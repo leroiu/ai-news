@@ -1,0 +1,82 @@
+# ============================================================
+# Knowledge Card: OpenAI DevDay 2023
+# ============================================================
+
+id: openai-devday-2023
+name: OpenAI DevDay 2023
+type: event
+aliases:
+  - OpenAI DevDay
+  - 开发者大会 2023
+  - GPTs launch
+
+release_date: 2023-11-06
+status: active
+
+tags:
+  - milestone
+  - openai
+  - platform
+  - agents
+  - ai-history
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  OpenAI 首届开发者大会，发布 GPT-4 Turbo、GPTs、Assistants API。
+  标志着 OpenAI 从"模型公司"转型为"平台公司"。
+
+significance: |
+  DevDay 2023 是 OpenAI 战略转型的关键节点。
+
+  核心发布：
+  1. GPT-4 Turbo — 128K 上下文，价格降 3×，知识到 2023-04
+  2. GPTs — 零代码创建定制 ChatGPT，GPT Store 分成
+  3. Assistants API — 内置 Code Interpreter / Retrieval / Function Calling
+
+  这三个发布合在一起，构成了一个完整平台：
+  最底层是 GPT-4 Turbo（能力基座），中间层是 Assistants API
+  （开发者工具），最上层是 GPTs + GPT Store（消费生态）。
+
+  这标志着 OpenAI 从"卖 API 的公司"变成"AI 时代的 App Store"。
+  Sam Altman 称之为"从 AI 到 Agent 的过渡"。
+
+  事后看，GPT Store 的后续表现没有达到预期，
+  但 Assistants API 和 GPT-4 Turbo 成为开发者标配。
+
+background: |
+  2023 年 11 月 6 日在旧金山举办，Sam Altman 主题演讲。
+  这是 OpenAI 首次举办开发者大会，也是 ChatGPT 发布一周年之际。
+
+  此后不到两周（11 月 17 日），Sam Altman 被董事会解雇，
+  引发 OpenAI 史上最大危机（5 天后 Altman 回归）。
+
+related:
+  - gpt-4-release
+  - chatgpt
+  - openai
+  - agent
+
+depends_on:
+  - gpt-4-release
+
+influenced:
+  - gpt-store
+  - agent-ecosystem
+  - ai-platform-model
+
+timeline:
+  - date: 2023-11-06
+    event: OpenAI DevDay — GPT-4 Turbo + GPTs + Assistants API
+  - date: 2023-11-10
+    event: GPTs 上线，社区爆发式创建（首周数万个）
+  - date: 2023-11-17
+    event: Sam Altman 被董事会解雇（DevDay 后 11 天）
+  - date: 2024-01
+    event: GPT Store 正式上线
+  - date: 2024-05
+    event: GPT-4o 发布，免费用户可用
+
+sources:
+  official: https://openai.com/blog/new-models-and-developer-products-announced-at-devday

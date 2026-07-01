@@ -1,0 +1,64 @@
+id: self-correction
+name: Self-Correction
+type: methodology
+tags:
+- agent
+- reflection
+- reasoning
+- quality
+- llm
+importance: 3
+confidence: confirmed
+summary: 'AI 系统自动检测并修正自身错误的方法论。
+
+  包括 Reflexion、Self-Refine、CRITIC 等变体。
+
+  '
+significance: 'Self-Correction 是 AI 从"一次生成"到"迭代改进"的关键方法。
+
+  与人类写作/编码的过程类似——先写初稿，再检查和修改。
+
+
+  核心模式：
+
+  - Self-Refine: 模型审视自己的输出、找出问题、重新生成
+
+  - Reflexion: 失败后反思原因，调整策略再尝试
+
+  - Critic + Rewrite: 一个角色指出问题，另一个角色修改
+
+  - Verification Loop: 自动验证 → 不通过 → 修正 → 再验证
+
+
+  2024-2026 年 Self-Correction 已成为 Agent 系统的标配能力。
+
+  Claude Code 的自我审查、Devin 的自动修复 bug 都依赖此方法论。
+
+  '
+domain: Agent 自我改进
+source_articles:
+- 'Self-Refine: Iterative Refinement with Self-Feedback (Madaan et al., 2023)'
+- 'Reflexion: Language Agents with Verbal Reinforcement Learning (Shinn et al., 2023)'
+related:
+- reflection
+- planning
+- agent-orchestration
+- ai-evaluation
+evolution:
+- date: 2023
+  event: Self-Refine / Reflexion 论文
+- date: 2024
+  event: 成为 Agent 系统标配
+- date: 2025-2026
+  event: 深度集成到 Claude Code / Devin 等产品
+timeline:
+- date: 2023-03
+  event: Reflexion 论文（Shinn et al.），通过语言反馈自我纠正，无需额外训练
+- date: 2023-07
+  event: Self-Refine (Madaan et al.) 发表，迭代式 FEEDBACK → REFINE 循环
+- date: 2023-10
+  event: CRITIC (Gou et al.) 发表，引入外部工具验证的自我修正
+- date: 2024-06
+  event: Constitutional AI 自我纠正商业化——Anthropic Claude 从不安全输出中自动恢复
+- date: 2025-03
+  event: Self-Correction 成为 AI Agent 生产化的关键指标——"发现错误并自己修"

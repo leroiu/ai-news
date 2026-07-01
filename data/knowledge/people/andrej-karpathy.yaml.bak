@@ -1,0 +1,84 @@
+id: andrej-karpathy
+name: Andrej Karpathy
+type: person
+aliases:
+  - Andrej Karpathy
+  - Karpathy
+
+release_date: 1986-10-23
+status: active
+
+company: Eureka Labs
+creators: []
+
+tags:
+  - person
+  - researcher
+  - educator
+  - tesla
+  - openai
+  - computer-vision
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  前 Tesla AI 总监、OpenAI 创始团队成员，著名 AI 教育家。
+  通过 YouTube 教学视频和 NanoGPT 项目普及了 LLM 原理。
+
+significance: |
+  Karpathy 是"AI 教育者"这一角色的开创者。他的 Stanford CS231n
+  卷积神经网络课程是这十年来最受欢迎的 AI 课程。2023-2024 年
+  他的 YouTube 系列"Let's Build GPT from Scratch"和"Neural Networks:
+  Zero to Hero"让数万开发者理解了 LLM 底层原理。
+
+  在 Tesla 期间主导 Autopilot 视觉系统的 AI 化转型。
+  2024 年离开 OpenAI 后创办 Eureka Labs，专注 AI 教育。
+
+background: |
+  斯洛伐克出生，移居加拿大。多伦多大学本科（师从 Hinton），
+  斯坦福博士（师从 Fei-Fei Li），博士论文：图像描述生成。
+
+  OpenAI 创始团队 → Tesla AI 总监 → 回归 OpenAI → Eureka Labs
+
+related:
+  - openai
+  - tesla
+  - fei-fei-li
+  - geoffrey-hinton
+  - computer-vision
+
+influenced:
+  - ai-education
+  - llm-literacy
+  - tesla-autopilot
+
+timeline:
+  - date: 1986-10-23
+    event: 出生于斯洛伐克
+  - date: 2015
+    event: 加入 OpenAI 创始团队
+  - date: 2017
+    event: 成为 Tesla AI 及 Autopilot 视觉总监
+  - date: 2022-07
+    event: 离开 Tesla
+  - date: 2023-02
+    event: 回归 OpenAI
+  - date: 2024-02
+    event: 离开 OpenAI，创办 Eureka Labs
+  - date: 2024-2026
+    event: "Let's reproduce GPT-2" 系列视频
+
+sources:
+  wikipedia: https://en.wikipedia.org/wiki/Andrej_Karpathy
+
+role: Founder
+affiliations:
+  - eureka-labs
+  - openai (former)
+  - tesla (former)
+known_for:
+  - Stanford CS231n
+  - Tesla Autopilot AI
+  - AI 教育普及
+  - "Let's Build GPT" 系列

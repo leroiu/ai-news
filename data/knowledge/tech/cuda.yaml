@@ -1,0 +1,96 @@
+# ============================================================
+# Knowledge Card: CUDA
+# ============================================================
+
+id: cuda
+name: CUDA
+type: tech
+aliases:
+  - CUDA
+  - cuda
+  - Compute Unified Device Architecture
+  - NVIDIA CUDA
+
+release_date: 2006-11
+status: active
+
+company: NVIDIA
+creators:
+  - Ian Buck
+
+tags:
+  - gpu
+  - parallel-computing
+  - nvidia
+  - hardware
+  - deep-learning
+  - training
+  - inference
+  - infrastructure
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  NVIDIA 的并行计算平台和编程模型，是 GPU 加速 AI 的核心基础设施。
+  几乎所有的深度学习训练和推理都依赖 CUDA 生态。
+
+significance: |
+  CUDA 是 AI 产业的"石油管道"——没有 CUDA，就没有现代深度学习。
+
+  NVIDIA 在 2006 年推出 CUDA，最初面向通用 GPU 计算（GPGPU）。
+  2012 年 AlexNet 用 CUDA 训练，深度学习革命正式启动。
+  此后 CUDA + cuDNN + TensorRT 构成了 AI 训练/推理的软件栈基础。
+
+  CUDA 的护城河极其深厚：
+  - 20 年生态积累：cuDNN、cuBLAS、NCCL 等库不可替代
+  - PyTorch/JAX/TensorFlow 底层全部依赖 CUDA
+  - 硬件绑定：只有 NVIDIA GPU 能用 CUDA（AMD ROCm 不兼容）
+
+  这形成了 NVIDIA 在 AI 芯片领域的垄断地位（90%+ 市占率）。
+  CUDA 的存在也是各国发展自主 AI 芯片时最大的软件壁垒。
+
+background: |
+  2006 年 NVIDIA 发布 G80 GPU 架构和 CUDA 1.0。
+  2012 年 AlexNet 用 GTX 580 + CUDA 训练，引爆深度学习。
+  2014 年 cuDNN 发布，专为深度神经网络优化。
+  2017 年 V100 Tensor Core 发布，FP16 混合精度训练。
+  2020 年 A100 发布，HBM2e + MIG 多实例 GPU。
+  2024 年 B200/GB200 发布，Blackwell 架构，万亿参数训练。
+
+related:
+  - nvidia
+  - pytorch
+  - tensorflow
+  - gpu-architecture
+  - deep-learning
+
+depends_on:
+  - nvidia
+
+influenced:
+  - pytorch
+  - tensorflow
+  - jax
+  - deepseek-r1
+  - gpt-4
+
+timeline:
+  - date: 2006-11
+    event: CUDA 1.0 首次发布
+  - date: 2012
+    event: AlexNet 用 CUDA 训练，深度学习时代开启
+  - date: 2014
+    event: cuDNN 发布
+  - date: 2017
+    event: V100 + Tensor Core 发布
+  - date: 2020
+    event: A100 发布，Ampere 架构
+  - date: 2024
+    event: B200 发布，Blackwell 架构
+
+sources:
+  official: https://developer.nvidia.com/cuda-toolkit
+  wikipedia: https://en.wikipedia.org/wiki/CUDA
+
+category: 计算基础设施

@@ -1,0 +1,84 @@
+id: cohere
+name: Cohere
+type: company
+aliases:
+  - Cohere
+  - Cohere AI
+
+release_date: 2019
+status: active
+
+creators:
+  - Aidan Gomez
+  - Nick Frosst
+  - Ivan Zhang
+
+tags:
+  - company
+  - llm
+  - enterprise
+  - canada
+  - rag
+  - startup
+
+importance: 3
+confidence: confirmed
+
+summary: |
+  加拿大 AI 公司，专注企业级 LLM 和 RAG 方案。
+  "Transformer" 论文第一作者 Aidan Gomez 共同创立。
+
+significance: |
+  Cohere 的差异化定位是"为企业而非消费者构建 AI"。
+  不追求 Chatbot 市场，而是提供企业级嵌入模型、RAG 和 Agent 工具链。
+
+  Aidan Gomez 是 "Attention Is All You Need" (Transformer 论文)
+  的第一作者之一（当时在 Google Brain 实习）。
+
+  2024 年融资 $500M（$5.5B 估值），
+  2025-2026 年推出了 Command R+ 等企业级模型，
+  在隐私合规、多语言支持、企业部署方面建立差异化。
+
+background: |
+  2019 年由 Aidan Gomez、Nick Frosst（Geoffrey Hinton 学生）、
+  Ivan Zhang 在多伦多创立。
+
+  2023 年获得 Salesforce、NVIDIA、Oracle 等战略投资。
+  2024 年 $500M 融资。
+  2025-2026 年 Command R 系列企业模型发布。
+
+related:
+  - transformer
+  - rag
+  - geoffrey-hinton
+  - enterprise-ai
+
+influenced:
+  - enterprise-llm
+  - rag
+  - canada-ai
+
+timeline:
+  - date: 2019
+    event: Aidan Gomez 等创立 Cohere
+  - date: 2023-06
+    event: $270M 融资（$2B 估值）
+  - date: 2024-03
+    event: Command R+ 企业模型发布
+  - date: 2024-06
+    event: $500M 融资（$5.5B 估值）
+  - date: 2025-2026
+    event: North 平台（企业 AI workspace）
+
+sources:
+  official: https://cohere.com
+
+headquarters: "Toronto, Canada"
+founded: 2019
+funding_total: "$1B+"
+business_model: "企业 API + 托管服务"
+key_products:
+  - command-r-plus
+  - embed
+  - rerank
+  - north-platform

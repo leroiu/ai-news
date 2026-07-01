@@ -1,0 +1,85 @@
+# ============================================================
+# Knowledge Card: GitHub Copilot
+# ============================================================
+
+id: github-copilot
+name: GitHub Copilot
+type: product
+aliases:
+  - GitHub Copilot
+  - Copilot
+  - Github Copilot
+  - Copilot Chat
+  - Copilot Workspace
+
+release_date: 2021-06-29
+status: active
+
+company: Microsoft / GitHub / OpenAI
+creators:
+  - GitHub
+  - OpenAI
+
+tags:
+  - coding
+  - ai-coding
+  - microsoft
+  - openai
+  - developer-tools
+  - ide
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  全球最早的主流 AI 编程助手。基于 OpenAI Codex/GPT 系列，
+  深度集成 VS Code / JetBrains / GitHub，定义了 AI Coding 品类。
+
+significance: |
+  GitHub Copilot 是 AI Coding 品类的开创者。
+  它首次证明了 AI 辅助编程不仅是可行的，而且是生产力的巨大提升。
+
+  Copilot 的发布直接改变了软件开发的方式：
+  - 2022 年 GitHub 调查显示 88% 用户感觉更高效
+  - "AI 会取代程序员吗"成为行业热门话题
+  - 催生了 Cursor、Claude Code、Codeium 等竞品
+
+  2023 年 Copilot Chat 引入对话式编程。
+  2024 年 Copilot Workspace 引入 Agent 式全栈开发。
+  2025-2026 年与 Claude Code、Cursor 形成 AI IDE 三强竞争。
+
+background: |
+  GitHub 与 OpenAI 合作，基于 GPT-3 Codex 开发。
+  2021 年 6 月发布技术预览版。
+  2022 年 6 月正式商用（$10/月）。
+  2023 年 3 月 Copilot X（Chat 集成）。
+  2024 年 4 月 Copilot Workspace（Agent 式开发）。
+
+related:
+  - openai
+  - gpt-4
+  - claude-code
+  - cursor
+  - ai-coding
+
+depends_on:
+  - gpt-3
+  - openai
+
+influenced:
+  - ai-coding-category
+  - claude-code
+  - cursor
+
+timeline:
+  - date: 2021-06-29
+    event: Copilot 技术预览版发布
+  - date: 2022-06-21
+    event: 正式商用 ($10/月)
+  - date: 2023-03-22
+    event: Copilot X 发布 (Chat 集成)
+  - date: 2024-04-29
+    event: Copilot Workspace 发布
+
+sources:
+  official: https://github.com/features/copilot

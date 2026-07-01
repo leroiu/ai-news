@@ -1,0 +1,89 @@
+id: yann-lecun
+name: Yann LeCun
+type: person
+aliases:
+  - Yann LeCun
+  - LeCun
+  - Yann
+
+release_date: 1960-07-08
+status: active
+
+company: Meta AI
+creators: []
+
+tags:
+  - person
+  - researcher
+  - meta
+  - cnn
+  - turing-award
+  - self-supervised-learning
+  - open-source-ai
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  Meta AI 首席科学家，卷积神经网络之父，2018 年图灵奖得主。
+  开源 AI 和自监督学习的坚定倡导者，对 LLM 持"反主流"观点。
+
+significance: |
+  Yann LeCun 是深度学习的三大先驱之一（与 Hinton、Bengio 并列）。
+  他在 1980 年代发明的卷积神经网络（CNN）至今仍是计算机视觉的基础。
+
+  2013 年加入 Facebook（Meta）创办 FAIR（Facebook AI Research），
+  推动 Meta 成为最大的开源 AI 模型发布者（Llama 系列）。
+
+  他以其"LLM 不是通向 AGI 的路径"的鲜明立场著称，
+  持续批评自回归 LLM 的局限性，倡导 JEPA（联合嵌入预测架构）
+  作为替代方案。这种立场使他成为 AI 领域最有争议也最有原则的声音之一。
+
+background: |
+  法国出生，巴黎第六大学博士。曾在贝尔实验室工作多年，
+  后任纽约大学计算机科学教授。
+
+  2013 年创办 FAIR (Meta AI Research)。
+  2018 年获图灵奖。
+  2023-2026 年持续推动开源 AI（Llama 系列）。
+
+related:
+  - meta-ai
+  - llama
+  - deep-learning
+  - cnn
+  - geoffrey-hinton
+
+influenced:
+  - meta-ai
+  - llama
+  - cnn
+  - self-supervised-learning
+
+timeline:
+  - date: 1960-07-08
+    event: 出生于法国
+  - date: 1989
+    event: 发明卷积神经网络
+  - date: 2013
+    event: 加入 Facebook，创办 FAIR
+  - date: 2018
+    event: 获图灵奖
+  - date: 2023-02
+    event: Llama 发布（Meta 开源大模型）
+  - date: 2024-2026
+    event: 持续推动开源 AI + JEPA 架构
+
+sources:
+  wikipedia: https://en.wikipedia.org/wiki/Yann_LeCun
+
+role: Chief AI Scientist
+affiliations:
+  - meta
+  - new-york-university
+known_for:
+  - 卷积神经网络之父
+  - Meta AI 首席科学家
+  - 2018 图灵奖
+  - 开源 AI 倡导
+  - LLM 怀疑论者

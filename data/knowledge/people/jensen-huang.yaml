@@ -1,0 +1,88 @@
+id: jensen-huang
+name: Jensen Huang
+type: person
+aliases:
+  - Jensen Huang
+  - 黄仁勋
+  - Jensen
+
+release_date: 1963-02-17
+status: active
+
+company: NVIDIA
+creators: []
+
+tags:
+  - person
+  - ceo
+  - nvidia
+  - gpu
+  - cuda
+  - hardware
+  - ai-infrastructure
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  NVIDIA 联合创始人兼 CEO，GPU 革命的领袖。
+  NVIDIA 市值 2024 年突破 $3T，成为全球市值最高公司之一。
+
+significance: |
+  Jensen Huang 在 1993 年创办 NVIDIA 时专注游戏 GPU，
+  但 2006 年推出 CUDA（GPU 通用计算平台）是转折点——
+  这一决定让 NVIDIA 在深度学习时代成为唯一的基础设施供应商。
+
+  每一代 GPT 和几乎所有大模型都在 NVIDIA GPU 上训练。
+  NVIDIA 的 AI 芯片（A100、H100、B200）年复一年供不应求，
+  本质上是 AI 时代的"卖铲人"。
+
+  2025-2026 年发布 Blackwell (B200/B300) 系列，
+  2026 GTC 宣布 DGX AI Factory 战略。
+
+background: |
+  台湾出生，9 岁移民美国。斯坦福电子工程硕士。
+  30 岁生日那天（1993 年 2 月 17 日）共同创立 NVIDIA。
+
+  2006 年推出 CUDA，2012 年 AlexNet 用 GPU 训练引爆需求。
+  此后 NVIDIA 从游戏公司转型为 AI 计算平台。
+
+related:
+  - nvidia
+  - gpu
+  - cuda
+  - deep-learning
+  - openai
+
+influenced:
+  - nvidia
+  - gpu-acceleration
+  - ai-hardware
+
+timeline:
+  - date: 1963-02-17
+    event: 出生于台湾台南
+  - date: 1993-02-17
+    event: 共同创立 NVIDIA
+  - date: 2006
+    event: 推出 CUDA 平台
+  - date: 2012
+    event: AlexNet 用 GPU 训练引爆 AI 需求
+  - date: 2023-05
+    event: NVIDIA 市值突破 $1T
+  - date: 2024-06
+    event: NVIDIA 市值突破 $3T
+  - date: 2026 GTC
+    event: DGX AI Factory 战略发布
+
+sources:
+  wikipedia: https://en.wikipedia.org/wiki/Jensen_Huang
+
+role: CEO & Co-founder
+affiliations:
+  - nvidia
+known_for:
+  - NVIDIA 联合创始人兼 CEO
+  - CUDA 平台
+  - GPU 革命
+  - AI 时代基础设施之王

@@ -1,0 +1,97 @@
+# ============================================================
+# Knowledge Card: GPT-3
+# ============================================================
+
+id: gpt-3
+name: GPT-3
+type: model
+aliases:
+  - GPT-3
+  - GPT3
+  - gpt3
+  - GPT 3
+  - gpt-3
+
+release_date: 2020-05-28
+status: deprecated
+
+company: OpenAI
+creators:
+  - OpenAI
+
+tags:
+  - llm
+  - language-model
+  - openai
+  - api
+  - few-shot
+  - scaling
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  OpenAI 的 175B 参数大语言模型，首次证明 Scaling Law 的有效性，
+  以 Few-Shot Prompting 实现了无需微调的通用任务能力。
+
+significance: |
+  GPT-3 是 AI 行业的转折点。它在论文 "Language Models are Few-Shot Learners" 中
+  展示了令人震惊的能力：不需要任何微调，仅靠提示中的几个示例就能完成
+  翻译、QA、代码生成、创意写作等各种任务。
+
+  GPT-3 直接催生了：
+  - ChatGPT（GPT-3.5 → ChatGPT）
+  - 全球 LLM 军备竞赛
+  - Prompt Engineering 成为一项技能
+  - OpenAI API 商业模式（按 token 收费）
+
+  它的成功证明了 Scaling Law——更大的模型 + 更多的数据 = 更好的能力。
+  这一信念至今仍主导着 AI 行业。
+
+background: |
+  GPT-3 论文 2020 年 5 月发表，是当时最大的语言模型（175B 参数）。
+  训练使用了大规模 Common Crawl、Books、Wikipedia 等数据。
+
+  GPT-3 共 8 个尺寸（125M → 175B），其中 175B 版本即通常所说的 GPT-3。
+  2020 年 6 月 OpenAI 推出 API beta，从此 LLM-as-a-Service 模式诞生。
+
+  2022 年 1 月发布 InstructGPT（GPT-3.5 前置），加入了 RLHF 和指令微调。
+  2022 年 11 月 ChatGPT 基于 GPT-3.5 发布。
+
+related:
+  - gpt-4
+  - chatgpt
+  - openai
+  - scaling-law
+  - rlhf
+
+depends_on:
+  - transformer
+  - gpt-2
+
+influenced:
+  - gpt-4
+  - chatgpt
+  - claude-series
+  - deepseek-series
+  - llm-era
+
+parameters: "175B"
+modalities:
+  - text
+license: proprietary
+architecture: Transformer (decoder-only)
+
+timeline:
+  - date: 2020-05-28
+    event: 论文 "Language Models are Few-Shot Learners" 发表
+  - date: 2020-06-11
+    event: OpenAI API beta 上线
+  - date: 2022-01-27
+    event: InstructGPT 发布（GPT-3.5 前置）
+  - date: 2022-11-30
+    event: ChatGPT 基于 GPT-3.5 发布
+
+sources:
+  official: https://openai.com/research/gpt-3
+  paper: https://arxiv.org/abs/2005.14165

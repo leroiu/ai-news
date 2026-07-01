@@ -1,0 +1,90 @@
+# ============================================================
+# Knowledge Card: GPT-3 Release
+# ============================================================
+
+id: gpt-3-release
+name: GPT-3 发布
+type: event
+aliases:
+  - GPT-3 发布
+  - GPT-3 launch
+  - GPT-3 API
+
+release_date: 2020-05-28
+status: active
+
+tags:
+  - milestone
+  - openai
+  - llm
+  - scaling
+  - ai-history
+  - breakthrough
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  OpenAI 发布 GPT-3（175B 参数），首次展示了"涌现能力"——
+  模型规模突破临界点后出现训练时未明确教过的能力。
+
+significance: |
+  GPT-3 是 LLM 发展史上的分水岭。它用 175B 参数证明了
+  "Scaling Law" 的有效性——更大的模型不仅性能更好，
+  还会涌现出全新能力（in-context learning、few-shot reasoning）。
+
+  GPT-3 的直接影响：
+  - 催生了 OpenAI API 商业模式（2020 年 6 月开放 Beta）
+  - 引发了全球"千亿参数大模型"军备竞赛
+  - 证明了"预训练 + Prompt"无需微调即可完成多任务
+  - 直接导致了 GPT-3.5 和 ChatGPT（2022）的开发
+  - 引发了 AI 安全讨论——GPT-3 生成的文本已难以与人类区分
+
+  技术意义上，GPT-3 是 Decoder-only Transformer 路线
+  的旗帜性成果，确立了 OpenAI 在大模型领域的领先地位。
+
+background: |
+  2020 年 5 月 OpenAI 发表 GPT-3 论文（Brown et al., 34 位作者）。
+  175B 参数，训练成本约 $4.6M（估算）。
+
+  GPT-3 首次展示了：
+  - Few-shot learning — 不需要微调，给几个例子就能完成新任务
+  - Code generation — 在未专门训练的情况下能生成代码
+  - Translation / QA / Summarization — 统一在一个模型中
+
+  同年 6 月 OpenAI 开放 GPT-3 API Beta，
+  标志着 OpenAI 从非营利研究转向商业化运营。
+
+related:
+  - gpt-4
+  - openai
+  - chatgpt
+  - scaling-law
+  - deepseek-v3
+
+depends_on:
+  - transformer
+
+influenced:
+  - gpt-4
+  - chatgpt
+  - all-llms
+  - scaling-law-research
+  - openai-api-business
+
+timeline:
+  - date: 2020-05-28
+    event: GPT-3 论文发表（arXiv），175B 参数
+  - date: 2020-06-11
+    event: OpenAI API Beta 开放
+  - date: 2020-07
+    event: GPT-3 引发全球关注，展示涌现能力
+  - date: 2020-09-22
+    event: Microsoft 获得 GPT-3 独家授权
+  - date: 2021-03
+    event: GPT-3 API 正式商用
+  - date: 2022-03
+    event: GPT-3.5（InstructGPT）发布，为 ChatGPT 铺路
+
+sources:
+  paper: https://arxiv.org/abs/2005.14165

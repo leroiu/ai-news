@@ -1,0 +1,78 @@
+# ============================================================
+# Knowledge Card: LoRA
+# ============================================================
+
+id: lora
+name: LoRA (低秩适配)
+type: concept
+aliases:
+  - LoRA
+  - Low-Rank Adaptation
+  - 低秩适配
+  - QLoRA
+  - lora
+
+release_date: 2021-10-01
+status: active
+
+tags:
+  - fine-tuning
+  - efficiency
+  - training
+  - open-source
+  - stable-diffusion
+  - llm
+
+importance: 3
+confidence: confirmed
+
+summary: |
+  一种参数高效的微调方法。冻结预训练模型，只训练少量可插拔的
+  低秩矩阵，大幅降低微调成本，使个人开发者也能微调大模型。
+
+significance: |
+  LoRA 是模型微调"大众化"的关键技术。之前微调一个大模型
+  需要数百 GB 显存，LoRA 将显存需求降低了 10-100 倍。
+
+  在图像生成领域（Stable Diffusion），LoRA 已成为事实标准——
+  任何人都可以训练一个 LoRA 来生成特定风格、特定人物、
+  特定场景的图像。CivitAI 上有数十万个社区训练的 LoRA。
+
+  在 LLM 领域，LoRA 使中小团队也能微调开源模型
+  （如 Llama、Mistral），催生了大量垂直领域 LLM。
+
+  QLoRA（2023）进一步将显存需求降低到消费级 GPU 水平。
+
+background: |
+  2021 年 Microsoft 发表 LoRA 论文，最初用于 NLP。
+  2023 年广泛应用于 Stable Diffusion 社区。
+  2023 年 QLoRA 发布（4-bit 量化 + LoRA）。
+  2024-2026 年成为开源模型微调的标准方法。
+
+related:
+  - stable-diffusion
+  - fine-tuning
+  - deepseek-v3
+  - qlora
+
+depends_on:
+  - transformer
+
+influenced:
+  - stable-diffusion-community
+  - open-source-finetuning-ecosystem
+
+timeline:
+  - date: 2021-06
+    event: Microsoft 发表 LoRA 论文（Hu et al.），最初用于 NLP
+  - date: 2022-12
+    event: LoRA 在 Stable Diffusion 社区广泛采用，成为图像生成微调标准
+  - date: 2023-05
+    event: QLoRA 发布 — 4-bit 量化 + LoRA，消费级 GPU 可微调大模型
+  - date: 2024
+    event: LoRA 成为开源 LLM 微调的事实标准
+
+sources:
+  paper: https://arxiv.org/abs/2106.09685
+
+domain: "training"

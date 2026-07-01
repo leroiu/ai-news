@@ -1,0 +1,100 @@
+# ============================================================
+# Knowledge Card: Sam Altman
+# ============================================================
+
+id: sam-altman
+name: Sam Altman
+type: person
+aliases:
+  - Sam Altman
+  - Altman
+  - Samuel Altman
+  - Samuel H. Altman
+
+release_date: 1985-04-22
+status: active
+
+company: OpenAI
+creators: []
+
+tags:
+  - person
+  - ceo
+  - entrepreneur
+  - investor
+  - openai
+  - y-combinator
+  - silicon-valley
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  OpenAI CEO，前 Y Combinator 总裁，
+  ChatGPT 发布的核心推动者，AI 行业最具影响力的人物之一。
+
+significance: |
+  Sam Altman 是将 LLM 从实验室推向大众消费市场的关键人物。
+  他主导了 ChatGPT 的快速发布策略（内部有人反对时坚持上线），
+  推动了 OpenAI 从非营利研究机构向商业公司的转型。
+
+  2023 年 11 月短暂被 OpenAI 董事会解雇，员工集体抗议后迅速回归——
+  这一事件暴露了 AI 治理结构的深层矛盾，也成为 AI 安全讨论的焦点。
+
+  他的"AI 乐观主义"立场（认为 AI 将带来前所未有的繁荣）
+  影响了全球政策制定者和投资者对 AI 的态度。
+
+background: |
+  Sam Altman 出生于 1985 年，在圣路易斯长大。19 岁创办 Loopt，
+  后加入 Y Combinator，2014 年接替 Paul Graham 成为 YC 总裁。
+
+  2019 年成为 OpenAI CEO，将公司从非营利转向"封顶营利"模式。
+  2023 年 11 月短暂被解雇后复职，
+  2024 年董事会重组后权力更加巩固。
+
+  2025-2026 年推动 OpenAI 向 Agent 和 autonomous work 方向转型。
+
+related:
+  - openai
+  - chatgpt
+  - gpt-4
+  - gpt-5
+  - greg-brockman
+  - ilya-sutskever
+  - y-combinator
+  - microsoft
+
+influenced:
+  - chatgpt
+  - openai
+
+timeline:
+  - date: 1985-04-22
+    event: 出生于美国圣路易斯
+  - date: 2005
+    event: 创办 Loopt（获 YC 投资）
+  - date: 2014-02
+    event: 成为 Y Combinator 总裁
+  - date: 2019-03
+    event: 成为 OpenAI CEO
+  - date: 2022-11-30
+    event: ChatGPT 发布
+  - date: 2023-11-17
+    event: 被 OpenAI 董事会解雇
+  - date: 2023-11-21
+    event: 回归 OpenAI CEO（5 天后）
+  - date: 2024-03
+    event: 董事会重组，重新加入董事会
+
+sources:
+  wikipedia: https://en.wikipedia.org/wiki/Sam_Altman
+
+role: CEO
+affiliations:
+  - openai
+  - y-combinator
+known_for:
+  - ChatGPT 发布
+  - OpenAI CEO
+  - 前 Y Combinator 总裁
+  - 2023 年被解雇后迅速回归

@@ -1,0 +1,103 @@
+# ============================================================
+# Knowledge Card: DeepSeek V3
+# ============================================================
+
+id: deepseek-v3
+name: DeepSeek V3
+type: model
+aliases:
+  - DeepSeek V3
+  - DeepSeek-V3
+  - DeepSeekV3
+  - deepseek-v3
+  - DeepSeek R1
+  - DeepSeek-R1
+  - DeepSeek
+  - deepseek
+
+release_date: 2024-12-26
+status: active
+
+company: DeepSeek (深度求索)
+creators:
+  - 深度求索
+
+tags:
+  - llm
+  - open-source
+  - moe
+  - chinese
+  - reasoning
+  - coding
+  - cost-efficient
+  - deepseek
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  深度求索（DeepSeek）推出的开源 MoE 大模型，以极低训练成本达到
+  GPT-4 级性能，震惊全球 AI 行业，被视为中国 AI 的重要里程碑。
+
+significance: |
+  DeepSeek V3 是 2024-2025 年最具颠覆性的 AI 模型之一。
+  它以约 $5.6M 的训练成本（远低于 GPT-4 的 ~$100M），
+  达到了 GPT-4 级别的性能，证明 MoE 架构 + 精细工程优化
+  可以大幅降低大模型训练门槛。
+
+  随后发布的 DeepSeek R1（2025 年 1 月）引入了纯 RL 推理能力，
+  在数学和编程任务上达到 OpenAI o1 的水平。
+
+  DeepSeek 的成功直接引发了：
+  - 全球对中国 AI 能力重新评估
+  - 美国对华 AI 芯片出口管制再收紧
+  - "高效训练 vs 算力堆砌"的技术路线讨论
+  - 中国 AI 创业热潮
+
+background: |
+  深度求索（DeepSeek）成立于 2023 年，由幻方量化创始人梁文锋创立。
+  DeepSeek V2（2024 年中）率先采用 DeepSeekMoE 架构，降低成本。
+  DeepSeek V3（2024 年 12 月）671B MoE（37B 激活），训练成本约 $5.6M。
+  DeepSeek R1（2025 年 1 月）引入 Group Relative Policy Optimization。
+
+  2025-2026 年，DeepSeek 持续发布新版本，包括 DSpark 推测解码等
+  推理优化技术。
+
+related:
+  - moe
+  - gpt-4
+  - kimi
+  - scaling-law
+  - nvidia
+  - anthropic
+
+depends_on:
+  - transformer
+  - moe
+
+influenced:
+  - cost-efficient-llm-wave
+  - chinese-ai-boom
+  - asian-mythos-alternatives
+
+parameters: "671B (MoE, 37B 激活)"
+modalities:
+  - text
+license: open-weight
+architecture: MoE (Mixture of Experts)
+
+timeline:
+  - date: 2023-07
+    event: 深度求索成立
+  - date: 2024-05
+    event: DeepSeek V2 发布（DeepSeekMoE 架构）
+  - date: 2024-12-26
+    event: DeepSeek V3 发布（671B MoE）
+  - date: 2025-01-20
+    event: DeepSeek R1 发布（纯 RL 推理）
+  - date: 2026-06
+    event: DSpark 推测解码论文发布
+
+sources:
+  official: https://www.deepseek.com
+  paper: https://arxiv.org/abs/2412.19437

@@ -1,0 +1,98 @@
+# ============================================================
+# Knowledge Card: Google DeepMind
+# ============================================================
+
+id: google-deepmind
+name: Google DeepMind
+type: company
+aliases:
+  - Google DeepMind
+  - DeepMind
+  - Google AI
+  - Google DeepMind AI
+  - deepmind
+
+release_date: 2010-09-01
+status: active
+
+company: Google (Alphabet)
+creators:
+  - Demis Hassabis
+  - Shane Legg
+  - Mustafa Suleyman
+
+tags:
+  - company
+  - google
+  - research
+  - llm
+  - reinforcement-learning
+  - alphafold
+  - gemini
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  全球最顶尖的 AI 研究机构之一。AlphaGo、AlphaFold、Gemini 的创造者，
+  将深度强化学习和 LLM 推向极限。
+
+significance: |
+  DeepMind 从 2016 年 AlphaGo 击败李世乭开始，多次创造 AI 里程碑：
+  - AlphaFold 解决蛋白质折叠问题（2024 年诺贝尔化学奖）
+  - Gemini 原生多模态 LLM
+  - Computer Use 能力开拓 AI Agent 新场景
+
+  2023 年与 Google Brain 合并为 Google DeepMind，成为 Alphabet
+  唯一的 AI 研究核心。
+
+  DeepMind 的特点是"研究驱动产品"——从基础研究到消费级产品。
+  2025-2026 年 Gemini 系列与 OpenAI、Anthropic 形成三强竞争。
+
+background: |
+  2010 年由 Demis Hassabis、Shane Legg、Mustafa Suleyman 在伦敦创立。
+  2014 年被 Google 以 $500M 收购。
+  2023 年与 Google Brain 合并。
+
+  关键成就：DQN(2013)、AlphaGo(2016)、AlphaZero(2017)、
+  AlphaFold(2018→2021→2024 Nobel)、Gemini(2023→2026)。
+
+related:
+  - gemini
+  - openai
+  - anthropic
+  - alphafold
+  - google
+
+influenced:
+  - gemini
+  - alphafold
+
+timeline:
+  - date: 2010-09
+    event: DeepMind 成立
+  - date: 2014-01
+    event: 被 Google 以 $500M 收购
+  - date: 2016-03
+    event: AlphaGo 击败李世乭
+  - date: 2018-12
+    event: AlphaFold 发布
+  - date: 2023-04
+    event: 与 Google Brain 合并
+  - date: 2023-12
+    event: Gemini 1.0 发布
+  - date: 2024-10
+    event: AlphaFold 获诺贝尔化学奖
+
+sources:
+  official: https://deepmind.google
+  wikipedia: https://en.wikipedia.org/wiki/Google_DeepMind
+
+headquarters: "London, UK"
+founded: 2010
+funding_total: "Alphabet 子公司"
+business_model: "研究驱动 + Google 生态整合"
+key_products:
+  - gemini
+  - alphafold
+  - alphago

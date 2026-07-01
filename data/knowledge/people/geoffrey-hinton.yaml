@@ -1,0 +1,91 @@
+id: geoffrey-hinton
+name: Geoffrey Hinton
+type: person
+aliases:
+  - Geoffrey Hinton
+  - Hinton
+  - Geoff Hinton
+
+release_date: 1947-12-06
+status: active
+
+company: University of Toronto
+creators: []
+
+tags:
+  - person
+  - researcher
+  - deep-learning
+  - turing-award
+  - neural-networks
+  - backpropagation
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  "深度学习之父"，2018 年图灵奖得主，神经网络研究先驱。
+  2023 年离开 Google 后成为 AI 风险的最重要警告者之一。
+
+significance: |
+  Geoffrey Hinton 在过去 40 年中坚持神经网络研究，
+  即便在 AI 寒冬期间也未曾动摇。他的反向传播算法、
+  Boltzmann Machine、Deep Belief Networks 构成了
+  深度学习的理论根基。
+
+  2012 年他和学生 Ilya Sutskever、Alex Krizhevsky 的
+  AlexNet 在 ImageNet 上获胜，直接引爆了这一轮 AI 革命。
+
+  2023 年离开 Google 后公开警告 AI 的 Existential Risk，
+  引发了公共舆论对 AI 安全的广泛关注。
+  2024 年获诺贝尔物理学奖（与 John Hopfield 共享）。
+
+background: |
+  英国出生，剑桥实验心理学毕业，爱丁堡大学 AI 博士。
+  曾在 CMU、UCL 任教，1987 年移居加拿大多伦多大学。
+
+  2013 年加入 Google Brain（经其学生创办的 DNNresearch 收购）。
+  2023 年离开 Google，公开谈论 AI 风险。
+
+related:
+  - deep-learning
+  - ilya-sutskever
+  - transformer
+  - alexnet
+  - google
+
+influenced:
+  - deep-learning
+  - alexnet
+  - ilya-sutskever
+  - neural-networks
+
+timeline:
+  - date: 1947-12-06
+    event: 出生于英国伦敦
+  - date: 1986
+    event: 反向传播算法论文（Nature）
+  - date: 2012
+    event: AlexNet 赢得 ImageNet（深度学习爆发）
+  - date: 2013
+    event: 加入 Google Brain
+  - date: 2018
+    event: 获图灵奖（与 Bengio、LeCun）
+  - date: 2023-05
+    event: 离开 Google，公开警告 AI 风险
+  - date: 2024-10
+    event: 获诺贝尔物理学奖
+
+sources:
+  wikipedia: https://en.wikipedia.org/wiki/Geoffrey_Hinton
+
+role: Professor Emeritus
+affiliations:
+  - university-of-toronto
+  - google (former)
+known_for:
+  - 深度学习之父
+  - 反向传播
+  - AlexNet
+  - 2018 图灵奖
+  - 2024 诺贝尔物理学奖

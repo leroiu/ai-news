@@ -1,0 +1,88 @@
+id: deepseek
+name: DeepSeek
+type: company
+aliases:
+  - DeepSeek
+  - 深度求索
+  - DeepSeek AI
+
+release_date: 2023-05
+status: active
+
+creators:
+  - Liang Wenfeng
+
+tags:
+  - company
+  - llm
+  - china
+  - open-source
+  - moe
+  - reasoning
+  - startup
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  中国 AI 创业公司，以极低训练成本的顶尖开源模型震惊全球。
+  DeepSeek R1 的推理能力与 OpenAI o1 相当，但完全开源。
+
+significance: |
+  DeepSeek 是 2025 年 AI 行业最大的黑马。DeepSeek V3 以
+  $5.5M 训练成本达到 GPT-4 级别性能（当时 GPT-4 训练成本估 $100M+），
+  证明了顶级 LLM 不需要顶级预算。
+
+  DeepSeek R1（2025-01）开源了最强推理模型，引发生态爆炸——
+  数百个衍生模型、HuggingFace 下载量破亿。
+
+  DeepSeek 的出现也改变了 AI 地缘政治叙事：
+  证明了出口管制无法阻止中国 AI 创新，反而激发了效率创新。
+
+  2026 年 DeepSeek 持续开源新模型，成为中国 AI 追赶美国
+  的标志性案例。
+
+background: |
+  2023 年梁文锋创立 DeepSeek（母公司：幻方量化）。
+  2024 年发布 V2（MoE 架构，行业领先的成本效率）。
+  2025-01: V3 + R1 发布，全球爆红。
+  2025-2026: 持续开源模型迭代。
+
+related:
+  - deepseek-v3
+  - deepseek-r1
+  - moe
+  - open-source-ai
+  - openai
+
+influenced:
+  - deepseek-v3
+  - deepseek-r1
+  - moe
+  - china-ai
+
+timeline:
+  - date: 2023-05
+    event: 梁文锋创立 DeepSeek
+  - date: 2024-05
+    event: DeepSeek V2 发布（MoE + 极低成本）
+  - date: 2025-01-10
+    event: DeepSeek V3 发布（$5.5M 训练，GPT-4 级性能）
+  - date: 2025-01-20
+    event: DeepSeek R1 发布（开源最强推理模型，全球爆红）
+  - date: 2025-03
+    event: 多个衍生模型 HuggingFace 下载量破亿
+  - date: 2026
+    event: 持续开源新模型迭代
+
+sources:
+  official: https://deepseek.com
+
+headquarters: "杭州，中国"
+founded: 2023
+funding_total: "内部资金 (幻方量化)"
+business_model: "开源模型 + API 服务 (远低于行业均价)"
+key_products:
+  - deepseek-v3
+  - deepseek-r1
+  - deepseek-chat

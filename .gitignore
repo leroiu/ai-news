@@ -1,0 +1,46 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# Environment & Secrets
+.env
+
+# Database
+*.db
+*.db-journal
+*.db-wal
+
+# Cache & Temp
+cache/
+.pytest_cache/
+*.pyc
+
+# Reports (generated)
+reports/*.html
+reports/*.md
+
+# Logs
+logs/
+*.log
+
+# Screenshots
+screenshots/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Claude Code
+.claude/

@@ -1,0 +1,79 @@
+# ============================================================
+# Knowledge Card: RLHF
+# ============================================================
+
+id: rlhf
+name: RLHF (人类反馈强化学习)
+type: concept
+aliases:
+  - RLHF
+  - Reinforcement Learning from Human Feedback
+  - 人类反馈强化学习
+  - rlhf
+  - human feedback
+
+release_date: 2017-06-01
+status: active
+
+tags:
+  - alignment
+  - training
+  - reinforcement-learning
+  - safety
+  - chatgpt
+  - instruction-tuning
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  让 AI 模型对齐人类偏好的核心技术。通过人类标注者评价模型输出，
+  用强化学习微调模型，使其输出更"有用、无害、诚实"。
+
+significance: |
+  RLHF 是 ChatGPT 成功的"秘密武器"。单靠语言模型预训练无法
+  让模型学会"说人话"——GPT-3 虽然强大但输出不稳定，
+  InstructGPT/GPT-3.5 通过 RLHF 实现了质的飞跃。
+
+  RLHF 包含三步：
+  1. SFT — 人工标注优质回答，监督微调
+  2. Reward Model — 人工比较多个回答，训练奖励模型
+  3. PPO — 用强化学习优化模型，最大化奖励
+
+  RLHF 是当前所有主流 Chat/Agent 模型的核心训练技术。
+  它的延续包括 DPO（Direct Preference Optimization）、
+  Constitutional AI 等改进方法。
+
+background: |
+  2017 年 OpenAI 和 DeepMind 同时发表 RLHF 相关论文。
+  2022 年 OpenAI 用 RLHF 训练 InstructGPT（→ ChatGPT）。
+  2023 年 Anthropic 提出 Constitutional AI（RLHF 改进版）。
+  2024 年 DPO 等简化方法出现。
+
+related:
+  - chatgpt
+  - constitutional-ai
+  - alignment
+  - gpt-3
+  - transformer
+
+influenced:
+  - chatgpt
+  - claude-series
+  - instructgpt
+  - alignment-research
+
+timeline:
+  - date: 2017-06
+    event: RLHF 论文发表
+  - date: 2022-01
+    event: OpenAI 用 RLHF 训练 InstructGPT
+  - date: 2022-11
+    event: ChatGPT 发布（基于 RLHF）
+  - date: 2023-05
+    event: Anthropic 提出 Constitutional AI
+
+sources:
+  paper: https://arxiv.org/abs/1706.03741
+
+domain: "training"

@@ -1,0 +1,67 @@
+id: prompt-engineering
+name: Prompt Engineering
+type: methodology
+release_date: 2020-05-28
+status: active
+tags:
+  - prompt
+  - llm
+  - technique
+  - few-shot
+  - chain-of-thought
+  - system-prompt
+importance: 5
+confidence: confirmed
+
+summary: |
+  设计和优化 LLM 提示词的方法论集合，包括 Few-Shot、Chain-of-Thought、
+  System Prompt 设计、结构化输出等核心技术。
+
+significance: |
+  Prompt Engineering 是使用 LLM 最基础的技能，也是所有 AI Agent
+  和 AI 应用构建的起点。GPT-3 时代证明了"好的 prompt = 好的结果"。
+
+  随着模型能力增强，"写 prompt"的重要性似乎下降，
+  但 Structured Output、System Prompt 设计、Multi-turn Prompting
+  等高级技术反而更加关键。
+
+  2024-2026 年的趋势是从 "Prompt Engineering" 升级到
+  "Context Engineering"——管理 AI 看到的一切。
+
+domain: "提示词设计"
+
+background: |
+  GPT-3 论文（2020）首次证明了 Few-Shot Prompting 的有效性——
+  不需要微调，只需在 prompt 中给几个例子，模型就能完成新任务。
+  CoT 论文（2022）进一步展示了推理链 prompt 的力量。
+  ChatGPT（2022-11）让 Prompt Engineering 从研究技能变成大众技能。
+  2024 年起行业从 "Prompt Engineering" 升级到 "Context Engineering"。
+
+source_articles:
+  - "Language Models are Few-Shot Learners (GPT-3 paper)"
+  - "Chain-of-Thought Prompting Elicits Reasoning (Wei et al.)"
+  - Anthropic Prompt Library
+
+related:
+  - gpt-3
+  - context-engineering
+  - rlhf
+  - llm
+
+influenced:
+  - context-engineering
+  - prompt-engineering-tools
+  - ai-workflow
+
+timeline:
+  - date: 2020-05
+    event: GPT-3 论文证明 Few-Shot Prompting
+  - date: 2022-01
+    event: Chain-of-Thought Prompting 论文
+  - date: 2022-11
+    event: ChatGPT 发布，Prompt Engineering 大众化
+  - date: 2024
+    event: 从 Prompt Engineering → Context Engineering
+
+sources:
+  paper: https://arxiv.org/abs/2201.11903

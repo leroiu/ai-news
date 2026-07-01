@@ -1,0 +1,89 @@
+# ============================================================
+# Knowledge Card: AlphaGo vs Lee Sedol
+# ============================================================
+
+id: alphago-lee-sedol
+name: AlphaGo 击败李世石
+type: event
+aliases:
+  - AlphaGo vs Lee Sedol
+  - AlphaGo 李世石
+  - 人机围棋大战
+
+release_date: 2016-03-15
+status: active
+
+tags:
+  - milestone
+  - game
+  - deepmind
+  - reinforcement-learning
+  - ai-history
+  - breakthrough
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  DeepMind 的 AlphaGo 以 4:1 击败围棋世界冠军李世石，
+  是 AI 首次在围棋这一人类最复杂棋类上战胜顶级人类选手。
+
+significance: |
+  AlphaGo 战胜李世石是 AI 史上最重要的里程碑事件之一。
+
+  围棋曾被公认为 AI 最难攻克的棋类——搜索空间远超国际象棋
+  （约 10^170 种可能），计算机不可能靠暴力搜索取胜。
+
+  AlphaGo 的成功证明了深度强化学习的巨大潜力，直接触发了：
+  - 全球 AI 投资热潮（2016-2017 年翻倍增长）
+  - DeepMind 被 Google 收购后的第一次重大突破
+  - 普通大众首次真正感受到 AI 的"威胁与机遇"
+  - 中国将 AI 提升为国家战略（2017 年《新一代人工智能发展规划》）
+
+  这一事件标志着 AI 从"学术研究"进入"公众视野"的转折点。
+
+background: |
+  2014 年 Google 以 $500M+ 收购 DeepMind。
+  2015 年 AlphaGo 击败欧洲围棋冠军樊麾（5:0），首次引起关注。
+  2016 年 3 月 9-15 日，AlphaGo 在首尔与李世石进行五番棋对决。
+
+  李世石是围棋九段，职业生涯获得 18 个世界冠军。
+  赛前绝大多数围棋专家预测李世石将轻松获胜。
+
+  结果：AlphaGo 4:1 获胜。李世石在第 4 局下出"神之一手"
+  （第 78 手），扳回一局——这可能是人类对 AlphaGo 的唯一一胜。
+  之后 AlphaGo Master（2017）和 AlphaGo Zero（2017）
+  以更大优势碾压所有人类选手。
+
+related:
+  - deepmind
+  - transformer
+  - gpt-3
+  - alphago-zero
+
+influenced:
+  - china-ai-policy
+  - deepmind-acquisition
+  - public-ai-awareness
+
+timeline:
+  - date: 2014-01
+    event: Google 收购 DeepMind（$500M+）
+  - date: 2015-10
+    event: AlphaGo 5:0 击败欧洲围棋冠军樊麾
+  - date: 2016-03-09
+    event: AlphaGo vs 李世石 五番棋开始
+  - date: 2016-03-12
+    event: AlphaGo 3:0 领先，已确定获胜
+  - date: 2016-03-13
+    event: 李世石第 78 手"神之一手"，第 4 局扳回一城
+  - date: 2016-03-15
+    event: AlphaGo 4:1 最终获胜
+  - date: 2017-05
+    event: AlphaGo Master 3:0 击败世界第一柯洁
+  - date: 2017-10
+    event: AlphaGo Zero 发布 — 完全自学，超越所有前代
+
+sources:
+  wikipedia: https://en.wikipedia.org/wiki/AlphaGo_versus_Lee_Sedol
+  deepmind: https://deepmind.google/research/breakthroughs/alphago/

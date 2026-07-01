@@ -1,0 +1,102 @@
+# ============================================================
+# Knowledge Card: NVIDIA
+# ============================================================
+
+id: nvidia
+name: NVIDIA
+type: company
+aliases:
+  - NVIDIA
+  - nvidia
+  - Nvidia
+  - 英伟达
+
+release_date: 1993-04
+status: active
+
+ceo: Jensen Huang
+headquarters: Santa Clara, California, USA
+
+tags:
+  - hardware
+  - gpu
+  - cuda
+  - ai-chip
+  - infrastructure
+  - data-center
+  - robotics
+  - autonomous-driving
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  全球最大的 AI 芯片公司，GPU 市占率超 90%。
+  CUDA 生态构成了 AI 产业的底层基础设施护城河。
+
+significance: |
+  NVIDIA 是 AI 时代的"卖铲人"——不管谁赢得 AGI 竞赛，
+  都需要 NVIDIA 的 GPU。
+
+  2022 年 ChatGPT 发布后，NVIDIA 从一家游戏显卡公司
+  变成了全球最重要的 AI 基础设施公司：
+  - 数据中心营收超过游戏，成为最大业务
+  - H100/A100 GPU 一卡难求，等待周期长达数月
+  - 市值从 2022 年的 $400B 飙升至 2025 年的 $3T+
+  - 成为继 Apple、Microsoft 之后的第三家 $3T 公司
+
+  NVIDIA 的战略不只是卖芯片：
+  - CUDA：软件生态锁定，AMD/Intel 难以替代
+  - DGX/GB200：从芯片到整机柜的全栈方案
+  - Omniverse：数字孪生平台
+  - 自动驾驶（Drive）+ 机器人（Isaac/Jetson）
+
+  竞争格局：AMD（MI300X）、Intel（Gaudi）、Google（TPU）、
+  Amazon（Trainium）都在追赶，但 CUDA 生态的 20 年积累
+  短期内无法替代。
+
+background: |
+  1993 年 Jensen Huang 等三人创立 NVIDIA，专注图形处理器。
+  1999 年发明 GPU（GeForce 256）。
+  2006 年发布 CUDA，开启了 GPU 通用计算时代。
+  2012 年 AlexNet 用 GTX 580 训练，AI 与 GPU 深度绑定。
+  2016 年 Pascal P100 是首个专为 AI 设计的 GPU。
+  2020 年 A100 发布，成为 AI 训练黄金标准。
+  2022 年 H100 发布，ChatGPT 时代一卡难求。
+  2024 年 B200/GB200 发布，万亿参数模型训练平台。
+  2025 年市值突破 $3T。
+
+related:
+  - jensen-huang
+  - cuda
+  - pytorch
+  - gpt-4
+  - deepseek-v3
+
+influenced:
+  - cuda
+  - pytorch
+  - ai-hardware
+  - data-center
+
+timeline:
+  - date: 1993-04
+    event: NVIDIA 成立
+  - date: 1999
+    event: 发明 GPU (GeForce 256)
+  - date: 2006
+    event: CUDA 发布
+  - date: 2016
+    event: Pascal P100，首个 AI 专用 GPU
+  - date: 2020
+    event: A100 发布
+  - date: 2022
+    event: H100 发布
+  - date: 2024
+    event: B200/GB200 发布
+  - date: 2025
+    event: 市值突破 $3T
+
+sources:
+  official: https://www.nvidia.com
+  wikipedia: https://en.wikipedia.org/wiki/Nvidia

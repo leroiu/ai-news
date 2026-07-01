@@ -1,0 +1,77 @@
+# ============================================================
+# Knowledge Card: Kimi
+# ============================================================
+
+id: kimi
+name: Kimi (月之暗面)
+type: product
+aliases:
+  - Kimi
+  - kimi
+  - 月之暗面
+  - Moonshot AI
+  - Kimi Chat
+  - Kimi K2
+
+release_date: 2023-10-09
+status: active
+
+company: Moonshot AI (月之暗面)
+creators:
+  - 杨植麟
+  - Moonshot AI
+
+tags:
+  - llm
+  - chatbot
+  - chinese
+  - long-context
+  - moonshot
+  - agent
+
+importance: 3
+confidence: confirmed
+
+summary: |
+  中国最具影响力的 AI 聊天产品之一，以超长上下文（200 万 token）
+  著称，由月之暗面（Moonshot AI）开发，杨植麟创立。
+
+significance: |
+  Kimi 是中国 AI 应用层最成功的产品之一。
+  它以"超长上下文"作为差异化优势——一次可处理 200 万字，
+  相当于三本《三体》，远超同期竞品。
+
+  Kimi 的快速增长展示了"产品差异化"在 AI 赛道的重要性——
+  不一定要模型最强，但要在用户最需要的功能上做到极致。
+
+  月之暗面（Moonshot AI）由清华系 AI 研究者杨植麟创立，
+  获阿里、红杉等顶级机构投资，是中国 AI 创业公司的代表。
+
+background: |
+  2023 年 4 月月之暗面成立，杨植麟（清华/CMU）任 CEO。
+  2023 年 10 月 Kimi Chat 上线。
+  2024 年 Kimi 长上下文能力扩展到 200 万 token。
+  2025 年 Kimi K2 发布，引入 Agent 能力。
+  2026 年在国产模型和 AI Agent 领域持续迭代。
+
+related:
+  - deepseek-v3
+  - chatgpt
+  - claude-fable-5
+  - chinese-ai
+
+influenced:
+  - chinese-ai-chatbot-market
+
+timeline:
+  - date: 2023-04
+    event: 月之暗面成立
+  - date: 2023-10-09
+    event: Kimi Chat 上线
+  - date: 2024-03
+    event: 200 万 token 长上下文支持
+  - date: 2025
+    event: Kimi K2 发布（Agent 能力）
+
+sources:
+  official: https://kimi.moonshot.cn

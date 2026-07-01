@@ -1,0 +1,171 @@
+# ==============================================================
+# AI News 配置文件
+# 修改 RSS 源、分类体系、用户兴趣，无需改动代码
+# ==============================================================
+
+# --- RSS 源 ---
+# 每个源: name (显示名称), url (RSS/Atom 地址), enabled (是否启用)
+sources:
+  - name: "TechCrunch AI"
+    url: "https://techcrunch.com/category/artificial-intelligence/feed/"
+    enabled: true
+
+  - name: "The Verge AI"
+    url: "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml"
+    enabled: true
+
+  - name: "ArXiv AI"
+    url: "https://rss.arxiv.org/rss/cs.AI"
+    enabled: true
+    note: "仅工作日更新，周末无内容属于正常行为"
+
+  - name: "VentureBeat AI"
+    url: "https://venturebeat.com/category/ai/feed/"
+    enabled: true
+
+  - name: "MIT Technology Review AI"
+    url: "https://www.technologyreview.com/feed/"
+    enabled: true
+
+  - name: "Hacker News (AI 相关)"
+    url: "https://hnrss.org/frontpage?q=ai+OR+llm+OR+gpt+OR+claude+OR+agent+OR+openai+OR+anthropic"
+    enabled: true
+
+  - name: "OpenAI Blog"
+    url: "https://openai.com/blog/rss.xml"
+    enabled: true
+
+  - name: "Anthropic Research"
+    url: "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_research.xml"
+    enabled: true
+    note: "社区维护源，非官方 RSS。Anthropic 暂不提供官方 RSS"
+
+  - name: "Anthropic Engineering"
+    url: "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_engineering.xml"
+    enabled: true
+    note: "社区维护源"
+
+  - name: "Google AI Blog"
+    url: "https://blog.research.google/feeds/posts/default?category=AI"
+    enabled: true
+
+  - name: "DeepMind Blog"
+    url: "https://deepmind.google/blog/rss.xml"
+    enabled: true
+
+  - name: "Reddit r/MachineLearning"
+    url: "https://www.reddit.com/r/MachineLearning/.rss"
+    enabled: true
+    note: "Reddit ML 社区，学术+工业前沿讨论"
+
+  - name: "Reddit r/artificial"
+    url: "https://www.reddit.com/r/artificial/.rss"
+    enabled: true
+    note: "Reddit AI 综合社区"
+
+  - name: "Hacker News (全部)"
+    url: "https://hnrss.org/frontpage"
+    enabled: true
+    note: "HN 首页（未过滤），与 AI 过滤版互补覆盖更广"
+
+  - name: "GitHub Trending (Python)"
+    url: "https://github.com/trending/python?since=daily"
+    type: "html"
+    enabled: true
+    note: "HTML 解析，BeautifulSoup 提取仓库信息"
+
+  - name: "ArXiv CS.CL"
+    url: "https://rss.arxiv.org/rss/cs.CL"
+    enabled: true
+    note: "计算语言学，与大模型相关度高"
+
+# --- 分类体系 ---
+# AI 将根据此分类体系为每篇文章分配标签
+categories:
+  - "大模型发布"
+  - "开源模型"
+  - "Agent"
+  - "编程/AI Coding"
+  - "视频生成"
+  - "图像生成"
+  - "语音"
+  - "机器人"
+  - "芯片/算力"
+  - "融资/商业"
+  - "论文/研究"
+  - "政策/监管"
+  - "安全/对齐"
+  - "工具/平台"
+  - "行业应用"
+  - "人物/观点"
+
+# --- 用户兴趣 ---
+# 权重影响评分。高权重内容得分更高。
+interests:
+  high:
+    - "Claude Code"
+    - "AI Agent"
+    - "MCP"
+    - "DeepSeek"
+    - "Kimi"
+    - "AI Coding"
+  medium:
+    - "AI 自动化工作流"
+    - "AI 创业"
+    - "国产大模型"
+    - "开源模型发布"
+    - "RAG"
+  low:
+    - "AI 绘画"
+    - "AI 音乐"
+    - "纯学术论文"
+    - "视频生成"
+
+# --- 评分 ---
+scoring:
+  # 评分维度权重
+  weights:
+    industry_impact: 0.40     # 行业影响力
+    technical_breakthrough: 0.25  # 技术突破性
+    user_relevance: 0.25      # 用户相关性
+    information_uniqueness: 0.10  # 信息独特性
+
+  # 星级阈值
+  thresholds:
+    star_5: 85   # 85分以上 ★★★★★
+    star_4: 70   # 70-84分  ★★★★
+    star_3: 50   # 50-69分  ★★★
+    star_2: 30   # 30-49分  ★★
+    star_1: 0    # 0-29分   ★
+
+# --- 去重 ---
+dedup:
+  # URL 精确匹配 (始终启用)
+  url_exact: true
+  # 标题相似度阈值 (0-1, 0 禁用)
+  title_similarity: 0.85
+  # 缓存窗口 (天)
+  cache_days: 7
+
+# --- 输出 ---
+output:
+  # 日报输出目录
+  reports_dir: "reports"
+  # 是否只输出高评分文章 (>= 3星)
+  min_score: 3
+
+# --- 嵌入向量（语义搜索）---
+# Provider 可插拔: siliconflow (默认) | openai | kimi | local
+embeddings:
+  provider: siliconflow
+  # 混合搜索权重: 0.0 = 纯语义, 1.0 = 纯关键词
+  alpha: 0.3
+
+# --- 抓取 ---
+fetch:
+  # 单源超时 (秒)
+  timeout: 30
+  # 并发请求数
+  concurrency: 5
+  # 只保留最近 N 小时的文章，避免旧闻刷屏（如 OpenAI Blog 可能返回大量历史文章）
+  max_age_hours: 72

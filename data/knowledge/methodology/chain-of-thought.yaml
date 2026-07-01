@@ -1,0 +1,67 @@
+id: chain-of-thought
+name: Chain-of-Thought (CoT)
+type: methodology
+release_date: 2022-01-28
+status: active
+tags:
+  - reasoning
+  - prompt
+  - llm
+  - technique
+  - few-shot
+  - math
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  让 LLM 在给出最终答案前先展示中间推理步骤的方法论。
+  是提升 LLM 数学/逻辑/编程能力的核心技术。
+
+significance: |
+  CoT 是 2022 年以来 LLM 推理能力飞跃的关键方法。
+  从最初的 "Let's think step by step" 到 DeepSeek R1
+  的数千 Token 长推理链，CoT 已经从 Prompt 技巧演化成
+  模型训练的核心目标。
+
+  CoT 的变体包括：
+  - Zero-shot CoT: "Let's think step by step"
+  - Few-shot CoT: 给出推理示例
+  - Self-Consistency: 多次 CoT 采样后投票
+  - Tree-of-Thoughts: 分支探索 + 回溯
+  - Auto-CoT: 自动生成推理链
+
+  2025 年 DeepSeek R1 证明了纯 RL 就能训练出 CoT 推理能力。
+
+domain: "推理增强"
+
+background: |
+  2022 年 1 月 Google Brain 发表 CoT 论文，发现给 LLM 几个
+  "展示推理步骤"的示例，模型就会模仿并生成自己的推理链。
+  Zero-shot CoT（2022-05）发现甚至不需要示例。
+  Self-Consistency（2022）进一步提升可靠性：多次采样后投票。
+  Tree-of-Thoughts（2023）引入分支搜索和回溯。
+  2025 年 DeepSeek R1 证明了纯 RL 就能训练出强大的推理链。
+
+source_articles:
+  - "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models (Wei et al., 2022)"
+  - "Self-Consistency Improves Chain of Thought Reasoning (Wang et al., 2022)"
+
+related:
+  - prompt-engineering
+  - deepseek-r1
+  - reflection
+  - planning
+
+timeline:
+  - date: 2022-01
+    event: CoT 论文发表（Wei et al., Google Brain）
+  - date: 2022-05
+    event: Zero-shot CoT（Kojima et al.）
+  - date: 2023
+    event: Tree-of-Thoughts / Graph-of-Thoughts
+  - date: 2025-01
+    event: DeepSeek R1 纯 RL 训练 CoT
+
+sources:
+  paper: https://arxiv.org/abs/2201.11903

@@ -1,0 +1,77 @@
+id: greg-brockman
+name: Greg Brockman
+type: person
+aliases:
+  - Greg Brockman
+  - Brockman
+
+release_date: 1987
+status: active
+
+company: OpenAI
+creators: []
+
+tags:
+  - person
+  - executive
+  - openai
+  - engineering
+  - stripe
+
+importance: 3
+confidence: confirmed
+
+summary: |
+  OpenAI 联合创始人兼总裁，前 Stripe CTO。
+  将 OpenAI 从研究实验室转型为工程驱动的产品公司。
+
+significance: |
+  Greg Brockman 是 OpenAI 工程化的关键推动者。他在 Stripe
+  期间积累了大规模分布式系统工程经验，将这种"硅谷工程文化"
+  带入了偏学术的 AI 研究环境。
+
+  他是 GPT-4 训练的关键技术负责人，以"动手写代码的 President"著称。
+  2023 年 Altman 被解雇时，Brockman 辞去董事会主席职位以示抗议，
+  随后一同回归。2025 年中宣布休假至年底。
+
+background: |
+  MIT 辍学，Stripe 创始工程师（第 1 号员工），
+  2015 年离开 Stripe 联合创立 OpenAI。
+
+  核心贡献：GPT-4 训练基础设施、OpenAI API 平台。
+
+related:
+  - openai
+  - gpt-4
+  - sam-altman
+  - ilya-sutskever
+
+influenced:
+  - openai
+  - gpt-4
+
+timeline:
+  - date: 1987
+    event: 出生于美国
+  - date: 2010
+    event: 加入 Stripe（第 1 号员工 → CTO）
+  - date: 2015-12
+    event: 联合创立 OpenAI
+  - date: 2022-2023
+    event: GPT-4 训练技术负责人
+  - date: 2023-11
+    event: 辞去董事会主席（与 Altman 同进退）
+  - date: 2025
+    event: 宣布休假至年底
+
+sources:
+  wikipedia: https://en.wikipedia.org/wiki/Greg_Brockman
+
+role: President & Co-founder
+affiliations:
+  - openai
+  - stripe (former)
+known_for:
+  - OpenAI 联合创始人
+  - GPT-4 训练负责人
+  - Stripe 创始 CTO

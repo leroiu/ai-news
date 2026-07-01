@@ -1,0 +1,65 @@
+id: harness-engineering
+name: Harness Engineering
+type: methodology
+tags:
+- agent
+- engineering
+- reliability
+- testing
+- deployment
+- anthropic
+- tool-use
+importance: 4
+confidence: confirmed
+summary: 'Anthropic 提出的 Agent 工程方法论，强调将 AI Agent 视为软件系统进行设计和测试，
+
+  而非黑箱提示词。
+
+  '
+significance: 'Harness Engineering 是 AI Agent 从"提示词魔法"走向"软件工程"的转折点。
+
+  核心思想：Agent 不是模型，而是一个包含模型、工具、记忆、环境的软件系统。
+
+  应该用软件工程的 discipline 来设计、测试、部署和监控 Agent。
+
+
+  这直接影响了 Claude Code、MCP、AI 编程工具的设计哲学。
+
+  也是理解 Anthropic 产品思路的关键概念。
+
+  '
+domain: Agent 工程
+source_articles:
+- Building effective agents — Anthropic Blog (2024-12)
+- The long-running agent problem — Anthropic Research
+related:
+- anthropic
+- mcp
+- claude-fable-5
+- agent
+depends_on:
+- agent
+- tool-use
+influenced:
+- claude-code
+- agent-engineering-practices
+evolution:
+- date: 2024-12
+  event: Anthropic 发表 "Building effective agents"
+- date: 2025-05
+  event: Claude Code 采用 Harness Engineering 模式
+- date: 2026-06
+  event: MCP + Harness Engineering 成为 AI Agent 主流范式
+sources:
+  official: https://www.anthropic.com/research/building-effective-agents
+timeline:
+- date: 2023-11
+  event: Anthropic 内部开始实践 Harness Engineering 理念
+- date: 2024-06
+  event: Claude Code 内部开发中，"把 Agent 当软件测试" 的工程范式成形
+- date: 2025-01
+  event: Anthropic 工程师公开分享 Harness Engineering 方法论（博客/Twitter）
+- date: 2025-03
+  event: Claude Code 正式发布，Tool/Agent/Hook 三层架构体现 Harness Engineering 核心思想
+- date: 2025-06
+  event: Harness Engineering 被社区广泛接受，成为 Agent 开发的事实工程标准

@@ -1,0 +1,114 @@
+# ============================================================
+# Knowledge Card: AI Agent
+# ============================================================
+
+id: ai-agent
+name: AI Agent
+type: concept
+aliases:
+  - AI Agent
+  - AI 智能体
+  - LLM Agent
+  - Autonomous Agent
+  - 智能体
+  - agent
+  - agents
+  - agentic
+  - agentic-ai
+
+release_date: 2023-03
+status: active
+
+tags:
+  - agent
+  - llm
+  - tool-use
+  - planning
+  - autonomous
+  - multi-agent
+  - coding-agent
+  - gui-agent
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  AI Agent 是具备自主感知、规划、执行能力的 AI 系统。
+  以 LLM 为核心引擎，通过工具调用、记忆管理和多步推理在真实环境中完成复杂任务。
+
+significance: |
+  AI Agent 代表了 AI 应用范式的根本转变——从"一问一答"到"自主完成任务"。
+
+  2023-2026 年间，Agent 从学术概念演进为工业级产品：
+  - 编程 Agent（Cursor, Claude Code, Codex, Devin）彻底改变了软件开发流程
+  - GUI Agent（Computer Use, Operator）让 AI 能操作图形界面
+  - 多 Agent 系统（AutoGen, CrewAI）实现了复杂任务的分解与协作
+  - 垂直 Agent（客服、销售、法律、医疗）在各行业落地
+
+  Agent 是当前 AI 领域最活跃的研究和创业方向，也是通向 AGI 的关键路径之一。
+  2024 年被 Andrew Ng 称为"Agentic AI 元年"，2025-2026 年开始进入规模化部署阶段。
+
+background: |
+  AI Agent 的概念可追溯到 1990 年代的智能 Agent 研究，但真正爆发是在
+  LLM 成熟之后（ChatGPT + Function Calling, 2023）。
+
+  核心技术栈：
+  - LLM 作为推理引擎
+  - Tool Use / Function Calling 扩展能力边界
+  - Memory Architecture 维持长期上下文
+  - Planning + Reflection 提升任务成功率
+  - Multi-Agent Orchestration 处理复杂任务
+
+  关键里程碑：
+  - 2023-03: GPT-4 Function Calling → 第一个可用的 LLM Agent 基座
+  - 2023-10: AutoGPT/BabyAGI 引爆开源 Agent 热潮
+  - 2024-03: Devin（首个 AI 软件工程师）引发争议
+  - 2024-10: Anthropic Computer Use → Agent 操作 GUI
+  - 2025-01: OpenAI Operator → 消费级 Agent 产品
+  - 2026: Agent 进入企业核心业务流程
+
+related:
+  - gpt-4
+  - claude
+  - tool-use
+  - planning
+  - memory-architecture
+  - multi-agent-systems
+  - agent-orchestration
+  - context-engineering
+  - harness-engineering
+  - long-running-agent
+  - cursor
+  - github-copilot
+
+depends_on:
+  - llm
+  - tool-use
+  - function-calling
+
+influenced:
+  - coding-agent
+  - gui-agent
+  - multi-agent-systems
+  - autonomous-vehicle
+  - robotic-agent
+
+timeline:
+  - date: 2023-03
+    event: GPT-4 Function Calling → Agent 基座出现
+  - date: 2023-10
+    event: AutoGPT / BabyAGI 引爆开源 Agent 热潮
+  - date: 2024-03
+    event: Devin（首个 AI 软件工程师）发布
+  - date: 2024-10
+    event: Anthropic Computer Use — Agent 能操作 GUI
+  - date: 2025-01
+    event: OpenAI Operator — 消费级 Agent 产品
+  - date: 2025-06
+    event: MCP 协议标准化 → Agent 工具生态统一
+  - date: 2026
+    event: Agent 规模化部署 — 进入企业核心流程
+
+sources:
+  paper: https://arxiv.org/abs/2308.11432
+  anthropic: https://www.anthropic.com/research

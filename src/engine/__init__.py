@@ -1,0 +1,1 @@
+"""Engine layer — AI engine and data processing. May import from interfaces/."""

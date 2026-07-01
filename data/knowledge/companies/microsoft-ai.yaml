@@ -1,0 +1,89 @@
+id: microsoft-ai
+name: Microsoft AI
+type: company
+aliases:
+  - Microsoft AI
+  - Microsoft
+  - MS AI
+  - MSFT
+
+release_date: 2019-07
+status: active
+
+creators:
+  - Satya Nadella
+  - Kevin Scott
+
+tags:
+  - company
+  - cloud
+  - openai-partner
+  - copilot
+  - enterprise-ai
+  - azure
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  Microsoft 是全球最大的 AI 产品分发商，OpenAI 的战略合作伙伴。
+  Copilot 已嵌入 Office 365、Windows、GitHub 和 Azure 全系产品。
+
+significance: |
+  Microsoft 的 AI 策略是"并不需要拥有最好的模型，只需要将 AI
+  送达最多的用户"。2019 年以来对 OpenAI 累计投资超 $18B，
+  换取 OpenAI 技术的独家商业授权和 Azure 独家算力供应权。
+
+  Copilot 品牌覆盖了几乎全线产品：
+  - GitHub Copilot（代码领域绝对王者）
+  - Microsoft 365 Copilot（Office 全家桶 AI）
+  - Windows Copilot（操作系统级 AI 助手）
+  - Azure AI（企业 LLM 部署平台）
+
+  2025-2026 年 Microsoft 是 AI 收入最大的受益者之一，
+  Azure 增速直接受益于 OpenAI 和其他 AI 负载。
+
+background: |
+  2019 年首次投资 OpenAI $1B。
+  2023 年追加 $10B（OpenAI 并入 Azure 基础架构）。
+  2024 年 Microsoft 365 Copilot 全面上线。
+  2025-2026 年每年 AI 资本支出超 $80B。
+
+related:
+  - openai
+  - gpt-4
+  - github-copilot
+  - chatgpt
+  - azure
+
+influenced:
+  - github-copilot
+  - enterprise-ai
+  - ai-product-distribution
+
+timeline:
+  - date: 2019-07
+    event: 投资 OpenAI $1B
+  - date: 2021-06
+    event: GitHub Copilot 发布
+  - date: 2023-01
+    event: 追加投资 OpenAI $10B
+  - date: 2024-01
+    event: Microsoft 365 Copilot 全面上线
+  - date: 2024-05
+    event: Copilot+ PC 发布（AI 芯片集成）
+  - date: 2025-2026
+    event: 年 AI CapEx $80B+
+
+sources:
+  official: https://www.microsoft.com/ai
+
+headquarters: "Redmond, WA"
+founded: 2019 (AI division)
+funding_total: "内部资金 (Microsoft Corporation)"
+business_model: "Copilot 订阅 + Azure AI 云服务 + OpenAI 利润分成"
+key_products:
+  - github-copilot
+  - microsoft-365-copilot
+  - azure-ai
+  - windows-copilot

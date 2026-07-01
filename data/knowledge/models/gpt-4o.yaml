@@ -1,0 +1,99 @@
+# ============================================================
+# Knowledge Card: GPT-4o (Omni)
+# ============================================================
+
+id: gpt-4o
+name: GPT-4o
+type: model
+aliases:
+  - GPT-4o
+  - GPT4o
+  - GPT-4 Omni
+  - gpt4o
+
+release_date: 2024-05-13
+status: active
+
+company: OpenAI
+creators:
+  - OpenAI
+
+tags:
+  - llm
+  - multimodal
+  - omnimodal
+  - speech
+  - vision
+  - openai
+  - chatgpt
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  OpenAI 的首个全模态旗舰模型，统一处理文本、图像和音频。
+  推理速度比 GPT-4 Turbo 快 2 倍、成本降低 50%，成为 ChatGPT 的默认引擎。
+
+significance: |
+  GPT-4o 是 OpenAI 向"全能模型"迈出的关键一步：
+  - 原生多模态：不再需要独立的 vision/speech 模块，一个模型处理所有输入
+  - 实时语音：平均响应 320ms，接近人类对话速度
+  - 成本大幅下降：让多模态 AI 真正面向大众
+
+  GPT-4o 标志着 LLM 从"文本理解"进入"全感官理解"时代。
+  它的实时语音能力直接催生了 2025 年 OpenAI Operator 等 Agent 产品。
+
+  对中国市场：GPT-4o 不可直接使用，但推动了国内全模态模型的追赶
+  （如 Qwen-VL、DeepSeek-VL 等）。
+
+background: |
+  2024 年 5 月，OpenAI 通过一场备受关注的直播发布 GPT-4o。
+  "o" 代表 "omni"（全能），强调模型的跨模态统一处理能力。
+
+  关键技术特性：
+  - 统一架构处理文本/图像/音频（单模型而非多模型管道）
+  - 232ms 平均语音延迟（人耳感知为"实时"）
+  - 128K 上下文窗口
+  - 免费提供给 ChatGPT 用户（此前 GPT-4 需 Plus 订阅）
+  - 多语言性能显著提升（含中文）
+
+  发布当天 OpenAI 股价上涨，被广泛视为对 Google Gemini 的直接回应。
+
+related:
+  - gpt-4
+  - gpt-5
+  - chatgpt
+  - openai
+  - gemini-2-5
+  - claude-opus-4-8
+  - multimodal-llm
+
+depends_on:
+  - gpt-4
+  - transformer
+  - rlhf
+
+influenced:
+  - gpt-5
+  - omnimodal-llm
+
+parameters: "未公开（估计 1T+ MoE）"
+modalities:
+  - text
+  - image
+  - audio
+license: proprietary
+architecture: MoE (推测)
+
+timeline:
+  - date: 2024-05-13
+    event: GPT-4o 正式发布（文本/图像/音频统一模型）
+  - date: 2024-06
+    event: GPT-4o 语音模式逐步推送
+  - date: 2024-08
+    event: GPT-4o 微调功能上线
+  - date: 2025
+    event: GPT-4o 成为 Operator Agent 的核心引擎
+
+sources:
+  official: https://openai.com/index/hello-gpt-4o/

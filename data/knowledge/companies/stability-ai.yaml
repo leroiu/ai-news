@@ -1,0 +1,83 @@
+id: stability-ai
+name: Stability AI
+type: company
+aliases:
+  - Stability AI
+  - Stability
+
+release_date: 2019
+status: active
+
+creators:
+  - Emad Mostaque
+
+tags:
+  - company
+  - image-generation
+  - open-source
+  - stable-diffusion
+  - generative-ai
+  - startup
+
+importance: 3
+confidence: confirmed
+
+summary: |
+  Stable Diffusion 的母公司，开源图像生成革命的发起者。
+  经历管理层动荡后转型为商业化 AI 媒体工具公司。
+
+significance: |
+  Stability AI 2022 年 8 月发布 Stable Diffusion——
+  首个可以运行在家用 GPU 上的高质量文本生成图像模型。
+  这在当时是革命性的：让图像生成从 OpenAI DALL-E 的"云端特权"
+  变成了"人人可用"。
+
+  Stable Diffusion 催生了全球数百个衍生工具和插件的生态，
+  ControlNet、LoRA 微调等方法论也因 SD 生态而普及。
+
+  2024 年 CEO Emad Mostaque 离职后公司收缩重组，
+  2025-2026 年专注于 Stable Diffusion 3/4 和 Stable Audio/Video 商业化。
+
+background: |
+  2019 年由 Emad Mostaque 在伦敦创立。
+  2022 年联合 CompVis 等学术团队发布 Stable Diffusion。
+  2024 年管理层重组，Mostaque 离职。
+  2025 年发布 SD3 和 Stable Video Diffusion。
+
+related:
+  - stable-diffusion
+  - lora
+  - openai
+  - midjourney
+  - controlnet
+
+influenced:
+  - stable-diffusion
+  - image-generation
+  - open-source-creative-ai
+
+timeline:
+  - date: 2019
+    event: Stability AI 成立
+  - date: 2022-08-22
+    event: Stable Diffusion 发布（开源图像生成革命）
+  - date: 2022-10
+    event: $101M 种子轮（$1B 估值）
+  - date: 2023
+    event: SDXL 发布
+  - date: 2024-03
+    event: CEO Emad Mostaque 离职
+  - date: 2025-2026
+    event: SD3/4 和 Stable Video Diffusion 商业化
+
+sources:
+  official: https://stability.ai
+
+headquarters: "London, UK"
+founded: 2019
+funding_total: "$150M+"
+business_model: "开源模型 + API + 会员订阅"
+key_products:
+  - stable-diffusion
+  - stable-video-diffusion
+  - stable-audio

@@ -1,0 +1,101 @@
+# ============================================================
+# Knowledge Card: ChatGPT
+# ============================================================
+
+id: chatgpt
+name: ChatGPT
+type: product
+aliases:
+  - ChatGPT
+  - chatgpt
+  - Chat GPT
+  - GPT Chat
+  - ChatGPT Plus
+
+release_date: 2022-11-30
+status: active
+
+company: OpenAI
+creators:
+  - OpenAI
+
+tags:
+  - product
+  - chatbot
+  - consumer
+  - llm
+  - conversational-ai
+  - openai
+  - subscription
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  史上增长最快的消费级应用之一——2 个月破亿用户。
+  将 LLM 从研究实验室带入大众日常生活，开创了 AI 聊天机器人品类。
+
+significance: |
+  ChatGPT 的发布是 AI 行业的"iPhone 时刻"。它让普通人第一次
+  直观感受到大语言模型的能力，直接触发了：
+
+  - 全球 AI 投资狂潮（2023-2024 年 AI 融资超 $100B）
+  - Google 发布 Bard/Gemini、Anthropic 推出 Claude、中国大模型热潮
+  - AI 安全与监管成为全球政策议题
+  - "提示工程"成为一个新职业
+
+  ChatGPT 证明了"1 个对话界面 + 1 个好模型"就是
+  一个杀手级产品。这个范式至今仍是最成功的 AI 产品形态。
+
+background: |
+  ChatGPT 建立在 GPT-3.5 之上，通过 RLHF（人类反馈强化学习）
+  微调，使其能进行自然对话、拒绝不当请求、保持上下文连贯。
+
+  最初作为"免费研究预览"发布，团队预期几万用户试用。
+  实际爆发速度远超预期——服务器频繁过载，OpenAI 紧急扩容。
+
+  2023 年 2 月推出 ChatGPT Plus（$20/月），引入 GPT-4 支持。
+  2023 年 11 月推出 GPTs 和 GPT Store。
+  2024 年 5 月推出 macOS/Windows 桌面端。
+  2025 年初引入 Agent 能力（Operator）。
+  2025 年底支持视频对话和实时语音。
+
+related:
+  - gpt-4
+  - gpt-3.5
+  - openai
+  - claude
+  - rlhf
+  - gemini
+
+depends_on:
+  - gpt-3.5
+  - rlhf
+
+influenced:
+  - claude
+  - bard
+  - gemini
+  - deepseek-chat
+  - kimi
+  - consumer-llm-wave
+
+timeline:
+  - date: 2022-11-30
+    event: ChatGPT 免费研究预览发布
+  - date: 2023-01
+    event: 月活用户突破 1 亿（最快纪录）
+  - date: 2023-02-01
+    event: ChatGPT Plus 订阅上线 ($20/月)
+  - date: 2023-03-14
+    event: 支持 GPT-4
+  - date: 2023-11-06
+    event: GPTs 和 GPT Store 发布
+  - date: 2024-05
+    event: 桌面端发布（macOS/Windows）
+  - date: 2025-01
+    event: Operator Agent 能力上线
+
+sources:
+  official: https://chat.openai.com
+  wikipedia: https://en.wikipedia.org/wiki/ChatGPT

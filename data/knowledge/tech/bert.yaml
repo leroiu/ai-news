@@ -1,0 +1,89 @@
+# ============================================================
+# Knowledge Card: BERT
+# ============================================================
+
+id: bert
+name: BERT
+type: tech
+aliases:
+  - BERT
+  - bert
+  - Bidirectional Encoder Representations from Transformers
+
+release_date: 2018-10-11
+status: active
+
+company: Google
+creators:
+  - Jacob Devlin
+  - Ming-Wei Chang
+  - Kenton Lee
+  - Kristina Toutanova
+
+tags:
+  - nlp
+  - encoder
+  - transformer
+  - google
+  - pre-training
+  - understanding
+  - search
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  Google 的双向 Transformer Encoder，革命性的预训练方法。
+  首次实现深度双向上下文理解，在 11 项 NLP 基准测试上刷新纪录。
+
+significance: |
+  BERT 引入的 Masked Language Model (MLM) 预训练范式，
+  让模型可以学习到深层的双向语义理解。它的出现标志着
+  NLP 从"为每个任务训练专用模型"转向"预训练 + 微调"范式。
+
+  BERT 对搜索引擎（Google Search）、问答系统、文本分类等
+  领域产生了深远影响。虽然被 GPT 在生成任务上超越，
+  但在文本理解和搜索排序中仍是核心组件。
+
+  BERT 的架构（Transformer Encoder only）与 GPT（Decoder only）
+  形成了 LLM 的两大分支。
+
+background: |
+  2018 年 10 月 Google 发布 BERT 论文。模型有 BERT-Base (110M)
+  和 BERT-Large (340M) 两个版本。
+
+  关键创新：
+  1. Masked Language Model (MLM) — 随机遮住 15% token
+  2. Next Sentence Prediction (NSP) — 句子关系判断
+  3. 双向注意力 — 不限于从左到右
+
+  随后出现的 RoBERTa、DeBERTa、ALBERT 等均在 BERT 基础上改进。
+  BERT 论文至今是 AI 领域被引最多的论文之一（超 100K 引用）。
+
+related:
+  - transformer
+  - gpt-3
+  - attention-mechanism
+
+depends_on:
+  - transformer
+
+influenced:
+  - roberta
+  - deberta
+  - google-search
+  - pretrain-finetune-paradigm
+
+timeline:
+  - date: 2018-10-11
+    event: BERT 论文发表
+  - date: 2019-10
+    event: Google 将 BERT 应用于搜索
+  - date: 2019-07
+    event: RoBERTa 发布（BERT 改进版）
+
+sources:
+  paper: https://arxiv.org/abs/1810.04805
+  wikipedia: https://en.wikipedia.org/wiki/BERT_(language_model)
+
+category: "预训练"

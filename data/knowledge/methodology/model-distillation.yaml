@@ -1,0 +1,60 @@
+id: model-distillation
+name: Model Distillation
+type: methodology
+release_date: 2015-03-01
+status: active
+tags:
+  - training
+  - efficiency
+  - compression
+  - teacher-student
+  - llm
+
+importance: 3
+confidence: confirmed
+
+summary: |
+  用大模型（Teacher）的输出训练小模型（Student），
+  让小模型继承大模型的能力而参数少得多。
+
+significance: |
+  Distillation 是 AI 商业化的关键技术：让昂贵的推理能力
+  可以部署到手机、浏览器和边缘设备上。
+
+  2023-2024 年 Distillation 在开源模型爆炸中扮演核心角色——
+  GPT-4/Claude 作为 Teacher，输出用于训练开源模型。
+
+  2025 年 DeepSeek R1-Distill 系列将"推理蒸馏"推向新高度——
+  用 R1 生成推理链，蒸馏到 Qwen/Llama 小模型，
+  使小模型也获得了强大的推理能力。
+
+domain: "模型压缩与效率"
+
+background: |
+  2015 年 Hinton 提出知识蒸馏概念——用大模型（Teacher）
+  的输出训练小模型（Student），让小模型继承大模型能力。
+  2023-2024 年 GPT-4/Claude 输出被广泛用于蒸馏开源模型。
+  2025 年 DeepSeek R1-Distill 将"推理蒸馏"推向新高度——
+  用 R1 生成推理链蒸馏到 Qwen/Llama 小模型，
+  使小模型也获得了强大的推理能力。
+
+source_articles:
+  - "Distilling the Knowledge in a Neural Network (Hinton et al., 2015)"
+  - DeepSeek R1 technical report
+
+related:
+  - fine-tuning
+  - deepseek-r1
+  - lora
+  - efficient-llm
+
+timeline:
+  - date: 2015
+    event: Hinton 提出知识蒸馏
+  - date: 2023-2024
+    event: GPT-4 输出用于蒸馏开源模型
+  - date: 2025-01
+    event: DeepSeek R1-Distill 系列
+
+sources:
+  paper: https://arxiv.org/abs/1503.02531

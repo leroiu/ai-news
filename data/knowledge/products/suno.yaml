@@ -1,0 +1,77 @@
+# ============================================================
+# Knowledge Card: Suno
+# ============================================================
+
+id: suno
+name: Suno
+type: product
+aliases:
+  - Suno
+  - Suno AI
+  - Suno.com
+
+release_date: 2023-12
+status: active
+
+company: Suno Inc.
+creators:
+  - Mikey Shulman
+  - Martin Camacho
+  - Georg Kucsko
+  - Keenan Freyberg
+
+tags:
+  - music
+  - audio
+  - generative-ai
+  - creative
+  - consumer
+  - multi-modal
+
+importance: 3
+confidence: confirmed
+
+summary: |
+  AI 音乐生成平台，用户可以通过文字描述（prompt）或歌词
+  生成完整的歌曲，包括旋律、编曲和人声。
+
+significance: |
+  Suno 代表了生成式 AI 向创意领域拓展的重要方向。
+
+  在文本（ChatGPT）、图像（Midjourney）、视频（Sora）
+  之后，AI 音乐是下一个前沿。Suno 让完全没有音乐训练的人
+  也能"创作"歌曲——输入风格描述和歌词，几分钟内生成
+  完整的带人声曲目。
+
+  Suno 引发的技术与法律争议：
+  - 版权问题：AI 音乐能否获得版权？训练数据是否侵权？
+  - 音乐产业变革：与唱片公司合作 vs. 对抗
+  - AI 音乐的"原创性"：创作工具的民主化
+
+  到 2026 年，AI 音乐已成为独立创作者的主流工具之一，
+  Suno 是最受欢迎的平台，月活用户超过千万。
+
+background: |
+  Suno 由前 Kensho/AI 研究者创立，最初聚焦音乐信息检索。
+  2023 年底发布音乐生成功能后爆发式增长。
+  2024 年推出 Suno v3，音乐质量大幅提升。
+  2025 年推出 Suno v4，支持更长曲目和更多风格。
+  2026 年与多家音乐厂牌达成授权合作。
+
+related:
+  - gpt-4
+  - midjourney
+  - sora-announcement
+
+timeline:
+  - date: 2023-12
+    event: Suno 音乐生成功能上线
+  - date: 2024
+    event: Suno v3 发布，质量跃升
+  - date: 2025
+    event: Suno v4 发布，支持更长曲目
+  - date: 2026
+    event: 月活用户超千万
+
+sources:
+  official: https://suno.com

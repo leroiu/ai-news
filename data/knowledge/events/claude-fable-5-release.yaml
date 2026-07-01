@@ -1,0 +1,91 @@
+# ============================================================
+# Knowledge Card: Claude Fable 5 Release
+# ============================================================
+
+id: claude-fable-5-release
+name: Claude Fable 5 / Mythos 5 发布
+type: event
+aliases:
+  - Claude Fable 5 发布
+  - Mythos 5 发布
+  - Fable 5 launch
+  - Claude Mythos
+
+release_date: 2026-06-25
+status: active
+
+tags:
+  - milestone
+  - anthropic
+  - llm
+  - agent
+  - ai-history
+  - breakthrough
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  Anthropic 发布 Claude Fable 5 / Mythos 5，新一代架构 Agent
+  能力达到行业顶峰。因美国政府安全审查，Fable 5 公众版一度延迟，
+  Mythos 5 仅限企业/政府，成为 AI 安全治理的标志性事件。
+
+significance: |
+  Claude Fable 5 / Mythos 5 是 2026 年最重要的 AI 发布之一。
+
+  技术层面：
+  - 新一代 Transformer 变体架构，Agent 长周期任务能力顶级
+  - 推理、编码、Agent 三个维度均达到 SOTA
+  - 证明 Anthropic 的"安全优先"路线同样能产出最强模型
+
+  政策层面（更具历史意义）：
+  - Mythos 5 出口管制——仅授权 100+ 家美国公司和政府机构
+  - 特朗普政府将 AI 模型视为"战略武器"
+  - 引发了"AI 民族主义 vs 全球共享"的激烈辩论
+  - Fable 5 公众版因安全审查延迟发布
+  - 开创了"双版本模型"（公众版/受控版）的先例
+
+  这标志着 AI 已从"科技产品"升级为"地缘政治工具"。
+
+background: |
+  Anthropic 由 OpenAI 前安全负责人 Dario Amodei 于 2021 年创立。
+
+  2026 年 6 月发布 Fable 5（公众）/ Mythos 5（企业政府），
+  两者共享同一架构。这是 Anthropic 首次在模型能力上
+  与 OpenAI 正面交锋并占据上风。
+
+  特朗普政府对 Mythos 5 实施严格出口管制，
+  在硅谷和华盛顿引发巨大争议。
+
+  Claude Code 2.0 同日发布，深度整合 Fable 5 能力。
+
+related:
+  - claude-fable-5
+  - claude-opus-4.8
+  - anthropic
+  - gpt-4-release
+  - ai-governance
+
+depends_on:
+  - claude-opus-4.8
+  - constitutional-ai
+
+influenced:
+  - ai-export-control
+  - dual-use-ai-debate
+  - agent-development
+
+timeline:
+  - date: 2026-06-20
+    event: Anthropic 预告 Fable 5 / Mythos 5
+  - date: 2026-06-25
+    event: 正式发布 — Fable 5 公众版 + Mythos 5 企业版
+  - date: 2026-06-25
+    event: Claude Code 2.0 同步发布
+  - date: 2026-06-26
+    event: 特朗普政府确认 Mythos 5 出口管制
+  - date: 2026-06-28
+    event: 全球 AI 社区热议"AI 民族主义"争议
+
+sources:
+  official: https://www.anthropic.com

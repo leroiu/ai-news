@@ -1,0 +1,77 @@
+id: deepseek-r1
+name: DeepSeek R1
+type: model
+aliases:
+  - DeepSeek R1
+  - DeepSeek-R1
+  - R1
+  - deepseek-r1
+
+release_date: 2025-01-20
+status: active
+
+company: DeepSeek
+creators:
+  - DeepSeek
+
+tags:
+  - llm
+  - reasoning
+  - open-source
+  - china
+  - deepseek
+  - chain-of-thought
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  DeepSeek 开源的最强推理模型，直接对标 OpenAI o1。
+  用纯 RL 训练出思维链推理能力，完全开源，引爆 2025 年 AI 行业。
+
+significance: |
+  DeepSeek R1 是 2025 年 AI 行业最重要的事件之一。
+  它证明了即使面对美国芯片出口管制，中国也能在最高水平的
+  AI 推理能力上与美国并驾齐驱。
+
+  关键创新：
+  - 纯 RL 训练推理链（不需要人工标注推理步骤）
+  - 开源权重 + MIT License（任何人都可商用）
+  - 成本仅为 OpenAI o1 的 ~5%
+
+  发布后一周内 HuggingFace 下载量破千万，
+  引发美股科技板块单日 $1T 市值蒸发。
+
+background: |
+  R1 基于 DeepSeek V3 基础模型，通过强化学习训练出
+  类似 o1 的长思维链推理能力。R1-Zero 是纯 RL 版本（无 SFT），
+  R1 加入冷启动 SFT 数据改善了输出可读性。
+
+related:
+  - deepseek-v3
+  - deepseek
+  - openai-o1
+  - reasoning
+  - moe
+
+depends_on:
+  - deepseek-v3
+  - transformer
+
+parameters: "660B (MoE, 活跃 ~37B)"
+architecture: MoE (Mixture of Experts)
+license: MIT
+
+timeline:
+  - date: 2025-01-20
+    event: DeepSeek R1 发布（全球爆红）
+  - date: 2025-01-27
+    event: 美股 AI 板块 $1T 蒸发
+  - date: 2025-02
+    event: HuggingFace 下载量破亿
+  - date: 2025-06
+    event: R1-Distill 系列发布
+
+sources:
+  paper: https://arxiv.org/abs/2501.12948
+  official: https://api-docs.deepseek.com

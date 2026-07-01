@@ -1,0 +1,67 @@
+id: agent-orchestration
+name: Agent Orchestration
+type: methodology
+tags:
+- agent
+- orchestration
+- workflow
+- pipeline
+- automation
+importance: 4
+confidence: confirmed
+summary: '编排和调度 AI Agent 执行复杂多步骤工作流的方法论。
+
+  包括 Pipeline、Parallel、DAG、动态路由等编排模式。
+
+  '
+significance: 'Agent Orchestration 是 AI 从"单次问答"升级到"自主完成工作"
+
+  的核心技术。本质上是 AI 的工作流引擎。
+
+
+  核心概念：
+
+  - Pipeline: 线性步骤链（A → B → C → D）
+
+  - Parallel: 并发执行独立任务（A + B + C → 聚合）
+
+  - DAG: 有向无环图（复杂依赖关系）
+
+  - Dynamic Routing: 根据中间结果动态选择下一步
+
+  - Human-in-the-Loop: 关键节点暂停等待人工审批
+
+
+  2025-2026 年，Agent Orchestration 正在从 research concept
+
+  快速走向生产环境。Claude Code 的 Workflow 系统、
+
+  OpenAI Agents SDK、LangGraph 都是 Orchestration 的产品化。
+
+  '
+domain: Agent 工作流
+source_articles: []
+related:
+- multi-agent-systems
+- harness-engineering
+- tool-use
+- planning
+- long-running-agent
+evolution:
+- date: 2024
+  event: LangGraph / CrewAI 等编排框架出现
+- date: 2025
+  event: OpenAI Agents SDK / Claude Code Workflow
+- date: 2026
+  event: 编排成为 AI 工程核心技能
+timeline:
+- date: 2022-10
+  event: LangChain 首个版本发布，提出 Chain 抽象，开启 LLM 工作流编排
+- date: 2023-03
+  event: AutoGPT 开源爆火（GitHub 16万星），自主 Agent+工作流编排概念进入主流视野
+- date: 2024-01
+  event: LangGraph 发布，引入有状态 DAG 编排，Pipeline/Parallel 模式产品化
+- date: 2024-11
+  event: Anthropic MCP 协议发布，工具编排层标准化
+- date: 2025-03
+  event: OpenAI Agents SDK + Claude Code Workflow 发布，Orchestration 全面生产化

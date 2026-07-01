@@ -1,0 +1,96 @@
+# ============================================================
+# Knowledge Card: Perplexity
+# ============================================================
+
+id: perplexity
+name: Perplexity
+type: product
+aliases:
+  - Perplexity AI
+  - Perplexity.ai
+  - perplexity.ai
+
+release_date: 2022-12
+status: active
+
+company: Perplexity AI
+creators:
+  - Aravind Srinivas
+  - Denis Yarats
+  - Johnny Ho
+  - Andy Konwinski
+
+tags:
+  - product
+  - search
+  - ai-search
+  - rag
+  - answer-engine
+  - research
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  AI 原生搜索引擎，以"答案引擎"定位挑战 Google 搜索。
+  结合 RAG 和 LLM 实时检索网络信息，提供带引用的准确回答。
+
+significance: |
+  Perplexity 代表了 AI 时代信息获取的新范式——不是给你 10 个蓝色链接，
+  而是直接给你答案，并附上可验证的来源引用。
+
+  它的成功证明了：
+  - RAG（检索增强生成）是 AI 搜索的核心技术路线
+  - "答案引擎"比"AI 版搜索"更符合用户期待
+  - 搜索市场并非不可挑战——用户愿意为更好的体验付费
+
+  Perplexity Pro 在 2024-2025 年间快速增长，估值达数十亿美元。
+  Google 被迫加速 Gemini + Search 的融合以应对竞争。
+
+  对 AI 研究者/从业者而言，Perplexity 已成为日常研究工具——
+  快速查找论文、验证事实、获取最新行业动态。
+
+background: |
+  由前 Google AI 研究员 Aravind Srinivas 等人创立。
+  技术栈基于 RAG：用户提问 → 实时检索网页 → LLM 生成带引用答案。
+
+  2023 年获 NEA/IVP 等 $73.6M B 轮融资。
+  2024 年获 $63M 融资，估值超 $1B（独角兽）。
+  2025 年估值达 $9B+，月活用户超 1500 万。
+
+  特色功能：
+  - Pro Search: 多步推理 + 深度检索
+  - Collections: 知识库管理
+  - Pages: AI 生成结构化页面
+  - Spaces: 团队协作搜索
+
+related:
+  - rag
+  - chatgpt
+  - llm
+  - search
+  - you-com
+  - kimi
+
+depends_on:
+  - gpt-4
+  - rag
+  - llm
+
+influenced:
+  - ai-search
+  - answer-engine
+  - research-tools
+
+timeline:
+  - date: 2022-12
+    event: Perplexity 发布
+  - date: 2023-10
+    event: Pro Search 上线（多步推理检索）
+  - date: 2024-04
+    event: 估值超 $1B（独角兽）
+  - date: 2025
+    event: 月活超 1500 万，估值 $9B
+
+sources:
+  official: https://www.perplexity.ai

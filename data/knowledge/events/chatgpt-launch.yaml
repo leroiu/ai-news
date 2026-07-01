@@ -1,0 +1,103 @@
+# ============================================================
+# Knowledge Card: ChatGPT Launch
+# ============================================================
+
+id: chatgpt-launch
+name: ChatGPT 发布
+type: event
+aliases:
+  - ChatGPT 发布
+  - ChatGPT launched
+  - ChatGPT 上线
+
+release_date: 2022-11-30
+status: active
+
+tags:
+  - milestone
+  - openai
+  - product
+  - consumer
+  - ai-history
+  - breakthrough
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  OpenAI 发布 ChatGPT，2 个月破亿用户，成为史上增长最快的
+  消费级应用。这一天被称为 AI 行业的"iPhone 时刻"。
+
+significance: |
+  ChatGPT 的发布彻底改变了 AI 行业格局和公众认知。
+
+  在 ChatGPT 之前，LLM 主要存在于论文和 API 文档中，
+  只有开发者和研究者使用。ChatGPT 用一个简单的聊天界面
+  让普通人第一次直观感受到 LLM 的能力。
+
+  触发的影响链：
+  - Google 发布内部"Code Red"警报，加速 Gemini 开发
+  - 全球 VC 在 2023 年向 AI 投入超 $100B
+  - 微软 $10B+ 投资 OpenAI（2023 年 1 月）
+  - "提示工程"成为新职业
+  - AI 安全/监管从学术议题变成全球政策议题
+  - 中国大模型"百模大战"（2023-2024）
+  - GitHub Copilot / Cursor / Claude 等产品加速迭代
+
+  ChatGPT 证明了一个真理：技术突破 + 正确的产品形态 = 改变世界。
+
+background: |
+  OpenAI 在 2022 年 11 月 30 日将 ChatGPT 作为"免费研究预览"发布。
+  基于 GPT-3.5 + RLHF 微调。团队预期约数万用户试用。
+
+  实际效果远超预期：
+  - 5 天破 100 万用户
+  - 2 个月破 1 亿用户（TikTok 用了 9 个月）
+  - 服务器频繁过载，OpenAI 紧急扩容
+
+  2023 年 2 月推出 ChatGPT Plus（$20/月），引入 GPT-4。
+  此后 ChatGPT 持续进化：多模态（GPT-4o）、Agent（Operator）、
+  桌面端、自定义 GPTs 等。
+
+related:
+  - gpt-4
+  - openai
+  - chatgpt
+  - claude
+  - gemini
+  - rlhf
+
+depends_on:
+  - gpt-3-release
+  - rlhf
+
+influenced:
+  - claude
+  - gemini
+  - deepseek-chat
+  - kimi
+  - consumer-llm-wave
+  - microsoft-openai-partnership
+  - global-ai-regulation
+
+timeline:
+  - date: 2022-11-30
+    event: ChatGPT 免费研究预览发布
+  - date: 2022-12-05
+    event: 5 天破 100 万用户
+  - date: 2023-01-23
+    event: 微软宣布对 OpenAI 追加 $10B+ 投资
+  - date: 2023-01
+    event: 月活突破 1 亿（2 个月，史上最快）
+  - date: 2023-02-01
+    event: ChatGPT Plus 上线（$20/月），GPT-4 可用
+  - date: 2023-03
+    event: Google 内部 Code Red + 发布 Bard
+  - date: 2024-05
+    event: GPT-4o — 多模态实时交互
+  - date: 2025-01
+    event: Operator Agent 上线
+
+sources:
+  official: https://openai.com/blog/chatgpt
+  wikipedia: https://en.wikipedia.org/wiki/ChatGPT

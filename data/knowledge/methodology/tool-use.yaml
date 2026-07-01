@@ -1,0 +1,70 @@
+id: tool-use
+name: Tool Use / Function Calling
+type: methodology
+release_date: 2023-06-13
+status: active
+tags:
+  - tool-use
+  - function-calling
+  - agent
+  - mcp
+  - api
+  - orchestration
+importance: 5
+confidence: confirmed
+
+summary: |
+  LLM 调用外部工具/API 的方法论，从 GPT-4 Function Calling 到 MCP 协议标准，
+  是 AI Agent 执行能力的基础。
+
+significance: |
+  Tool Use 让 LLM 从"纯文本生成器"变成"可以执行行动的 Agent"。
+  这是 AI Agent 区别于 Chatbot 的核心能力。
+
+  OpenAI Function Calling (2023) → Anthropic Tool Use (2024) →
+  MCP 协议 (2024) → Agent SDK (2025)：
+  工具调用的标准化程度不断提高，从单次调用到工具链编排。
+
+  当前趋势：从"让模型选工具"到"Agent 自主编排多工具工作流"。
+
+domain: "Agent 能力"
+
+background: |
+  OpenAI 2023 年 6 月发布 Function Calling，LLM 首次能
+  标准化地调用外部 API。Anthropic 2024 年 3 月推出 Tool Use。
+  2024 年 11 月 Anthropic 发布 MCP 协议，将工具调用标准化。
+  2025 年 Agent SDK 生态成形，多工具编排成为标配。
+
+source_articles:
+  - "GPT-4 Function Calling — OpenAI (2023-06)"
+  - "MCP Specification — Anthropic (2024-11)"
+  - "Claude Tool Use Documentation"
+
+related:
+  - mcp
+  - agent
+  - gpt-4
+  - claude-fable-5
+  - planning
+
+depends_on:
+  - agent
+
+influenced:
+  - mcp
+  - agent-sdk
+  - claude-code
+  - ai-workflow
+
+timeline:
+  - date: 2023-06
+    event: OpenAI 发布 Function Calling API
+  - date: 2024-03
+    event: Anthropic 发布 Tool Use
+  - date: 2024-11
+    event: MCP 协议标准化 Tool Use
+  - date: 2025
+    event: Agent SDK 支持多工具编排
+
+sources:
+  official: https://modelcontextprotocol.io

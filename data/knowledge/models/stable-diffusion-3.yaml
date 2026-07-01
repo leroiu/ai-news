@@ -1,0 +1,62 @@
+id: stable-diffusion-3
+name: Stable Diffusion 3
+type: model
+aliases:
+  - Stable Diffusion 3
+  - SD3
+  - SDXL 3
+
+release_date: 2024-06
+status: active
+
+company: Stability AI
+creators:
+  - Stability AI
+
+tags:
+  - image-generation
+  - diffusion
+  - open-source
+  - multimodal
+
+importance: 3
+confidence: confirmed
+
+summary: |
+  Stability AI 最新一代文生图模型，采用 MMDiT 架构，
+  在文本遵循和图像质量上大幅超越 SDXL。
+
+significance: |
+  Stable Diffusion 3 引入了全新的 MMDiT（Multimodal Diffusion
+  Transformer）架构，放弃了传统的 U-Net 骨干网，
+  标志着图像生成从"扩散模型"到"Transformer 扩散"的范式转变。
+
+  SD3 在文本遵循（拼写、排版）上比 SDXL 进步巨大，
+  但仍未能完全追赶 Midjourney v6 和 DALL-E 3。
+
+  Stability AI 管理层动荡（CEO 离职）导致 SD3 发布延期，
+  开源社区对此感到沮丧但对模型本身评价积极。
+
+background: |
+  SD3 从 2023 年底开始训练，使用 MMDiT 新架构。
+  2024 年 6 月发布，同时开源权重。
+
+related:
+  - stability-ai
+  - diffusion-models
+  - transformer
+  - midjourney
+  - dalle
+
+parameters: "2B / 8B (两个版本)"
+architecture: MMDiT (Multimodal Diffusion Transformer)
+license: "Stability AI Community License"
+
+timeline:
+  - date: 2024-06
+    event: Stable Diffusion 3 发布
+  - date: 2025-2026
+    event: SD3.5/SD4 持续迭代
+
+sources:
+  official: https://stability.ai/stable-diffusion-3

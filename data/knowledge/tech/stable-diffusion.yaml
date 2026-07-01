@@ -1,0 +1,89 @@
+# ============================================================
+# Knowledge Card: Stable Diffusion
+# ============================================================
+
+id: stable-diffusion
+name: Stable Diffusion
+type: tech
+aliases:
+  - Stable Diffusion
+  - SD
+  - SDXL
+  - SD3
+  - stable-diffusion
+
+release_date: 2022-08-22
+status: active
+
+company: Stability AI
+creators:
+  - Robin Rombach
+  - Patrick Esser
+  - Stability AI
+
+tags:
+  - image-generation
+  - diffusion
+  - open-source
+  - generative-ai
+  - text-to-image
+  - latent-diffusion
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  开源文生图模型的里程碑，首次让大众在消费级 GPU 上运行
+  高质量图像生成，引爆了 AI 图像生成的大众化革命。
+
+significance: |
+  Stable Diffusion 的开源发布是 AI 民主化的标志性事件。
+  与 DALL-E 和 Midjourney 的闭源路线不同，SD 的开放权重
+  让开发者可以自由使用、微调和部署模型。
+
+  它催生了一个完整的开源图像生成生态：
+  - ControlNet、LoRA、IP-Adapter 等微调技术
+  - ComfyUI、Automatic1111 等社区工具
+  - 数亿张 AI 生成图像
+
+  在开源 AI 和创作者社区中，SD 的影响力至今无人能及。
+
+background: |
+  Stability AI 由 Emad Mostaque 于 2019 年创立。
+  2022 年 8 月发布 SD 1.4，基于 Latent Diffusion 架构。
+  SD 2.x 系列（2022-2023）。
+  SDXL（2023 年 7 月）大幅提升质量。
+  SD3（2024 年中）采用 MMDiT 架构。
+
+  2024 年 Stability AI 经历财务危机和 CEO 离职后重组。
+  尽管公司层面有波折，SD 技术仍是图像生成领域最活跃的开源项目。
+
+related:
+  - diffusion-model
+  - dall-e
+  - midjourney
+  - lora
+  - controlnet
+
+depends_on:
+  - diffusion-model
+  - latent-diffusion
+
+influenced:
+  - controlnet
+  - comfyui
+  - open-image-gen-ecosystem
+
+timeline:
+  - date: 2022-08-22
+    event: SD 1.4 发布
+  - date: 2023-07
+    event: SDXL 1.0 发布
+  - date: 2024-06
+    event: SD3 发布（MMDiT 架构）
+
+sources:
+  official: https://stability.ai
+  paper: https://arxiv.org/abs/2112.10752
+
+category: "生成模型"

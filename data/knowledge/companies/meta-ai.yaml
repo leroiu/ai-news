@@ -1,0 +1,86 @@
+id: meta-ai
+name: Meta AI
+type: company
+aliases:
+  - Meta AI
+  - Meta
+  - Facebook AI
+  - FAIR
+
+release_date: 2013-12
+status: active
+
+creators:
+  - Yann LeCun
+  - Mark Zuckerberg
+
+tags:
+  - company
+  - llm
+  - open-source
+  - social-media
+  - meta
+  - llama
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  Meta 的 AI 研究部门，全球最大的开源 AI 模型发布者。
+  Llama 系列是开源社区最广泛使用的 LLM 基础模型。
+
+significance: |
+  Meta AI 的战略定位是"开源 AI 的旗手"。Llama 2/3/4
+  系列以开放权重发布，催生了全球数千个衍生模型和创业公司。
+
+  2025-2026 年 Meta 在 AI 基础设施上的资本支出超 $60B/年，
+  建设了全球最大的 AI 训练集群之一。Zuckerberg 将开源 AI
+  定位为"对抗封闭平台的战略武器"。
+
+  FAIR (Facebook AI Research) 在基础研究上保持极高水准，
+  PyTorch 已成为 AI 开发的事实标准。
+
+background: |
+  2013 年 Yann LeCun 加入 Facebook 创办 FAIR。
+  2018 年 PyTorch 1.0 发布。
+  2023 年 Llama 系列发布（2→3→4）。
+  2025-2026 年 Meta 转型为 AI-first 公司。
+
+related:
+  - llama
+  - yann-lecun
+  - pytorch
+  - open-source-ai
+  - google-deepmind
+  - openai
+
+influenced:
+  - llama
+  - open-source-ai
+  - pytorch
+
+timeline:
+  - date: 2013-12
+    event: FAIR 成立（Facebook AI Research）
+  - date: 2018
+    event: PyTorch 1.0 发布
+  - date: 2023-02
+    event: Llama 发布（开源大模型里程碑）
+  - date: 2023-07
+    event: Llama 2 发布（商业许可）
+  - date: 2024-04
+    event: Llama 3 发布（8B/70B）
+  - date: 2025-2026
+    event: Llama 4 系列发布，年 AI 投入 $60B+
+
+sources:
+  official: https://ai.meta.com
+
+headquarters: "Menlo Park, CA"
+founded: 2013
+funding_total: "内部资金 (Meta Platforms, Inc.)"
+business_model: "开源模型 + AI 平台 + 社交媒体整合"
+key_products:
+  - llama
+  - pytorch
+  - meta-ai-assistant

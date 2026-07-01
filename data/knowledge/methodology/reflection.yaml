@@ -1,0 +1,69 @@
+id: reflection
+name: Reflection
+type: methodology
+tags:
+- agent
+- reasoning
+- self-improvement
+- evaluation
+- quality
+importance: 4
+confidence: confirmed
+summary: 'AI Agent 在执行后自我审视和纠错的方法论。让 Agent 在输出最终结果前
+
+  检查自己的工作——"先做，再反思，再修正"。
+
+  '
+significance: 'Reflection 是提升 AI Agent 输出质量的关键技术。
+
+  不再依赖"一次生成就期望正确"，而是给 Agent 一个
+
+  结构化地自我检查和修正的机会。
+
+
+  ReAct (Reason + Act) 闭环中 Reflection 是必不可少的步骤。
+
+  Claude Code 的 self-review、test-then-fix 循环
+
+  都是 Reflection 的具体实现。
+
+
+  2025-2026 年趋势：从"人工 review AI"到"AI Review AI"。
+
+  '
+domain: Agent 能力
+source_articles:
+- 'ReAct: Synergizing Reasoning and Acting in Language Models (2022)'
+- 'Reflexion: Language Agents with Verbal Reinforcement Learning (2023)'
+related:
+- agent
+- planning
+- self-correction
+- rlhf
+depends_on:
+- agent
+influenced:
+- self-correction
+- agent-quality
+evolution:
+- date: 2022-10
+  event: ReAct 论文发表
+- date: 2023-03
+  event: Reflexion 论文发表
+- date: 2024
+  event: Reflection 成为 Agent 标准组件
+- date: 2025
+  event: Claude Code 集成 self-review 循环
+sources:
+  paper: https://arxiv.org/abs/2210.03629
+timeline:
+- date: 2022-12
+  event: Self-Consistency (Wang et al.) 发表，多次采样 + 投票 = 隐式反思
+- date: 2023-03
+  event: Reflexion 论文发布（Shinn et al.），Agent 从执行失败中学习并重试
+- date: 2023-07
+  event: Self-Refine (Madaan et al.) 发表，迭代式自我批评 + 自我改进
+- date: 2024-06
+  event: Claude 的"反思"能力成为产品特性，AI 在输出前自动检查
+- date: 2025-03
+  event: Reflection 从论文变成 Agent 框架的标准内置特性

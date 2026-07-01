@@ -1,0 +1,94 @@
+# ============================================================
+# Knowledge Card: DeepSeek R1 Release
+# ============================================================
+
+id: deepseek-r1-release
+name: DeepSeek R1 发布
+type: event
+aliases:
+  - DeepSeek R1 发布
+  - DeepSeek R1 launch
+  - R1 发布
+
+release_date: 2025-01-20
+status: active
+
+tags:
+  - milestone
+  - deepseek
+  - reasoning
+  - open-source
+  - china
+  - ai-history
+  - breakthrough
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  中国 AI 公司 DeepSeek 发布 R1 推理模型，以极低成本达到
+  OpenAI o1 级推理性能，且完全开源，震撼全球 AI 产业。
+
+significance: |
+  DeepSeek R1 发布是 2025 年 AI 行业最震撼的事件之一。
+
+  几个"不可能"同时被打破：
+  1. 中国公司可以在前沿推理能力上追平 OpenAI
+  2. 训练成本可以比美国同行低 10-100 倍（R1 训练约 $5.6M）
+  3. 开源模型可以达到闭源旗舰水平
+  4. 出口管制没有阻止中国 AI 进步
+
+  直接影响：
+  - 美股 AI 板块单日暴跌（NVDA 跌 17%，蒸发 $600B）
+  - 硅谷和华盛顿重新审视对华出口管制效果
+  - 开源社区迎来最强推理模型
+  - 全球开发者加速从闭源切换到开源
+  - 引发"AI 成本快速下降是否可持续"的大讨论
+  - 中国 AI 产业自信心大幅提升
+
+  DeepSeek R1 标志着 AI 领域"美国单极"时代的结束，
+  "中美两极"格局的开始。
+
+background: |
+  DeepSeek 由幻方量化 CEO 梁文锋创立。R1 基于 DeepSeek V3
+  （671B MoE）通过强化学习训练推理能力。
+
+  技术亮点：
+  - 纯 RL 训练推理链（无监督数据标注）
+  - 671B MoE 架构，每次推理激活 37B
+  - 训练成本 ~$5.6M（vs GPT-4 的 ~$100M+）
+  - 完全开源（MIT 协议）
+  - 推理能力在数学/编程/科学任务上媲美 o1
+
+  R1 发布后，DeepSeek App 登顶全球多国 App Store 榜首。
+
+related:
+  - deepseek-v3
+  - deepseek
+  - gpt-4-release
+  - open-source-ai
+
+depends_on:
+  - deepseek-v3
+  - moe
+
+influenced:
+  - open-source-ai-movement
+  - china-ai-ecosystem
+  - ai-cost-reduction-trend
+
+timeline:
+  - date: 2024-12-26
+    event: DeepSeek V3 发布（R1 基座模型）
+  - date: 2025-01-20
+    event: DeepSeek R1 正式发布 + 开源
+  - date: 2025-01-27
+    event: DeepSeek App 登顶全球 App Store，NVDA 暴跌 17%
+  - date: 2025-01-28
+    event: 全球 AI 社区热议，硅谷"DeepSeek 时刻"
+  - date: 2025-02
+    event: 美国政府启动对 DeepSeek 芯片来源调查
+
+sources:
+  paper: https://arxiv.org/abs/2501.12948
+  github: https://github.com/deepseek-ai/DeepSeek-R1

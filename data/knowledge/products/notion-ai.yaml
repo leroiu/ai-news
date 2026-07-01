@@ -1,0 +1,80 @@
+# ============================================================
+# Knowledge Card: Notion AI
+# ============================================================
+
+id: notion-ai
+name: Notion AI
+type: product
+aliases:
+  - Notion AI
+  - Notion AI Assistant
+
+release_date: 2023-02
+status: active
+
+company: Notion Labs
+creators:
+  - Ivan Zhao
+  - Simon Last
+
+tags:
+  - productivity
+  - writing
+  - knowledge-management
+  - qa
+  - assistant
+  - enterprise
+
+importance: 3
+confidence: confirmed
+
+summary: |
+  Notion 内置的 AI 助手，深度集成到文档编辑和知识管理流程中。
+  代表了 "AI 原生写作/知识管理工具" 的趋势。
+
+significance: |
+  Notion AI 是最成功的 "AI + SaaS" 案例之一。
+  相比于独立的 AI 聊天界面，它深度嵌入用户的已有工作流——
+  在写文档、做笔记、整理知识的时候，AI 就在光标旁边。
+
+  核心功能：
+  - 写作辅助：续写、改写、翻译、摘要
+  - Q&A：基于用户已有的 workspace 知识库回答
+  - 自动填充：智能表格中的 AI 列
+  - 搜索：语义搜索整个 workspace
+
+  Notion AI 的真正价值在于"上下文"——它能访问用户的
+  文档、数据库、项目规划，提供基于个人知识库的 AI 辅助。
+  这种 "Bring AI to your data" 的模式比 "Bring your data to AI"
+  更容易被企业接受。
+
+  Notion AI 的商业模式也很有代表性：按用户/月订阅，
+  与 OpenAI 和 Anthropic 的 API 成本之间的差价是利润。
+
+background: |
+  2023 年 2 月 Notion AI 正式上线（基于 GPT-3.5）。
+  2024 年 Q&A 功能上线，可基于 workspace 知识库回答问题。
+  2025 年接入 Claude 模型，支持多模型切换。
+  2026 年推出 Agent 功能，可在 Notion 内自动完成任务。
+
+related:
+  - gpt-4
+  - claude-ai
+  - rag
+
+depends_on:
+  - gpt-4
+  - claude
+
+timeline:
+  - date: 2023-02
+    event: Notion AI 正式上线
+  - date: 2024
+    event: Q&A 功能上线
+  - date: 2025
+    event: 多模型支持（GPT + Claude）
+  - date: 2026
+    event: Agent 功能上线
+
+sources:
+  official: https://www.notion.so/product/ai
