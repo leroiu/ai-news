@@ -1,0 +1,75 @@
+# ============================================================
+# Knowledge Card: 梁文锋
+# ============================================================
+
+id: liang-wenfeng
+name: 梁文锋
+type: person
+aliases:
+  - 梁文锋
+  - Liang Wenfeng
+  - 深度求索创始人
+  - DeepSeek 创始人
+
+release_date: 1985
+status: active
+
+company: DeepSeek (深度求索)
+creators: []
+
+tags:
+  - person
+  - founder
+  - chinese
+  - deepseek
+  - quantitative-trading
+  - ai-research
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  DeepSeek（深度求索）创始人，前幻方量化联合创始人。以极低成本
+  打造了比肩 GPT-4 的 DeepSeek V3/R1，震惊全球 AI 行业，
+  被《Nature》评为 2025 年度十大人物。
+
+significance: |
+  梁文锋是 2024-2025 年全球 AI 行业最具冲击力的人物之一。他从
+  量化交易跨界 AI，用约 $5.6M 训练出了性能比肩 GPT-4 的
+  DeepSeek V3（OpenAI 训练 GPT-4 成本估计超 $1 亿），证明
+  MoE 架构 + 工程优化可以大幅降低大模型训练门槛。
+
+  他的故事改变了全球 AI 叙事：
+  - 打破"算力 = AI 霸权"的迷思
+  - 引发美国对华芯片出口管制的重新评估
+  - 迫使 OpenAI/Google 等加速降价和开源
+  - 激发中国 AI 创业热潮
+
+  《Nature》将他评为 2025 年度十大科学人物（AI 领域唯一入选者）。
+
+background: |
+  梁文锋 1985 年出生，浙江大学硕士。2008 年开始研究量化交易，
+  2015 年联合创立幻方量化（中国最大量化私募之一）。2023 年创立
+  深度求索（DeepSeek），2024 年发布 DeepSeek V2/V3，2025 年
+  DeepSeek R1 震惊全球。
+
+related:
+  - deepseek
+  - deepseek-v3
+  - deepseek-r1
+  - cost-efficient-llm-wave
+
+timeline:
+  - date: 2015
+    event: 联合创立幻方量化
+  - date: 2023-05
+    event: 创立深度求索（DeepSeek）
+  - date: 2024-12
+    event: DeepSeek V3 发布，$5.6M 训练成本震惊全球
+  - date: 2025-01
+    event: DeepSeek R1 发布，纯 RL 推理能力达到 o1 水平
+  - date: 2025-12
+    event: 《Nature》年度十大科学人物
+
+sources:
+  official: https://www.deepseek.com

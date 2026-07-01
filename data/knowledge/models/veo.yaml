@@ -1,0 +1,85 @@
+# ============================================================
+# Knowledge Card: Veo
+# ============================================================
+
+id: veo
+name: Veo
+type: model
+aliases:
+  - Veo
+  - veo
+  - Google Veo
+  - Veo 2
+
+release_date: 2024-05
+status: active
+
+company: Google DeepMind
+creators:
+  - Google DeepMind
+
+tags:
+  - video-generation
+  - google
+  - deepmind
+  - ai-video
+  - multimodal
+  - text-to-video
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  Google DeepMind 的视频生成大模型，对标 Sora。在视频画质、
+  指令遵循、物理真实性方面与 Sora 正面竞争。2025 年 Veo 2
+  发布后，在多项基准上达到 SOTA。
+
+significance: |
+  Veo 是 Google 在视频生成赛道的战略反击。在 Sora 发布后，
+  Google 迅速整合其 YouTube 海量视频数据优势 + DeepMind 的
+  研究能力，推出了 Veo 系列。
+
+  Veo 的独特优势：
+  - YouTube 数据：全球最大视频平台的数据积累
+  - 指令遵循强：对复杂的文字描述理解准确
+  - 与 Google 生态整合：YouTube/Cloud/Workspace
+
+  Veo 2（2025）在视频质量和一致性方面超越了 Sora，标志着
+  Google 在视频生成赛道从"追赶"转向"并跑"。
+
+background: |
+  Google 在视频理解方面有长期积累（VideoBERT 等）。2024 年 5 月
+  Google I/O 发布 Veo 1.0。2024 年 12 月 Veo 2 发布，在视频
+  质量基准上超越 Sora。2025 年通过 Vertex AI 开放企业使用。
+
+related:
+  - sora
+  - seedance-2
+  - kling
+  - google-deepmind
+  - ai-video-generation
+
+depends_on:
+  - diffusion
+  - transformer
+
+influenced:
+  - ai-video-generation
+
+architecture: Diffusion + Transformer
+modalities:
+  - text
+  - image
+  - video
+license: proprietary
+
+timeline:
+  - date: 2024-05
+    event: Google I/O 发布 Veo 1.0
+  - date: 2024-12
+    event: Veo 2 发布，视频质量超越 Sora
+  - date: 2025-06
+    event: Veo 通过 Vertex AI 开放企业 API
+
+sources:
+  official: https://deepmind.google/technologies/veo/

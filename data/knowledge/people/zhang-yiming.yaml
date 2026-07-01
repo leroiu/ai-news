@@ -1,0 +1,74 @@
+# ============================================================
+# Knowledge Card: 张一鸣
+# ============================================================
+
+id: zhang-yiming
+name: 张一鸣
+type: person
+aliases:
+  - 张一鸣
+  - Zhang Yiming
+  - 字节跳动创始人
+  - ByteDance 创始人
+
+release_date: 1983
+status: active
+
+company: ByteDance (字节跳动)
+creators: []
+
+tags:
+  - person
+  - founder
+  - chinese
+  - bytedance
+  - tiktok
+  - entrepreneur
+  - recommendation-algorithm
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  字节跳动创始人，前 CEO。以推荐算法驱动的今日头条和抖音/TikTok
+  改变了全球信息分发方式。虽已卸任 CEO，但字节 AI 战略仍在
+  其奠定的"算法驱动产品"基因下运行。
+
+significance: |
+  张一鸣是中国互联网时代最具产品和技术洞察力的创始人之一。
+  他创办的字节跳动以"推荐算法"为核心引擎，用 AI 重新定义了
+  内容分发——从今日头条到抖音，再到 TikTok 的全球成功。
+
+  张一鸣对 AI 的信仰远远早于 ChatGPT 时代。字节跳动从成立第一天
+  就是一家 AI 驱动的公司。2023 年生成式 AI 浪潮中，字节在张一鸣
+  的影响下快速成立了 Flow 部门（专注 AI 应用），推出了豆包、
+  即梦、Seedance 等产品。
+
+  尽管 2021 年卸任 CEO，张一鸣的"始终创业"和"大力出奇迹"
+  文化仍在深刻影响字节的 AI 战略。
+
+background: |
+  张一鸣 1983 年出生，南开大学软件工程专业。2012 年创立字节跳动，
+  先后推出今日头条（2012）、抖音（2016）、TikTok（2017）。
+  2021 年卸任字节跳动 CEO。2024 年登顶中国首富。
+
+related:
+  - bytedance-ai
+  - doubao
+  - jimeng
+  - seedance-2
+
+timeline:
+  - date: 2012-03
+    event: 创立字节跳动
+  - date: 2016-09
+    event: 抖音上线，AI 推荐算法驱动
+  - date: 2017-05
+    event: TikTok 出海
+  - date: 2021-05
+    event: 卸任字节跳动 CEO
+  - date: 2024
+    event: 登顶中国首富
+
+sources:
+  official: https://www.bytedance.com

@@ -1,0 +1,75 @@
+# ============================================================
+# Knowledge Card: 李开复
+# ============================================================
+
+id: kai-fu-lee
+name: 李开复
+type: person
+aliases:
+  - 李开复
+  - Kai-Fu Lee
+  - 零一万物创始人
+  - 创新工场创始人
+
+release_date: 1961-12-03
+status: active
+
+company: 零一万物 (01.AI)
+creators: []
+
+tags:
+  - person
+  - founder
+  - chinese
+  - investor
+  - ai-evangelist
+  - author
+  - microsoft
+  - google
+  - apple
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  零一万物（01.AI）创始人，创新工场董事长。前 Google 全球副总裁、
+  微软亚洲研究院创始院长。中国 AI 领域最具影响力的布道者和
+  投资人之一，著作《AI 未来》影响深远。
+
+significance: |
+  李开复是中国科技界最具国际视野的人物之一。他的职业履历跨越
+  Apple、SGI、Microsoft、Google 等硅谷巨头，创立了微软亚洲
+  研究院（MSRA）——中国 AI 人才的"黄埔军校"。
+
+  2009 年创立创新工场，投资了大量中国 AI 创业公司。2023 年
+  亲自下场创立零一万物（01.AI），发布 Yi 系列开源大模型，
+  是中国 AI 创业者中最年长也最资深的一位。
+
+  他的著作《AI 超级大国》（2018）和《AI 2041》（2021）在全球
+  范围内塑造了公众对 AI 未来的认知。
+
+background: |
+  李开复 1961 年生于台湾，卡内基梅隆大学计算机博士（语音识别）。
+  先后任 Apple 副总裁、SGI 副总裁、Microsoft 全球副总裁（创立
+  MSRA）、Google 全球副总裁兼大中华区总裁。2009 年创立创新工场，
+  2023 年创立零一万物。
+
+related:
+  - openai
+  - deepseek
+  - chinese-ai-boom
+
+timeline:
+  - date: 1998
+    event: 创立微软亚洲研究院（MSRA）
+  - date: 2009-09
+    event: 创立创新工场
+  - date: 2018-09
+    event: 出版《AI 超级大国》
+  - date: 2023-07
+    event: 创立零一万物（01.AI）
+  - date: 2024-03
+    event: Yi 系列开源大模型发布
+
+sources:
+  official: https://www.01.ai

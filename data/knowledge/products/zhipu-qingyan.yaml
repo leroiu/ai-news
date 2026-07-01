@@ -1,0 +1,69 @@
+# ============================================================
+# Knowledge Card: Zhipu Qingyan
+# ============================================================
+
+id: zhipu-qingyan
+name: 智谱清言 (Zhipu Qingyan)
+type: product
+aliases:
+  - 智谱清言
+  - 清言
+  - ChatGLM
+  - 智谱ChatGLM
+
+release_date: 2023-08
+status: active
+
+company: 智谱 AI (Zhipu AI)
+creators:
+  - 智谱 AI
+
+tags:
+  - ai-assistant
+  - chinese
+  - zhipu
+  - chatbot
+  - tool-use
+  - multimodal
+  - glm
+
+importance: 3
+confidence: confirmed
+
+summary: |
+  智谱 AI 的 AI 助手产品，基于 GLM 系列模型。以 All-Tools
+  架构为特色，可自主调用搜索、代码解释器、绘图等多种工具。
+  是中国开源社区最活跃的 AI 助手之一。
+
+significance: |
+  智谱清言的核心差异化在于 All-Tools——AI 可以自主决定何时搜索、
+  何时运行代码、何时生成图表，而不需要用户手动切换模式。
+  这种"工具自主调用"体验与 ChatGPT Plugins 类似，在中国
+  AI 助手中独树一帜。
+
+  智谱清言的生态定位：
+  - C 端：AI 助手 APP + Web
+  - D 端（开发者）：ChatGLM 开源社区 + API
+  - B 端：智谱开放平台（企业级部署和定制）
+
+  相比豆包/Kimi 的大众化路线，智谱清言更偏向"工具型"定位。
+
+related:
+  - zhipu-ai
+  - glm-4
+  - chatgpt
+  - kimi
+
+depends_on:
+  - glm-4
+
+timeline:
+  - date: 2023-08
+    event: 智谱清言上线
+  - date: 2024-01
+    event: 升级至 GLM-4 All-Tools 架构
+  - date: 2025-05
+    event: 升级至 GLM-4.5
+
+sources:
+  official: https://chatglm.cn

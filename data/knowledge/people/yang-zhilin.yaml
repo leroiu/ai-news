@@ -1,0 +1,74 @@
+# ============================================================
+# Knowledge Card: 杨植麟
+# ============================================================
+
+id: yang-zhilin
+name: 杨植麟
+type: person
+aliases:
+  - 杨植麟
+  - Yang Zhilin
+  - Zhilin Yang
+  - 月之暗面创始人
+
+release_date: 1993
+status: active
+
+company: 月之暗面 (Moonshot AI)
+creators: []
+
+tags:
+  - person
+  - founder
+  - chinese
+  - moonshot
+  - kimi
+  - long-context
+  - tsinghua
+  - cmu
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  月之暗面（Moonshot AI）创始人兼 CEO，Transformer-XL 和 XLNet
+  核心作者，中国最年轻的 AI 独角兽创始人之一。清华本科、CMU 博士，
+  师从 Ruslan Salakhutdinov。
+
+significance: |
+  杨植麟是中国 AI 创业浪潮中最具"学术范儿"的创始人。在创立月之暗面
+  之前，他已经是 NLP 领域引用量最高的年轻学者之一——Transformer-XL
+  论文被引超 5000 次，XLNet 曾在 2019 年统治 NLP 基准测试。
+
+  创立月之暗面后，他选择了"长上下文优先"的技术路线，将 Kimi 的
+  上下文窗口扩展到 200 万 token，在差异化竞争中脱颖而出。
+
+  2024 年阿里领投超 10 亿美元，月之暗面估值超 30 亿美元——杨植麟
+  成为中国最年轻的 AI 独角兽创始人。
+
+background: |
+  杨植麟 1993 年出生，清华计算机本科（姚班），CMU 博士（师从
+  Ruslan Salakhutdinov）。博士期间发表 Transformer-XL（2019）、
+  XLNet（2019）等重量级论文。曾在 Google Brain 和 Facebook AI
+  实习。2023 年 4 月创立月之暗面，2023 年 10 月推出 Kimi Chat。
+
+related:
+  - moonshot-ai
+  - kimi
+  - transformer
+  - long-context-research
+
+timeline:
+  - date: 2019-01
+    event: 发表 Transformer-XL 论文（被引 5000+）
+  - date: 2019-06
+    event: 发表 XLNet 论文，统治 NLP 基准
+  - date: 2023-04
+    event: 创立月之暗面
+  - date: 2023-10
+    event: Kimi Chat 发布
+  - date: 2024-08
+    event: 阿里领投超 10 亿美元，估值超 30 亿美元
+
+sources:
+  official: https://www.moonshot.cn

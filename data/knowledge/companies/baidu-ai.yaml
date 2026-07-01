@@ -1,0 +1,74 @@
+# ============================================================
+# Knowledge Card: Baidu AI
+# ============================================================
+
+id: baidu-ai
+name: 百度 AI (Baidu AI)
+type: company
+aliases:
+  - 百度
+  - Baidu
+  - 百度AI
+  - 百度智能云
+
+release_date: 2000-01
+status: active
+
+creators:
+  - 李彦宏
+
+tags:
+  - chinese
+  - llm
+  - search
+  - autonomous-driving
+  - ai-platform
+  - ernie
+  - knowledge-graph
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  中国最早全面投入 AI 的互联网巨头。以文心大模型和文心一言
+  为核心，布局 AI 搜索、自动驾驶（Apollo）、智能云。
+  "All in AI"战略始于 2017 年，是中国 AI 产业化的先驱。
+
+significance: |
+  百度是中国互联网公司中最早喊出"All in AI"的（2017 年），
+  在 AI 基础设施方面积累深厚：
+  - 搜索引擎：天然的大规模 NLP 训练场
+  - 知识图谱：10 年+积累，覆盖亿级实体
+  - Apollo：全球最大开源自动驾驶平台
+  - 飞桨（PaddlePaddle）：中国最早的开源深度学习框架
+  - 昆仑芯片：自研 AI 推理芯片
+
+  但百度在 C 端 AI 产品体验方面落后于字节和月之暗面，面临
+  "技术强、产品弱"的困境。
+
+background: |
+  百度 2000 年成立。2010 年开始布局 AI（自然语言处理、语音识别）。
+  2017 年提出"All in AI"。2023 年发布文心一言，2024-2025 年
+  ERNIE 系列持续迭代。Apollo Go 自动驾驶出租车在多城市运营。
+
+related:
+  - ernie-4.5
+  - ernie-bot
+  - alibaba-ai
+  - bytedance-ai
+  - deepseek
+
+timeline:
+  - date: 2010
+    event: 开始布局 AI（NLP/语音/图像）
+  - date: 2017
+    event: 提出"All in AI"战略
+  - date: 2023-03
+    event: 文心一言发布
+  - date: 2024-10
+    event: ERNIE 4.0 发布
+  - date: 2025-06
+    event: Apollo Go 无人驾驶在多城运营
+
+sources:
+  official: https://ai.baidu.com

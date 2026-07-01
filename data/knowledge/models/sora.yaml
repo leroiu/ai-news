@@ -1,0 +1,86 @@
+# ============================================================
+# Knowledge Card: Sora
+# ============================================================
+
+id: sora
+name: Sora
+type: model
+aliases:
+  - Sora
+  - sora
+  - OpenAI Sora
+  - Sora AI
+
+release_date: 2024-02
+status: active
+
+company: OpenAI
+creators:
+  - OpenAI
+
+tags:
+  - video-generation
+  - openai
+  - diffusion
+  - multimodal
+  - ai-video
+  - text-to-video
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  OpenAI 的文本生成视频大模型。2024 年 2 月首次亮相即引发
+  全球轰动，被视为视频生成的"GPT 时刻"。基于 Diffusion
+  Transformer 架构，能生成最长 1 分钟的逼真视频。
+
+significance: |
+  Sora 的发布是 AI 视频生成的分水岭事件。虽然发布前已有
+  Runway、Pika 等视频生成工具，但 Sora 在视频时长、物理
+  一致性、画质方面实现了质的飞跃。
+
+  Sora 展示了 Diffusion Transformer（DiT）架构的巨大潜力——
+  将扩散模型与 Transformer 结合，在视频数据上实现了涌现能力，
+  包括 3D 一致性、物体持久性、模拟物理交互等。
+
+  Sora 的影响远超技术层面：
+  - 引发影视/广告行业对 AI 替代的恐慌
+  - 刺激中国推出 Kling/Seedance/Vidu 等竞品
+  - 引发 AI 生成内容的真实性和伦理讨论
+
+background: |
+  OpenAI 于 2024 年 2 月 15 日发布 Sora 技术报告和演示视频。
+  初期仅向红队测试者和少数创作者开放。2024 年 12 月 Sora
+  正式向 ChatGPT Plus/Pro 用户开放。2025 年 Sora 2.0 发布。
+
+related:
+  - openai
+  - seedance-2
+  - kling
+  - ai-video-generation
+  - gpt-4
+
+depends_on:
+  - diffusion
+  - transformer
+
+influenced:
+  - ai-video-generation
+
+architecture: Diffusion Transformer (DiT)
+modalities:
+  - text
+  - image
+  - video
+license: proprietary
+
+timeline:
+  - date: 2024-02-15
+    event: Sora 技术报告和演示视频发布
+  - date: 2024-12
+    event: Sora 正式向 ChatGPT 用户开放
+  - date: 2025-06
+    event: Sora 2.0 发布
+
+sources:
+  official: https://openai.com/sora

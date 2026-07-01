@@ -1,0 +1,84 @@
+# ============================================================
+# Knowledge Card: ERNIE 4.5
+# ============================================================
+
+id: ernie-4.5
+name: 文心大模型 4.5 (ERNIE 4.5)
+type: model
+aliases:
+  - ERNIE 4.5
+  - ernie-4.5
+  - 文心4.5
+  - 文心大模型4.5
+  - 文心一言4.5
+
+release_date: 2025-06
+status: active
+
+company: Baidu (百度)
+creators:
+  - 百度 AI
+
+tags:
+  - llm
+  - chinese
+  - baidu
+  - knowledge-enhanced
+  - search
+  - multimodal
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  百度文心大模型最新版本，基于知识增强架构。ERNIE 4.5 在中文
+  理解、知识问答、搜索增强方面表现突出，是中国最早对标 GPT-4
+  的大模型之一。
+
+significance: |
+  百度是中国最早全面投入大模型的互联网巨头。ERNIE 系列从 2019 年
+  的 ERNIE 1.0 开始，采用"知识增强"（Knowledge Enhancement）
+  技术路线——将知识图谱和大模型结合，提升事实准确性和推理能力。
+
+  ERNIE 4.5 的差异化：
+  - 搜索增强：天然整合百度搜索引擎，实时获取最新信息
+  - 知识增强：百度知识图谱积累 10 年+，事实准确度更高
+  - 中文深度：对中国文化、诗词、历史等理解超越 GPT-4
+  - 行业覆盖：在医疗、法律、金融等垂直领域有定制版本
+
+background: |
+  百度 2019 年发布 ERNIE 1.0，是中国最早的大模型之一。2023 年
+  文心一言（ERNIE Bot）面向公众开放。2024-2025 年持续迭代，
+  ERNIE 4.0/4.5 逐步缩小与 GPT-4 的差距。
+
+related:
+  - gpt-4
+  - qwen-2.5
+  - glm-4
+  - deepseek-v3
+
+depends_on:
+  - transformer
+  - knowledge-graph
+
+influenced:
+  - chinese-ai-boom
+
+architecture: Knowledge-Enhanced Transformer
+modalities:
+  - text
+  - image
+license: proprietary
+
+timeline:
+  - date: 2019-03
+    event: ERNIE 1.0 发布
+  - date: 2023-03
+    event: 文心一言 (ERNIE Bot) 发布
+  - date: 2024-10
+    event: ERNIE 4.0 发布，对标 GPT-4
+  - date: 2025-06
+    event: ERNIE 4.5 发布
+
+sources:
+  official: https://yiyan.baidu.com

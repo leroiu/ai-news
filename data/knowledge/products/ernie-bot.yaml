@@ -1,0 +1,77 @@
+# ============================================================
+# Knowledge Card: ERNIE Bot
+# ============================================================
+
+id: ernie-bot
+name: 文心一言 (ERNIE Bot)
+type: product
+aliases:
+  - 文心一言
+  - ERNIE Bot
+  - 文心
+  - 百度文心
+  - 文小言
+
+release_date: 2023-03
+status: active
+
+company: Baidu (百度)
+creators:
+  - 百度 AI
+
+tags:
+  - ai-assistant
+  - chinese
+  - baidu
+  - chatbot
+  - search-enhanced
+  - multimodal
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  百度的 AI 助手产品，中国首个对标 ChatGPT 的大模型应用。
+  文心一言依托百度搜索和知识图谱，在中文知识问答和实时信息
+  获取方面有天然优势。2025 年品牌升级为"文小言"。
+
+significance: |
+  文心一言的战略意义在于"搜索 + AI"——百度作为中国最大搜索
+  引擎，有海量实时数据和知识图谱积累，这使得文心一言在事实性
+  问答和实时信息方面表现突出。
+
+  与豆包/Kimi 的竞争：
+  - 豆包胜在产品体验和流量分发
+  - Kimi 胜在长上下文技术
+  - 文心一言胜在知识深度和搜索整合
+
+  2025 年品牌升级为"文小言"后，定位更年轻的 AI 伴侣，
+  同时保持企业级 API（千帆平台）的 B 端布局。
+
+background: |
+  2023 年 3 月文心一言正式发布，首批邀请测试。2023 年 8 月
+  面向公众开放。2024 年持续迭代，2025 年品牌升级为"文小言"。
+  同时百度千帆大模型平台向企业提供 API 服务。
+
+related:
+  - ernie-4.5
+  - doubao
+  - kimi
+  - chatgpt
+  - tongyi-qianwen
+
+depends_on:
+  - ernie-4.5
+
+timeline:
+  - date: 2023-03
+    event: 文心一言发布，中国首个 ChatGPT 竞品
+  - date: 2023-08
+    event: 面向公众开放
+  - date: 2024-10
+    event: 升级至 ERNIE 4.0
+  - date: 2025-06
+    event: 品牌升级为"文小言"，年轻化定位
+
+sources:
+  official: https://yiyan.baidu.com

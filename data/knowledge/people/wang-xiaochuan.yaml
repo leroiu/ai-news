@@ -1,0 +1,71 @@
+# ============================================================
+# Knowledge Card: 王小川
+# ============================================================
+
+id: wang-xiaochuan
+name: 王小川
+type: person
+aliases:
+  - 王小川
+  - Wang Xiaochuan
+  - 百川创始人
+  - 搜狗创始人
+
+release_date: 1978
+status: active
+
+company: 百川智能 (Baichuan AI)
+creators: []
+
+tags:
+  - person
+  - founder
+  - chinese
+  - baichuan
+  - sogou
+  - tsinghua
+  - entrepreneur
+  - search
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  百川智能创始人兼 CEO，前搜狗 CEO。清华计算机系毕业，中国
+  搜索引擎和 AI 领域最资深的连续创业者之一。2023 年创立百川
+  智能，主打企业级大模型和 AI 搜索。
+
+significance: |
+  王小川是中国互联网和 AI 领域最具传奇色彩的创业者之一。21 岁
+  加入搜狐，27 岁创立搜狗，带领搜狗成为中国第二大搜索引擎。
+
+  2023 年 ChatGPT 发布后，王小川迅速入局大模型赛道，创立百川
+  智能。百川的差异化路线是"搜索 + 大模型"——利用搜狗时期的
+  搜索技术积累，打造新一代 AI 搜索体验。
+
+  百川系列模型（Baichuan）覆盖 7B 到 53B 多个尺寸，在中文
+  理解和搜索增强方面有独特优势。
+
+background: |
+  王小川 1978 年出生，清华计算机系本硕。1999 年加入搜狐，
+  2005 年创立搜狗。2010 年主导搜狗独立运营并在纽交所上市。
+  2021 年搜狗被腾讯收购后离开，2023 年 4 月创立百川智能。
+
+related:
+  - zhipu-ai
+  - deepseek
+  - moonshot-ai
+  - search
+
+timeline:
+  - date: 2005
+    event: 创立搜狗搜索
+  - date: 2010
+    event: 搜狗独立运营，纽交所上市
+  - date: 2023-04
+    event: 创立百川智能
+  - date: 2024-06
+    event: 百川 4 发布，中文能力领先
+
+sources:
+  official: https://www.baichuan-ai.com

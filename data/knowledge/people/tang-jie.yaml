@@ -1,0 +1,71 @@
+# ============================================================
+# Knowledge Card: 唐杰
+# ============================================================
+
+id: tang-jie
+name: 唐杰
+type: person
+aliases:
+  - 唐杰
+  - Tang Jie
+  - 智谱创始人
+  - 智谱AI创始人
+
+release_date: 1977
+status: active
+
+company: 智谱 AI (Zhipu AI)
+creators: []
+
+tags:
+  - person
+  - founder
+  - chinese
+  - zhipu
+  - tsinghua
+  - professor
+  - academic
+  - knowledge-graph
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  智谱 AI 联合创始人兼首席科学家，清华大学计算机系教授。
+  AMiner 创始人，在知识工程、社会网络分析和 AI 领域深耕
+  二十余年，是中国大模型学术派的代表人物。
+
+significance: |
+  唐杰是中国 AI 学术界向产业界转化的最成功案例之一。他从 2006 年
+  开始研究科技情报挖掘（AMiner），在知识图谱和大规模图计算
+  方面积累了深厚学术基础。
+
+  2019 年联合创立智谱 AI，将清华 KEG 实验室的 GLM 技术产业化。
+  智谱的 GLM 架构不同于 GPT，采用自研的双向注意力+自回归混合
+  设计，是中国少有的"自主架构"大模型路线。
+
+  唐杰的学术背景（清华教授 + 国家杰青）使智谱在产学研合作方面
+  有天然优势，但也面临从学术到产品的转型挑战。
+
+background: |
+  唐杰 1977 年出生，清华计算机系教授、博导。国家杰出青年科学基金
+  获得者。2006 年创建 AMiner 学术挖掘系统。2019 年联合创立
+  智谱 AI。主持国家自然科学基金重点项目多项。
+
+related:
+  - zhipu-ai
+  - glm-4
+  - knowledge-graph
+
+timeline:
+  - date: 2006
+    event: 创建 AMiner 科技情报挖掘系统
+  - date: 2019-06
+    event: 联合创立智谱 AI
+  - date: 2023-03
+    event: ChatGLM-6B 开源
+  - date: 2024-01
+    event: GLM-4 All-Tools 架构发布
+
+sources:
+  official: https://www.zhipuai.cn

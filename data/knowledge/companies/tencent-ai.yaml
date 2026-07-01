@@ -1,0 +1,74 @@
+# ============================================================
+# Knowledge Card: Tencent AI
+# ============================================================
+
+id: tencent-ai
+name: 腾讯 AI (Tencent AI)
+type: company
+aliases:
+  - 腾讯
+  - Tencent
+  - 腾讯AI
+  - 腾讯混元
+
+release_date: 1998-11
+status: active
+
+creators:
+  - 马化腾
+
+tags:
+  - chinese
+  - llm
+  - social
+  - gaming
+  - cloud
+  - wechat
+  - enterprise
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  腾讯通过混元大模型、腾讯元宝和微信生态布局 AI。核心优势
+  在于 13 亿微信用户 + 游戏/社交/支付的超级生态。虽入场较晚，
+  但社交分发潜力巨大。
+
+significance: |
+  腾讯的 AI 策略是"后发制人"——不在模型性能上争第一，而是
+  利用社交和游戏生态将 AI 无缝嵌入用户日常生活。
+
+  核心资产：
+  - 微信：13 亿 MAU，中国最大的超级 APP
+  - 游戏：全球最大游戏公司，AI NPC/生成式游戏内容
+  - 腾讯云：中国第二大云服务商
+  - 投资生态：投资了 DeepSeek/智谱/MiniMax/百川等
+
+  腾讯元宝接入微信搜一搜后，用户可以通过 AI 搜索公众号文章、
+  聊天记录等私有数据，这是任何竞品无法复制的壁垒。
+
+background: |
+  腾讯 1998 年成立，以 QQ 起家，2011 年推出微信。2023 年发布
+  混元大模型，2024 年推出元宝 APP。腾讯也是中国 AI 创业公司
+  最大的投资方之一。游戏业务中 AI 应用领先（AI NPC、生成式
+  游戏资产）。
+
+related:
+  - tencent-yuanbao
+  - bytedance-ai
+  - alibaba-ai
+  - doubao
+  - deepseek
+
+timeline:
+  - date: 2023-09
+    event: 腾讯混元大模型发布
+  - date: 2024-05
+    event: 腾讯元宝 APP 上线
+  - date: 2025-03
+    event: 元宝接入微信搜一搜
+  - date: 2025-06
+    event: 腾讯云 AI 服务覆盖百万企业客户
+
+sources:
+  official: https://cloud.tencent.com

@@ -1,0 +1,73 @@
+# ============================================================
+# Knowledge Card: Sora Release
+# ============================================================
+
+id: sora-release
+name: Sora 发布
+type: event
+aliases:
+  - Sora 发布
+  - Sora release
+  - OpenAI Sora 发布
+
+release_date: 2024-02-15
+status: active
+
+creators:
+  - OpenAI
+
+tags:
+  - video-generation
+  - openai
+  - milestone
+  - sora
+  - ai-video
+
+importance: 5
+confidence: confirmed
+
+summary: |
+  2024 年 2 月 15 日，OpenAI 发布 Sora 视频生成模型，
+  展示了一分钟级、物理一致的 AI 生成视频，被视为 AI 视频
+  生成的"GPT 时刻"。直接引发中国 Kling/Seedance/Vidu
+  等竞品的快速跟进。
+
+significance: |
+  Sora 发布是 2024 年 AI 行业最重要的里程碑之一。在此之前，
+  AI 视频生成（Runway/Pika）只能生成几秒的低质片段。Sora
+  展示了视频生成可以做到：
+  - 60 秒长视频，角色和场景一致
+  - 物理交互模拟（走路、光影、流体）
+  - 3D 空间一致性（镜头运动不崩）
+
+  行业影响：
+  - 影视/广告/教育行业对 AI 替代的恐慌升级
+  - 中国视频生成创业热潮（Kling/Seedance/Vidu 3 个月内跟进）
+  - AI 生成内容（AIGC）真实性讨论白热化
+  - 好莱坞编剧工会将 AI 视频生成纳入谈判条款
+
+background: |
+  2024 年 2 月 15 日 OpenAI 发布 Sora 技术报告和演示视频。
+  初期仅限红队测试和少数创作者使用。2024 年 12 月向 ChatGPT
+  Plus/Pro 用户开放。从发布到公测间隔 10 个月，期间 Kling
+  等竞品已抢占市场。
+
+related:
+  - sora
+  - openai
+  - kling-release
+  - seedance-2-release
+  - ai-video-generation
+
+timeline:
+  - date: 2024-02-15
+    event: OpenAI 发布 Sora 技术报告和演示视频
+  - date: 2024-06
+    event: 快手 Kling 发布，中国第一个正面回应 Sora
+  - date: 2024-12
+    event: Sora 正式向 ChatGPT 用户开放
+  - date: 2025-06
+    event: Sora 2.0 发布
+
+sources:
+  official: https://openai.com/sora

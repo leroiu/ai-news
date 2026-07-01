@@ -1,0 +1,76 @@
+# ============================================================
+# Knowledge Card: Tencent Yuanbao
+# ============================================================
+
+id: tencent-yuanbao
+name: 腾讯元宝 (Tencent Yuanbao)
+type: product
+aliases:
+  - 腾讯元宝
+  - 元宝
+  - 腾讯混元
+  - Tencent Yuanbao
+
+release_date: 2024-05
+status: active
+
+company: Tencent (腾讯)
+creators:
+  - 腾讯混元团队
+
+tags:
+  - ai-assistant
+  - chinese
+  - tencent
+  - wechat
+  - chatbot
+  - enterprise
+  - social
+
+importance: 4
+confidence: confirmed
+
+summary: |
+  腾讯的 AI 助手产品，基于混元大模型。依托微信/QQ 的社交
+  生态和企业微信/腾讯云的 B 端场景，在中国 AI 助手中具有
+  独特的社交分发优势。
+
+significance: |
+  腾讯元宝的最大优势是微信生态——微信拥有 13 亿月活用户，
+  这给了元宝任何竞品都无法企及的潜在分发能力。
+
+  腾讯的 AI 策略：
+  - 微信 AI：搜索增强、朋友圈 AI、小程序 AI
+  - 元宝 APP：独立 AI 助手
+  - 混元大模型：底层模型能力
+  - 企业微信 AI + 腾讯云 AI：B 端覆盖
+
+  腾讯在 AI 赛道的节奏比字节和阿里更稳、更慢，但社交+游戏
+  的用户粘性给了它后发优势。
+
+background: |
+  腾讯 2023 年发布混元大模型，2024 年 5 月推出腾讯元宝 APP。
+  2025 年元宝接入微信搜一搜，开始探索社交分发。腾讯也是
+  DeepSeek、智谱、MiniMax 等多家 AI 公司的投资方。
+
+related:
+  - doubao
+  - kimi
+  - ernie-bot
+  - deepseek
+  - wechat
+
+depends_on: []
+
+timeline:
+  - date: 2023-09
+    event: 腾讯混元大模型发布
+  - date: 2024-05
+    event: 腾讯元宝 APP 上线
+  - date: 2025-03
+    event: 元宝接入微信搜一搜
+  - date: 2025-06
+    event: 元宝月活用户超 5000 万
+
+sources:
+  official: https://yuanbao.tencent.com
