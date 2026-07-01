@@ -44,3 +44,4 @@ Desktop.ini
 
 # Claude Code
 .claude/
+.private/

@@ -2,7 +2,7 @@
 
 > Automated AI news aggregation, analysis & knowledge management. RSS → AI Pipeline → Daily Digest → Web Dashboard.
 
-📖 **Product Guide (Chinese)**: [PRODUCT_GUIDE.md](./PRODUCT_GUIDE.md)
+📖 **Product Guide (Chinese)**: [docs/README_zh.md](./docs/README_zh.md)
 
 ---
 
@@ -15,7 +15,7 @@
 | **SSOT** | Knowledge Card (YAML) — all modules read from cards |
 | **Web** | FastAPI on `:8765`, 8 pages, API-driven UI |
 | **Database** | SQLite (WAL mode), 4 tables: entities / relationships / articles / reports |
-| **Entities** | 92 knowledge cards, 8 types (model, company, tech, concept, product, person, methodology, event) |
+| **Entities** | 123 knowledge cards, 8 types (model, company, tech, concept, product, person, methodology, event) |
 | **Relations** | 592 edges in the knowledge graph |
 | **RSS Sources** | 16 sources (14 active), RSS + HTML parsing |
 | **Tests** | 249 passed, 0 failures |
@@ -108,7 +108,7 @@ inbox.jsonl
 | Route | Content |
 |-------|---------|
 | `/` | Dashboard — stats, top stories, health |
-| `/library` | Knowledge library — 92 cards, 8 types, semantic search |
+| `/library` | Knowledge library — 123 cards, 8 types, semantic search |
 | `/graph` | D3.js interactive knowledge graph (2D) |
 | `/graph3d` | Three.js 3D knowledge graph |
 | `/timeline` | AI industry timeline |
@@ -160,15 +160,21 @@ Windows Task Scheduler `.bat` / `.vbs` files included.
 
 ## Documentation
 
-| Document | Audience |
-|----------|----------|
-| `PRODUCT_GUIDE.md` | Non-technical users (Chinese) |
-| `README.md` | Developers, interviewers |
-| `ARCHITECTURE_系统架构.md` | System architecture deep-dive |
-| `ROADMAP_项目路线图.md` | Development roadmap |
-| `DECISIONS_架构决策记录.md` | Architecture Decision Records (ADR) |
-| `KNOWLEDGE-CARD-SCHEMA_知识卡片结构.md` | Knowledge card format spec |
-| `CODEX_HANDOFF_Codex协作说明.md` | AI-to-AI handoff protocol |
+All documentation is organized under `docs/`:
+
+| Document | Audience | Description |
+|----------|----------|-------------|
+| `docs/ARCHITECTURE.md` | Developers | System architecture deep-dive |
+| `docs/ROADMAP.md` | Developers | Development roadmap |
+| `docs/DECISIONS.md` | Developers | Architecture Decision Records (ADR) |
+| `docs/DESIGN_SYSTEM.md` | Frontend developers | Frontend design constitution |
+| `docs/ENGINEERING.md` | Developers | Engineering principles |
+| `docs/KNOWLEDGE_CARD_SCHEMA.md` | Developers | Knowledge card format specification |
+| `docs/OPENSPEC.md` | Developers | Original design specification |
+| `docs/INFORMATION_ARCHITECTURE.md` | Developers | Information architecture |
+| `docs/CHANGELOG.md` | Developers | Release changelog |
+| `docs/README_zh.md` | Users | Product guide (Chinese) |
+| `README.md` | Everyone | Project overview & quick start |
 
 ## License
 
