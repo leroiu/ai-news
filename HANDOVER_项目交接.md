@@ -10,6 +10,25 @@ Knowledge Card 是整个系统的唯一事实来源（SSOT）。
 
 ## 当前状态（2026-07-01 更新）
 
+### 本次会话完成 — Research Engine 增强 (P2 #30) ✅
+
+- ✅ **知识图谱深度关联**：`database.py` 新增 `get_entity_neighbors()` (1-2跳邻居遍历) + `get_entity_relation_graph()` (子图关系查询) + `verify_entity_ids()` (批量验证)
+- ✅ **引用溯源**：`_verify_citations()` 验证 AI 返回的 card_id/article_id 真实性，剔除幻觉引用，标注 `_hallucinated_*`
+- ✅ **关系上下文注入**：prompt 新增 `$ENTITY_RELATIONS` 占位符，注入实体间关系信息
+- ✅ **响应丰富化**：`_enrich_report()` 用实际 DB 数据填充 card_connections、timeline、key_findings 引用
+- ✅ **研究深度扩展**：deep 模式搜索更多实体 + 2跳邻居遍历
+- ✅ **测试**: 249 passed, 0 failures
+
+### 本次会话完成 — Pipeline 健壮性 V2 (P2 #31) ✅
+
+- ✅ **错误恢复**：每个阶段独立的 try/except，非致命错误记录后继续，致命错误保存断点后中止
+- ✅ **断点续跑**：`--resume` 从上次中断阶段恢复，`--reset-checkpoint` 清除断点
+- ✅ **Checkpoint 系统**：`data/.pipeline_checkpoint.json` 自动保存每阶段完成状态
+- ✅ **部分失败降级**：`_failed_articles` 跟踪每阶段失败，汇总报告中展示
+- ✅ **增量状态更新**：`update_pipeline_run()` 支持运行中更新 `articles_processed` 和错误信息
+- ✅ **页面生成容错**：5 个页面独立 try/except，单个失败不影响其他
+- ✅ **测试**: 249 passed, 0 failures
+
 ### 本次会话完成 — 项目结构重构 ✅
 
 - ✅ **`src/` 分层重构**：37 文件扁平结构 → 6 个子包
@@ -183,6 +202,8 @@ Knowledge Card 是整个系统的唯一事实来源（SSOT）。
 | `src/kg_d3.py` | D3.js 交互式图谱 HTML 生成 — generate_html |
 | `src/timeline_data.py` | Timeline 常量与模板 — CSS_TEMPLATE + JS_TEMPLATE |
 | `src/timeline_renderer.py` | Timeline 页面组装 — generate_timeline |
+| `src/engine/research_engine.py` | **Research Engine V2** — 图谱邻居遍历 + 引用溯源 + 关系注入 + 响应丰富化 |
+| `pipeline.py` | **Pipeline V2** — 错误恢复 + 断点续跑 + checkpoint 系统 + 部分失败降级 |
 | `src/research.py` | **Research Assistant** — 深度研究页面生成 + API 后端（搜索→AI分析→结构化报告） |
 | `prompts/research.md` | **Research 提示词模板** — 研究分析维度与输出格式定义 |
 | `CODEX_HANDOFF_Codex协作说明.md` | **Codex 前端协作** — 职责边界/架构约束/验收标准/API 文档 |

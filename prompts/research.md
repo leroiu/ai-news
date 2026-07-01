@@ -28,6 +28,12 @@
 
 $KNOWLEDGE_CARDS
 
+## 实体关系图
+
+以下展示知识卡片之间的已知关系，可在 card_connections 中引用：
+
+$ENTITY_RELATIONS
+
 ## 相关文章
 
 $RELATED_ARTICLES
