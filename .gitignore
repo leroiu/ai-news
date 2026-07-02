@@ -34,6 +34,7 @@ logs/
 # Screenshots
 screenshots/
 output/
+.playwright-mcp/
 
 # IDE
 .vscode/
