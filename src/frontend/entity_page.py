@@ -44,6 +44,7 @@ h1 .badge{{font-size:11px;padding:2px 12px;border-radius:10px;color:#fff;flex-sh
 .tags{{display:flex;gap:4px;flex-wrap:wrap;margin-top:8px}}
 .tag{{font-size:10px;padding:2px 10px;background:var(--bg-elevated);border-radius:4px;color:var(--text-secondary)}}
 .rel-item{{display:flex;align-items:center;gap:8px;padding:6px 0;font-size:13px;border-bottom:1px solid var(--bg-elevated)}}
+.rel-item[hidden]{{display:none}}
 .rel-item:last-child{{border-bottom:none}}
 .rel-type{{font-size:9px;padding:1px 8px;border-radius:8px;color:#fff;background:var(--border);flex-shrink:0;min-width:80px;text-align:center}}
 .rel-item a{{color:var(--accent);text-decoration:none}}

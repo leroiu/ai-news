@@ -10,6 +10,18 @@ Knowledge Card 是整个系统的唯一事实来源（SSOT）。
 
 ## 当前状态（2026-07-02 更新）
 
+### 本次会话完成 — Trend Reporter Agent ✅ (2026-07-02)
+
+- ✅ **Agent 趋势分析** (`src/engine/trend_agent.py`, ~250行)：Scan → Enrich → Synthesize → Format 四阶段
+  - Scan：分批（每 5 篇）扫描日报，AI 提取候选趋势，跨批去重合并
+  - Enrich：每个趋势语义搜索知识库，关联实体和文章
+  - Synthesize：知识库增强 + 趋势质量自评（trend_score + evidence_quality + gaps）
+  - Format：复用 trend_reporter 的模板/格式化/存储函数
+- ✅ **Agent Prompts** (2 个)：`prompts/trend-agent-scan.md` + `prompts/trend-agent-synthesize.md`
+- ✅ **Pipeline 集成**：`TREND_AGENT=1` 环境变量启用，默认保持原有行为
+- ✅ **trend_reporter.py 零改动** — 完全向后兼容
+- ✅ **测试**: 275 passed (+10), 0 failures, 0 regressions
+
 ### 本次会话完成 — Concept Miner Agent ✅ (2026-07-02)
 
 - ✅ **Agent 决策核心** (`src/engine/concept_agent.py`, ~220行)：Semantic Lookup → AI Decide → Execute
@@ -269,6 +281,9 @@ Knowledge Card 是整个系统的唯一事实来源（SSOT）。
 | `prompts/agent-synthesize.md` | Agent Synthesize 阶段 prompt — 多轮结果合成 |
 | `src/engine/concept_agent.py` | **Concept Agent** — Semantic Lookup → AI Decide → Execute 决策闭环 |
 | `prompts/concept-decide.md` | Concept Decide prompt — NEW/MERGE/SKIP/DRAFT 策展决策 |
+| `src/engine/trend_agent.py` | **Trend Agent** — Scan→Enrich→Synthesize 迭代趋势分析 |
+| `prompts/trend-agent-scan.md` | Trend Scan prompt — 分批日报扫描，提取候选趋势 |
+| `prompts/trend-agent-synthesize.md` | Trend Synthesize prompt — 知识库增强 + 趋势自评 + 合成 |
 
 ### Codex 本次重写文件
 
@@ -326,7 +341,7 @@ Knowledge Card 是整个系统的唯一事实来源（SSOT）。
 | RSS 源 | 16 个（10 启用 + 6 待启用/未实现） |
 | 报告 | 日报×5 + 周报×1 + 月报×1 |
 | 页面 | 9 个 (Today / Topics / Entity / 2D Graph / 3D Graph / Timeline / Research / My / Reports 已合并到 Research 导航) |
-| 测试 | 265 passed, 0 failures |
+| 测试 | 275 passed, 0 failures |
 | 超300行文件 | 0（全部已拆分） |
 | 卡片完整性 | 全部 61 张策展卡字段完整（0 缺失） |
 
@@ -340,7 +355,7 @@ Knowledge Card 是整个系统的唯一事实来源（SSOT）。
 
 | # | 任务 | 优先级 | 进度 |
 |---|------|--------|------|
-| 1 | **Agent Loop 复用到 trend_reporter** — 迭代趋势搜索 + 自评 | 🔵 | 📋 下一项 |
+| 1 | **全部 3 个 Agent 已交付** — Research ✅ / Concept ✅ / Trend ✅ | 🟢 | ✅ 完成 |
 | 2 | 更多卡片策展 + 关系补充 | 🔵 | 📋 持续 |
 | 3 | GitHub Actions CI + 自动测试 | 🔵 | 📋 待规划 |
 | 4 | 收藏系统账号同步 — localStorage MVP → 后端接入 | 🔵 | 📋 远期 |

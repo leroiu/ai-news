@@ -45,6 +45,7 @@ from src.engine.scorer import score
 from src.engine.reporter import generate_report
 from src.engine.knowledge import load_cards, match_cards, build_context
 from src.engine.trend_reporter import generate_trend_report
+from src.engine.trend_agent import generate_trend_report_agent
 from src.knowledge_graph import build_graph, generate_mermaid_report, generate_html
 from src.engine.concept_miner import mine_concepts, update_pool, get_pool_summary
 from src.engine.concept_agent import update_pool_with_agent
@@ -310,7 +311,11 @@ def main() -> int:
             return 1
         t1 = _tick()
         try:
-            report_path = generate_trend_report(period=period)
+            use_agent = os.getenv("TREND_AGENT") == "1"
+            if use_agent:
+                report_path = generate_trend_report_agent(period=period)
+            else:
+                report_path = generate_trend_report(period=period)
             _log_stage("trend_report", _tick() - t1)
             if report_path:
                 init_db()
