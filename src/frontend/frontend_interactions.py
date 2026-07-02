@@ -71,4 +71,5 @@ function uiToast(message, tone, duration) {
   region.appendChild(toast);
   setTimeout(function () { toast.remove(); }, duration || 3000);
 }
+
 """

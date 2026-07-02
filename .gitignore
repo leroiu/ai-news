@@ -18,6 +18,9 @@ build/
 # Cache & Temp
 cache/
 .pytest_cache/
+node_modules/
+test-results/
+playwright-report/
 *.pyc
 
 # Reports (generated)
@@ -30,6 +33,8 @@ logs/
 
 # Screenshots
 screenshots/
+output/playwright/*
+!output/playwright/.gitkeep
 
 # IDE
 .vscode/

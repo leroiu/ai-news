@@ -17,6 +17,7 @@ COMPONENT_CSS = """\
 .ui-empty{padding:56px 24px;text-align:center;color:var(--text-secondary)}.ui-empty__icon{margin-bottom:12px;font-size:32px}.ui-empty h3{margin-bottom:6px;color:var(--text-primary);font-size:16px}.ui-empty p{max-width:480px;margin:0 auto;line-height:1.6}.ui-empty__action{margin-top:18px}
 .ui-section{margin-top:24px}.ui-section__header{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:12px}.ui-section__title{font-size:16px;color:var(--text-primary)}.ui-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}.ui-stack{display:flex;flex-direction:column;gap:16px}
 .ui-toast-region{position:fixed;right:20px;bottom:20px;z-index:1000;display:flex;max-width:min(360px,calc(100vw - 40px));flex-direction:column;gap:8px}.ui-toast{padding:11px 14px;background:var(--bg-elevated);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--radius-sm);box-shadow:var(--shadow);color:var(--text-primary);font-size:12px}.ui-toast--success{border-left-color:var(--success)}.ui-toast--warning{border-left-color:var(--warning)}.ui-toast--danger{border-left-color:var(--danger)}
+.ui-favorite{border-color:var(--border);background:var(--bg-elevated);color:var(--text-secondary)}.ui-favorite.is-favorited,.ui-favorite[aria-pressed="true"]{border-color:var(--warning);background:#e3b34122;color:var(--warning)}
 @media(max-width:768px){.ui-page-header{align-items:flex-start;flex-direction:column}.ui-page-header__actions{width:100%}.ui-filter-bar{align-items:stretch;flex-direction:column}.ui-filter-bar__count{align-self:flex-start}.ui-grid{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.ui-card--interactive,.ui-button{transition:none}.ui-card--interactive:hover,.ui-button:hover{transform:none}}
 """
@@ -48,6 +49,16 @@ def button(label: str, *, variant: str = "primary", size: str = "medium",
         raise ValueError("unsupported button variant or size")
     classes = f"ui-button ui-button--{variant} ui-button--{size}"
     return f'<button class="{classes}"{_attrs(attrs)}>{_text(label)}</button>'
+
+
+def favorite_button(item_type: str, item_id: str, title: str = "") -> str:
+    """生成统一收藏按钮；持久化逻辑由 ``uiToggleFavorite`` 处理。"""
+    return (
+        '<button class="ui-button ui-button--small ui-favorite" aria-pressed="false" '
+        f'data-favorite-type="{_text(item_type)}" data-favorite-id="{_text(item_id)}" '
+        f'data-favorite-title="{_text(title)}" '
+        "onclick=\"uiToggleFavorite({type:this.dataset.favoriteType,id:this.dataset.favoriteId,title:this.dataset.favoriteTitle}, this)\">收藏</button>"
+    )
 
 
 def badge(label: str, *, tone: str = "neutral", icon: str = "") -> str:

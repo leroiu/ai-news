@@ -15,6 +15,8 @@ def test_dashboard_generates_html():
         html = path.read_text(encoding="utf-8")
     assert "<!DOCTYPE html>" in html
     assert "data-theme" in html
+    assert "AI 观察室" in html
+    assert "在信息噪音中" in html
     assert "var(--bg-primary)" in html
     assert "var(--accent)" in html
     assert "SHARED_JS" not in html
@@ -27,10 +29,9 @@ def test_dashboard_contains_nav():
         html = path.read_text(encoding="utf-8")
     assert 'href="/"' in html
     assert 'href="/library"' in html
-    assert 'href="/graph"' in html
     assert 'href="/timeline"' in html
-    assert 'href="/events"' in html
-    assert 'href="/reports"' in html
+    assert 'href="/research"' in html
+    assert 'href="/my"' in html
     assert 'theme-toggle' in html
 
 
@@ -90,6 +91,16 @@ def test_reports_page_generates_html():
     assert "reports_title" in html
 
 
+def test_my_page_generates_html():
+    from src.frontend.my_page import generate_my_page
+    with tempfile.TemporaryDirectory() as td:
+        path = generate_my_page(Path(td))
+        html = path.read_text(encoding="utf-8")
+    assert "<!DOCTYPE html>" in html
+    assert "my-favorites-list" in html
+    assert "账号同步待接入" in html
+
+
 # ── 2D Graph ──
 
 def test_kg_d3_generates_html():
@@ -132,6 +143,7 @@ def test_timeline_generates_html():
     ("library", lambda td: __import__("src.frontend.library", fromlist=[""]).generate_library(td)),
     ("events", lambda td: __import__("src.frontend.events_page", fromlist=[""]).generate_events_page(td)),
     ("reports", lambda td: __import__("src.frontend.reports_page", fromlist=[""]).generate_reports_page(td)),
+    ("my", lambda td: __import__("src.frontend.my_page", fromlist=[""]).generate_my_page(td)),
     ("graph2d", lambda td: __import__("src.frontend.kg_d3", fromlist=[""]).generate_html(output_dir=td)),
     ("graph3d", lambda td: __import__("src.frontend.kg_3d", fromlist=[""]).generate_3d_html(output_dir=td)),
     ("timeline", lambda td: __import__("src.timeline", fromlist=[""]).generate_timeline(output_dir=td)),
@@ -215,7 +227,7 @@ def test_design_system_version_valid():
 
 def test_i18n_has_all_nav_keys():
     from src.interfaces.i18n import I18N
-    nav_keys = ["dashboard", "library", "graph", "timeline", "events", "reports"]
+    nav_keys = ["today", "topics", "timeline", "research", "my"]
     for key in nav_keys:
         assert key in I18N, f"缺少导航 i18n 键: {key}"
         assert "zh" in I18N[key], f"{key} 缺少 zh"
@@ -229,10 +241,10 @@ def test_i18n_has_reports_keys():
         assert key in I18N, f"缺少 reports i18n 键: {key}"
 
 
-def test_nav_html_contains_reports():
+def test_nav_html_contains_research_group():
     from src.interfaces.i18n import nav_html
     html = nav_html("reports")
-    assert 'href="/reports"' in html
+    assert 'href="/research"' in html
     assert 'active' in html  # reports 应该是当前页
 
 
@@ -267,6 +279,7 @@ def test_research_page_has_nav():
         html = path.read_text(encoding="utf-8")
     assert 'href="/research"' in html
     assert 'href="/library"' in html
+    assert 'href="/my"' in html
 
 
 def test_research_page_i18n_bilingual():

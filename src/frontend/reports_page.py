@@ -42,6 +42,7 @@ h1{{font-size:24px;color:var(--accent);margin:8px 0}}
 .report-list{{display:flex;flex-direction:column;gap:6px}}
 .report-item{{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);text-decoration:none;color:var(--text-primary);transition:all .15s}}
 .report-item:hover{{border-color:var(--accent);background:var(--bg-elevated)}}
+.report-main{{display:flex;align-items:center;gap:12px;flex:1;color:inherit;text-decoration:none;min-width:0}}
 .report-item .icon{{font-size:16px;flex-shrink:0}}
 .report-item .label{{font-size:14px;font-weight:500}}
 .report-item .meta{{margin-left:auto;font-size:11px;color:var(--text-muted);white-space:nowrap}}
@@ -95,12 +96,15 @@ function reportItem(r) {{
   if (!filename) filename = date + ".md";
   var stars = r.star5 ? " ★5:"+r.star5 : "";
   var fetched = r.fetched ? " " + r.fetched + "篇" : "";
-  return '<a class="report-item card-hover" href="/report-files/'+encodeURIComponent(filename)+'">' +
+  return '<div class="report-item card-hover">' +
+    '<a class="report-main" href="/report-files/'+encodeURIComponent(filename)+'">' +
     '<span class="icon">'+icon+'</span>' +
     '<span class="label">'+label+'</span>' +
     '<span class="badge '+badgeType+'">'+TLbl(r.report_type)+'</span>' +
     '<span class="meta">'+fetched+stars+'</span>' +
-    '<span class="arrow">→</span></a>';
+    '<span class="arrow">→</span></a>' +
+    favoriteButtonHTML('report', r.report_type + '-' + date, label) +
+    '</div>';
 }}
 
 function statCard(num, label) {{

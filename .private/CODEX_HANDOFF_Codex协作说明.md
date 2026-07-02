@@ -47,44 +47,45 @@ AI Intelligence Platform — 每天从 RSS 自动抓取 AI 资讯，AI 处理后
 
 | 页面 | 文件 | 状态 | 备注 |
 |------|------|------|------|
-| Dashboard | `src/dashboard.py` | ✅ 完成 | 健康面板 + 主题切换 |
-| Library | `src/library.py` | ✅ 完成 | 语义搜索 + Category Navigation（sticky标签+scroll spy） |
-| Graph (2D) | `src/kg_d3.py` | ✅ 完成 | D3.js 力导向图 |
-| Graph (3D) | `src/kg_3d.py` | ✅ 完成 | Three.js + 3d-force-graph |
-| Timeline | `src/timeline_data.py` + `renderer.py` | ✅ 完成 | 年份分布柱状图 + 类型筛选 |
-| Entity Detail | `src/entity_page.py` | ✅ 完成 | 关联文章/相似实体/卡片元数据 |
-| Events | `src/events_page.py` | ✅ 完成 | 时间线布局 + 搜索/年份筛选 |
-| Reports | `src/reports_page.py` | ✅ 完成 | 报告浏览器（统计+分组列表） |
-| Research | `src/research.py` | ✅ 完成 | 深度研究助手（表单→AI生成→结构化报告） |
+| Today（原 Dashboard） | `src/frontend/dashboard.py` | ✅ 完成 | Hero 重设计 + 收藏按钮 + 报告历史 |
+| Topics（原 Library） | `src/frontend/library.py` | ✅ 完成 | 语义搜索 + Category Nav + 收藏按钮 |
+| Graph (2D) | `src/frontend/kg_d3.py` | ✅ 完成 | D3.js 力导向图 |
+| Graph (3D) | `src/frontend/kg_3d.py` | ✅ 完成 | Three.js + 3d-force-graph |
+| Timeline | `src/frontend/timeline_renderer.py` | ✅ 完成 | 年份分布 + 类型筛选 |
+| Entity Detail | `src/frontend/entity_page.py` | ✅ 完成 | 关联文章/相似实体/卡片元数据 |
+| Events | `src/frontend/events_page.py` | ✅ 完成 | 时间线布局 + 搜索/年份筛选 |
+| Research | `src/frontend/research_page.py` | ✅ 完成 | 深度研究助手 + Reports 导航合并 |
+| **My（🆕）** | `src/frontend/my_page.py` | ✅ 完成 | 收藏列表 + 分类/标签 + 同步状态 |
 
-**全部 8 页面 ✅ 完成，零待新建。**
+**全部 9 页面 ✅ 完成。导航简化为 5 项：今日 / 专题 / 时间线 / 研究 / 我的。**
 
 ### 设计系统
 
 | 项 | 值 |
 |----|-----|
-| 当前版本 | `DESIGN_SYSTEM_VERSION = "5.1.0"` in `frontend_styles.py` |
-| 上次变更 | 2026-07-01 — v5.1.0: 新增 THEME_VARS 导出 + 主题切换 JS（暗色/亮色双主题） |
-| 项目状态 | 8 页面全部完成 ✅ / 249 tests / 92 卡片 / 14 活跃 RSS 源 / 卡片字段 100% 完整 |
-| 主题系统 | `:root` 暗色 + `[data-theme="light"]` 亮色，localStorage 持久化，7 页面全覆盖 |
-| CSS Token | 13 个变量（--bg-primary/card/elevated, --border, --text-primary/secondary/muted, --accent/subtle, --success/danger/warning, --radius/sm, --shadow） |
+| 当前版本 | `DESIGN_SYSTEM_VERSION = "5.2.0"` in `frontend_styles.py` |
+| 上次变更 | 2026-07-02 — v5.2.0: 品牌升级（AI 观察室）、全局收藏系统（localStorage）、My 页面、导航重构（5 项 aliases） |
+| 项目状态 | 9 页面全部完成 ✅ / 249 tests / 123 卡片 / 14 活跃 RSS 源 |
+| 主题系统 | `:root` 暗色 + `[data-theme="light"]` 亮色，localStorage 持久化，9 页面全覆盖 |
+| CSS Token | 13 个变量 + `.favorite-btn` / `.ui-favorite` 收藏组件 |
+| 品牌名称 | **AI 观察室** (AI Observatory) |
 
 ### 已知问题
 
 | 问题 | 影响 | 状态 |
 |------|------|------|
-| Research 页面为初版，视觉风格与成熟页面有差距 | Research | 🆕 待优化 |
-| Reports 页面列表较朴素，缺少搜索/筛选 | Reports | 📋 待优化 |
-| Entity 详情页文章时间线视图 ✅ | Entity | ✅ 已完成 (2026-07-01) |
+| 收藏系统当前为 localStorage MVP，无账号同步 | My 页面 | 📋 待后端账号体系 |
+| Research 页面为初版，视觉风格与成熟页面有差距 | Research | 📋 待优化 |
 | 移动端（<480px）部分页面 nav 换行拥挤 | 全部 | 📋 待优化 |
+| Codex 改动未 commit（18 modified + 3 new） | 全部 | 🔴 待提交 |
 
 ### 当前分配给 Codex 的任务
 
 | # | 任务 | 优先级 | 预估 |
 |---|------|--------|------|
-| 1 | **Research 页面视觉优化** — 统一风格、报告区块美化、加载状态动画 | 🟡 高 | 1-2h |
-| 2 | **Reports 页面增强** — 搜索筛选、日期范围、卡片样式优化 | 🔵 中 | 1-2h |
-| 3 | **移动端响应式打磨** — 所有页面在 320-480px 下的 nav/卡片/表单优化 | 🔵 中 | 2-3h |
+| 1 | **Research 页面视觉优化** — 统一风格、报告区块美化、加载状态动画 | 🔵 中 | 1-2h |
+| 2 | **移动端响应式打磨** — 所有页面在 320-480px 下的 nav/卡片/表单优化 | 🔵 中 | 2-3h |
+| 3 | **收藏同步后端接入** — 账号体系就绪后，localStorage → 服务端同步 | ⚫ 暂缓 | - |
 
 ---
 
@@ -304,6 +305,7 @@ http://127.0.0.1:8765/events            # Events
 
 | 日期 | 设计系统版本 | 变更 | 影响页面 |
 |------|-------------|------|----------|
+| 2026-07-02 | 5.2.0 | **品牌升级 + 收藏系统 + My 页面** — AI 观察室品牌重命名、全局 localStorage 收藏、收藏按钮遍布 Dashboard/Library、My 页面（收藏列表+分类+标签+同步状态）、导航重构（5 项 aliases）、`tools/verify_frontend.py` 一键验证、Makefile | 全部 |
 | 2026-07-01 | 5.1.0 | **Research Assistant 页面** — 新建研究助手页面（表单+AI报告渲染），新增 `POST /api/research` 端点，nav 新增"研究"入口 | research |
 | 2026-07-01 | 5.1.0 | **Category Navigation** — Library 页顶部分类标签可点击，smooth scroll + sticky + scroll spy | library |
 | 2026-07-01 | 5.1.0 | **Reports 页面** — 报告浏览器，统计卡片 + 按类型分组 + i18n | reports |
@@ -315,5 +317,23 @@ http://127.0.0.1:8765/events            # Events
 
 ---
 
-> **最后更新**: 2026-07-01
+## 12.附加说明
+
+Codex 可以提出新的前端设计方案、交互方案和页面结构优化，但实现时必须遵守现有技术栈、设计系统、i18n 和 API 边界。若方案需要突破现有约束，先写方案，不直接改代码。
+
+---
+
+## 13. Codex 笔记（跨会话记忆）
+
+> Codex 每会话结束时在此追加关键发现。只记非显而易见的经验，不记代码里已有的。
+> 新会话时扫一眼最后 3-5 条。
+
+| 日期 | 类型 | 发现 |
+|------|------|------|
+| 2026-07-02 | 决策 | 收藏系统用 localStorage（key: `ai_observatory_favorites`），不用 IndexedDB——当前数据量小、不需要索引 |
+| 2026-07-02 | 注意 | 收藏按钮 CSS（`.favorite-btn`）在 Dashboard 和 Library 中分别定义，如果样式不统一要注意同步 |
+| 2026-07-02 | 技术债 | `nav_html()` aliases 机制是临时方案，如果页面继续合并/增加，考虑抽成独立 `nav_config` |
+
+---
+> **最后更新**: 2026-07-02
 > **维护者**: Claude + 杨成俊

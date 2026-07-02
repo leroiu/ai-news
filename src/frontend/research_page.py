@@ -55,7 +55,8 @@ async function startResearch() {
   setResearchState('loading', T('research_generating'));
   uiSetBusy(button, true, T('research_generating_short'));
   try {
-    const data = await apiFetch('/api/research', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({topic, depth:document.getElementById('research-depth').value, lang:localStorage.getItem('lang') || 'zh'})});
+    const useAgent = document.getElementById('research-agent')?.checked || false;
+    const data = await apiFetch('/api/research', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({topic, depth:document.getElementById('research-depth').value, lang:localStorage.getItem('lang') || 'zh', agent: useAgent})});
     if (data.error) throw new Error(data.error);
     lastResearchReport = data.report || {};
     renderResearchReport(lastResearchReport);
@@ -69,7 +70,22 @@ async function startResearch() {
 
 function renderResearchReport(report) {
   const meta = report._meta || {}, entities = list(report._entities);
-  document.getElementById('report-header').innerHTML = '<div><div class="ui-page-header__eyebrow">'+esc(T('research_report_label'))+'</div><h2 class="report-title">'+esc(meta.topic || T('research_title'))+'</h2><p class="report-meta">'+esc(T('entities_label'))+': '+esc(meta.entity_count || 0)+' · '+esc(T('articles_label'))+': '+esc(meta.article_count || 0)+' · '+esc(T('depth'))+': '+esc(meta.depth || 'standard')+'</p></div>';
+  const topic = meta.topic || T('research_title');
+  let metaHtml = esc(topic) + '<p class="report-meta">' +
+    esc(T('entities_label'))+': '+esc(meta.total_entity_count || meta.entity_count || 0)+' · '+
+    esc(T('articles_label'))+': '+esc(meta.total_article_count || meta.article_count || 0)+' · '+
+    esc(T('depth'))+': '+esc(meta.depth || 'standard');
+  if (meta.mode === 'agent') {
+    metaHtml += ' · <span style="color:var(--accent)">Agent</span> · '+esc(meta.rounds || '?')+' rounds';
+    const roundLog = list(meta.round_log);
+    if (roundLog.length) {
+      metaHtml += '<div class="agent-trace" style="margin-top:8px;font-size:11px;color:var(--text-secondary)">' +
+        roundLog.map(r => 'Round '+esc(r.round)+': +'+esc(r.new_entities)+' entities, +'+esc(r.new_articles)+' articles, score='+esc(r.score)+(r.stopped?' ('+esc(r.stopped)+')':'')+(r.is_complete?' ✓':'')).join('<br>') +
+        '</div>';
+    }
+  }
+  metaHtml += '</p>';
+  document.getElementById('report-header').innerHTML = '<div><div class="ui-page-header__eyebrow">'+esc(T('research_report_label'))+'</div><h2 class="report-title">'+metaHtml+'</h2></div><div>'+favoriteButtonHTML('research', topic + '-' + (meta.depth || 'standard'), topic)+'</div>';
   let html = '';
   if (report.summary) html += sectionHtml('research_summary', '<div class="summary-text">'+esc(report.summary)+'</div>', true);
   if (list(report.key_findings).length) {
@@ -108,7 +124,7 @@ def _build_html(lang: str = "zh") -> str:
     submit = button(t("research_start", lang), attrs={"id": "research-btn", "type": "submit", "data_i18n": "research_start"})
     form = f'''<form class="research-form" onsubmit="event.preventDefault();startResearch()">
 <div><label class="field-label" for="research-topic" data-i18n="research_topic_label">{t("research_topic_label", lang)}</label><input class="research-input" id="research-topic" type="text" autocomplete="off" data-i18n-placeholder="research_placeholder" placeholder="{t("research_placeholder", lang)}"></div>
-<div class="form-actions"><div class="depth-field"><label class="field-label" for="research-depth" data-i18n="research_depth_label">{t("research_depth_label", lang)}</label><select class="depth-select" id="research-depth"><option value="standard" data-i18n="research_depth_standard">{t("research_depth_standard", lang)}</option><option value="deep" data-i18n="research_depth_deep">{t("research_depth_deep", lang)}</option></select></div><div class="research-submit">{submit}</div></div>
+<div class="form-actions"><div class="depth-field"><label class="field-label" for="research-depth" data-i18n="research_depth_label">{t("research_depth_label", lang)}</label><select class="depth-select" id="research-depth"><option value="standard" data-i18n="research_depth_standard">{t("research_depth_standard", lang)}</option><option value="deep" data-i18n="research_depth_deep">{t("research_depth_deep", lang)}</option></select></div><label class="agent-toggle" style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-secondary);cursor:pointer"><input type="checkbox" id="research-agent" style="width:14px;height:14px;accent-color:var(--accent)"><span>Agent 模式</span></label><div class="research-submit">{submit}</div></div>
 <p class="research-status" id="research-status" aria-live="polite"></p></form>'''
     guide = ''.join(
         f'<div class="process-step"><span class="process-step__index">{index}</span><div><strong data-i18n="{key}">{t(key, lang)}</strong><p data-i18n="{key}_desc">{t(key + "_desc", lang)}</p></div></div>'

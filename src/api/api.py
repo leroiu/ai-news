@@ -86,6 +86,12 @@ def research_page():
     return FileResponse(str(REPORTS_DIR / "research.html"))
 
 
+@app.get("/my")
+def my_page():
+    """我的收藏与个人沉淀入口"""
+    return FileResponse(str(REPORTS_DIR / "my.html"))
+
+
 @app.get("/entity/{entity_id}")
 def entity_page(entity_id: str):
     """所有实体共用的详情页，entity_id 由前端 JS 从 URL 提取"""
@@ -187,8 +193,10 @@ def api_health():
 
 @app.post("/api/research")
 def api_research(payload: dict):
-    """深度研究 — 输入话题，生成结构化研究报告。"""
-    from src.research import generate_research_report
+    """深度研究 — 输入话题，生成结构化研究报告。
+
+    ?agent=true 启用 Agent 模式（迭代式搜索 + 自评），默认 false（单次搜索）。
+    """
     topic = (payload.get("topic") or "").strip()
     if not topic:
         raise HTTPException(status_code=400, detail="Topic is required")
@@ -198,4 +206,11 @@ def api_research(payload: dict):
     lang = payload.get("lang", "zh")
     if lang not in ("zh", "en"):
         lang = "zh"
+    use_agent = payload.get("agent", False)
+
+    if use_agent:
+        from src.engine.research_agent import research_agent
+        return research_agent(topic, depth=depth, lang=lang)
+
+    from src.research import generate_research_report
     return generate_research_report(topic, depth=depth, lang=lang)

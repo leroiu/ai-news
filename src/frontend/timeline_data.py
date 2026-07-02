@@ -26,6 +26,7 @@ h1{font-size:22px;color:var(--accent);margin-bottom:4px}
 .nav a:hover{background:#30363d}
 .nav a.active{background:var(--accent-subtle);color:#58a6ff}
 .lang-btn{padding:4px 12px;border:1px solid var(--border);background:var(--bg-elevated);color:var(--text-primary);border-radius:6px;cursor:pointer;font-size:12px;margin-left:auto;transition:background .15s}
+.lang-btn+.lang-btn{margin-left:0}
 .lang-btn:hover{background:#30363d}
 
 /* ── 控制栏 ── */
@@ -73,6 +74,7 @@ h1{font-size:22px;color:var(--accent);margin-bottom:4px}
 .tl-card .card-stars{position:absolute;top:8px;right:10px;font-size:9px;color:#d2991d}
 .tl-card .card-link{display:inline-block;margin-top:6px;font-size:10px;color:var(--accent);text-decoration:none}
 .tl-card .card-link:hover{text-decoration:underline}
+.favorite-btn{display:inline-block;margin-top:7px;padding:2px 7px;border:1px solid var(--border);background:var(--bg-elevated);color:var(--text-secondary);border-radius:999px;cursor:pointer;font-size:10px;line-height:1.4}.favorite-btn:hover,.favorite-btn.is-favorited,.favorite-btn[aria-pressed="true"]{border-color:var(--warning);background:#e3b34122;color:var(--warning)}
 .tl-card .card-timeline{margin-top:6px;font-size:10px;color:var(--text-muted);line-height:1.6}
 .tl-card .card-timeline .tl-event-date{color:#6e7681;font-family:monospace;margin-right:4px}
 .timeline-empty{text-align:center;padding:60px 24px;color:var(--text-muted);font-size:14px}
@@ -244,6 +246,7 @@ function renderTimeline(entities) {
           (timelineEvents ? '<div class="card-timeline">' + timelineEvents + '</div>' : '') +
           ((e.tags || []).length ? '<div class="card-tags">' + e.tags.slice(0,8).map(function(t) { return '<span class="tag">' + t + '</span>'; }).join("") + '</div>' : '') +
           '<a class="card-link" href="/entity/' + e.id + '" onclick="event.stopPropagation()">' + T("view_detail") + ' →</a>' +
+          favoriteButtonHTML('timeline', e.id, e.name) +
         '</div>' +
       '</div>';
     });

@@ -5,10 +5,35 @@
 
 ## 项目定位
 
-AI Intelligence Platform — AI 智能情报平台。News / Knowledge / Graph / Research。
+AI 观察室 (AI Observatory) — AI 智能情报平台。News / Knowledge / Graph / Research。
 Knowledge Card 是整个系统的唯一事实来源（SSOT）。
 
-## 当前状态（2026-07-01 更新）
+## 当前状态（2026-07-02 更新）
+
+### Codex 前端交付 — 品牌升级 + 收藏系统 + "我的"页面 ✅ (2026-07-02)
+
+- ✅ **品牌重命名**：AI 智能情报平台 → **AI 观察室** (AI Observatory)
+  - Dashboard hero 新增 subtitle + description
+  - 平台名称全部更新（title/footer/i18n）
+- ✅ **全局收藏系统**（localStorage 持久化，key: `ai_observatory_favorites`）：
+  - `frontend_components.py`：`favorite_button()` Python 组件
+  - `frontend_styles.py`：`favoriteButtonHTML()` / `uiToggleFavorite()` / `uiFavoriteStore()` / `uiSaveFavoriteStore()` / `uiFavoriteKey()` / `uiEscAttr()` JS 工具函数
+  - 收藏按钮遍布：Dashboard 文章/实体/报告 + Library 卡片 + 统一 `.favorite-btn` CSS
+- ✅ **"我的"页面** (`src/frontend/my_page.py`)：
+  - 两栏布局：收藏列表 + 分类/标签/同步状态
+  - API 路由：`GET /my` + `FileResponse`
+  - localStorage 读取收藏数据，动态渲染列表
+  - 账号同步状态卡片（标注 MVP 阶段，待后端接入）
+- ✅ **导航重构** (`nav_html()`)：
+  - 简化为 5 项：今日 / 专题 / 时间线 / 研究 / 我的
+  - `aliases` 机制合并相关页面（today→dashboard/library/graph, topics→library, timeline→events, research→reports）
+- ✅ **验证工具** (`tools/verify_frontend.py`，190行)：
+  - 4 步验证：生成页面 → 运行测试 → 检查路由 → HTTP 检查
+  - 支持 `--skip-tests` `--skip-server` `--port`
+  - 自动启动临时 dev server 验证后关闭
+- ✅ **Makefile**：`make verify` 一键验证
+- ✅ **测试更新**：test_api.py (+5 路由验证) / test_frontend.py (+25) / test_frontend_components.py (+9)
+- ✅ **i18n**：新增 20+ 翻译键（收藏/我的页面/品牌文案）
 
 ### 本次会话完成 — Research Engine 增强 (P2 #30) ✅
 
@@ -209,8 +234,23 @@ Knowledge Card 是整个系统的唯一事实来源（SSOT）。
 | `CODEX_HANDOFF_Codex协作说明.md` | **Codex 前端协作** — 职责边界/架构约束/验收标准/API 文档 |
 | `src/reports_page.py` | **Reports 页面** — API-driven 报告浏览器（统计+分组列表+响应式+i18n） |
 | `tests/test_embeddings.py` | **RAG 测试** — 26 tests: cosine/存储/重建/混合搜索/语义匹配 |
+| `src/frontend/my_page.py` | **"我的"页面** — 收藏列表 + 分类/标签/同步状态，localStorage 驱动 |
+| `tools/verify_frontend.py` | **一键验证工具** — 生成页面 → 测试 → 路由 → HTTP 检查，4 步验证 |
+| `Makefile` | `make verify` — 前端验证入口 |
 
-### 重写文件
+### Codex 本次重写文件
+
+| 文件 | 变更 |
+|------|------|
+| `src/frontend/frontend_components.py` | 新增 `favorite_button()` Python 组件 + `.ui-favorite` CSS |
+| `src/frontend/frontend_styles.py` | 新增收藏 JS 工具函数（`favoriteButtonHTML`/`uiToggleFavorite`/`uiFavoriteStore` 等）+ `.favorite-btn` CSS |
+| `src/frontend/frontend_interactions.py` | 追加空行（格式修复） |
+| `src/frontend/dashboard.py` | Hero 重设计（subtitle+desc）+ 收藏按钮全覆盖（文章/实体/报告）+ 导航更新 + 480px 响应式 |
+| `src/frontend/library.py` | 卡片头部收藏按钮 + 导航更新 |
+| `src/interfaces/i18n.py` | 品牌文案更新 + 收藏/我的页面 20+ 翻译键 + 导航重构（5项+aliases） |
+| `src/api/api.py` | 新增 `GET /my` 路由 |
+
+### 重写文件（历史）
 
 | 文件 | 变更 |
 |------|------|
@@ -253,27 +293,25 @@ Knowledge Card 是整个系统的唯一事实来源（SSOT）。
 | 关系 | 592 条 |
 | RSS 源 | 16 个（10 启用 + 6 待启用/未实现） |
 | 报告 | 日报×5 + 周报×1 + 月报×1 |
-| 页面 | 8 个 (Dashboard / Library / Entity / 2D Graph / 3D Graph / Timeline / Events / Reports / Research) |
-| 测试 | 241 passed (+11: 8 research + 3 RSS config) |
+| 页面 | 9 个 (Today / Topics / Entity / 2D Graph / 3D Graph / Timeline / Research / My / Reports 已合并到 Research 导航) |
+| 测试 | 249 passed (Codex 交付未重新全量跑测试) |
 | 超300行文件 | 0（全部已拆分） |
 | 卡片完整性 | 全部 61 张策展卡字段完整（0 缺失） |
 
 ### 当前问题
 
-- ✅ **V5.2 卡片质量提升完成**（2026-07-01）：155 张空壳删除；candidate_concepts.json 重置；concept 卡 evolution→timeline（3张）；methdology 卡补 release_date+background+timeline（6张）；event 卡片新增（8张）；product 扩充（2张）
-- 📋 40 张卡有"缺少推荐字段"提示（11 张 methodology 缺 date/timeline — 方法论天然难定日期，非错误）
-- 📋 `T()` 函数的 `{n}` 占位符需手动 replace（非格式化）
-- ✅ **上下文效率**：已解决 — ENGINEERING_PRINCIPLES + SESSION_RULES 已加固
-- ✅ **草稿卡**：155 张已归档至 `data/archive/draft-cards-2026-06-30/`
-- ✅ **candidate_concepts.json**：已重置（清除 294 条目）
+- 📋 **Codex 改动未提交**：18 个文件 modified + 3 个新文件 untracked（my_page.py / verify_frontend.py / Makefile）
+- 📋 **收藏系统为前端 MVP**：localStorage 存储，无账号同步。账号体系待后端接入后启用
+- ✅ **V5.2 卡片质量提升完成**（2026-07-01）：155 张空壳删除；candidate_concepts.json 重置
 
 ## 下一步（详见 ROADMAP_项目路线图.md）
 
 | # | 任务 | 优先级 | 进度 |
 |---|------|--------|------|
-| 1 | **前端体验打磨** (Codex) — Research 视觉优化 + Reports 搜索筛选 + 移动端响应式 | 🔵 | 📋 待 Codex |
-| 2 | 更多卡片策展 + 关系补充 | 🔵 | 📋 持续 |
-| 3 | GitHub Actions CI + 自动测试 | 🔵 | 📋 待规划 |
+| 1 | **提交 Codex 改动** — 18 modified + 3 new files，需 commit | 🔴 | 📋 当前 |
+| 2 | **运行全量测试** — 验证 Codex 改动未破坏现有功能 | 🔴 | 📋 当前 |
+| 3 | 更多卡片策展 + 关系补充 | 🔵 | 📋 持续 |
+| 4 | GitHub Actions CI + 自动测试 | 🔵 | 📋 待规划 |
 
 **已全部完成的核心功能**：RAG混合检索 ✅ / 卡片质量 ✅ / Pipeline健壮性V2 ✅ / 3D Graph ✅ / 实体卡片92 ✅ / 周报月报 ✅ / 测试249 ✅ / Research Engine V2 ✅ / 多源16个 ✅ / Category Nav ✅ / 项目结构重构 ✅ / GitHub开源 ✅
 

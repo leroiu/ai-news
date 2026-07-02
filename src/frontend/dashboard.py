@@ -33,7 +33,9 @@ def _build_html(lang: str = "zh") -> str:
 {THEME_VARS}
 *{{margin:0;padding:0;box-sizing:border-box}}
 body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg-primary);color:var(--text-primary);padding:24px;max-width:1200px;margin:0 auto;animation:fadeIn .35s ease-out}}
-h1{{font-size:24px;color:var(--accent);margin-bottom:4px}}
+h1{{font-size:32px;color:var(--text-primary);margin-bottom:8px;letter-spacing:-.03em}}
+.hero-subtitle{{font-size:16px;color:var(--text-secondary);line-height:1.6;margin-bottom:6px;max-width:760px}}
+.hero-desc{{font-size:13px;color:var(--text-muted);line-height:1.6;margin-bottom:12px;max-width:760px}}
 .date{{font-size:12px;color:var(--text-secondary);margin-bottom:24px}}
 .nav{{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;align-items:center}}
 .nav a{{padding:6px 14px;border-radius:6px;font-size:13px;text-decoration:none;color:var(--text-primary);background:var(--bg-elevated);transition:background .15s}}
@@ -63,8 +65,11 @@ h1{{font-size:24px;color:var(--accent);margin-bottom:4px}}
 .report-type.weekly{{background:#9c6ade22;color:#9c6ade}}
 .report-type.monthly{{background:#f0883e22;color:#f0883e}}
 .report-stars{{display:flex;gap:4px;font-size:10px;color:var(--text-secondary);min-width:70px}}
+.report-counts{{font-size:10px;color:var(--text-muted)}}
 .report-link{{color:var(--accent);text-decoration:none;flex:1}}
 .report-link:hover{{text-decoration:underline}}
+.favorite-btn{{padding:2px 7px;border:1px solid var(--border);background:var(--bg-elevated);color:var(--text-secondary);border-radius:999px;cursor:pointer;font-size:10px;line-height:1.4;vertical-align:middle}}
+.favorite-btn:hover,.favorite-btn.is-favorited,.favorite-btn[aria-pressed="true"]{{border-color:var(--warning);background:#e3b34122;color:var(--warning)}}
 .filter-bar{{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}}
 .filter-bar button{{padding:4px 10px;border:1px solid var(--border);background:var(--bg-elevated);color:var(--text-primary);border-radius:var(--radius-sm);cursor:pointer;font-size:11px;transition:background .15s}}
 .filter-bar button:hover,.filter-bar button.active{{background:#1f6feb33;color:var(--accent);border-color:#1f6feb66}}
@@ -84,17 +89,27 @@ h1{{font-size:24px;color:var(--accent);margin-bottom:4px}}
 @keyframes spin{{to{{transform:rotate(360deg)}}}}
 .report-highlight{{background:linear-gradient(135deg,#1a2332,#0d2836);border:1px solid #1f6feb33}}
 .lang-btn{{padding:4px 12px;border:1px solid var(--border);background:var(--bg-elevated);color:var(--text-primary);border-radius:var(--radius-sm);cursor:pointer;font-size:12px;margin-left:auto;transition:background .15s}}
+.lang-btn+.lang-btn{{margin-left:0}}
 .lang-btn:hover{{background:var(--border)}}
 .card-hover{{transition:all .2s ease}}.card-hover:hover{{transform:translateY(-2px);box-shadow:var(--shadow);border-color:#58a6ff44}}
 {ANIMATION_CSS}
 {RESPONSIVE_CSS}
 {ERROR_CSS}
+@media(max-width:480px){{
+  .report-entry{{display:grid;grid-template-columns:72px 1fr auto;gap:6px;align-items:center}}
+  .report-type{{width:max-content}}
+  .report-stars,.report-counts{{display:none}}
+  .report-link{{grid-column:2}}
+  .headlines .favorite-btn{{padding:1px 6px;font-size:9px}}
+}}
 </style>
 </head>
 <body>
 <h1 data-i18n="platform_title">{t("platform_title", lang)}</h1>
+<p class="hero-subtitle" data-i18n="platform_subtitle">{t("platform_subtitle", lang)}</p>
+<p class="hero-desc" data-i18n="platform_description">{t("platform_description", lang)}</p>
 <p class="date" id="date-line">{t("loading", lang)}</p>
-{nav_html("/")}
+{nav_html("today")}
 
 <div class="card report-highlight" id="reports-hero" style="margin-bottom:16px">
   <div class="spinner"><div class="loading"></div><p style="margin-top:12px" data-i18n="loading_reports">{t("loading_reports", lang)}</p></div>
@@ -119,7 +134,7 @@ h1{{font-size:24px;color:var(--accent);margin-bottom:4px}}
 	  <h2 data-i18n="health_title">{t("health_title", lang)}</h2>
 	  <div class="spinner"><div class="loading"></div></div>
 	</div>
-<p class="footer"><span data-i18n="footer_text">{t("footer_text", lang)}</span> · <a href="/" data-i18n="dashboard">{t("dashboard", lang)}</a> · <a href="/library" data-i18n="library">{t("library", lang)}</a> · <a href="/graph" data-i18n="graph">{t("graph", lang)}</a> · <a href="/timeline" data-i18n="timeline">{t("timeline", lang)}</a></p>
+<p class="footer"><span data-i18n="footer_text">{t("footer_text", lang)}</span> · <a href="/" data-i18n="today">{t("today", lang)}</a> · <a href="/library" data-i18n="topics">{t("topics", lang)}</a> · <a href="/timeline" data-i18n="timeline">{t("timeline", lang)}</a> · <a href="/research" data-i18n="research">{t("research", lang)}</a> · <a href="/my" data-i18n="my">{t("my", lang)}</a></p>
 
 <script>
 {SHARED_JS}
@@ -131,6 +146,7 @@ const L={json.dumps(TYPE_LABELS_ZH)};
 const LE={json.dumps(TYPE_LABELS_EN)};
 
 function starRow(s5,s4,s3){{return '<span title="★5">★5:'+(s5||0)+'</span> <span title="★4">★4:'+(s4||0)+'</span> <span title="★3">★3:'+(s3||0)+'</span>'}}
+function favBtn(type,id,title){{return favoriteButtonHTML(type,id,title)}}
 
 function renderHealth(h) {{
   if (!h || h.status==="error") {{
@@ -214,8 +230,8 @@ async function init(){{
     '<div class="stat"><span class="num">'+sc(5)+'</span><span class="lbl">★5</span></div>'+
     '<div class="stat"><span class="num">'+sc(4)+'</span><span class="lbl">★4</span></div>'+
     '<div class="stat"><span class="num">'+sc(3)+'</span><span class="lbl">★3</span></div></div>'+
-    (top5.length?'<h3>'+T("star5_headlines")+'</h3><ol class="headlines">'+top5.map(a=>'<li><a href="'+a.url+'" target="_blank" style="color:#58a6ff">'+(a.title_cn||a.title)+'</a> <span style="color:#484f58;font-size:10px">'+(a.source||'')+'</span></li>').join("")+'</ol>':'')+
-    '<h3>'+T("star4_highlights")+'</h3><ol class="headlines">'+top4.map(a=>'<li>'+(a.title_cn||a.title)+' <span style="color:#484f58;font-size:10px">'+(a.source||'')+'</span></li>').join("")+'</ol>';
+    (top5.length?'<h3>'+T("star5_headlines")+'</h3><ol class="headlines">'+top5.map(a=>'<li><a href="'+a.url+'" target="_blank" style="color:#58a6ff">'+(a.title_cn||a.title)+'</a> <span style="color:#484f58;font-size:10px">'+(a.source||'')+'</span> '+favBtn('news',a.url||a.id,a.title_cn||a.title)+'</li>').join("")+'</ol>':'')+
+    '<h3>'+T("star4_highlights")+'</h3><ol class="headlines">'+top4.map(a=>'<li>'+(a.title_cn||a.title)+' <span style="color:#484f58;font-size:10px">'+(a.source||'')+'</span> '+favBtn('news',a.url||a.id,a.title_cn||a.title)+'</li>').join("")+'</ol>';
 
   // KB Card
   const tc={{}};entities.forEach(e=>{{tc[e.type]=(tc[e.type]||0)+1}});
@@ -238,7 +254,7 @@ async function init(){{
     else{{h+=filtered.slice(0,30).map(r=>{{
       const isDaily=r.type==="daily";
       const fname=isDaily?r.date+'.md':r.type+'-'+r.date+'.md';
-      return '<div class="report-entry"><span class="report-date">'+r.date+'</span><span class="report-type '+r.type+'">'+T("filter_"+r.type)+'</span>'+(isDaily?'<span class="report-stars">'+starRow(r.star5,r.star4,r.star3)+'</span>':'<span class="report-stars"></span>')+'<a href="/report-files/'+fname+'" class="report-link">'+T("view_report")+'</a>'+(isDaily?'<span style="font-size:10px;color:#484f58">'+(r.fetched||0)+'&rarr;'+(r.filtered||0)+'</span>':'')+'</div>'}}).join("")}}
+      return '<div class="report-entry"><span class="report-date">'+r.date+'</span><span class="report-type '+r.type+'">'+T("filter_"+r.type)+'</span>'+(isDaily?'<span class="report-stars">'+starRow(r.star5,r.star4,r.star3)+'</span>':'<span class="report-stars"></span>')+'<a href="/report-files/'+fname+'" class="report-link">'+T("view_report")+'</a>'+favBtn('report',r.type+'-'+r.date,T("filter_"+r.type)+' '+r.date)+(isDaily?'<span class="report-counts">'+(r.fetched||0)+'&rarr;'+(r.filtered||0)+'</span>':'')+'</div>'}}).join("")}}
     document.getElementById("reports-history").innerHTML=h;
   }};
   window.renderHistory("all");
@@ -247,7 +263,7 @@ async function init(){{
   const latest=entities.sort((a,b)=>(b.importance||0)-(a.importance||0)).slice(0,6);
   document.getElementById("recent-card").innerHTML=
     '<h2>'+T("core_entities")+'</h2>'+
-    '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:8px">'+latest.map(e=>'<div class="latest-card"><span class="badge" style="background:'+(e.color||"#999")+'">'+TLbl(e.type)+'</span><a href="/entity/'+e.id+'" style="color:#58a6ff;text-decoration:none"><strong>'+e.name+'</strong></a><p>'+(e.summary||"").slice(0,100)+'</p></div>').join("")+'</div>';
+    '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:8px">'+latest.map(e=>'<div class="latest-card"><span class="badge" style="background:'+(e.color||"#999")+'">'+TLbl(e.type)+'</span><a href="/entity/'+e.id+'" style="color:#58a6ff;text-decoration:none"><strong>'+e.name+'</strong></a> '+favBtn('entity',e.id,e.name)+'<p>'+(e.summary||"").slice(0,100)+'</p></div>').join("")+'</div>';
 
   // Health Panel
   try{{

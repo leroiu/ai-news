@@ -1,0 +1,7 @@
+{
+  "name": "ai-news-frontend-verification",
+  "private": true,
+  "devDependencies": {
+    "@playwright/test": "1.61.1"
+  }
+}

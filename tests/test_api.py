@@ -233,3 +233,8 @@ class TestPageRoutes:
         c, _ = client
         resp = c.get("/graph")
         assert resp.status_code in (200, 404)
+
+    def test_my_route(self, client):
+        c, _ = client
+        resp = c.get("/my")
+        assert resp.status_code in (200, 404)

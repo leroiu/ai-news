@@ -58,6 +58,7 @@ NAV_CSS = """\
 .nav a:hover{background:var(--border)}
 .nav a.active{background:var(--accent-subtle);color:var(--accent)}
 .lang-btn{padding:4px 12px;border:1px solid var(--border);background:var(--bg-elevated);color:var(--text-primary);border-radius:var(--radius-sm);cursor:pointer;font-size:12px;margin-left:auto;transition:background .15s}
+.lang-btn+.lang-btn{margin-left:0}
 .lang-btn:hover{background:var(--border)}
 """
 
@@ -85,6 +86,7 @@ BUTTON_CSS = """\
 .filter-btn{padding:4px 12px;border-radius:12px;font-size:11px;cursor:pointer;border:1px solid var(--border);background:var(--bg-card);color:var(--text-secondary);transition:all .15s;white-space:nowrap}
 .filter-btn:hover{border-color:var(--accent);color:var(--text-primary)}
 .filter-btn.active,.filter-btn.active:hover{background:var(--accent-subtle);border-color:var(--accent);color:var(--accent)}
+.favorite-btn{padding:3px 9px;border:1px solid var(--border);background:var(--bg-elevated);color:var(--text-secondary);border-radius:999px;cursor:pointer;font-size:11px}.favorite-btn.is-favorited,.favorite-btn[aria-pressed="true"]{border-color:var(--warning);background:#e3b34122;color:var(--warning)}
 """
 
 ANIMATION_CSS = """\
@@ -189,6 +191,44 @@ function showError(containerId, msg, detail) {
     '<div class="err-msg">' + msg + '</div>' +
     (detail ? '<div class="err-detail">' + detail + '</div>' : '') +
     '<button class="err-retry" onclick="location.reload()">' + (typeof T !== 'undefined' ? T("retry") : "Retry") + '</button></div>';
+}
+
+function uiFavoriteStore() {
+  try { return JSON.parse(localStorage.getItem('ai_observatory_favorites') || '[]'); }
+  catch (e) { return []; }
+}
+function uiSaveFavoriteStore(items) {
+  localStorage.setItem('ai_observatory_favorites', JSON.stringify(items || []));
+}
+function uiFavoriteKey(item) {
+  return String((item && item.type) || 'item') + ':' + String((item && item.id) || '');
+}
+function uiToggleFavorite(item, trigger) {
+  if (!item || !item.id) return false;
+  const key = uiFavoriteKey(item);
+  let items = uiFavoriteStore();
+  const exists = items.some(function (saved) { return uiFavoriteKey(saved) === key; });
+  if (exists) items = items.filter(function (saved) { return uiFavoriteKey(saved) !== key; });
+  else items.unshift(Object.assign({}, item, {saved_at: new Date().toISOString()}));
+  uiSaveFavoriteStore(items);
+  if (trigger) {
+    trigger.classList.toggle('is-favorited', !exists);
+    trigger.setAttribute('aria-pressed', String(!exists));
+    trigger.textContent = (typeof T !== 'undefined' ? T(!exists ? 'favorited' : 'favorite') : (!exists ? 'Saved' : 'Save'));
+  }
+  if (typeof uiToast === 'function') {
+    uiToast(typeof T !== 'undefined' ? T(!exists ? 'favorite_saved' : 'favorite_removed') : (!exists ? 'Saved' : 'Removed'), !exists ? 'success' : 'accent');
+  }
+  return !exists;
+}
+function uiEscAttr(value) {
+  return String(value || '').replace(/[&<>"']/g, function (c) {
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+  });
+}
+function favoriteButtonHTML(type, id, title, extraClass) {
+  const pressed = uiFavoriteStore().some(function (item) { return uiFavoriteKey(item) === uiFavoriteKey({type:type, id:id}); });
+  return '<button class="favorite-btn '+(extraClass || '')+(pressed ? ' is-favorited' : '')+'" aria-pressed="'+pressed+'" data-favorite-type="'+uiEscAttr(type)+'" data-favorite-id="'+uiEscAttr(id)+'" data-favorite-title="'+uiEscAttr(title || '')+'" onclick="uiToggleFavorite({type:this.dataset.favoriteType,id:this.dataset.favoriteId,title:this.dataset.favoriteTitle},this);event.preventDefault();event.stopPropagation()">'+(typeof T !== 'undefined' ? T(pressed ? 'favorited' : 'favorite') : (pressed ? 'Saved' : 'Save'))+'</button>';
 }
 
 /* 骨架屏 — 可选择替代 spinner 使用

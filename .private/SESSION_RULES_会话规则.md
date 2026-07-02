@@ -107,4 +107,33 @@
 
 ---
 
+## Codex 协作规则
+
+> 本项目与 Codex（前端 AI Agent）协作开发。Codex 每次新会话**没有**完整记忆，依赖项目文件获取上下文。
+
+### Codex 入口
+
+- Codex 启动时读取项目根 `CODEX.md`（指针文件，< 50 行）
+- `CODEX.md` → `docs/DESIGN_SYSTEM.md` → `docs/INFORMATION_ARCHITECTURE.md` → `CODEX_HANDOFF` §3
+- 不在 `CODEX.md` 中存储内容，只做路由
+
+### 会话结束同步协议（3 步）
+
+每次前端变更后，Claude 必须执行：
+
+| 步骤 | 更新什么 | 位置 | 约需 |
+|------|---------|------|------|
+| 1 | 页面状态表 + 待办任务 | `CODEX_HANDOFF` §3 | 30s |
+| 2 | 版本号 bump | `frontend_styles.py` `DESIGN_SYSTEM_VERSION` | 10s |
+| 3 | 变更日志追一行 | `CODEX_HANDOFF` §11 | 10s |
+
+HANDOVER 仍是 Claude 的完整记录（含非前端变更），Codex 不需要读。
+
+### Codex 上下文预算
+
+- 禁止让 Codex 读 HANDOVER、ENGINEERING_PRINCIPLES 等 Claude 内部文档
+- 禁止让 Codex 扫描整个项目或 `src/engine/`
+- `CODEX.md` < 50 行，`CODEX_HANDOFF` §3 < 50 行
+
+---
 > **维护**: 随项目协作经验迭代。

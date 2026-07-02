@@ -51,6 +51,7 @@ from src.frontend.dashboard import generate_dashboard
 from src.frontend.library import generate_library
 from src.timeline import generate_timeline
 from src.frontend.reports_page import generate_reports_page
+from src.frontend.my_page import generate_my_page
 from src.research import generate_research_page
 from src.engine.database import (
     init_db, insert_articles, insert_report,
@@ -541,13 +542,14 @@ def main() -> int:
         if "render_pages" not in completed_stages:
             t1 = _tick()
             pages_ok = 0
-            pages_total = 5
+            pages_total = 6
             for name, fn in [
                 ("dashboard", generate_dashboard),
                 ("library", generate_library),
                 ("timeline", generate_timeline),
                 ("reports", generate_reports_page),
                 ("research", generate_research_page),
+                ("my", generate_my_page),
             ]:
                 try:
                     fn()

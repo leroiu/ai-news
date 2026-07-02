@@ -176,6 +176,28 @@ All documentation is organized under `docs/`:
 | `docs/README_zh.md` | Users | Product guide (Chinese) |
 | `README.md` | Everyone | Project overview & quick start |
 
+## Frontend Verification
+
+```bash
+make verify
+```
+
+该命令会依次重建静态页面、运行完整测试、检查 FastAPI 路由，并检查或临时启动开发服务器。未安装 Make 时可直接运行等价命令：
+
+```bash
+uv run python tools/verify_frontend.py
+```
+
+视觉检查截图统一输出到 `output/playwright/`：
+
+```bash
+make visual-check
+# 未安装 Make 时：
+uv run python tools/capture_frontend.py
+```
+
+脚本会在配置 `DOUBAO_API_KEY`、`DASHSCOPE_API_KEY` 或 `OPENAI_API_KEY` 后自动调用 vision skill，并将分析结果保存为同目录下的 `.analysis.txt` 文件。
+
 ## License
 
 MIT — see [LICENSE](./LICENSE)

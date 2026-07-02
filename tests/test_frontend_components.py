@@ -1,9 +1,10 @@
 """轻量前端组件层测试。"""
 from src.frontend.frontend_components import (
     COMPONENT_CSS, badge, button, card, empty_state, filter_bar,
-    page_header, section, stat,
+    favorite_button, page_header, section, stat,
 )
 from src.frontend.frontend_interactions import COMPONENT_JS
+from src.frontend.frontend_styles import SHARED_JS
 from src.frontend.frontend_shell import PageShell, render_page
 
 
@@ -32,6 +33,7 @@ def test_component_composition():
     assert "ui-section" in content
     assert "ui-card" in content
     assert "ui-empty" in content
+    assert "ui-favorite" in favorite_button("news", "abc", "标题")
 
 
 def test_rejects_unknown_component_variants():
@@ -52,6 +54,11 @@ def test_css_uses_semantic_tokens_and_reduced_motion():
 def test_component_js_exposes_reusable_interactions():
     for name in ("uiSetBusy", "uiToggleDisclosure", "uiClearForm", "uiDebounce", "uiAnnounce", "uiToast"):
         assert f"function {name}" in COMPONENT_JS
+
+
+def test_shared_js_exposes_favorite_store():
+    for name in ("uiToggleFavorite", "uiFavoriteStore", "uiFavoriteKey"):
+        assert f"function {name}" in SHARED_JS
 
 
 def test_shell_composes_existing_design_system():

@@ -41,6 +41,7 @@ h1{{font-size:22px;color:var(--accent);margin-bottom:4px}}
 .nav a:hover{{background:var(--border)}}
 .nav a.active{{background:var(--accent-subtle);color:var(--accent)}}
 .lang-btn{{padding:4px 12px;border:1px solid var(--border);background:var(--bg-elevated);color:var(--text-primary);border-radius:var(--radius-sm);cursor:pointer;font-size:12px;margin-left:auto;transition:background .15s}}
+.lang-btn+.lang-btn{{margin-left:0}}
 .lang-btn:hover{{background:var(--border)}}
 
 /* ── 搜索栏 ── */
@@ -76,6 +77,8 @@ html{{scroll-behavior:smooth}}
 .card-header .type-badge{{display:inline-flex;align-items:center;gap:3px;padding:2px 10px;border-radius:10px;font-size:10px;color:#fff;flex-shrink:0}}
 .card-header .name{{font-size:15px;font-weight:600;color:var(--accent);flex:1}}
 .card-header .stars{{color:#d2991d;font-size:11px;flex-shrink:0;white-space:nowrap}}
+.favorite-btn{{padding:2px 7px;border:1px solid var(--border);background:var(--bg-elevated);color:var(--text-secondary);border-radius:999px;cursor:pointer;font-size:10px;line-height:1.4;flex-shrink:0}}
+.favorite-btn:hover,.favorite-btn.is-favorited,.favorite-btn[aria-pressed="true"]{{border-color:var(--warning);background:#e3b34122;color:var(--warning)}}
 
 .card-meta{{display:flex;gap:16px;flex-wrap:wrap;font-size:10px;color:var(--text-muted);margin-bottom:8px}}
 .card-meta span{{display:inline-flex;align-items:center;gap:3px}}
@@ -239,6 +242,7 @@ function renderCard(e) {{
       '<span class="type-badge" style="background:' + color + '22;color:' + color + '">' + (I[e.type]||"") + ' ' + TLbl(e.type) + '</span>' +
       '<span class="name">' + e.name + '</span>' +
       '<span class="stars" title="' + T("importance_label") + ' ' + (e.importance||0) + '/5">' + stars + '</span>' +
+      favoriteButtonHTML('entity', e.id, e.name) +
     '</div>' +
     '<div class="card-meta">' +
       (date ? '<span>\\ud83d\\udcc5 ' + date + '</span>' : "") +

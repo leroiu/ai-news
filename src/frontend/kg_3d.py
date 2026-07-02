@@ -63,7 +63,7 @@ body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
 #detail-panel h2{{font-size:14px;color:var(--accent,#58a6ff);margin-bottom:4px}}
 #detail-panel .meta{{color:var(--text-secondary,#8b949e);font-size:10px;margin-bottom:6px}}
 #detail-panel .summary{{font-size:11px;line-height:1.6;color:var(--text-primary,#c9d1d9)}}
-#graph-container{{flex:1;position:relative;cursor:grab}}
+#graph-container{{flex:1;min-width:0;min-height:0;position:relative;cursor:grab;overflow:hidden}}
 #graph-container:active{{cursor:grabbing}}
 #controls{{position:absolute;bottom:16px;right:16px;display:flex;flex-direction:column;gap:8px;z-index:5}}
 #controls button{{width:36px;height:36px;border:1px solid var(--border,#30363d);background:var(--bg-card,#161b22);color:var(--text-primary,#c9d1d9);border-radius:var(--radius-sm,6px);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .15s}}
@@ -153,6 +153,8 @@ async function init(){{
 function buildGraph(){{
   const container=document.getElementById("graph-container");
   graph=ForceGraph3D()(container)
+    .width(container.clientWidth)
+    .height(container.clientHeight)
     .graphData({{nodes,links}})
     .nodeColor(n=>n.color||'#999')
     .nodeVal(n=>n.val||2)
@@ -177,6 +179,9 @@ function buildGraph(){{
     .onNodeHover(node=>{{if(!node&&!highlightNodes.size){{highlightNodes.clear();highlightLinks.clear();updateHighlight()}}}})
     .onBackgroundClick(()=>{{highlightNodes.clear();highlightLinks.clear();updateHighlight();document.getElementById("detail-panel").innerHTML='<p style="color:var(--text-secondary,#8b949e)">'+T("select_node_hint")+'</p>'}})
     .onEngineStop(()=>{{if(!graph)return;graph.zoomToFit(400,60)}});
+  new ResizeObserver(()=>{{
+    if(graph) graph.width(container.clientWidth).height(container.clientHeight);
+  }}).observe(container);
 }}
 
 function updateHighlight(){{

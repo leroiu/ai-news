@@ -11,9 +11,14 @@ from typing import Optional
 # UI 文本翻译表
 I18N: dict[str, dict[str, str]] = {
     # ── Dashboard ──
-    "platform_title":     {"zh": "AI 智能情报平台", "en": "AI Intelligence Platform"},
-    "dashboard":          {"zh": "仪表盘", "en": "Dashboard"},
-    "library":            {"zh": "知识库", "en": "Library"},
+    "platform_title":     {"zh": "AI 观察室", "en": "AI Observatory"},
+    "platform_subtitle":  {"zh": "在信息噪音中，持续理解 AI 的真实变化。", "en": "Understand what is really changing in AI, beyond the noise."},
+    "platform_description": {"zh": "一份面向长期主义者的 AI 观察、研究与知识沉淀空间。", "en": "An AI observation, research, and knowledge-compounding space for long-term thinkers."},
+    "today":              {"zh": "今日", "en": "Today"},
+    "topics":             {"zh": "专题", "en": "Topics"},
+    "my":                 {"zh": "我的", "en": "My"},
+    "dashboard":          {"zh": "今日", "en": "Today"},
+    "library":            {"zh": "专题", "en": "Topics"},
     "graph":              {"zh": "图谱", "en": "Graph"},
     "timeline":           {"zh": "时间线", "en": "Timeline"},
     "events":             {"zh": "里程碑", "en": "Milestones"},
@@ -45,7 +50,7 @@ I18N: dict[str, dict[str, str]] = {
     "no_reports_found":   {"zh": "未找到报告", "en": "No reports found"},
     "view_report":        {"zh": "查看报告", "en": "View Report"},
     "core_entities":      {"zh": "核心实体", "en": "Core Entities"},
-    "footer_text":        {"zh": "AI 智能情报平台", "en": "AI Intelligence Platform"},
+    "footer_text":        {"zh": "AI 观察室", "en": "AI Observatory"},
     "entities_count_fmt": {"zh": "{n} 实体 · {m} 文章 · {r} 关系", "en": "{n} entities · {m} articles · {r} relationships"},
     "rating_3plus":       {"zh": "评分≥3", "en": "Rating ≥3"},
     "fetch_count":        {"zh": "抓取", "en": "Fetched"},
@@ -138,6 +143,11 @@ I18N: dict[str, dict[str, str]] = {
     "network_error":      {"zh": "网络连接失败，请检查服务是否运行", "en": "Network error, check if the server is running"},
     "back_to_home":       {"zh": "← 返回首页", "en": "← Back to home"},
     "skip_to_content":    {"zh": "跳到主要内容", "en": "Skip to main content"},
+    "favorite":           {"zh": "收藏", "en": "Save"},
+    "favorited":          {"zh": "已收藏", "en": "Saved"},
+    "favorite_saved":     {"zh": "已加入我的收藏", "en": "Saved to My"},
+    "favorite_removed":   {"zh": "已取消收藏", "en": "Removed from saved items"},
+    "sync_pending":       {"zh": "账号同步待接入", "en": "Account sync pending"},
 
     # ── Entity Detail ──
     "related_articles":   {"zh": "相关文章", "en": "Related Articles"},
@@ -210,6 +220,20 @@ I18N: dict[str, dict[str, str]] = {
     "research_generating_short": {"zh": "研究中…", "en": "Researching…"},
     "research_report_label":    {"zh": "Research Report", "en": "Research Report"},
     "depth":                    {"zh": "深度", "en": "Depth"},
+
+    # ── My Workspace ──
+    "my_title":                 {"zh": "我的沉淀", "en": "My Library"},
+    "my_subtitle":              {"zh": "收藏、分类与标签会在这里成为长期可回看的个人资产。", "en": "Saved items, categories, and tags become your long-term personal knowledge assets here."},
+    "my_eyebrow":               {"zh": "Personal Workspace", "en": "Personal Workspace"},
+    "my_favorites":             {"zh": "我的收藏", "en": "Saved Items"},
+    "my_categories":            {"zh": "我的分类", "en": "My Categories"},
+    "my_tags":                  {"zh": "我的标签", "en": "My Tags"},
+    "my_sync_status":           {"zh": "账号同步状态", "en": "Sync Status"},
+    "my_sync_pending_desc":     {"zh": "当前 MVP 仅提供前端收藏交互和入口；完整账号同步需要后端账号体系接入后启用。", "en": "The MVP currently provides front-end saving interactions and entry points; full account sync requires the future account backend."},
+    "my_empty_favorites":       {"zh": "还没有收藏内容", "en": "No saved items yet"},
+    "my_empty_favorites_desc":  {"zh": "后续所有新闻、报告、专题实体、时间线事件、里程碑事件和研究结果都应统一进入这里。", "en": "News, reports, topic entities, timeline events, milestones, and research results should all flow here."},
+    "my_loop_title":            {"zh": "收藏闭环", "en": "Saving Loop"},
+    "my_loop_desc":             {"zh": "看到内容 → 判断价值 → 收藏 → 添加分类/标签 → 我的收藏回看 → 从收藏进入专题、时间线或研究。", "en": "See content → judge value → save → add categories/tags → revisit in My → continue into Topics, Timeline, or Research."},
 }
 
 # 实体类型翻译
@@ -312,17 +336,22 @@ if (document.readyState === 'loading') {{
 def nav_html(current_page: str = "") -> str:
     """生成包含 data-i18n 属性的导航栏 HTML。"""
     pages = [
-        ("/", "dashboard"),
-        ("/library", "library"),
-        ("/graph", "graph"),
+        ("/", "today"),
+        ("/library", "topics"),
         ("/timeline", "timeline"),
-        ("/events", "events"),
-        ("/reports", "reports"),
         ("/research", "research"),
+        ("/my", "my"),
     ]
+    aliases = {
+        "today": {"/", "dashboard", "today"},
+        "topics": {"/library", "library", "topics", "graph"},
+        "timeline": {"/timeline", "timeline", "/events", "events"},
+        "research": {"/research", "research", "/reports", "reports"},
+        "my": {"/my", "my"},
+    }
     items = []
     for path, key in pages:
-        cls = 'active' if current_page in (path, key) or (current_page == "" and path == "/" and key == "dashboard") else ''
+        cls = 'active' if current_page in aliases.get(key, {path, key}) or (current_page == "" and path == "/") else ''
         items.append(f'<a href="{path}" class="{cls}" data-i18n="{key}">{t(key, "zh")}</a>')
 
     theme_btn = '<button id="theme-toggle" onclick="toggleTheme()" class="lang-btn" title="Switch theme / 切换主题">☀️</button>'
