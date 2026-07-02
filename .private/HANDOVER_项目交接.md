@@ -10,6 +10,18 @@ Knowledge Card 是整个系统的唯一事实来源（SSOT）。
 
 ## 当前状态（2026-07-02 更新）
 
+### 本次会话完成 — Research Agent 试点 ✅ (2026-07-02)
+
+- ✅ **Agent 循环核心** (`src/engine/research_agent.py`, ~330行)：Plan → Search → Assess → Synthesize 四阶段
+  - 最多 3 轮迭代搜索，每轮 AI 自我评估完整性 (1-10分)
+  - 复用 `research_engine` 工具函数（`_build_card_context` / `_verify_citations` / `_enrich_report`）
+  - 图谱邻居遍历 (1-2跳) + 去重逻辑
+- ✅ **Agent Prompts** (3 个)：`prompts/agent-plan.md` (话题分解) / `prompts/agent-assess.md` (完整性评估) / `prompts/agent-synthesize.md` (多轮合成)
+- ✅ **API 集成**：`POST /api/research` 新增 `"agent": true` 参数，默认 false 保持向后兼容
+- ✅ **前端**：Research 页面新增 Agent 模式 checkbox + round_log trace 展示
+- ✅ **测试**: 253 passed, 0 failures, 0 regressions
+- ✅ **已提交**: `9e00f84` (36 files, +1891/-94)
+
 ### Codex 前端交付 — 品牌升级 + 收藏系统 + "我的"页面 ✅ (2026-07-02)
 
 - ✅ **品牌重命名**：AI 智能情报平台 → **AI 观察室** (AI Observatory)
@@ -236,7 +248,13 @@ Knowledge Card 是整个系统的唯一事实来源（SSOT）。
 | `tests/test_embeddings.py` | **RAG 测试** — 26 tests: cosine/存储/重建/混合搜索/语义匹配 |
 | `src/frontend/my_page.py` | **"我的"页面** — 收藏列表 + 分类/标签/同步状态，localStorage 驱动 |
 | `tools/verify_frontend.py` | **一键验证工具** — 生成页面 → 测试 → 路由 → HTTP 检查，4 步验证 |
+| `CODEX.md` | **Codex 指针文件** — 路由 Codex 到 HANDOFF/Context/Session Rules |
+| `PROJECT_CONTEXT.md` | **项目短版上下文** — 产品宪法 + 设计约束 |
 | `Makefile` | `make verify` — 前端验证入口 |
+| `src/engine/research_agent.py` | **Research Agent** — Plan→Search→Assess→Synthesize 迭代循环 |
+| `prompts/agent-plan.md` | Agent Plan 阶段 prompt — 话题分解为子问题 |
+| `prompts/agent-assess.md` | Agent Assess 阶段 prompt — 完整性自评 (1-10分) |
+| `prompts/agent-synthesize.md` | Agent Synthesize 阶段 prompt — 多轮结果合成 |
 
 ### Codex 本次重写文件
 
@@ -294,24 +312,24 @@ Knowledge Card 是整个系统的唯一事实来源（SSOT）。
 | RSS 源 | 16 个（10 启用 + 6 待启用/未实现） |
 | 报告 | 日报×5 + 周报×1 + 月报×1 |
 | 页面 | 9 个 (Today / Topics / Entity / 2D Graph / 3D Graph / Timeline / Research / My / Reports 已合并到 Research 导航) |
-| 测试 | 249 passed (Codex 交付未重新全量跑测试) |
+| 测试 | 253 passed, 0 failures |
 | 超300行文件 | 0（全部已拆分） |
 | 卡片完整性 | 全部 61 张策展卡字段完整（0 缺失） |
 
 ### 当前问题
 
-- 📋 **Codex 改动未提交**：18 个文件 modified + 3 个新文件 untracked（my_page.py / verify_frontend.py / Makefile）
 - 📋 **收藏系统为前端 MVP**：localStorage 存储，无账号同步。账号体系待后端接入后启用
+- ✅ **全部改动已提交**：`9e00f84` (2026-07-02)，36 files, +1891/-94
 - ✅ **V5.2 卡片质量提升完成**（2026-07-01）：155 张空壳删除；candidate_concepts.json 重置
 
 ## 下一步（详见 ROADMAP_项目路线图.md）
 
 | # | 任务 | 优先级 | 进度 |
 |---|------|--------|------|
-| 1 | **提交 Codex 改动** — 18 modified + 3 new files，需 commit | 🔴 | 📋 当前 |
-| 2 | **运行全量测试** — 验证 Codex 改动未破坏现有功能 | 🔴 | 📋 当前 |
-| 3 | 更多卡片策展 + 关系补充 | 🔵 | 📋 持续 |
-| 4 | GitHub Actions CI + 自动测试 | 🔵 | 📋 待规划 |
+| 1 | **Agent Loop 用到 concept_miner / trend_reporter** — 复用迭代搜索模式 | 🔵 | 📋 待规划 |
+| 2 | 更多卡片策展 + 关系补充 | 🔵 | 📋 持续 |
+| 3 | GitHub Actions CI + 自动测试 | 🔵 | 📋 待规划 |
+| 4 | 收藏系统账号同步 — localStorage MVP → 后端接入 | 🔵 | 📋 远期
 
 **已全部完成的核心功能**：RAG混合检索 ✅ / 卡片质量 ✅ / Pipeline健壮性V2 ✅ / 3D Graph ✅ / 实体卡片92 ✅ / 周报月报 ✅ / 测试249 ✅ / Research Engine V2 ✅ / 多源16个 ✅ / Category Nav ✅ / 项目结构重构 ✅ / GitHub开源 ✅
 
