@@ -4,6 +4,7 @@ from dataclasses import dataclass
 from .frontend_components import COMPONENT_CSS
 from .frontend_interactions import COMPONENT_JS
 from .frontend_styles import BASE_CSS, SHARED_JS
+from .frontend_templates import PAGE_KINDS, TEMPLATE_CSS
 from src.interfaces.i18n import i18n_js, nav_html, t
 
 
@@ -19,6 +20,7 @@ class PageShell:
     extra_js: str = ""
     body_class: str = ""
     wide: bool = False
+    page_kind: str = "collection"
 
 
 SHELL_CSS = """\
@@ -30,6 +32,8 @@ SHELL_CSS = """\
 
 def render_page(shell: PageShell) -> str:
     """生成完整、自包含的 HTML 文档。"""
+    if shell.page_kind not in PAGE_KINDS:
+        raise ValueError(f"unsupported page kind: {shell.page_kind}")
     title = t(shell.title_key, shell.lang)
     width_class = " app-shell--wide" if shell.wide else ""
     body_class = f' class="{shell.body_class}"' if shell.body_class else ""
@@ -39,13 +43,13 @@ def render_page(shell: PageShell) -> str:
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>{title}</title>
-<style>{BASE_CSS}{COMPONENT_CSS}{SHELL_CSS}{shell.extra_css}</style>
+<style>{BASE_CSS}{COMPONENT_CSS}{TEMPLATE_CSS}{SHELL_CSS}{shell.extra_css}</style>
 </head>
 <body{body_class}>
 <a class="skip-link" href="#main-content">{t("skip_to_content", shell.lang)}</a>
 <div class="app-shell{width_class}">
   <header class="app-shell__nav">{nav_html(shell.current_page)}</header>
-  <main id="main-content" class="app-shell__main" tabindex="-1">{shell.body_html}</main>
+  <main id="main-content" class="app-shell__main" data-page-kind="{shell.page_kind}" tabindex="-1">{shell.body_html}</main>
 </div>
 <script>{SHARED_JS}{i18n_js()}{COMPONENT_JS}{shell.extra_js}</script>
 </body>

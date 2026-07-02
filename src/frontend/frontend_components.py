@@ -18,6 +18,7 @@ COMPONENT_CSS = """\
 .ui-section{margin-top:24px}.ui-section__header{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:12px}.ui-section__title{font-size:16px;color:var(--text-primary)}.ui-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}.ui-stack{display:flex;flex-direction:column;gap:16px}
 .ui-toast-region{position:fixed;right:20px;bottom:20px;z-index:1000;display:flex;max-width:min(360px,calc(100vw - 40px));flex-direction:column;gap:8px}.ui-toast{padding:11px 14px;background:var(--bg-elevated);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:var(--radius-sm);box-shadow:var(--shadow);color:var(--text-primary);font-size:12px}.ui-toast--success{border-left-color:var(--success)}.ui-toast--warning{border-left-color:var(--warning)}.ui-toast--danger{border-left-color:var(--danger)}
 .ui-favorite{border-color:var(--border);background:var(--bg-elevated);color:var(--text-secondary)}.ui-favorite.is-favorited,.ui-favorite[aria-pressed="true"]{border-color:var(--warning);background:#e3b34122;color:var(--warning)}
+.intel-rating{display:inline-flex;align-items:center;gap:7px}.intel-rating__stars{color:var(--warning);letter-spacing:1px}.intel-rating__label{color:var(--text-secondary);font-size:10px}.intel-source{display:flex;align-items:center;gap:6px;flex-wrap:wrap;color:var(--text-muted);font-size:11px}.intel-source a{color:var(--accent);text-decoration:none}.intel-evidence{display:inline-flex;padding:2px 7px;border:1px solid var(--border);border-radius:999px;font-size:10px;font-weight:650}.intel-evidence--fact{color:var(--success)}.intel-evidence--analysis{color:var(--accent)}.intel-evidence--inference{color:var(--warning)}.intel-evidence--advice{color:var(--text-secondary)}.intel-topic{display:inline-flex;padding:3px 8px;border-radius:999px;background:var(--bg-elevated);color:var(--text-secondary);font-size:10px}.ui-state{padding:28px 20px;text-align:center;border:1px dashed var(--border);border-radius:var(--radius);color:var(--text-secondary)}.ui-state__icon{margin-bottom:8px;font-size:24px}.ui-state strong{display:block;margin-bottom:5px;color:var(--text-primary);font-size:14px}.ui-state p{max-width:520px;margin:auto;font-size:12px;line-height:1.6}.ui-state--pending{border-style:solid;border-left:3px solid var(--warning);text-align:left}.ui-state--error{border-color:var(--danger)}.ui-state--unavailable{opacity:.8}
 @media(max-width:768px){.ui-page-header{align-items:flex-start;flex-direction:column}.ui-page-header__actions{width:100%}.ui-filter-bar{align-items:stretch;flex-direction:column}.ui-filter-bar__count{align-self:flex-start}.ui-grid{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.ui-card--interactive,.ui-button{transition:none}.ui-card--interactive:hover,.ui-button:hover{transform:none}}
 """
@@ -51,14 +52,53 @@ def button(label: str, *, variant: str = "primary", size: str = "medium",
     return f'<button class="{classes}"{_attrs(attrs)}>{_text(label)}</button>'
 
 
-def favorite_button(item_type: str, item_id: str, title: str = "") -> str:
+def bookmark_action(item_type: str, item_id: str, title: str = "", href: str = "") -> str:
     """生成统一收藏按钮；持久化逻辑由 ``uiToggleFavorite`` 处理。"""
     return (
         '<button class="ui-button ui-button--small ui-favorite" aria-pressed="false" '
         f'data-favorite-type="{_text(item_type)}" data-favorite-id="{_text(item_id)}" '
-        f'data-favorite-title="{_text(title)}" '
-        "onclick=\"uiToggleFavorite({type:this.dataset.favoriteType,id:this.dataset.favoriteId,title:this.dataset.favoriteTitle}, this)\">收藏</button>"
+        f'data-favorite-title="{_text(title)}" data-favorite-href="{_text(href)}" '
+        "onclick=\"uiToggleFavorite({type:this.dataset.favoriteType,id:this.dataset.favoriteId,title:this.dataset.favoriteTitle,href:this.dataset.favoriteHref}, this)\">收藏</button>"
     )
+
+
+favorite_button = bookmark_action
+
+
+def editorial_rating(value: int, *, explanation: str = "") -> str:
+    """平台编辑评级；始终显式标注主体，避免被误解为用户评分。"""
+    score = max(0, min(5, int(value or 0)))
+    label = explanation or "平台重要性评级"
+    return (f'<span class="intel-rating" aria-label="{_text(label)} {score}/5" title="{_text(label)}">'
+            f'<span class="intel-rating__stars">{"★" * score}{"☆" * (5-score)}</span>'
+            f'<span class="intel-rating__label">{_text(label)}</span></span>')
+
+
+def source_meta(source: str, *, published: str = "", href: str = "") -> str:
+    name = f'<a href="{_text(href)}" target="_blank" rel="noopener">{_text(source)}</a>' if href else _text(source)
+    date = f'<time datetime="{_text(published)}">{_text(published)}</time>' if published else ""
+    sep = '<span aria-hidden="true">·</span>' if name and date else ""
+    return f'<div class="intel-source">{name}{sep}{date}</div>'
+
+
+def evidence_label(kind: str, label: str = "") -> str:
+    kinds = {"fact": "事实", "analysis": "分析", "inference": "推测", "advice": "建议"}
+    if kind not in kinds:
+        raise ValueError("unsupported evidence kind")
+    return f'<span class="intel-evidence intel-evidence--{kind}">{_text(label or kinds[kind])}</span>'
+
+
+def topic_tag(label: str) -> str:
+    return f'<span class="intel-topic">{_text(label)}</span>'
+
+
+def state_panel(state: str, title: str, *, description: str = "", icon: str = "") -> str:
+    states = {"loading", "empty", "error", "processing", "pending", "unavailable"}
+    if state not in states:
+        raise ValueError("unsupported state")
+    icons = {"loading":"◌", "empty":"◇", "error":"⚠", "processing":"◌", "pending":"◷", "unavailable":"—"}
+    desc = f'<p>{_text(description)}</p>' if description else ""
+    return f'<div class="ui-state ui-state--{state}" role="status"><div class="ui-state__icon" aria-hidden="true">{_text(icon or icons[state])}</div><strong>{_text(title)}</strong>{desc}</div>'
 
 
 def badge(label: str, *, tone: str = "neutral", icon: str = "") -> str:

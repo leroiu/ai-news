@@ -10,6 +10,17 @@ Knowledge Card 是整个系统的唯一事实来源（SSOT）。
 
 ## 当前状态（2026-07-02 更新）
 
+### 本次会话完成 — Card Writer + 完整收集流水线 ✅ (2026-07-02)
+
+- ✅ **Card Writer** (`src/engine/card_writer.py`, ~230行)：研究资料 → AI 撰写 → YAML 知识卡片
+  - `write_card()`: AI 基于实体信息+文章+关联卡片撰写完整 YAML
+  - `save_card()`: 自动解析 id，写入正确的类型子目录，已有卡片不覆盖
+  - `collect_and_write()`: 完整流水线 — Research Agent 研究 → Card Writer 撰写 → 保存
+  - type→目录映射：methodology/companies/models/tech/concepts/products/people/events
+- ✅ **Card Write Prompt** (`prompts/card-write.md`)：结构化 YAML 撰写模板
+- ✅ **三 Agent 收集流水线完成**：Concept(发现) → Research(深度收集) → Card Writer(撰写保存)
+- ✅ **测试**: 285 passed (+10), 0 failures, 0 regressions
+
 ### 本次会话完成 — Trend Reporter Agent ✅ (2026-07-02)
 
 - ✅ **Agent 趋势分析** (`src/engine/trend_agent.py`, ~250行)：Scan → Enrich → Synthesize → Format 四阶段
@@ -284,6 +295,8 @@ Knowledge Card 是整个系统的唯一事实来源（SSOT）。
 | `src/engine/trend_agent.py` | **Trend Agent** — Scan→Enrich→Synthesize 迭代趋势分析 |
 | `prompts/trend-agent-scan.md` | Trend Scan prompt — 分批日报扫描，提取候选趋势 |
 | `prompts/trend-agent-synthesize.md` | Trend Synthesize prompt — 知识库增强 + 趋势自评 + 合成 |
+| `src/engine/card_writer.py` | **Card Writer** — 研究资料→AI撰写→YAML保存，完整收集流水线 |
+| `prompts/card-write.md` | Card Write prompt — 结构化知识卡片 YAML 撰写模板 |
 
 ### Codex 本次重写文件
 
@@ -341,7 +354,7 @@ Knowledge Card 是整个系统的唯一事实来源（SSOT）。
 | RSS 源 | 16 个（10 启用 + 6 待启用/未实现） |
 | 报告 | 日报×5 + 周报×1 + 月报×1 |
 | 页面 | 9 个 (Today / Topics / Entity / 2D Graph / 3D Graph / Timeline / Research / My / Reports 已合并到 Research 导航) |
-| 测试 | 275 passed, 0 failures |
+| 测试 | 285 passed, 0 failures |
 | 超300行文件 | 0（全部已拆分） |
 | 卡片完整性 | 全部 61 张策展卡字段完整（0 缺失） |
 
