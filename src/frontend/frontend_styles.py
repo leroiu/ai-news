@@ -129,6 +129,11 @@ RESPONSIVE_CSS = """\
   .card{padding:14px}
   .btn,.btn-outline,.btn-sm{font-size:10px;padding:4px 10px}
 }
+@media (max-width:360px){
+  .nav{gap:2px;flex-wrap:nowrap}
+  .nav a{padding:3px 5px;font-size:9px}
+  .lang-btn{padding:3px 6px;font-size:9px;margin-left:2px;flex-shrink:0}
+}
 @media (min-width:1024px){
   .container-wide{max-width:1200px}
 }

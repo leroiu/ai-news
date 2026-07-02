@@ -10,6 +10,18 @@ Knowledge Card 是整个系统的唯一事实来源（SSOT）。
 
 ## 当前状态（2026-07-02 更新）
 
+### 本次会话完成 — Concept Miner Agent ✅ (2026-07-02)
+
+- ✅ **Agent 决策核心** (`src/engine/concept_agent.py`, ~220行)：Semantic Lookup → AI Decide → Execute
+  - 语义查找：`embed_texts()` + `cosine_similarity()` 匹配已有卡片，top-5 返回
+  - AI 决策：NEW（入库）/ MERGE（合并建议）/ SKIP（丢弃）/ DRAFT（暂存）
+  - 每个决策记录 `_agent_decision` + `_agent_reason` + `_similar_cards` 到 pool entry
+  - Fallback 机制：AI 不可用时用相似度阈值降级（sim<0.5→NEW, sim≥0.5→DRAFT）
+- ✅ **Decision Prompt** (`prompts/concept-decide.md`)：轻量级策展决策提示词
+- ✅ **Pipeline 集成**：`CONCEPT_AGENT=1` 环境变量启用 agent 模式，默认保持原有行为
+- ✅ **concept_miner.py 零改动** — 完全向后兼容
+- ✅ **测试**: 265 passed (+12), 0 failures, 0 regressions
+
 ### 本次会话完成 — Research Agent 试点 ✅ (2026-07-02)
 
 - ✅ **Agent 循环核心** (`src/engine/research_agent.py`, ~330行)：Plan → Search → Assess → Synthesize 四阶段
@@ -255,6 +267,8 @@ Knowledge Card 是整个系统的唯一事实来源（SSOT）。
 | `prompts/agent-plan.md` | Agent Plan 阶段 prompt — 话题分解为子问题 |
 | `prompts/agent-assess.md` | Agent Assess 阶段 prompt — 完整性自评 (1-10分) |
 | `prompts/agent-synthesize.md` | Agent Synthesize 阶段 prompt — 多轮结果合成 |
+| `src/engine/concept_agent.py` | **Concept Agent** — Semantic Lookup → AI Decide → Execute 决策闭环 |
+| `prompts/concept-decide.md` | Concept Decide prompt — NEW/MERGE/SKIP/DRAFT 策展决策 |
 
 ### Codex 本次重写文件
 
@@ -312,7 +326,7 @@ Knowledge Card 是整个系统的唯一事实来源（SSOT）。
 | RSS 源 | 16 个（10 启用 + 6 待启用/未实现） |
 | 报告 | 日报×5 + 周报×1 + 月报×1 |
 | 页面 | 9 个 (Today / Topics / Entity / 2D Graph / 3D Graph / Timeline / Research / My / Reports 已合并到 Research 导航) |
-| 测试 | 253 passed, 0 failures |
+| 测试 | 265 passed, 0 failures |
 | 超300行文件 | 0（全部已拆分） |
 | 卡片完整性 | 全部 61 张策展卡字段完整（0 缺失） |
 
@@ -326,10 +340,11 @@ Knowledge Card 是整个系统的唯一事实来源（SSOT）。
 
 | # | 任务 | 优先级 | 进度 |
 |---|------|--------|------|
-| 1 | **Agent Loop 用到 concept_miner / trend_reporter** — 复用迭代搜索模式 | 🔵 | 📋 待规划 |
+| 1 | **Agent Loop 复用到 trend_reporter** — 迭代趋势搜索 + 自评 | 🔵 | 📋 下一项 |
 | 2 | 更多卡片策展 + 关系补充 | 🔵 | 📋 持续 |
 | 3 | GitHub Actions CI + 自动测试 | 🔵 | 📋 待规划 |
-| 4 | 收藏系统账号同步 — localStorage MVP → 后端接入 | 🔵 | 📋 远期
+| 4 | 收藏系统账号同步 — localStorage MVP → 后端接入 | 🔵 | 📋 远期 |
+| 5 | 前端体验打磨 (Codex) — Research 视觉优化 + 移动端响应式 | 🔵 | 📋 远期 |
 
 **已全部完成的核心功能**：RAG混合检索 ✅ / 卡片质量 ✅ / Pipeline健壮性V2 ✅ / 3D Graph ✅ / 实体卡片92 ✅ / 周报月报 ✅ / 测试249 ✅ / Research Engine V2 ✅ / 多源16个 ✅ / Category Nav ✅ / 项目结构重构 ✅ / GitHub开源 ✅
 

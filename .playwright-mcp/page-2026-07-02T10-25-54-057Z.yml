@@ -1,0 +1,343 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - link "今日" [ref=e3] [cursor=pointer]:
+      - /url: /
+    - link "专题" [ref=e4] [cursor=pointer]:
+      - /url: /library
+    - link "时间线" [ref=e5] [cursor=pointer]:
+      - /url: /timeline
+    - link "研究" [ref=e6] [cursor=pointer]:
+      - /url: /research
+    - link "我的" [ref=e7] [cursor=pointer]:
+      - /url: /my
+    - button "☀️" [ref=e8] [cursor=pointer]
+    - button "EN" [ref=e9] [cursor=pointer]
+  - generic [ref=e10]:
+    - generic [ref=e11]:
+      - heading "Company（公司） OpenAI ★★★★★" [level=1] [ref=e12]:
+        - generic [ref=e13]: Company（公司）
+        - text: OpenAI
+        - generic [ref=e14]: ★★★★★
+      - button "收藏" [ref=e15] [cursor=pointer]
+    - generic [ref=e16]: 2015-12-11
+    - generic [ref=e18]:
+      - heading "摘要" [level=2] [ref=e19]
+      - paragraph [ref=e20]: 全球最具影响力的 AI 公司之一，开发了 GPT 系列、ChatGPT、 DALL-E、Sora 等产品，引领了 LLM 消费级应用的浪潮。
+    - generic [ref=e21]:
+      - heading "重要度" [level=2] [ref=e22]
+      - paragraph [ref=e23]: OpenAI 从非营利研究机构转型为营利性公司，开创了 LLM as a Service 的商业模式。 ChatGPT 的发布（2022年11月）是 AI 行业的 iPhone 时刻—— 2 个月破亿用户，直接引发了全球 AI 军备竞赛。 与 Microsoft 的深度合作（累计投资超 $13B）使其拥有独特的基础设施优势。 2025-2026 年，面对 Anthropic、Google、DeepSeek 的竞争， OpenAI 推出了 GPT-5.x 系列和 Agent SDK，维持了市场领先地位。
+    - generic [ref=e24]:
+      - heading "标签" [level=2] [ref=e25]
+      - generic [ref=e26]:
+        - generic [ref=e27]: company
+        - generic [ref=e28]: llm
+        - generic [ref=e29]: agi
+        - generic [ref=e30]: startup
+        - generic [ref=e31]: silicon-valley
+        - generic [ref=e32]: microsoft
+        - generic [ref=e33]: api
+    - generic [ref=e34]:
+      - heading "时间线" [level=2] [ref=e35]
+      - generic [ref=e36]:
+        - generic [ref=e37]: 2015-12-11
+        - generic [ref=e38]: OpenAI 成立
+      - generic [ref=e39]:
+        - generic [ref=e40]: 2019-03
+        - generic [ref=e41]: 成立营利性子公司 OpenAI LP
+      - generic [ref=e42]:
+        - generic [ref=e43]: 2019-07
+        - generic [ref=e44]: 接受 Microsoft $1B 投资
+      - generic [ref=e45]:
+        - generic [ref=e46]: 2020-05
+        - generic [ref=e47]: 发布 GPT-3
+      - generic [ref=e48]:
+        - generic [ref=e49]: 2022-11-30
+        - generic [ref=e50]: ChatGPT 发布（2 个月破亿用户）
+      - generic [ref=e51]:
+        - generic [ref=e52]: 2023-03-14
+        - generic [ref=e53]: 发布 GPT-4
+      - generic [ref=e54]:
+        - generic [ref=e55]: 2023-11
+        - generic [ref=e56]: Sam Altman 短暂被解雇后回归
+      - generic [ref=e57]:
+        - generic [ref=e58]: 2024-05
+        - generic [ref=e59]: 发布 GPT-4o
+      - generic [ref=e60]:
+        - generic [ref=e61]: 2025-01
+        - generic [ref=e62]: 发布 Operator（AI Agent 产品）
+      - generic [ref=e63]:
+        - generic [ref=e64]: 2026-06
+        - generic [ref=e65]: 发布 GPT-5.6 Sol/Terra/Luna
+    - generic [ref=e66]:
+      - heading "别名" [level=2] [ref=e67]
+      - generic [ref=e68]:
+        - generic [ref=e69]: OpenAI
+        - generic [ref=e70]: openai
+        - generic [ref=e71]: OpenAI Inc.
+        - generic [ref=e72]: OpenAI LP
+    - generic [ref=e73]:
+      - heading "关系 (61)" [level=2] [ref=e74]
+      - generic [ref=e75]:
+        - generic [ref=e76]: "depends_on: 1"
+        - generic [ref=e77]: "influenced: 3"
+        - generic [ref=e78]: "influences: 6"
+        - generic [ref=e79]: "related: 12"
+        - generic [ref=e80]: "related_to: 39"
+      - generic [ref=e81]:
+        - generic [ref=e82]: related
+        - link "gpt-4" [ref=e83] [cursor=pointer]:
+          - /url: /entity/gpt-4
+      - generic [ref=e84]:
+        - generic [ref=e85]: related
+        - link "chatgpt" [ref=e86] [cursor=pointer]:
+          - /url: /entity/chatgpt
+      - generic [ref=e87]:
+        - generic [ref=e88]: related
+        - link "sam-altman" [ref=e89] [cursor=pointer]:
+          - /url: /entity/sam-altman
+      - generic [ref=e90]:
+        - generic [ref=e91]: related
+        - link "anthropic" [ref=e92] [cursor=pointer]:
+          - /url: /entity/anthropic
+      - generic [ref=e93]:
+        - generic [ref=e94]: related
+        - link "google-deepmind" [ref=e95] [cursor=pointer]:
+          - /url: /entity/google-deepmind
+      - generic [ref=e96]:
+        - generic [ref=e97]: influenced
+        - link "chatgpt" [ref=e98] [cursor=pointer]:
+          - /url: /entity/chatgpt
+      - generic [ref=e99]:
+        - generic [ref=e100]: influenced
+        - link "gpt-4" [ref=e101] [cursor=pointer]:
+          - /url: /entity/gpt-4
+      - generic [ref=e102]:
+        - generic [ref=e103]: related_to
+        - link "gpt-4" [ref=e104] [cursor=pointer]:
+          - /url: /entity/gpt-4
+      - generic [ref=e105]:
+        - generic [ref=e106]: related_to
+        - link "gpt-5" [ref=e107] [cursor=pointer]:
+          - /url: /entity/gpt-5
+      - generic [ref=e108]:
+        - generic [ref=e109]: related_to
+        - link "chatgpt" [ref=e110] [cursor=pointer]:
+          - /url: /entity/chatgpt
+      - generic [ref=e111]:
+        - generic [ref=e112]: related_to
+        - link "sam-altman" [ref=e113] [cursor=pointer]:
+          - /url: /entity/sam-altman
+      - generic [ref=e114]:
+        - generic [ref=e115]: related_to
+        - link "anthropic" [ref=e116] [cursor=pointer]:
+          - /url: /entity/anthropic
+      - generic [ref=e117]:
+        - generic [ref=e118]: related_to
+        - link "google-deepmind" [ref=e119] [cursor=pointer]:
+          - /url: /entity/google-deepmind
+      - generic [ref=e120]:
+        - generic [ref=e121]: related_to
+        - link "deepseek" [ref=e122] [cursor=pointer]:
+          - /url: /entity/deepseek
+      - generic [ref=e123]:
+        - generic [ref=e124]: influences
+        - link "chatgpt" [ref=e125] [cursor=pointer]:
+          - /url: /entity/chatgpt
+      - generic [ref=e126]:
+        - generic [ref=e127]: influences
+        - link "gpt-4" [ref=e128] [cursor=pointer]:
+          - /url: /entity/gpt-4
+      - generic [ref=e129]:
+        - generic [ref=e130]: influences
+        - link "gpt-5" [ref=e131] [cursor=pointer]:
+          - /url: /entity/gpt-5
+      - generic [ref=e132]:
+        - generic [ref=e133]: related
+        - link "anthropic" [ref=e134] [cursor=pointer]:
+          - /url: /entity/anthropic
+      - generic [ref=e135]:
+        - generic [ref=e136]: related
+        - link "google-deepmind" [ref=e137] [cursor=pointer]:
+          - /url: /entity/google-deepmind
+      - generic [ref=e138]:
+        - generic [ref=e139]: related
+        - link "gpt-3" [ref=e140] [cursor=pointer]:
+          - /url: /entity/gpt-3
+      - generic [ref=e141]:
+        - generic [ref=e142]: related
+        - link "gpt-4" [ref=e143] [cursor=pointer]:
+          - /url: /entity/gpt-4
+      - generic [ref=e144]:
+        - generic [ref=e145]: related
+        - link "sam-altman" [ref=e146] [cursor=pointer]:
+          - /url: /entity/sam-altman
+      - generic [ref=e147]:
+        - generic [ref=e148]: influenced
+        - link "sam-altman" [ref=e149] [cursor=pointer]:
+          - /url: /entity/sam-altman
+      - generic [ref=e150]:
+        - generic [ref=e151]: related
+        - link "chatgpt" [ref=e152] [cursor=pointer]:
+          - /url: /entity/chatgpt
+      - generic [ref=e153]:
+        - generic [ref=e154]: related
+        - link "github-copilot" [ref=e155] [cursor=pointer]:
+          - /url: /entity/github-copilot
+      - generic [ref=e156]:
+        - generic [ref=e157]: depends_on
+        - link "github-copilot" [ref=e158] [cursor=pointer]:
+          - /url: /entity/github-copilot
+      - generic [ref=e159]:
+        - generic [ref=e160]: related_to
+        - link "anthropic" [ref=e161] [cursor=pointer]:
+          - /url: /entity/anthropic
+      - generic [ref=e162]:
+        - generic [ref=e163]: related_to
+        - link "deepseek" [ref=e164] [cursor=pointer]:
+          - /url: /entity/deepseek
+      - generic [ref=e165]:
+        - generic [ref=e166]: related_to
+        - link "google-deepmind" [ref=e167] [cursor=pointer]:
+          - /url: /entity/google-deepmind
+      - generic [ref=e168]:
+        - generic [ref=e169]: related_to
+        - link "meta-ai" [ref=e170] [cursor=pointer]:
+          - /url: /entity/meta-ai
+      - generic [ref=e171]:
+        - generic [ref=e172]: related_to
+        - link "microsoft-ai" [ref=e173] [cursor=pointer]:
+          - /url: /entity/microsoft-ai
+      - generic [ref=e174]:
+        - generic [ref=e175]: related_to
+        - link "stability-ai" [ref=e176] [cursor=pointer]:
+          - /url: /entity/stability-ai
+      - generic [ref=e177]:
+        - generic [ref=e178]: related_to
+        - link "xai" [ref=e179] [cursor=pointer]:
+          - /url: /entity/xai
+      - generic [ref=e180]:
+        - generic [ref=e181]: related_to
+        - link "gpt-3" [ref=e182] [cursor=pointer]:
+          - /url: /entity/gpt-3
+      - generic [ref=e183]:
+        - generic [ref=e184]: related_to
+        - link "gpt-4" [ref=e185] [cursor=pointer]:
+          - /url: /entity/gpt-4
+      - generic [ref=e186]:
+        - generic [ref=e187]: related_to
+        - link "gpt-5" [ref=e188] [cursor=pointer]:
+          - /url: /entity/gpt-5
+      - generic [ref=e189]:
+        - generic [ref=e190]: related_to
+        - link "andrej-karpathy" [ref=e191] [cursor=pointer]:
+          - /url: /entity/andrej-karpathy
+      - generic [ref=e192]:
+        - generic [ref=e193]: related_to
+        - link "dario-amodei" [ref=e194] [cursor=pointer]:
+          - /url: /entity/dario-amodei
+      - generic [ref=e195]:
+        - generic [ref=e196]: related_to
+        - link "greg-brockman" [ref=e197] [cursor=pointer]:
+          - /url: /entity/greg-brockman
+      - generic [ref=e198]:
+        - generic [ref=e199]: influences
+        - link "greg-brockman" [ref=e200] [cursor=pointer]:
+          - /url: /entity/greg-brockman
+      - generic [ref=e201]:
+        - generic [ref=e202]: related_to
+        - link "ilya-sutskever" [ref=e203] [cursor=pointer]:
+          - /url: /entity/ilya-sutskever
+      - generic [ref=e204]:
+        - generic [ref=e205]: influences
+        - link "ilya-sutskever" [ref=e206] [cursor=pointer]:
+          - /url: /entity/ilya-sutskever
+      - generic [ref=e207]:
+        - generic [ref=e208]: related_to
+        - link "jensen-huang" [ref=e209] [cursor=pointer]:
+          - /url: /entity/jensen-huang
+      - generic [ref=e210]:
+        - generic [ref=e211]: related_to
+        - link "sam-altman" [ref=e212] [cursor=pointer]:
+          - /url: /entity/sam-altman
+      - generic [ref=e213]:
+        - generic [ref=e214]: influences
+        - link "sam-altman" [ref=e215] [cursor=pointer]:
+          - /url: /entity/sam-altman
+      - generic [ref=e216]:
+        - generic [ref=e217]: related_to
+        - link "chatgpt" [ref=e218] [cursor=pointer]:
+          - /url: /entity/chatgpt
+      - generic [ref=e219]:
+        - generic [ref=e220]: related_to
+        - link "github-copilot" [ref=e221] [cursor=pointer]:
+          - /url: /entity/github-copilot
+      - generic [ref=e222]:
+        - generic [ref=e223]: related_to
+        - link "chatgpt-launch" [ref=e224] [cursor=pointer]:
+          - /url: /entity/chatgpt-launch
+      - generic [ref=e225]:
+        - generic [ref=e226]: related_to
+        - link "gpt-3-release" [ref=e227] [cursor=pointer]:
+          - /url: /entity/gpt-3-release
+      - generic [ref=e228]:
+        - generic [ref=e229]: related_to
+        - link "gpt-4-release" [ref=e230] [cursor=pointer]:
+          - /url: /entity/gpt-4-release
+      - generic [ref=e231]:
+        - generic [ref=e232]: related_to
+        - link "openai-devday-2023" [ref=e233] [cursor=pointer]:
+          - /url: /entity/openai-devday-2023
+      - generic [ref=e234]:
+        - generic [ref=e235]: related_to
+        - link "sora-announcement" [ref=e236] [cursor=pointer]:
+          - /url: /entity/sora-announcement
+      - generic [ref=e237]:
+        - generic [ref=e238]: related_to
+        - link "gpt-4o" [ref=e239] [cursor=pointer]:
+          - /url: /entity/gpt-4o
+      - generic [ref=e240]:
+        - generic [ref=e241]: related_to
+        - link "ai-alignment" [ref=e242] [cursor=pointer]:
+          - /url: /entity/ai-alignment
+      - generic [ref=e243]:
+        - generic [ref=e244]: related_to
+        - link "agi" [ref=e245] [cursor=pointer]:
+          - /url: /entity/agi
+      - generic [ref=e246]:
+        - generic [ref=e247]: related_to
+        - link "alibaba-ai" [ref=e248] [cursor=pointer]:
+          - /url: /entity/alibaba-ai
+      - generic [ref=e249]:
+        - generic [ref=e250]: related_to
+        - link "bytedance-ai" [ref=e251] [cursor=pointer]:
+          - /url: /entity/bytedance-ai
+      - generic [ref=e252]:
+        - generic [ref=e253]: related_to
+        - link "zhipu-ai" [ref=e254] [cursor=pointer]:
+          - /url: /entity/zhipu-ai
+      - generic [ref=e255]:
+        - generic [ref=e256]: related_to
+        - link "sora-release" [ref=e257] [cursor=pointer]:
+          - /url: /entity/sora-release
+      - generic [ref=e258]:
+        - generic [ref=e259]: related_to
+        - link "sora" [ref=e260] [cursor=pointer]:
+          - /url: /entity/sora
+      - generic [ref=e261]:
+        - generic [ref=e262]: related_to
+        - link "kai-fu-lee" [ref=e263] [cursor=pointer]:
+          - /url: /entity/kai-fu-lee
+      - button "查看全部 61 条关系" [ref=e264] [cursor=pointer]
+    - generic [ref=e265]:
+      - heading "卡片信息" [level=2] [ref=e266]
+      - generic [ref=e267]:
+        - generic [ref=e268]:
+          - generic [ref=e269]: "创建时间:"
+          - text: 2026-06-29 10:24
+        - generic [ref=e270]:
+          - generic [ref=e271]: "更新时间:"
+          - text: 2026-07-01T16:26
+    - heading "相关文章" [level=2] [ref=e273]
+    - heading "相似实体" [level=2] [ref=e277]
+    - link "← 返回" [ref=e280] [cursor=pointer]:
+      - /url: javascript:history.back()

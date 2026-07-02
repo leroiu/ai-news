@@ -35,6 +35,7 @@ body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
 .lang-btn:hover{{background:var(--border)}}
 h1{{font-size:24px;margin-bottom:4px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}}
 h1 .badge{{font-size:11px;padding:2px 12px;border-radius:10px;color:#fff;flex-shrink:0}}
+.entity-heading{{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}}.entity-heading h1{{min-width:0}}.favorite-btn{{padding:6px 12px;border:1px solid var(--border);background:var(--bg-elevated);color:var(--text-secondary);border-radius:999px;cursor:pointer;font-size:11px;white-space:nowrap}}.favorite-btn.is-favorited,.favorite-btn[aria-pressed="true"]{{border-color:var(--warning);background:#e3b34122;color:var(--warning)}}
 .date-line{{font-size:12px;color:var(--text-secondary);margin-bottom:24px}}
 .section{{margin-bottom:24px}}
 .section h2{{font-size:15px;margin-bottom:8px;color:var(--text-primary);padding-bottom:6px;border-bottom:1px solid var(--bg-elevated)}}
@@ -47,6 +48,7 @@ h1 .badge{{font-size:11px;padding:2px 12px;border-radius:10px;color:#fff;flex-sh
 .rel-type{{font-size:9px;padding:1px 8px;border-radius:8px;color:#fff;background:var(--border);flex-shrink:0;min-width:80px;text-align:center}}
 .rel-item a{{color:var(--accent);text-decoration:none}}
 .rel-item a:hover{{text-decoration:underline}}
+.rel-more{{margin-top:10px;padding:5px 10px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg-elevated);color:var(--accent);font:inherit;font-size:11px;cursor:pointer}}
 .tl-entry{{font-size:12px;color:var(--text-secondary);padding:4px 0;display:flex;gap:12px}}
 .tl-date{{color:var(--accent);min-width:90px;flex-shrink:0}}
 .not-found{{text-align:center;padding:60px 20px;color:var(--text-muted)}}
@@ -57,7 +59,7 @@ h1 .badge{{font-size:11px;padding:2px 12px;border-radius:10px;color:#fff;flex-sh
 
 /* ── Two-column grid ── */
 .info-grid{{display:grid;grid-template-columns:1fr 1fr;gap:20px}}
-@media(max-width:640px){{.info-grid{{grid-template-columns:1fr}}}}
+@media(max-width:640px){{.info-grid{{grid-template-columns:1fr}}.entity-heading{{align-items:stretch;flex-direction:column}}.entity-heading .favorite-btn{{align-self:flex-start}}}}
 
 /* ── Known-for badges ── */
 .kf-badge{{display:inline-block;padding:3px 10px;background:var(--accent-subtle);color:var(--accent);border-radius:12px;font-size:11px;margin:2px 4px 2px 0}}
@@ -131,7 +133,7 @@ async function init(){{
   const typeName = TLbl(e.type);
   document.title=e.name+" — "+T("platform_title");
 
-  var html='<h1><span class="badge" style="background:'+color+'">'+typeName+'</span>'+e.name+'<span class="stars">'+stars+'</span></h1>';
+  var html='<div class="entity-heading"><h1><span class="badge" style="background:'+color+'">'+typeName+'</span>'+e.name+'<span class="stars">'+stars+'</span></h1>'+favoriteButtonHTML('entity',e.id,e.name)+'</div>';
   html+='<div class="date-line">';
   if(e.release_date)html+=e.release_date;
   if(e.company)html+=(e.release_date?" &middot; ":"")+e.company;
@@ -170,10 +172,11 @@ async function init(){{
     html+='<div class="rel-summary">';
     Object.keys(relByType).sort().forEach(function(rt){{html+='<span class="rel-count-badge">'+rt+': <b>'+relByType[rt]+'</b></span>'}});
     html+='</div>';
-    e.relationships.forEach(function(r){{
+    e.relationships.forEach(function(r,index){{
       var otherId=r.source_id===eid?r.target_id:r.source_id;
-      html+='<div class="rel-item"><span class="rel-type">'+r.rel_type+'</span><a href="/entity/'+otherId+'">'+otherId+'</a></div>';
+      html+='<div class="rel-item relation-detail"'+(index>=12?' hidden':'')+'><span class="rel-type">'+r.rel_type+'</span><a href="/entity/'+otherId+'">'+otherId+'</a></div>';
     }});
+    if(e.relationships.length>12)html+='<button class="rel-more" type="button" onclick="toggleRelationships(this)">'+T("show_all_relationships",{{n:e.relationships.length}})+'</button>';
     html+='</div>';
   }}
 
@@ -259,6 +262,11 @@ async function loadSimilarEntities(eid){{
 }}
 
 function esc(s){{return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}}
+function toggleRelationships(button){{
+  var hidden=document.querySelectorAll('.relation-detail[hidden]'), expanded=hidden.length===0;
+  document.querySelectorAll('.relation-detail').forEach(function(item,index){{item.hidden=expanded&&index>=12}});
+  button.textContent=expanded?T('show_all_relationships',{{n:document.querySelectorAll('.relation-detail').length}}):T('collapse_relationships');
+}}
 
 init();
 </script>

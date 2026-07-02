@@ -47,6 +47,7 @@ from src.engine.knowledge import load_cards, match_cards, build_context
 from src.engine.trend_reporter import generate_trend_report
 from src.knowledge_graph import build_graph, generate_mermaid_report, generate_html
 from src.engine.concept_miner import mine_concepts, update_pool, get_pool_summary
+from src.engine.concept_agent import update_pool_with_agent
 from src.frontend.dashboard import generate_dashboard
 from src.frontend.library import generate_library
 from src.timeline import generate_timeline
@@ -426,8 +427,13 @@ def main() -> int:
             try:
                 candidates = mine_concepts(articles, batch_size=20)
                 if candidates:
-                    actions = update_pool(candidates, articles)
-                    log.info(f"  → {len(candidates)} 个候选, {len(actions)} 项操作")
+                    use_agent = os.getenv("CONCEPT_AGENT") == "1"
+                    if use_agent:
+                        actions = update_pool_with_agent(candidates, articles)
+                        log.info(f"  → {len(candidates)} 个候选, {len(actions)} 项操作 (Agent)")
+                    else:
+                        actions = update_pool(candidates, articles)
+                        log.info(f"  → {len(candidates)} 个候选, {len(actions)} 项操作")
             except Exception as e:
                 log.warning(f"  ⚠ Concept Miner 失败: {e}，跳过")
                 _failed_articles.setdefault("concept_mine", []).append(str(e))
