@@ -33,8 +33,7 @@ logs/
 
 # Screenshots
 screenshots/
-output/playwright/*
-!output/playwright/.gitkeep
+output/
 
 # IDE
 .vscode/
