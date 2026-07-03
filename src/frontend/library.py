@@ -27,10 +27,11 @@ def _build_html(lang: str = "zh") -> str:
 <style>
 {THEME_VARS}
 *{{margin:0;padding:0;box-sizing:border-box}}
-body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg-primary);color:var(--text-primary);padding:24px;max-width:1100px;margin:0 auto;animation:fadeIn .35s ease-out}}
+body{{font-family:var(--font-sans);background:var(--bg-primary);color:var(--text-primary);padding:24px;max-width:var(--content-max);margin:0 auto;animation:fadeIn .2s ease-out}}
 h1{{font-family:var(--font-display);font-size:38px;letter-spacing:-.035em;color:var(--text-primary);margin-bottom:8px}}
+.page-heading{{min-height:112px;padding:4px 0 22px}}
 .date{{font-size:12px;color:var(--text-secondary);margin-bottom:16px}}
-.nav{{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;align-items:center}}
+.nav{{display:flex;min-height:34px;gap:8px;margin-bottom:24px;flex-wrap:wrap;align-items:center}}
 .nav a{{padding:6px 14px;border-radius:var(--radius-sm);font-size:13px;text-decoration:none;color:var(--text-primary);background:var(--bg-elevated);transition:background .15s}}
 .nav a:hover{{background:var(--border)}}
 .nav a.active{{background:var(--accent-subtle);color:var(--accent)}}
@@ -38,7 +39,8 @@ h1{{font-family:var(--font-display);font-size:38px;letter-spacing:-.035em;color:
 .lang-btn+.lang-btn{{margin-left:0}}
 .lang-btn:hover{{background:var(--border)}}
 
-.search-wrap{{margin-bottom:16px}}
+.library-tools{{position:sticky;top:0;z-index:100;padding:10px 0 0;background:var(--bg-primary);box-shadow:0 1px 0 var(--border)}}
+.search-wrap{{margin-bottom:10px}}
 .search-wrap input{{width:100%;padding:10px 16px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);color:var(--text-primary);font-size:14px;outline:none;transition:border-color .15s}}
 .search-wrap input:focus{{border-color:var(--accent)}}
 .search-wrap input::placeholder{{color:var(--text-muted)}}
@@ -47,7 +49,7 @@ h1{{font-family:var(--font-display);font-size:38px;letter-spacing:-.035em;color:
 .related-views a:hover,.related-views a.active{{background:var(--accent-subtle);color:var(--accent)}}
 
 html{{scroll-behavior:smooth}}
-.category-nav{{position:sticky;top:0;z-index:100;background:var(--bg-primary);padding:10px 0 8px;margin-bottom:18px;border-bottom:1px solid var(--border)}}
+.category-nav{{padding:8px 0;margin-bottom:18px}}
 .category-nav-inner{{display:flex;gap:6px;flex-wrap:wrap;align-items:center}}
 .cat-tag{{display:inline-flex;align-items:center;gap:4px;padding:4px 12px;border-radius:14px;font-size:11px;cursor:pointer;border:1px solid var(--border);background:var(--bg-card);color:var(--text-secondary);transition:all .15s;white-space:nowrap;text-decoration:none}}
 .cat-tag:hover{{border-color:var(--accent);color:var(--text-primary)}}
@@ -112,22 +114,26 @@ html{{scroll-behavior:smooth}}
 </style>
 </head>
 <body data-page-template="collection">
+{nav_html("/library")}
+<header class="page-heading">
 <h1 data-i18n="library_title">{t("library_title", lang)}</h1>
 <p class="date" id="date-line">{t("loading", lang)}</p>
-{nav_html("/library")}
+</header>
 <nav class="related-views" aria-label="Related knowledge views">
   <a class="active" href="/library">{t("library_title", lang)}</a>
   <a href="/graph">{t("graph_title", lang)}</a>
   <a href="/graph3d">{t("graph_title", lang)} 3D</a>
 </nav>
 
+<div class="library-tools">
 <div class="search-wrap">
   <input type="text" id="search" data-i18n-placeholder="search_placeholder" placeholder="{t("search_placeholder", lang)}" oninput="filterEntities()">
 </div>
 
-<div class="stats-extra" id="stats-extra"></div>
+<div class="stats-extra" id="stats-extra" aria-live="polite"></div>
 <div class="category-nav" id="category-nav">
   <div class="category-nav-inner" id="category-tags"></div>
+</div>
 </div>
 <div id="content">{t("loading", lang)}</div>
 
@@ -143,6 +149,9 @@ const TYPE_ORDER = ["methodology","model","company","tech","concept","product","
 let allEntities = [];
 const expandedTypes = new Set();
 const CATEGORY_PREVIEW_LIMIT = 4;
+let activeType = "all";
+let searchVersion = 0;
+let lastRenderedIds = "";
 
 function updatePlaceholders() {{
   document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {{
@@ -155,15 +164,13 @@ async function init() {{
   allEntities = await apiFetch("/api/entities");
   var types = new Set(allEntities.map(e=>e.type));
   document.getElementById("date-line").textContent = new Date().toISOString().slice(0,10) + " \\u00b7 " + allEntities.length + " " + T("entities_label") + " \\u00b7 " + types.size + " " + T("types_label");
-  renderStats(allEntities);
-  renderAll(allEntities);
+  renderCategoryNav();
+  applyFilters();
   updatePlaceholders();
   }}catch(e){{showError("content",T("error_loading"),e.message);}}
 }}
 
 function renderStats(entities) {{
-  const byType = {{}};
-  entities.forEach(e => {{ byType[e.type] = (byType[e.type]||0) + 1; }});
   const totalImp = entities.reduce((s,e) => s + (e.importance||0), 0);
 
   // 额外统计行（总数 + 平均重要性）
@@ -171,20 +178,24 @@ function renderStats(entities) {{
   extraHtml += '<span>' + T("importance_label") + ': <b>' + (entities.length ? (totalImp/entities.length).toFixed(1) : 0) + '</b></span>';
   document.getElementById("stats-extra").innerHTML = extraHtml;
 
-  // 可点击分类标签（按 TYPE_ORDER 排序）
-  var tagsHtml = '';
+}}
+
+function renderCategoryNav() {{
+  const byType = {{}};
+  allEntities.forEach(e => {{ byType[e.type] = (byType[e.type]||0) + 1; }});
+  var tagsHtml = '<button class="cat-tag active" type="button" data-cat="all" onclick="setCategory(this.dataset.cat)">' + T("all_label") + ' <span class="count">' + allEntities.length + '</span></button>';
   TYPE_ORDER.forEach(function(t) {{
     var c = byType[t];
     if (!c) return;
     var color = getColor(t);
-    tagsHtml += '<span class="cat-tag" data-cat="' + t + '" onclick="scrollToCategory(this.dataset.cat)" style="border-color:' + color + '44;color:' + color + '">' + (I[t]||"") + ' ' + TLbl(t) + ' <span class="count">' + c + '</span></span>';
+    tagsHtml += '<button class="cat-tag" type="button" data-cat="' + t + '" onclick="setCategory(this.dataset.cat)" style="border-color:' + color + '44;color:' + color + '">' + (I[t]||"") + ' ' + TLbl(t) + ' <span class="count">' + c + '</span></button>';
   }});
   document.getElementById("category-tags").innerHTML = tagsHtml;
 }}
 
 function getColor(type) {{return COLORS[type] || "#999";}}
 
-function filterEntities() {{
+function legacyFilterEntities() {{
   const q = document.getElementById("search").value.toLowerCase().trim();
   if (!q) {{ renderStats(allEntities); renderAll(allEntities); return; }}
 
@@ -220,6 +231,59 @@ function filterEntities() {{
   }}, 400);
 }}
 
+function keywordMatches(e, q) {{
+  return (e.name||"").toLowerCase().includes(q) ||
+    (e.summary||"").toLowerCase().includes(q) ||
+    (Array.isArray(e.tags) ? e.tags.some(function(t){{return t.toLowerCase().includes(q)}}) : String(e.tags||"").toLowerCase().includes(q)) ||
+    (e.company||"").toLowerCase().includes(q) ||
+    (e.id||"").toLowerCase().includes(q);
+}}
+
+function applyFilters(semanticIds) {{
+  const q = document.getElementById("search").value.toLowerCase().trim();
+  const filtered = allEntities.filter(function(e) {{
+    return (activeType === "all" || e.type === activeType) &&
+      (!q || keywordMatches(e, q) || (semanticIds && semanticIds.has(e.id)));
+  }});
+  const ids = filtered.map(function(e) {{ return e.id; }}).sort().join(",");
+  if (ids === lastRenderedIds) return;
+  lastRenderedIds = ids;
+  renderStats(filtered);
+  renderAll(filtered, Boolean(q) || activeType !== "all");
+}}
+
+function setCategory(type) {{
+  activeType = type;
+  document.querySelectorAll(".cat-tag").forEach(function(tag) {{
+    tag.classList.toggle("active", tag.dataset.cat === type);
+  }});
+  applyFilters();
+}}
+
+function filterEntities() {{
+  const q = document.getElementById("search").value.toLowerCase().trim();
+  const version = ++searchVersion;
+  lastRenderedIds = "";
+  if (q && activeType !== "all") {{
+    const hasGlobalMatch = allEntities.some(function(e) {{ return keywordMatches(e, q); }});
+    const hasCategoryMatch = allEntities.some(function(e) {{ return e.type === activeType && keywordMatches(e, q); }});
+    if (hasGlobalMatch && !hasCategoryMatch) setCategory("all");
+  }}
+  applyFilters();
+  if (window._searchTimer) clearTimeout(window._searchTimer);
+  if (!q) return;
+  // 语义搜索仅在关键词无匹配时补充；已有结果时不再触发，保证卡片稳定不闪
+  const keywordMatched = allEntities.filter(function(e){{return keywordMatches(e,q);}});
+  if (keywordMatched.length > 0) return;
+  window._searchTimer = setTimeout(async function() {{
+    try {{
+      const result = await apiFetch("/api/search?q=" + encodeURIComponent(q) + "&semantic=true&limit=61");
+      if (version !== searchVersion || document.getElementById("search").value.toLowerCase().trim() !== q) return;
+      applyFilters(new Set((result.entities||[]).map(function(e){{return e.id;}})));
+    }} catch(e) {{ /* 保持即时过滤结果 */ }}
+  }}, 500);
+}}
+
 function renderAll(entities, revealAll=false) {{
   const byType = {{}};
   entities.forEach(e => {{ if (!byType[e.type]) byType[e.type] = []; byType[e.type].push(e); }});
@@ -240,6 +304,12 @@ function renderAll(entities, revealAll=false) {{
   }});
 
   document.getElementById("content").innerHTML = html || '<div class="empty">' + T("no_results") + '</div>';
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {{
+    document.getElementById("content").animate(
+      [{{opacity:.35,transform:'translateY(4px)'}},{{opacity:1,transform:'translateY(0)'}}],
+      {{duration:180,easing:'ease-out'}}
+    );
+  }}
 }}
 
 function toggleCategory(type) {{
@@ -261,7 +331,7 @@ function renderCard(e) {{
   const domain = e.domain || "";
   const background = e.background || "";
 
-  return '<div class="card" onclick="this.classList.toggle(\\'expanded\\')">' +
+  return '<div class="card" role="link" tabindex="0" onclick="window.location=\\'/entity/' + e.id + '\\'" onkeydown="if(event.key===\\'Enter\\')window.location=\\'/entity/' + e.id + '\\'">' +
     '<div class="card-header">' +
       '<span class="type-badge" style="background:' + color + '22;color:' + color + '">' + (I[e.type]||"") + ' ' + TLbl(e.type) + '</span>' +
       '<span class="name">' + e.name + '</span>' +
@@ -284,7 +354,7 @@ function renderCard(e) {{
       (tags ? '<div class="card-tags">' + tags + '</div>' : "") +
       '<div style="margin-top:8px"><a href="/entity/' + e.id + '" class="dl-value" onclick="event.stopPropagation()" style="font-size:11px">' + T("view_detail") + ' \\u2192</a></div>' +
     '</div>' +
-    '<div class="expand-hint">' + T("click_to_expand") + ' \\u00b7 ' + e.id + '</div>' +
+    '<div class="expand-hint">' + T("view_detail") + ' \\u2192 · ' + e.id + '</div>' +
   '</div>';
 }}
 
