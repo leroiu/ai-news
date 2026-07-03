@@ -1,0 +1,23 @@
+# Auto-generated draft — Concept Miner
+id: influence-guided-self-evolution
+name: Influence-Guided Self-Evolution
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.8，出现 2 次。
+  证据: INFUSER: Influence-Guided Self-Evolution Improves Reasoning... an iterative co-training framework with two co-evolving roles: a Generator and a Solver. | INFUSER: Influence-Guided Self-Evolution Impro
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "Hacker News (AI 相关)"
+  - "TechCrunch AI"
+
+related: []

@@ -1,0 +1,23 @@
+# Auto-generated draft — Concept Miner
+id: robust-adversary-instance-search-raise
+name: Robust Adversary Instance Search (RAISE)
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.9，出现 2 次。
+  证据: We propose Robust Adversary Instance Search (RAISE), a framework that integrates constrained worst-case instance search within a principled. | We propose Robust Adversary Instance Search (RAISE), a fr
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "Hacker News (AI 相关)"
+  - "TechCrunch AI"
+
+related: []

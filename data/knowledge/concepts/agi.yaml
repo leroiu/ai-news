@@ -1,86 +1,89 @@
-# ============================================================
-# Knowledge Card: AGI (通用人工智能)
-# ============================================================
-
 id: agi
 name: AGI (通用人工智能)
 type: concept
 aliases:
-  - AGI
-  - Artificial General Intelligence
-  - 通用人工智能
-  - 强人工智能
-  - 强AI
-
+- AGI
+- Artificial General Intelligence
+- 通用人工智能
+- 强人工智能
+- 强AI
 release_date: null
 status: future
-
 tags:
-  - ai-safety
-  - future
-  - intelligence
-  - philosophy
-  - ai-governance
-  - alignment
-
+- ai-safety
+- future
+- intelligence
+- philosophy
+- ai-governance
+- alignment
 importance: 5
 confidence: unconfirmed
+summary: '具备与人类相当或超越人类的通用智能能力的 AI 系统。
 
-summary: |
-  具备与人类相当或超越人类的通用智能能力的 AI 系统。
   是 AI 产业的终极目标，也是最具争议和关注的话题。
 
-significance: |
-  AGI 是整个 AI 产业的"北极星"——几乎所有前沿 AI 公司
+  '
+significance: 'AGI 是整个 AI 产业的"北极星"——几乎所有前沿 AI 公司
+
   都在朝这个方向努力。
 
+
   关于 AGI 的核心争论：
+
   - 时间线：Sam Altman 说 2027-2028，Yann LeCun 说还需要几十年
+
   - 路径：Scaling Law 是否足够？还是需要根本性的架构突破？
+
   - 安全：AGI 是否对人类构成存在性风险？（x-risk 论战）
 
+
   关键里程碑判断标准：
+
   - 能在大多数脑力工作中匹敌或超越人类
+
   - 能自主学习新技能，不需要为每个任务专门训练
+
   - 具备常识推理、因果理解、创造性思维
 
+
   2024-2025 年，GPT-5、Claude M5 等前沿模型的能力
+
   让 AGI 从"科幻话题"变成"需要在会议室认真讨论的问题"。
+
   各大 AI 公司纷纷成立 Safety/Superalignment 团队。
 
-background: |
-  AGI 概念最早由 Mark Gubrud (1997) 和 Shane Legg (2002) 提出。
+  '
+background: 'AGI 概念最早由 Mark Gubrud (1997) 和 Shane Legg (2002) 提出。
+
   2014 年 DeepMind 被 Google 收购，目标就是"Solve Intelligence"。
+
   2022 年 ChatGPT 发布后，AGI 从学术概念变成产业议题。
+
   2024 年 OpenAI/Microsoft 定义 AGI 为"能产生 $100B 利润的 AI 系统"。
+
   2025-2026 年各大 AI Lab 内部安全团队扩大，AGI 治理成为政策焦点。
 
+  '
 related:
-  - ai-alignment
-  - gpt-5
-  - claude-fable-5
-  - scaling-law
-  - openai
-  - google-deepmind
-  - anthropic
-
+- ai-alignment
+- gpt-5
+- claude-fable-5
+- scaling-law
+- openai
+- google-deepmind
+- anthropic
 influenced:
-  - ai-alignment
-  - ai-governance
-
+- ai-alignment
+- ai-governance
 timeline:
-  - date: "1997"
-    event: "AGI 术语首次提出"
-  - date: "2014"
-    event: "DeepMind 被收购，目标是 Solve Intelligence"
-  - date: "2022"
-    event: "ChatGPT 发布后 AGI 议题进入主流"
-  - date: "2025"
-    event: "GPT-5 发布，AGI 辩论升级"
-  - date: "2026"
-    event: "AGI 安全治理成为各国政策焦点"
-
+- date: '1997'
+  event: AGI 术语首次提出
+- date: '2014'
+  event: DeepMind 被收购，目标是 Solve Intelligence
+- date: '2022'
+  event: ChatGPT 发布后 AGI 议题进入主流
+- date: '2025'
+  event: GPT-5 发布，AGI 辩论升级
 sources:
-  wikipedia: "https://en.wikipedia.org/wiki/Artificial_general_intelligence"
-
-domain: "ai-philosophy"
+  wikipedia: https://en.wikipedia.org/wiki/Artificial_general_intelligence
+domain: ai-philosophy

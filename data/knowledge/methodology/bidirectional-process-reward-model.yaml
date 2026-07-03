@@ -1,0 +1,23 @@
+# Auto-generated draft — Concept Miner
+id: bidirectional-process-reward-model
+name: Bidirectional Process Reward Model
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.9，出现 2 次。
+  证据: we propose a novel bidirectional evaluation paradigm for Process Reward Models, which assigns fine-grained scores to intermediate reasoning steps by considering both left-to-right and right-to-left co
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "Hacker News (AI 相关)"
+  - "TechCrunch AI"
+
+related: []

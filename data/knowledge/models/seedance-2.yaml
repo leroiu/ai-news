@@ -1,90 +1,85 @@
-# ============================================================
-# Knowledge Card: Seedance 2.0
-# ============================================================
-
 id: seedance-2
 name: Seedance 2.0
 type: model
 aliases:
-  - Seedance
-  - seedance
-  - Seedance 2
-  - 即梦视频模型
-  - 字节视频模型
-
+- Seedance
+- seedance
+- Seedance 2
+- 即梦视频模型
+- 字节视频模型
 release_date: 2026-06
 status: active
-
 company: ByteDance (字节跳动)
 creators:
-  - 字节跳动 Flow 团队
-
+- 字节跳动 Flow 团队
 tags:
-  - video-generation
-  - chinese
-  - diffusion
-  - multimodal
-  - bytedance
-  - ai-video
-  - sora-competitor
-  - physics-simulation
-
+- video-generation
+- chinese
+- diffusion
+- multimodal
+- bytedance
+- ai-video
+- sora-competitor
+- physics-simulation
 importance: 5
 confidence: confirmed
+summary: '字节跳动发布的视频生成模型，Seedance 2.0 在物理世界模拟、
 
-summary: |
-  字节跳动发布的视频生成模型，Seedance 2.0 在物理世界模拟、
   长视频一致性、动作流畅度方面达到 SOTA，被广泛视为 Sora 的
+
   最强竞品。支持文生视频、图生视频、视频编辑。
 
-significance: |
-  Seedance 2.0 是中国视频生成技术的重要里程碑。相比 Sora 的
+  '
+significance: 'Seedance 2.0 是中国视频生成技术的重要里程碑。相比 Sora 的
+
   "闭源+PPT发布"策略，Seedance 2.0 直接开放给即梦平台用户使用，
+
   走的是"应用驱动"路线。
 
+
   核心优势：
+
   - 物理世界模拟：物体运动、光影变化符合真实物理规律
+
   - 长视频一致性：支持 60s+ 视频生成，人物/场景不崩
+
   - 中文理解深度：对中文提示词的理解远超 Sora/Veo
+
   - 生态整合：嵌入即梦平台 + 抖音创作者工具链
+
 
   Seedance 2.0 的发布标志着中国视频生成从"追赶"进入"并跑"阶段。
 
-background: |
-  字节跳动 2024 年开始布局视频生成，2025 年 2 月发布 Seedance 1.0。
+  '
+background: '字节跳动 2024 年开始布局视频生成，2025 年 2 月发布 Seedance 1.0。
+
   2026 年 6 月 Seedance 2.0 发布，采用 Diffusion Transformer 架构，
+
   在视频质量基准测试中超过 Sora、Kling 等竞品。与即梦平台深度
+
   集成，用户可直接生成 AI 视频并发布到抖音。
 
+  '
 related:
-  - bytedance-ai
-  - jimeng
-  - kling
-  - sora
-  - stable-diffusion-3
-  - ai-video-generation
-
+- bytedance-ai
+- jimeng
+- kling
+- sora
+- stable-diffusion-3
+- ai-video-generation
 depends_on:
-  - diffusion
-  - transformer
-
+- diffusion
+- transformer
 influenced:
-  - ai-video-generation
-
+- ai-video-generation
 architecture: Diffusion Transformer
 modalities:
-  - text
-  - image
-  - video
+- text
+- image
+- video
 license: proprietary
-
 timeline:
-  - date: 2025-02
-    event: Seedance 1.0 发布
-  - date: 2026-06
-    event: Seedance 2.0 发布，视频生成 SOTA
-  - date: 2026-06
-    event: 即梦平台全面接入，开放用户使用
-
+- date: 2025-02
+  event: Seedance 1.0 发布
 sources:
   official: https://jimeng.jianying.com

@@ -2,90 +2,94 @@ id: dario-amodei
 name: Dario Amodei
 type: person
 aliases:
-  - Dario Amodei
-  - Amodei
-
+- Dario Amodei
+- Amodei
 release_date: 1983
 status: active
-
 company: Anthropic
 creators: []
-
 tags:
-  - person
-  - ceo
-  - researcher
-  - ai-safety
-  - anthropic
-  - openai
-
+- person
+- ceo
+- researcher
+- ai-safety
+- anthropic
+- openai
 importance: 5
 confidence: confirmed
+summary: 'Anthropic CEO 兼联合创始人，前 OpenAI 研究副总裁，
 
-summary: |
-  Anthropic CEO 兼联合创始人，前 OpenAI 研究副总裁，
   AI 安全领域的旗帜人物，"Scaling Laws" 论文第一作者。
 
-significance: |
-  Dario Amodei 是 AI 安全运动的核心领导者。在 OpenAI 期间
+  '
+significance: 'Dario Amodei 是 AI 安全运动的核心领导者。在 OpenAI 期间
+
   发现 Scaling Laws（模型大小/数据量/计算量与性能的幂律关系），
+
   直接塑造了此后整个 LLM 行业的研发方向。
 
+
   2021 年因对 OpenAI 安全方向的不满，与妹妹 Daniela Amodei 等
+
   7 名前 OpenAI 员工共同创立 Anthropic，以"Constitutional AI"和
+
   安全研究为核心竞争力。
 
+
   2024-2026 年 Anthropic 估值从 $5B 飙升至 $118B+
+
   （LightSpeed $10B 投资），成为仅次于 OpenAI 的第二大 AI 公司。
+
   Claude Code 已成为最强的 AI 编程工具之一。
 
-background: |
-  普林斯顿物理学本科，斯坦福神经科学博士。
+  '
+background: '普林斯顿物理学本科，斯坦福神经科学博士。
+
   在百度硅谷 AI 实验室工作后加入 Google Brain，随后加入 OpenAI。
 
+
   核心贡献：
+
   - Scaling Laws for Neural Language Models (2020)
+
   - Anthropic 联合创始人 (2021)
+
   - Constitutional AI 方法论
+
   - Claude 模型家族
 
+  '
 related:
-  - anthropic
-  - claude-fable-5
-  - scaling-laws
-  - openai
-  - ai-safety
-
+- anthropic
+- claude-fable-5
+- scaling-laws
+- openai
+- ai-safety
 influenced:
-  - anthropic
-  - claude-fable-5
-  - ai-safety
-  - scaling-laws
-
+- anthropic
+- claude-fable-5
+- ai-safety
+- scaling-laws
 timeline:
-  - date: 1983
-    event: 出生于美国
-  - date: 2020-01
-    event: "Scaling Laws 论文（Kaplan et al.）"
-  - date: 2021-02
-    event: 离开 OpenAI，创立 Anthropic
-  - date: 2023-03
-    event: Claude 首次发布
-  - date: 2025-05
-    event: LightSpeed $10B 投资 Anthropic
-  - date: 2026-06
-    event: Claude Fable 5 发布，$118B 估值
-
+- date: 1983
+  event: 出生于美国
+- date: 2020-01
+  event: Scaling Laws 论文（Kaplan et al.）
+- date: 2021-02
+  event: 离开 OpenAI，创立 Anthropic
+- date: 2023-03
+  event: Claude 首次发布
+- date: 2025-05
+  event: LightSpeed $10B 投资 Anthropic
 sources:
   wikipedia: https://en.wikipedia.org/wiki/Dario_Amodei
-
 role: CEO & Co-founder
 affiliations:
-  - anthropic
-  - openai (former)
-  - google-brain (former)
+- anthropic
+- openai (former)
+- google-brain (former)
 known_for:
-  - Anthropic CEO
-  - Scaling Laws 论文
-  - AI 安全倡导
-  - Claude 模型家族
+- Anthropic CEO
+- Scaling Laws 论文
+- AI 安全倡导
+- Claude 模型家族

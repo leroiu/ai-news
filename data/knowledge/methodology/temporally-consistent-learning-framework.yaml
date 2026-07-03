@@ -1,0 +1,23 @@
+# Auto-generated draft — Concept Miner
+id: temporally-consistent-learning-framework
+name: Temporally Consistent Learning Framework
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.8，出现 2 次。
+  证据: we present a Temporally Consistent Learning Framework that distills temporal coherence into a 2D network during training... | we present a Temporally Consistent Learning Framework that distills tempor
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "Hacker News (AI 相关)"
+  - "TechCrunch AI"
+
+related: []

@@ -1,0 +1,23 @@
+# Auto-generated draft — Concept Miner
+id: triospect-detection-framework
+name: Triospect Detection Framework
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.9，出现 2 次。
+  证据: we propose a novel Triospect Detection Framework by using additional perspectives of content (core ideas) and expression (stylistic elements) within a given text | We propose a novel Triospect Detecti
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "Hacker News (AI 相关)"
+  - "TechCrunch AI"
+
+related: []

@@ -1,85 +1,81 @@
-# ============================================================
-# Knowledge Card: MCP (Model Context Protocol)
-# ============================================================
-
 id: mcp
 name: Model Context Protocol (MCP)
 type: tech
 aliases:
-  - MCP
-  - Model Context Protocol
-  - Anthropic MCP
-  - mcp-server
-  - mcp-client
-
+- MCP
+- Model Context Protocol
+- Anthropic MCP
+- mcp-server
+- mcp-client
 release_date: 2024-11-25
 status: active
-
 company: Anthropic
 creators:
-  - Anthropic
-
+- Anthropic
 tags:
-  - protocol
-  - agent
-  - tool-use
-  - api
-  - anthropic
-  - open-standard
-  - claude
-  - ai-agent
-
+- protocol
+- agent
+- tool-use
+- api
+- anthropic
+- open-standard
+- claude
+- ai-agent
 importance: 4
 confidence: confirmed
+summary: 'Anthropic 发布的开放协议，为 AI Agent 提供标准化的工具调用和
 
-summary: |
-  Anthropic 发布的开放协议，为 AI Agent 提供标准化的工具调用和
   上下文管理接口。AI Agent 的 "USB-C"——统一连接标准。
 
-significance: |
-  MCP 解决了 AI Agent 生态中最核心的问题：Agent 如何与外部工具、
+  '
+significance: 'MCP 解决了 AI Agent 生态中最核心的问题：Agent 如何与外部工具、
+
   数据源、服务进行标准化交互。
 
+
   类似于 HTTP 对 Web 的意义，MCP 定义了一套 Client-Server 协议，
+
   让任何 AI 模型（不仅仅是 Claude）都可以通过统一的接口调用
+
   文件系统、数据库、API、浏览器等外部工具。
 
+
   MCP 已成为 AI Agent 开发的事实标准之一，被 Claude Code、
+
   Cursor、Zed 等主流 AI 编程工具广泛采用。2025-2026 年，
+
   MCP 生态爆炸式增长，社区贡献了数千个 MCP Server。
 
-background: |
-  2024 年 11 月 Anthropic 发布 MCP 协议规范。
+  '
+background: '2024 年 11 月 Anthropic 发布 MCP 协议规范。
+
   协议分为 Client（AI 应用/Agent）和 Server（工具提供方）两层。
+
   Server 暴露 resources（数据）、tools（操作）、prompts（模板）。
 
+
   2025 年 MCP 社区快速扩张，覆盖文件系统、数据库、浏览器、
+
   API 网关等场景。OpenAI 和 Google 也开始支持 MCP 标准。
 
+  '
 related:
-  - anthropic
-  - claude-fable-5
-  - agent
-  - claude-code
-
+- anthropic
+- claude-fable-5
+- agent
+- claude-code
 depends_on:
-  - agent
-
+- agent
 influenced:
-  - agent-tool-ecosystem
-
+- agent-tool-ecosystem
 timeline:
-  - date: 2024-11-25
-    event: Anthropic 发布 MCP 协议 v1.0
-  - date: 2025-03
-    event: MCP 社区破千 Server
-  - date: 2025-08
-    event: OpenAI 宣布支持 MCP 标准
-  - date: 2026-06
-    event: Claude Fable 5 原生集成 MCP
-
+- date: 2024-11-25
+  event: Anthropic 发布 MCP 协议 v1.0
+- date: 2025-03
+  event: MCP 社区破千 Server
+- date: 2025-08
+  event: OpenAI 宣布支持 MCP 标准
 sources:
   official: https://modelcontextprotocol.io
   github: https://github.com/modelcontextprotocol
-
-category: "Agent 基础设施"
+category: Agent 基础设施

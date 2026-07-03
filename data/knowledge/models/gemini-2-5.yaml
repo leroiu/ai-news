@@ -2,70 +2,68 @@ id: gemini-2-5
 name: Gemini 2.5
 type: model
 aliases:
-  - Gemini 2.5
-  - Gemini 2.5 Pro
-  - Gemini
-
+- Gemini 2.5
+- Gemini 2.5 Pro
+- Gemini
 release_date: 2025-12
 status: active
-
 company: Google DeepMind
 creators:
-  - Google DeepMind
-
+- Google DeepMind
 tags:
-  - llm
-  - multimodal
-  - reasoning
-  - google
-  - deepmind
-  - long-context
-
+- llm
+- multimodal
+- reasoning
+- google
+- deepmind
+- long-context
 importance: 4
 confidence: confirmed
+summary: 'Google 旗舰模型，原生多模态 + 百万级上下文窗口。
 
-summary: |
-  Google 旗舰模型，原生多模态 + 百万级上下文窗口。
   Google 生态（搜索/Gmail/Android/Workspace）的 AI 引擎。
 
-significance: |
-  Gemini 2.5 是 Google 整合 DeepMind 后最强的模型，
+  '
+significance: 'Gemini 2.5 是 Google 整合 DeepMind 后最强的模型，
+
   在以下方面达到或超过同期竞争产品：
+
   - 百万 Token 上下文（行业最长之一）
+
   - 原生多模态（文本/图像/音频/视频/代码统一处理）
+
   - Google 生态深度整合（搜索、Workspace、Cloud）
 
+
   Google 的差异化策略是"AI + 产品生态"——Gemini 不只是一个
+
   API 模型，而是嵌入到十几亿用户日常使用的产品中。
 
-background: |
-  Gemini 系列是 DeepMind + Google Brain 合并后的核心产出。
+  '
+background: 'Gemini 系列是 DeepMind + Google Brain 合并后的核心产出。
+
   2.0 系列（2024-12）首次引入 Agent 能力，
+
   2.5 系列（2025-12）大幅增强推理和代码能力。
 
+  '
 related:
-  - google-deepmind
-  - demis-hassabis
-  - gpt-5
-  - transformer
-
+- google-deepmind
+- demis-hassabis
+- gpt-5
+- transformer
 depends_on:
-  - transformer
-  - alphafold
-
-parameters: "未公开披露"
-architecture: "未公开披露 (推测密集 + MoE 混合)"
+- transformer
+- alphafold
+parameters: 未公开披露
+architecture: 未公开披露 (推测密集 + MoE 混合)
 license: proprietary
-
 timeline:
-  - date: 2023-12
-    event: Gemini 1.0 发布
-  - date: 2024-12
-    event: Gemini 2.0 Flash/Pro 发布
-  - date: 2025-12
-    event: Gemini 2.5 Pro 发布
-  - date: 2026-03
-    event: Gemini 3.0 预览
-
+- date: 2023-12
+  event: Gemini 1.0 发布
+- date: 2024-12
+  event: Gemini 2.0 Flash/Pro 发布
+- date: 2025-12
+  event: Gemini 2.5 Pro 发布
 sources:
   official: https://deepmind.google/technologies/gemini

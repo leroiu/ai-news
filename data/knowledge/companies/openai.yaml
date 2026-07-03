@@ -1,114 +1,115 @@
-# ============================================================
-# Knowledge Card: OpenAI
-# ============================================================
-
 id: openai
 name: OpenAI
 type: company
 aliases:
-  - OpenAI
-  - openai
-  - OpenAI Inc.
-  - OpenAI LP
-
+- OpenAI
+- openai
+- OpenAI Inc.
+- OpenAI LP
 release_date: 2015-12-11
 status: active
-
 creators:
-  - Sam Altman
-  - Greg Brockman
-  - Ilya Sutskever
-  - Elon Musk
-
+- Sam Altman
+- Greg Brockman
+- Ilya Sutskever
+- Elon Musk
 tags:
-  - company
-  - llm
-  - agi
-  - startup
-  - silicon-valley
-  - microsoft
-  - api
-
+- company
+- llm
+- agi
+- startup
+- silicon-valley
+- microsoft
+- api
 importance: 5
 confidence: confirmed
+summary: '全球最具影响力的 AI 公司之一，开发了 GPT 系列、ChatGPT、
 
-summary: |
-  全球最具影响力的 AI 公司之一，开发了 GPT 系列、ChatGPT、
   DALL-E、Sora 等产品，引领了 LLM 消费级应用的浪潮。
 
-significance: |
-  OpenAI 从非营利研究机构转型为营利性公司，开创了 LLM as a Service 的商业模式。
+  '
+significance: 'OpenAI 从非营利研究机构转型为营利性公司，开创了 LLM as a Service 的商业模式。
+
   ChatGPT 的发布（2022年11月）是 AI 行业的 iPhone 时刻——
+
   2 个月破亿用户，直接引发了全球 AI 军备竞赛。
 
+
   与 Microsoft 的深度合作（累计投资超 $13B）使其拥有独特的基础设施优势。
+
   2025-2026 年，面对 Anthropic、Google、DeepSeek 的竞争，
+
   OpenAI 推出了 GPT-5.x 系列和 Agent SDK，维持了市场领先地位。
 
-background: |
-  OpenAI 2015 年由 Sam Altman、Elon Musk、Greg Brockman、Ilya Sutskever 等人
+  '
+background: 'OpenAI 2015 年由 Sam Altman、Elon Musk、Greg Brockman、Ilya Sutskever 等人
+
   共同创立，最初是非营利 AI 研究机构，使命是"确保通用人工智能（AGI）
+
   造福全人类"。
 
+
   2019 年成立营利性子公司 OpenAI LP，接受 Microsoft $1B 投资。
+
   Ilya Sutskever 于 2024 年离职创办 SSI。
 
+
   核心产品线：
+
   - GPT 系列（GPT-1 2018 → GPT-4 2023 → GPT-5 2025 → GPT-5.6 2026）
+
   - ChatGPT (2022)
+
   - DALL-E 图像生成
+
   - Sora 视频生成
+
   - OpenAI Agents SDK / Codex CLI
 
+  '
 related:
-  - gpt-4
-  - gpt-5
-  - chatgpt
-  - microsoft
-  - sam-altman
-  - anthropic
-  - google-deepmind
-  - deepseek
-
+- gpt-4
+- gpt-5
+- chatgpt
+- microsoft
+- sam-altman
+- anthropic
+- google-deepmind
+- deepseek
 influenced:
-  - chatgpt
-  - gpt-4
-  - gpt-5
-
+- chatgpt
+- gpt-4
+- gpt-5
 timeline:
-  - date: 2015-12-11
-    event: OpenAI 成立
-  - date: 2019-03
-    event: 成立营利性子公司 OpenAI LP
-  - date: 2019-07
-    event: 接受 Microsoft $1B 投资
-  - date: 2020-05
-    event: 发布 GPT-3
-  - date: 2022-11-30
-    event: ChatGPT 发布（2 个月破亿用户）
-  - date: 2023-03-14
-    event: 发布 GPT-4
-  - date: 2023-11
-    event: Sam Altman 短暂被解雇后回归
-  - date: 2024-05
-    event: 发布 GPT-4o
-  - date: 2025-01
-    event: 发布 Operator（AI Agent 产品）
-  - date: 2026-06
-    event: 发布 GPT-5.6 Sol/Terra/Luna
-
+- date: 2015-12-11
+  event: OpenAI 成立
+- date: 2019-03
+  event: 成立营利性子公司 OpenAI LP
+- date: 2019-07
+  event: 接受 Microsoft $1B 投资
+- date: 2020-05
+  event: 发布 GPT-3
+- date: 2022-11-30
+  event: ChatGPT 发布（2 个月破亿用户）
+- date: 2023-03-14
+  event: 发布 GPT-4
+- date: 2023-11
+  event: Sam Altman 短暂被解雇后回归
+- date: 2024-05
+  event: 发布 GPT-4o
+- date: 2025-01
+  event: 发布 Operator（AI Agent 产品）
 sources:
   official: https://openai.com
   wikipedia: https://en.wikipedia.org/wiki/OpenAI
-
-headquarters: "San Francisco, CA"
+headquarters: San Francisco, CA
 founded: 2015
-funding_total: "$20B+ (截至 2026)"
-business_model: "API + ChatGPT 订阅"
+funding_total: $20B+ (截至 2026)
+business_model: API + ChatGPT 订阅
 key_products:
-  - chatgpt
-  - gpt-4
-  - gpt-5
-  - dalle
-  - sora
-  - openai-agents-sdk
+- chatgpt
+- gpt-4
+- gpt-5
+- dalle
+- sora
+- openai-agents-sdk

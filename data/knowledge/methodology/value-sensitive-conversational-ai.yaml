@@ -1,0 +1,23 @@
+# Auto-generated draft — Concept Miner
+id: value-sensitive-conversational-ai
+name: Value-Sensitive Conversational AI
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.7，出现 2 次。
+  证据: Improving Survey Participation in Low-Literacy Populations Through Value-Sensitive Conversational AI | Improving Survey Participation in Low-Literacy Populations Through Value-Sensitive Conversational
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "Hacker News (AI 相关)"
+  - "TechCrunch AI"
+
+related: []

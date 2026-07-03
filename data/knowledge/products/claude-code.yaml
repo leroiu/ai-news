@@ -1,88 +1,92 @@
-# ============================================================
-# Knowledge Card: Claude Code (CLI)
-# ============================================================
-
 id: claude-code
 name: Claude Code (CLI)
 type: product
 aliases:
-  - Claude Code
-  - claude-code
-  - Claude Code CLI
-  - Claude CLI
-
+- Claude Code
+- claude-code
+- Claude Code CLI
+- Claude CLI
 release_date: 2024-10
 status: active
-
 company: Anthropic
 creators:
-  - Anthropic Engineering
-
+- Anthropic Engineering
 tags:
-  - developer-tools
-  - agent
-  - cli
-  - terminal
-  - coding-assistant
-  - autonomous-agent
-  - anthropic
-
+- developer-tools
+- agent
+- cli
+- terminal
+- coding-assistant
+- autonomous-agent
+- anthropic
 importance: 4
 confidence: confirmed
+summary: 'Anthropic 推出的终端原生 AI 编程代理，可在终端中直接与
 
-summary: |
-  Anthropic 推出的终端原生 AI 编程代理，可在终端中直接与
   Claude 协作编程。支持代码阅读、编辑、运行测试、
+
   git 操作等完整开发工作流。
 
-significance: |
-  Claude Code 代表了 AI 编程工具的"第三波"：
+  '
+significance: 'Claude Code 代表了 AI 编程工具的"第三波"：
+
   - 第一波：IDE 内代码补全（Copilot）
+
   - 第二波：AI 原生 IDE（Cursor、Windsurf）
+
   - 第三波：终端原生 Agent，不依赖特定 IDE
 
+
   核心理念：开发者不需要离开终端，Claude 作为"终端搭档"
+
   理解整个代码库，可以直接读写文件、执行命令、运行测试、
+
   操作 Git、管理依赖——完整的自主开发循环。
 
+
   区别于其他 AI 编程工具：
+
   - 不绑定 IDE：支持任何编辑器和终端环境
+
   - Agent-first：从设计之初就是代理模式，非补全插件
+
   - 上下文深度：理解整个代码库而非当前文件
+
   - 自主执行：可以独立完成多步骤编程任务
+
   - 技能系统：可扩展的领域知识（skills）
 
+
   Claude Code 与 Cursor、Copilot 形成三角竞争格局，
+
   推动了"AI 代理作为编程搭档"的行业范式转移。
 
-background: |
-  2024 年 10 月 Anthropic 发布 Claude Code 预览版。
+  '
+background: '2024 年 10 月 Anthropic 发布 Claude Code 预览版。
+
   2025 年正式 GA，成为 VS Code 和 JetBrains 最受欢迎插件之一。
+
   2026 年推出 Claude Code Desktop 应用和 Web 版。
+
   支持 Claude Opus 4.8、Fable 5 等最新模型。
 
+  '
 related:
-  - anthropic
-  - claude-fable-5
-  - claude-ai
-  - cursor
-  - github-copilot
-
+- anthropic
+- claude-fable-5
+- claude-ai
+- cursor
+- github-copilot
 depends_on:
-  - claude
-  - anthropic
-
+- claude
+- anthropic
 influenced:
-  - ai-coding-tools
-  - developer-agent
-
+- ai-coding-tools
+- developer-agent
 timeline:
-  - date: 2024-10
-    event: Claude Code 预览版发布
-  - date: 2025
-    event: GA 发布，VS Code / JetBrains 插件
-  - date: 2026
-    event: Desktop 应用 + Web 版上线
-
+- date: 2024-10
+  event: Claude Code 预览版发布
+- date: 2025
+  event: GA 发布，VS Code / JetBrains 插件
 sources:
   official: https://claude.ai/code

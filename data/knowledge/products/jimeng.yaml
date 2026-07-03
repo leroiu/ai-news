@@ -1,78 +1,74 @@
-# ============================================================
-# Knowledge Card: Jimeng
-# ============================================================
-
 id: jimeng
 name: 即梦 (Jimeng)
 type: product
 aliases:
-  - 即梦
-  - Jimeng
-  - jimeng
-  - 即梦AI
-  - 即梦平台
-  - Dreamina
-
+- 即梦
+- Jimeng
+- jimeng
+- 即梦AI
+- 即梦平台
+- Dreamina
 release_date: 2024-12
 status: active
-
 company: ByteDance (字节跳动)
 creators:
-  - 字节跳动 Flow 团队
-
+- 字节跳动 Flow 团队
 tags:
-  - ai-image
-  - ai-video
-  - creative-tool
-  - chinese
-  - bytedance
-  - content-creation
-  - video-generation
-
+- ai-image
+- ai-video
+- creative-tool
+- chinese
+- bytedance
+- content-creation
+- video-generation
 importance: 4
 confidence: confirmed
+summary: '字节跳动的 AI 视觉创作平台，集成 Seedance 视频生成 + 图像生成
 
-summary: |
-  字节跳动的 AI 视觉创作平台，集成 Seedance 视频生成 + 图像生成
   + 视频编辑能力。定位为"AI 时代的剪映"，面向创作者和普通用户，
+
   支持文生图、文生视频、图生视频、AI 编辑等功能。
 
-significance: |
-  即梦是字节在 AI 内容创作赛道的关键布局。其定位类似于
+  '
+significance: '即梦是字节在 AI 内容创作赛道的关键布局。其定位类似于
+
   "剪映 + Midjourney + Sora"的合体，降低 AI 视觉创作的门槛。
 
+
   即梦的战略意义：
+
   - 与抖音生态天然绑定：生成内容一键发布抖音
+
   - Seedance 独占首发：视频生成能力领先竞品
+
   - 创作者工具链完整：从灵感到成品的全流程 AI 化
+
   - 商业模式清晰：会员订阅 + 算力付费
 
-background: |
-  即梦前身为 Dreamina（图像生成工具），2024 年 12 月更名为即梦，
+  '
+background: '即梦前身为 Dreamina（图像生成工具），2024 年 12 月更名为即梦，
+
   加入视频生成和编辑功能。2025 年陆续接入 Seedance 系列视频模型。
+
   2026 年 6 月 Seedance 2.0 在即梦平台独家首发。
 
+  '
 related:
-  - seedance-2
-  - doubao
-  - bytedance-ai
-  - kling
-  - midjourney
-  - sora
-
+- seedance-2
+- doubao
+- bytedance-ai
+- kling
+- midjourney
+- sora
 depends_on:
-  - seedance-2
-  - bytedance-ai
-
+- seedance-2
+- bytedance-ai
 timeline:
-  - date: 2024-12
-    event: 即梦平台上线（Dreamina 升级）
-  - date: 2025-02
-    event: 接入 Seedance 1.0 视频生成
-  - date: 2025-06
-    event: 即梦创作者社区上线
-  - date: 2026-06
-    event: Seedance 2.0 在即梦独家首发
-
+- date: 2024-12
+  event: 即梦平台上线（Dreamina 升级）
+- date: 2025-02
+  event: 接入 Seedance 1.0 视频生成
+- date: 2025-06
+  event: 即梦创作者社区上线
 sources:
   official: https://jimeng.jianying.com

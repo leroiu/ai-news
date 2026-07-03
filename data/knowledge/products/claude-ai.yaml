@@ -1,97 +1,103 @@
-# ============================================================
-# Knowledge Card: Claude.ai
-# ============================================================
-
 id: claude-ai
 name: Claude.ai
 type: product
 aliases:
-  - Claude
-  - Claude AI
-  - claude.ai
-  - Claude Chat
-
+- Claude
+- Claude AI
+- claude.ai
+- Claude Chat
 release_date: 2023-03-14
 status: active
-
 company: Anthropic
 creators:
-  - Anthropic
-
+- Anthropic
 tags:
-  - product
-  - chatbot
-  - consumer
-  - llm
-  - safety
-  - subscription
-
+- product
+- chatbot
+- consumer
+- llm
+- safety
+- subscription
 importance: 4
 confidence: confirmed
+summary: 'Anthropic 的 AI 聊天产品，以长上下文、安全性和 Agent 能力
 
-summary: |
-  Anthropic 的 AI 聊天产品，以长上下文、安全性和 Agent 能力
   著称。ChatGPT 最强劲的竞品，开发者友好度极高。
 
-significance: |
-  Claude.ai 从"ChatGPT 的安全替代品"成长为独立的产品标杆。
+  '
+significance: 'Claude.ai 从"ChatGPT 的安全替代品"成长为独立的产品标杆。
+
 
   核心差异化：
+
   - 超长上下文（200K tokens → 后来扩展到更长）
+
   - Constitutional AI 训练的安全保障
+
   - 写作和编程能力顶级
+
   - Claude Code（CLI 开发工具）深度整合
+
   - 思考模式（Extended Thinking）展示推理过程
 
+
   Claude 的增长路径：
+
   - 2024 年靠 Sonnet/Opus 系列站稳编程和写作场景
+
   - 2025 年 Agent 能力大爆发，Claude Code 成为开发者标配
+
   - 2026 年 Fable 5 发布后，能力登顶
 
+
   Claude 在科技圈和开发者中的口碑极好，被认为是
+
   "最懂代码的 AI"。
 
-background: |
-  Anthropic 于 2023 年 3 月（与 GPT-4 同一天）发布 Claude 1.0。
+  '
+background: 'Anthropic 于 2023 年 3 月（与 GPT-4 同一天）发布 Claude 1.0。
+
   此后快速迭代：
+
   - Claude 2 (2023-07)
+
   - Claude 3 Haiku/Sonnet/Opus (2024-03)
+
   - Claude 3.5 Sonnet (2024-06, 2024-10)
+
   - Claude 4 Opus/Sonnet (2025)
+
   - Claude Fable 5 / Mythos 5 (2026-06)
 
+
   产品形态从纯聊天扩展到：Artifacts（代码/文档实时预览）、
+
   Claude Code（CLI Agent）、Projects（知识库管理）。
 
+  '
 related:
-  - anthropic
-  - claude-fable-5
-  - chatgpt
-  - claude-code
-  - constitutional-ai
-
+- anthropic
+- claude-fable-5
+- chatgpt
+- claude-code
+- constitutional-ai
 depends_on:
-  - claude-fable-5
-  - constitutional-ai
-
+- claude-fable-5
+- constitutional-ai
 influenced:
-  - ai-safety-products
-  - developer-ai-tools
-
+- ai-safety-products
+- developer-ai-tools
 timeline:
-  - date: 2023-03-14
-    event: Claude 1.0 发布
-  - date: 2023-07-11
-    event: Claude 2 — 100K 上下文，免费
-  - date: 2024-03-04
-    event: Claude 3 系列（Haiku/Sonnet/Opus）
-  - date: 2024-10-22
-    event: Claude 3.5 Sonnet (New) + Computer Use
-  - date: 2025
-    event: Claude 4 系列 + Claude Code
-  - date: 2026-06-25
-    event: Claude Fable 5 / Mythos 5 发布
-
+- date: 2023-03-14
+  event: Claude 1.0 发布
+- date: 2023-07-11
+  event: Claude 2 — 100K 上下文，免费
+- date: 2024-03-04
+  event: Claude 3 系列（Haiku/Sonnet/Opus）
+- date: 2024-10-22
+  event: Claude 3.5 Sonnet (New) + Computer Use
+- date: 2025
+  event: Claude 4 系列 + Claude Code
 sources:
   official: https://claude.ai
   wikipedia: https://en.wikipedia.org/wiki/Claude_(language_model)

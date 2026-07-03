@@ -1,87 +1,93 @@
-# ============================================================
-# Knowledge Card: AI Video Generation
-# ============================================================
-
 id: ai-video-generation
 name: AI 视频生成 (AI Video Generation)
 type: concept
 aliases:
-  - AI Video Generation
-  - AI 视频生成
-  - 视频生成
-  - Video Generation
-  - Text-to-Video
-  - AI Video
-
+- AI Video Generation
+- AI 视频生成
+- 视频生成
+- Video Generation
+- Text-to-Video
+- AI Video
 status: active
-
 tags:
-  - video-generation
-  - generative-ai
-  - diffusion
-  - multimodal
-  - ai-video
-  - content-creation
-
+- video-generation
+- generative-ai
+- diffusion
+- multimodal
+- ai-video
+- content-creation
 importance: 5
 confidence: confirmed
+summary: 'AI 视频生成是利用扩散模型、Transformer 等深度学习技术
 
-summary: |
-  AI 视频生成是利用扩散模型、Transformer 等深度学习技术
   从文本/图像生成视频内容的技术。2024 年 Sora 的发布标志着
+
   该领域从实验室进入实用阶段，是 AI 多模态能力的核心赛道。
 
-significance: |
-  AI 视频生成是继文本、图像之后 AI 多模态的第三波浪潮。
+  '
+significance: 'AI 视频生成是继文本、图像之后 AI 多模态的第三波浪潮。
+
   其核心挑战在于视频的时空一致性——不仅要生成好看的静态画面，
+
   还要保证画面之间动作连贯、物体持久、物理合理。
 
+
   技术演进：
+
   - 2022-2023：Runway Gen-2, Pika 1.0（几秒，质量有限）
+
   - 2024-02：Sora（60秒，物理一致性飞跃）→ GPT 时刻
+
   - 2024-06：Kling（中国首个 Sora 级模型）
+
   - 2025-02：Seedance 1.0
+
   - 2026-06：Seedance 2.0（物理模拟 SOTA）
 
+
   行业影响：
+
   - 影视制作民主化（个人可创作电影级视频）
+
   - 短视频/直播行业重构
+
   - 广告/营销内容生产革命
+
   - Deepfake 和内容真实性挑战升级
 
+
   中国在视频生成领域有独特优势：短视频平台（抖音/快手）
+
   提供了海量训练数据和分发场景。
 
-background: |
-  视频生成技术从 GAN（2018）→ Video Diffusion（2022）→
+  '
+background: '视频生成技术从 GAN（2018）→ Video Diffusion（2022）→
+
   Diffusion Transformer（2024 Sora）快速演进。核心架构
+
   是将扩散模型的去噪过程与 Transformer 的注意力机制结合，
+
   在时空压缩的潜空间中进行视频生成。
 
+  '
 related:
-  - sora
-  - seedance-2
-  - kling
-  - veo
-  - diffusion
-  - transformer
-
+- sora
+- seedance-2
+- kling
+- veo
+- diffusion
+- transformer
 depends_on:
-  - diffusion
-  - transformer
-
+- diffusion
+- transformer
 influenced: []
-
 timeline:
-  - date: 2022-10
-    event: Runway Gen-2 发布，首个文本生成视频商用产品
-  - date: 2024-02
-    event: Sora 发布，视频生成"GPT时刻"
-  - date: 2024-06
-    event: 快手 Kling 发布，中国首个 Sora 级模型
-  - date: 2025-02
-    event: Seedance 1.0 发布
-  - date: 2026-06
-    event: Seedance 2.0 物理模拟达到 SOTA
-
+- date: 2022-10
+  event: Runway Gen-2 发布，首个文本生成视频商用产品
+- date: 2024-02
+  event: Sora 发布，视频生成"GPT时刻"
+- date: 2024-06
+  event: 快手 Kling 发布，中国首个 Sora 级模型
+- date: 2025-02
+  event: Seedance 1.0 发布
 sources: []

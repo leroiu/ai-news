@@ -2,63 +2,58 @@ id: claude-opus-4-8
 name: Claude Opus 4.8
 type: model
 aliases:
-  - Claude Opus 4.8
-  - Opus 4.8
-  - claude-opus-4-8
-
+- Claude Opus 4.8
+- Opus 4.8
+- claude-opus-4-8
 release_date: 2025-10
 status: active
-
 company: Anthropic
 creators:
-  - Anthropic
-
+- Anthropic
 tags:
-  - llm
-  - reasoning
-  - coding
-  - safety
-  - anthropic
-
+- llm
+- reasoning
+- coding
+- safety
+- anthropic
 importance: 4
 confidence: confirmed
+summary: 'Anthropic 旗舰模型，在复杂推理和代码生成上达到顶级水平。
 
-summary: |
-  Anthropic 旗舰模型，在复杂推理和代码生成上达到顶级水平。
   Claude Code 的核心引擎之一。
 
-significance: |
-  Opus 4.8 是 Anthropic "深度推理"路线的代表。
+  '
+significance: 'Opus 4.8 是 Anthropic "深度推理"路线的代表。
+
   在复杂编码任务（SWE-bench Verified 上 > 80%）、
+
   数学推理（MATH 上接近满分）等方面与 GPT-5 不相上下。
 
+
   Claude Code 使用 Opus 4.8 作为"深度思考"模式的后端，
+
   与 Sonnet 4.6（快速模式）形成互补。
 
-background: |
-  继 Claude Opus 4 后，Opus 4.8 大幅增强了代码和数学能力，
+  '
+background: '继 Claude Opus 4 后，Opus 4.8 大幅增强了代码和数学能力，
+
   是 Claude Fable 5 发布前 Anthropic 最强模型。
 
+  '
 related:
-  - anthropic
-  - claude-fable-5
-  - claude-sonnet-4-6
-  - gpt-5
-
+- anthropic
+- claude-fable-5
+- claude-sonnet-4-6
+- gpt-5
 depends_on:
-  - transformer
-  - rlhf
-  - constitutional-ai
-
-parameters: "未公开披露"
-architecture: "未公开披露 (推测 MoE)"
+- transformer
+- rlhf
+- constitutional-ai
+parameters: 未公开披露
+architecture: 未公开披露 (推测 MoE)
 license: proprietary
-
 timeline:
-  - date: 2025-10
-    event: Claude Opus 4.8 发布
-  - date: 2026-06
-    event: Claude Fable 5 发布（Opus 4.8 的后继者）
-
+- date: 2025-10
+  event: Claude Opus 4.8 发布
 sources:
   official: https://anthropic.com

@@ -1,90 +1,86 @@
-# ============================================================
-# Knowledge Card: ByteDance AI
-# ============================================================
-
 id: bytedance-ai
 name: ByteDance AI (字节跳动 AI)
 type: company
 aliases:
-  - 字节跳动
-  - 字节
-  - ByteDance
-  - bytedance
-  - 字节AI
-  - 豆包团队
-  - Seedance团队
-
+- 字节跳动
+- 字节
+- ByteDance
+- bytedance
+- 字节AI
+- 豆包团队
+- Seedance团队
 release_date: 2012-03
 status: active
-
 creators:
-  - 张一鸣
-  - 梁汝波
-
+- 张一鸣
+- 梁汝波
 tags:
-  - chinese
-  - llm
-  - video-generation
-  - ai-agent
-  - ai-platform
-  - consumer-ai
-  - 抖音
-  - 豆包
-  - 推荐系统
-
+- chinese
+- llm
+- video-generation
+- ai-agent
+- ai-platform
+- consumer-ai
+- 抖音
+- 豆包
+- 推荐系统
 importance: 5
 confidence: confirmed
+summary: '字节跳动是中国最大、全球领先的 AI 应用公司之一。旗下豆包大模型、Seedance 视频生成、
 
-summary: |
-  字节跳动是中国最大、全球领先的 AI 应用公司之一。旗下豆包大模型、Seedance 视频生成、
   即梦 AI 创作平台、Coze Agent 平台等构成了中国最完整的 AI 应用生态。
+
   豆包 APP 是中国月活最高的 C 端 AI 产品（2025 年超 2 亿 MAU）。
 
-significance: |
-  字节跳动在 AI 领域的核心定位是"应用驱动"。不同于 OpenAI/DeepSeek 的
+  '
+significance: '字节跳动在 AI 领域的核心定位是"应用驱动"。不同于 OpenAI/DeepSeek 的
+
   基础模型路线，字节擅长将 AI 能力嵌入亿级用户产品（抖音/TikTok/今日头条），
+
   形成数据-算法-产品的飞轮效应。
 
+
   2025-2026 年，字节在视频生成赛道异军突起，Seedance 系列视频模型
+
   在物理世界模拟、长视频一致性方面达到 SOTA，成为 Sora 的最强竞品。
+
   豆包大模型家族通过极低成本 API（<GPT-4o 的 1/10）占领中国开发者生态。
 
-background: |
-  字节跳动 2012 年成立，以推荐算法驱动的今日头条起家。2016 年推出抖音，
+  '
+background: '字节跳动 2012 年成立，以推荐算法驱动的今日头条起家。2016 年推出抖音，
+
   成为中国最大短视频平台。2017 年 TikTok 出海，成为全球现象级产品。
+
   2023 年成立 Flow 部门专注 AI 应用，2024 年发布豆包大模型，2025 年
+
   发布 Seedance 系列视频生成模型，2026 年 Seedance 2.0 达到 SOTA。
 
+  '
 related:
-  - seedance-2
-  - doubao
-  - jimeng
-  - deepseek
-  - kimi
-  - openai
-  - sora
-  - gpt-4o
-
+- seedance-2
+- doubao
+- jimeng
+- deepseek
+- kimi
+- openai
+- sora
+- gpt-4o
 influenced:
-  - chinese-ai-boom
-  - ai-video-generation
-  - cost-efficient-llm-wave
-
+- chinese-ai-boom
+- ai-video-generation
+- cost-efficient-llm-wave
 timeline:
-  - date: 2012-03
-    event: 字节跳动成立
-  - date: 2016-09
-    event: 抖音上线
-  - date: 2023-06
-    event: 成立 Flow 部门，全面投入 AI 应用
-  - date: 2024-05
-    event: 发布豆包大模型，API 定价仅为 GPT-4 Turbo 的 1/100
-  - date: 2025-02
-    event: 发布 Seedance 1.0 视频生成模型
-  - date: 2025-06
-    event: 豆包 APP 月活突破 2 亿，成中国最大 C 端 AI 产品
-  - date: 2026-06
-    event: Seedance 2.0 发布，视频生成 SOTA
-
+- date: 2012-03
+  event: 字节跳动成立
+- date: 2016-09
+  event: 抖音上线
+- date: 2023-06
+  event: 成立 Flow 部门，全面投入 AI 应用
+- date: 2024-05
+  event: 发布豆包大模型，API 定价仅为 GPT-4 Turbo 的 1/100
+- date: 2025-02
+  event: 发布 Seedance 1.0 视频生成模型
+- date: 2025-06
+  event: 豆包 APP 月活突破 2 亿，成中国最大 C 端 AI 产品
 sources:
   official: https://www.bytedance.com

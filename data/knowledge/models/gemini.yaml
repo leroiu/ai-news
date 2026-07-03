@@ -1,94 +1,89 @@
-# ============================================================
-# Knowledge Card: Gemini
-# ============================================================
-
 id: gemini
 name: Gemini
 type: model
 aliases:
-  - Gemini
-  - gemini
-  - Google Gemini
-  - Gemini Pro
-  - Gemini Ultra
-  - Gemini Flash
-  - Gemini Nano
-
+- Gemini
+- gemini
+- Google Gemini
+- Gemini Pro
+- Gemini Ultra
+- Gemini Flash
+- Gemini Nano
 release_date: 2023-12-06
 status: active
-
 company: Google DeepMind
 creators:
-  - Google DeepMind
-
+- Google DeepMind
 tags:
-  - llm
-  - multimodal
-  - google
-  - deepmind
-  - agent
-  - coding
-
+- llm
+- multimodal
+- google
+- deepmind
+- agent
+- coding
 importance: 4
 confidence: confirmed
+summary: 'Google DeepMind 的多模态大模型系列，原生支持文本/图像/音频/视频/代码，
 
-summary: |
-  Google DeepMind 的多模态大模型系列，原生支持文本/图像/音频/视频/代码，
   Google AI 生态的核心引擎。
 
-significance: |
-  Gemini 是 Google 对 GPT-4 的回应，也是其在 AI 竞赛中的关键布局。
+  '
+significance: 'Gemini 是 Google 对 GPT-4 的回应，也是其在 AI 竞赛中的关键布局。
+
   从发布之初就原生多模态（非事后拼接），在长上下文、视频理解和
+
   Agent 能力上持续创新。
 
+
   Gemini 的发布标志着 AI 竞赛从 OpenAI 一家独大进入多强争霸时代。
+
   2025-2026 年，Gemini 3.x 系列引入计算机使用(Computer Use)能力，
+
   进一步拓展了 AI Agent 的应用边界。
 
+
   作为 Google 生态的核心，Gemini 已深度集成到 Google Search、
+
   Workspace、Android、Cloud 等全线产品中。
 
-background: |
-  2023 年 12 月 Google DeepMind 发布 Gemini 1.0（Ultra/Pro/Nano）。
+  '
+background: '2023 年 12 月 Google DeepMind 发布 Gemini 1.0（Ultra/Pro/Nano）。
+
   2024 年 2 月发布 Gemini 1.5 Pro，首次支持 1M token 上下文窗口。
+
   2024 年 12 月发布 Gemini 2.0 Flash，主打速度和 Agent 能力。
+
   2025-2026 年发布 Gemini 3.x 系列，引入 Computer Use 功能。
 
+  '
 related:
-  - google-deepmind
-  - gpt-4
-  - claude-fable-5
-  - transformer
-  - agent
-
+- google-deepmind
+- gpt-4
+- claude-fable-5
+- transformer
+- agent
 depends_on:
-  - transformer
-  - google-deepmind
-
+- transformer
+- google-deepmind
 influenced:
-  - gemini-3-flash
-
-parameters: "未公开"
+- gemini-3-flash
+parameters: 未公开
 modalities:
-  - text
-  - image
-  - audio
-  - video
-  - code
+- text
+- image
+- audio
+- video
+- code
 license: proprietary
-architecture: "未公开（MoE 变体）"
-
+architecture: 未公开（MoE 变体）
 timeline:
-  - date: 2023-12-06
-    event: Gemini 1.0 发布（Ultra/Pro/Nano）
-  - date: 2024-02-15
-    event: Gemini 1.5 Pro 发布（1M 上下文窗口）
-  - date: 2024-12-11
-    event: Gemini 2.0 Flash 发布
-  - date: 2025-06
-    event: Gemini 3.0 系列发布
-  - date: 2026-06
-    event: Gemini 3.5 Flash 引入 Computer Use
-
+- date: 2023-12-06
+  event: Gemini 1.0 发布（Ultra/Pro/Nano）
+- date: 2024-02-15
+  event: Gemini 1.5 Pro 发布（1M 上下文窗口）
+- date: 2024-12-11
+  event: Gemini 2.0 Flash 发布
+- date: 2025-06
+  event: Gemini 3.0 系列发布
 sources:
   official: https://deepmind.google/technologies/gemini/

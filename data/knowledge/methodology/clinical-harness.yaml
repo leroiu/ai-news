@@ -1,0 +1,23 @@
+# Auto-generated draft — Concept Miner
+id: clinical-harness
+name: Clinical Harness
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 1.0，出现 2 次。
+  证据: We define clinical AI skills and propose the Clinical Harness, a runtime governance architecture that registers, orchestrates, constrains and monitors them.
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "Hacker News (AI 相关)"
+  - "TechCrunch AI"
+
+related: []

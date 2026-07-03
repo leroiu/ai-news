@@ -1,0 +1,23 @@
+# Auto-generated draft — Concept Miner
+id: introspective-coupling
+name: Introspective Coupling
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.9，出现 2 次。
+  证据: Introspective Coupling: Self-Explanation Training Tracks Behavioral Change Despite Fixed Supervision. ... LMs trained on fixed counterfactual explanations derived from earlier checkpoints of themselve
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "Hacker News (AI 相关)"
+  - "TechCrunch AI"
+
+related: []

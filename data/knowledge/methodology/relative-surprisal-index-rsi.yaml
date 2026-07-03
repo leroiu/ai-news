@@ -1,0 +1,23 @@
+# Auto-generated draft — Concept Miner
+id: relative-surprisal-index-rsi
+name: Relative Surprisal Index (RSI)
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.9，出现 2 次。
+  证据: Which Tokens Matter? Adaptive Token Selection for RLVR with the Relative Surprisal Index... Reinforcement learning (RL) has become a powerful tool for propelling Large Language Models (LLMs) beyond im
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "Hacker News (AI 相关)"
+  - "TechCrunch AI"
+
+related: []

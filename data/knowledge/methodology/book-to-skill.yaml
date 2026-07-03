@@ -1,0 +1,23 @@
+# Auto-generated draft — Concept Miner
+id: book-to-skill
+name: book-to-skill
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.8，出现 2 次。
+  证据: Turn any technical book PDF into a Claude Code skill — ready to study, reference, and use while you work.
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "Hacker News (AI 相关)"
+  - "TechCrunch AI"
+
+related: []

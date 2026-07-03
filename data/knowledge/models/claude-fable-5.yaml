@@ -1,100 +1,92 @@
-# ============================================================
-# Knowledge Card: Claude Fable 5
-# ============================================================
-
 id: claude-fable-5
 name: Claude Fable 5
 type: model
 aliases:
-  - Claude Fable 5
-  - Claude Fable
-  - Fable 5
-  - Fable-5
-  - claude-fable-5
-  - Claude 5
-  - Claude 5 Fable
-  - Mythos 5
-  - Claude Mythos 5
-
+- Claude Fable 5
+- Claude Fable
+- Fable 5
+- Fable-5
+- claude-fable-5
+- Claude 5
+- Claude 5 Fable
+- Mythos 5
+- Claude Mythos 5
 release_date: 2026-06-25
 status: active
-
 company: Anthropic
 creators:
-  - Anthropic
-
+- Anthropic
 tags:
-  - llm
-  - agent
-  - coding
-  - safety
-  - anthropic
-  - mcp
-  - multimodal
-  - reasoning
-  - frontier-model
-
+- llm
+- agent
+- coding
+- safety
+- anthropic
+- mcp
+- multimodal
+- reasoning
+- frontier-model
 importance: 4
 confidence: confirmed
+summary: 'Anthropic 的最强模型，与 Mythos 5 同架构。推理、Agent、编码能力顶级，
 
-summary: |
-  Anthropic 的最强模型，与 Mythos 5 同架构。推理、Agent、编码能力顶级，
   因安全审查一度受限，后经与特朗普政府谈判逐步放开。
 
-significance: |
-  Claude Fable 5 / Mythos 5 是 2026 年最重要的 AI 模型发布之一。
+  '
+significance: 'Claude Fable 5 / Mythos 5 是 2026 年最重要的 AI 模型发布之一。
+
   它采用了新一代架构，在 Agent 长周期任务、代码生成和推理能力上
+
   达到了行业前沿水平。
 
+
   发布过程极具戏剧性——因美国政府安全审查，公众版 Fable 5 一度搁置，
+
   Mythos 5 仅向部分企业和政府机构开放。这一事件引发了关于
+
   "AI 出口管制 vs 市场开放" 的激烈讨论，直接影响了全球 AI 竞争格局。
+
 
   Claude Fable 5 支持 MCP 协议原生集成，是 AI Agent 生态的关键推手。
 
-background: |
-  Anthropic 于 2026 年 6 月发布 Claude Fable 5 / Mythos 5 系列。
+  '
+background: 'Anthropic 于 2026 年 6 月发布 Claude Fable 5 / Mythos 5 系列。
+
   Fable 5 面向公众消费者，Mythos 5 面向企业和政府，两者共享同一底层架构。
 
+
   特朗普政府对 Mythos 5 实施了出口管制，仅授权超 100 家美国公司和
+
   政府机构使用。亚洲市场因此加速本土替代模型研发。
+
 
   经两周谈判后管制逐步松动，但 Fable 5 的完整公开发布时间表仍未确定。
 
+
   同期 OpenAI 发布 GPT-5.6（Sol/Terra/Luna），两者形成正面竞争。
 
+  '
 related:
-  - anthropic
-  - mcp
-  - gpt-4
-  - opus-4-8
-  - rlhf
-  - constitutional-ai
-
+- anthropic
+- mcp
+- gpt-4
+- opus-4-8
+- rlhf
+- constitutional-ai
 depends_on:
-  - transformer
-  - rlhf
-  - constitutional-ai
-  - claude-series
-
+- transformer
+- rlhf
+- constitutional-ai
+- claude-series
 influenced:
-  - asian-mythos-alternatives
-
-parameters: "未公开"
+- asian-mythos-alternatives
+parameters: 未公开
 modalities:
-  - text
-  - image
-  - audio
+- text
+- image
+- audio
 license: proprietary
-architecture: "未公开（新一代 Transformer 变体）"
-
-timeline:
-  - date: 2026-06-25
-    event: Claude Fable 5 / Mythos 5 发布
-  - date: 2026-06-26
-    event: 特朗普政府批准 Mythos 5 供超 100 家企业使用
-  - date: 2026-06-27
-    event: 亚洲 AI 初创发布类 Mythos 替代模型
-
+architecture: 未公开（新一代 Transformer 变体）
+timeline: []
 sources:
   official: https://www.anthropic.com

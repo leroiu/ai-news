@@ -1,0 +1,23 @@
+# Auto-generated draft — Concept Miner
+id: human-uplift-studies
+name: Human Uplift Studies
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.8，出现 2 次。
+  证据: Human uplift studies, or studies that measure the effects of AI access on human performance via randomized controlled trials (RCT) or similar methodologies, increasingly inform frontier AI governance 
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "Hacker News (AI 相关)"
+  - "TechCrunch AI"
+
+related: []

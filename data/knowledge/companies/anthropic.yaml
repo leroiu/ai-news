@@ -1,104 +1,103 @@
-# ============================================================
-# Knowledge Card: Anthropic
-# ============================================================
-
 id: anthropic
 name: Anthropic
 type: company
 aliases:
-  - Anthropic
-  - anthropic
-  - Anthropic AI
-  - Anthropic PBC
-
+- Anthropic
+- anthropic
+- Anthropic AI
+- Anthropic PBC
 release_date: 2021-02-01
 status: active
-
 creators:
-  - Dario Amodei
-  - Daniela Amodei
-  - Tom Brown
-  - Jared Kaplan
-  - Sam McCandlish
-  - Jack Clark
-
+- Dario Amodei
+- Daniela Amodei
+- Tom Brown
+- Jared Kaplan
+- Sam McCandlish
+- Jack Clark
 tags:
-  - company
-  - llm
-  - safety
-  - alignment
-  - startup
-  - claude
-  - mcp
-  - constitutional-ai
-
+- company
+- llm
+- safety
+- alignment
+- startup
+- claude
+- mcp
+- constitutional-ai
 importance: 5
 confidence: confirmed
+summary: '全球顶级 AI 安全公司，OpenAI 前员工创立。开发 Claude 系列模型，
 
-summary: |
-  全球顶级 AI 安全公司，OpenAI 前员工创立。开发 Claude 系列模型，
   以安全性和对齐研究著称，与 OpenAI 构成双雄竞争格局。
 
-significance: |
-  Anthropic 由 OpenAI 前安全研究 VP Dario Amodei 等人于 2021 年创立，
+  '
+significance: 'Anthropic 由 OpenAI 前安全研究 VP Dario Amodei 等人于 2021 年创立，
+
   核心理念是"构建安全的 AI 系统"。
 
+
   Claude 系列模型在推理安全性、长上下文处理、Agent 能力上
+
   表现突出。MCP（Model Context Protocol）是 Anthropic 推动的
+
   AI Agent 开放协议标准，正在成为行业基础设施。
 
+
   2025-2026 年，Anthropic 与 OpenAI 在 Agent 能力、编程工具、
+
   模型性能上的竞争日趋激烈。Claude Fable 5 / Mythos 5 的发布
+
   及其后的政策博弈，使其成为全球 AI 治理讨论的核心。
 
-background: |
-  2021 年 Dario Amodei（OpenAI 前研究 VP）和 Daniela Amodei
+  '
+background: '2021 年 Dario Amodei（OpenAI 前研究 VP）和 Daniela Amodei
+
   （OpenAI 前安全 VP）因对 OpenAI 安全路线不满而离开，创办 Anthropic。
 
+
   核心技术：Constitutional AI（宪法 AI）、RLHF 改进版。
+
   2023 年推出 Claude 1/2，2024 年 Claude 3（Opus/Sonnet/Haiku），
+
   2025 年 Claude 4.x 系列，2026 年 Claude Fable 5 / Mythos 5。
 
+
   融资总额超 $18B（截至 2026），投资方包括 Google、Amazon、Salesforce。
+
   MCP 协议已成为 AI Agent 工具调用的行业标准之一。
 
+  '
 related:
-  - claude-fable-5
-  - openai
-  - mcp
-  - rlhf
-  - constitutional-ai
-  - gpt-4
-
+- claude-fable-5
+- openai
+- mcp
+- rlhf
+- constitutional-ai
+- gpt-4
 influenced:
-  - claude-fable-5
-  - mcp
-
+- claude-fable-5
+- mcp
 timeline:
-  - date: 2021-02
-    event: Anthropic 成立
-  - date: 2023-03
-    event: Claude 1 发布
-  - date: 2023-07
-    event: Claude 2 发布
-  - date: 2024-03
-    event: Claude 3 系列发布（Opus/Sonnet/Haiku）
-  - date: 2024-11
-    event: MCP 协议发布
-  - date: 2025-06
-    event: Claude 4 系列发布
-  - date: 2026-06
-    event: Claude Fable 5 / Mythos 5 发布
-
+- date: 2021-02
+  event: Anthropic 成立
+- date: 2023-03
+  event: Claude 1 发布
+- date: 2023-07
+  event: Claude 2 发布
+- date: 2024-03
+  event: Claude 3 系列发布（Opus/Sonnet/Haiku）
+- date: 2024-11
+  event: MCP 协议发布
+- date: 2025-06
+  event: Claude 4 系列发布
 sources:
   official: https://www.anthropic.com
   wikipedia: https://en.wikipedia.org/wiki/Anthropic
-
-headquarters: "San Francisco, CA"
+headquarters: San Francisco, CA
 founded: 2021
-funding_total: "$18B+ (截至 2026)"
-business_model: "API + Claude 订阅"
+funding_total: $18B+ (截至 2026)
+business_model: API + Claude 订阅
 key_products:
-  - claude-fable-5
-  - claude-code
-  - mcp
+- claude-fable-5
+- claude-code
+- mcp

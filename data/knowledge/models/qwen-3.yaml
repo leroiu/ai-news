@@ -2,62 +2,61 @@ id: qwen-3
 name: Qwen 3
 type: model
 aliases:
-  - Qwen 3
-  - Qwen3
-  - 通义千问 3
-
+- Qwen 3
+- Qwen3
+- 通义千问 3
 release_date: 2025-06
 status: active
-
 company: Alibaba Cloud
 creators:
-  - Alibaba Cloud (Tongyi Lab)
-
+- Alibaba Cloud (Tongyi Lab)
 tags:
-  - llm
-  - open-source
-  - china
-  - alibaba
-  - multilingual
-
+- llm
+- open-source
+- china
+- alibaba
+- multilingual
 importance: 3
 confidence: confirmed
+summary: '阿里通义千问实验室的开源旗舰 LLM，中国开源模型的第二大力量。
 
-summary: |
-  阿里通义千问实验室的开源旗舰 LLM，中国开源模型的第二大力量。
   Apache 2.0 许可，多尺寸选择（0.5B–235B）。
 
-significance: |
-  Qwen 系列是中国开源 AI 生态的基石之一。与 DeepSeek 专注
+  '
+significance: 'Qwen 系列是中国开源 AI 生态的基石之一。与 DeepSeek 专注
+
   极致性能不同，Qwen 的差异化优势是"全面的模型矩阵"：
+
   从 0.5B 到 235B 的完整尺寸覆盖，满足从手机端到云端的各种需求。
 
+
   Qwen 3 引入了混合推理（快思考 + 慢思考动态切换），
+
   在保持低成本的同时提供了接近专用推理模型的深度思考能力。
 
+
   阿里云将 Qwen 与云服务深度捆绑，提供免费的 API 调用额度，
+
   这是与 DeepSeek 和 OpenAI 不同的竞争策略。
 
-background: |
-  通义千问实验室 2023 年发布 Qwen 1.0。
+  '
+background: '通义千问实验室 2023 年发布 Qwen 1.0。
+
   Qwen 2.5 在 2024 年达到 GPT-4 级性能。
+
   Qwen 3 在 2025 年 6 月发布，引入混合推理机制。
 
+  '
 related:
-  - deepseek-r1
-  - alibaba
-  - china-ai
-  - open-source-ai
-
-parameters: "0.5B / 1.5B / 7B / 14B / 32B / 72B / 235B"
+- deepseek-r1
+- alibaba
+- china-ai
+- open-source-ai
+parameters: 0.5B / 1.5B / 7B / 14B / 32B / 72B / 235B
 architecture: Dense + MoE (大尺寸)
 license: Apache 2.0
-
 timeline:
-  - date: 2025-06
-    event: Qwen 3 发布（混合推理）
-  - date: 2026-01
-    event: Qwen 3.5 发布
-
+- date: 2025-06
+  event: Qwen 3 发布（混合推理）
 sources:
   official: https://github.com/QwenLM/Qwen

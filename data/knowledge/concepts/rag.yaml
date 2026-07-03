@@ -1,79 +1,77 @@
-# ============================================================
-# Knowledge Card: RAG
-# ============================================================
-
 id: rag
 name: RAG (检索增强生成)
 type: concept
 aliases:
-  - RAG
-  - Retrieval Augmented Generation
-  - 检索增强生成
-  - rag
-
+- RAG
+- Retrieval Augmented Generation
+- 检索增强生成
+- rag
 release_date: 2020-05-01
 status: active
-
 tags:
-  - nlp
-  - search
-  - knowledge
-  - llm
-  - grounding
-  - vector-database
-  - embedding
-
+- nlp
+- search
+- knowledge
+- llm
+- grounding
+- vector-database
+- embedding
 importance: 4
 confidence: confirmed
+summary: '将信息检索与大语言模型结合的技术框架。先检索相关文档，
 
-summary: |
-  将信息检索与大语言模型结合的技术框架。先检索相关文档，
   再让模型基于检索结果生成回答，有效减少幻觉、引入最新知识。
 
-significance: |
-  RAG 解决了 LLM 的两个核心痛点：
+  '
+significance: 'RAG 解决了 LLM 的两个核心痛点：
+
   1. 知识截止日期 — 模型训练数据有截止，无法获取最新信息
+
   2. 幻觉 — 模型可能"编造"不存在的事实
 
+
   通过在生成前检索外部知识库（文档、数据库、网页），
+
   RAG 让模型可以基于真实数据回答，大幅降低幻觉率。
 
+
   RAG 是构建 AI 知识库、企业搜索、智能客服等场景的
+
   核心技术。几乎所有严肃的 AI 应用都在某种程度上使用 RAG。
 
+
   RAG 的变体包括：Agentic RAG（Agent 自主决定何时检索）、
+
   Graph RAG（知识图谱增强）、Multi-hop RAG（多次检索推理）。
 
-background: |
-  2020 年 Facebook AI Research 发表 RAG 论文。
+  '
+background: '2020 年 Facebook AI Research 发表 RAG 论文。
+
   2023 年 ChatGPT + RAG 模式在企业应用中广泛采用。
+
   2024 年 LangChain / LlamaIndex 等框架成熟。
+
   2025-2026 年 Agentic RAG 成为趋势。
 
+  '
 related:
-  - transformer
-  - agent
-  - bert
-  - chatgpt
-
+- transformer
+- agent
+- bert
+- chatgpt
 influenced:
-  - ai-search
-  - enterprise-ai
-  - agentic-rag
-
+- ai-search
+- enterprise-ai
+- agentic-rag
 timeline:
-  - date: 2020-05
-    event: Facebook AI Research 发表 RAG 论文
-  - date: 2023
-    event: ChatGPT + RAG 模式在企业应用中广泛采用
-  - date: 2024
-    event: LangChain / LlamaIndex 生态成熟，RAG 成为企业 AI 标配
-  - date: 2025
-    event: Agentic RAG — Agent 自主决定检索时机和策略
-  - date: 2026
-    event: Graph RAG / Multi-hop RAG 进一步发展
-
+- date: 2020-05
+  event: Facebook AI Research 发表 RAG 论文
+- date: 2023
+  event: ChatGPT + RAG 模式在企业应用中广泛采用
+- date: 2024
+  event: LangChain / LlamaIndex 生态成熟，RAG 成为企业 AI 标配
+- date: 2025
+  event: Agentic RAG — Agent 自主决定检索时机和策略
 sources:
   paper: https://arxiv.org/abs/2005.11401
-
-domain: "inference"
+domain: inference

@@ -2,75 +2,69 @@ id: gpt-5
 name: GPT-5
 type: model
 aliases:
-  - GPT-5
-  - GPT5
-  - gpt5
-  - GPT 5
-
+- GPT-5
+- GPT5
+- gpt5
+- GPT 5
 release_date: 2025-08
 status: active
-
 company: OpenAI
 creators:
-  - OpenAI
-
+- OpenAI
 tags:
-  - llm
-  - reasoning
-  - coding
-  - multimodal
-  - agent
-  - openai
-
+- llm
+- reasoning
+- coding
+- multimodal
+- agent
+- openai
 importance: 5
 confidence: confirmed
+summary: 'OpenAI 最新的旗舰 LLM，推理能力和 Agent 能力大幅提升。
 
-summary: |
-  OpenAI 最新的旗舰 LLM，推理能力和 Agent 能力大幅提升。
   GPT-5.6 (2026-06) 分化为 Sol/Terra/Luna 三个变体。
 
-significance: |
-  GPT-5 是 AI 进入 Agent 时代的标志性模型。相较于 GPT-4：
+  '
+significance: 'GPT-5 是 AI 进入 Agent 时代的标志性模型。相较于 GPT-4：
+
   - 推理能力：复杂的多步推理、自我纠错大幅增强
+
   - Agent 能力：原生支持工具调用、长时间自主任务
+
   - 编码：在 SWE-bench 等基准上远超 GPT-4
+
   - 多模态：统一的文本/图像/代码/音频理解
 
+
   2026 年 GPT-5.6 的分化成三个变体（Sol 推理 / Terra 通用 / Luna 轻量）
+
   代表了 LLM 产品化的新范式：一个模型不再服务于所有场景。
 
-background: |
-  GPT-5 的训练始于 2024 年底，受 DeepSeek V3 低成本路线的冲击，
+  '
+background: 'GPT-5 的训练始于 2024 年底，受 DeepSeek V3 低成本路线的冲击，
+
   OpenAI 加速了发布节奏。2025 年 8 月正式发布。
 
+  '
 related:
-  - openai
-  - gpt-4
-  - chatgpt
-  - claude-fable-5
-  - deepseek-r1
-
+- openai
+- gpt-4
+- chatgpt
+- claude-fable-5
+- deepseek-r1
 depends_on:
-  - transformer
-  - rlhf
-  - gpt-4
-
+- transformer
+- rlhf
+- gpt-4
 influenced:
-  - gpt-5-6
-  - agent-sdk
-  - agent-era
-
-parameters: "未公开披露 (预估 2-5T)"
+- gpt-5-6
+- agent-sdk
+- agent-era
+parameters: 未公开披露 (预估 2-5T)
 architecture: MoE (Mixture of Experts)
 license: proprietary
-
 timeline:
-  - date: 2025-08
-    event: GPT-5 正式发布
-  - date: 2026-01
-    event: GPT-5.1 小幅更新
-  - date: 2026-06
-    event: GPT-5.6 Sol/Terra/Luna 分叉发布
-
+- date: 2025-08
+  event: GPT-5 正式发布
 sources:
   official: https://openai.com

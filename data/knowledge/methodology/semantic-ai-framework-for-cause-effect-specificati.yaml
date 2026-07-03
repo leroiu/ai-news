@@ -1,0 +1,23 @@
+# Auto-generated draft — Concept Miner
+id: semantic-ai-framework-for-cause-effect-specificati
+name: Semantic-AI Framework for Cause-Effect Specification
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.8，出现 2 次。
+  证据: Automating Cause-Effect Specification with Knowledge Graphs and Large Language Models... a semantic-AI framework that automates the generation of C&E logic by combining a knowledge graph (KG) with a c
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "Hacker News (AI 相关)"
+  - "TechCrunch AI"
+
+related: []

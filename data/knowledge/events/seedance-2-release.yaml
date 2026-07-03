@@ -1,69 +1,62 @@
-# ============================================================
-# Knowledge Card: Seedance 2.0 Release
-# ============================================================
-
 id: seedance-2-release
 name: Seedance 2.0 发布
 type: event
 aliases:
-  - Seedance 2.0 发布
-  - seedance-2-release
-  - Seedance 2.0 launch
-
+- Seedance 2.0 发布
+- seedance-2-release
+- Seedance 2.0 launch
 release_date: 2026-06
 status: active
-
 creators:
-  - 字节跳动
-
+- 字节跳动
 tags:
-  - video-generation
-  - chinese
-  - bytedance
-  - milestone
-  - sora-competitor
-  - ai-video
-
+- video-generation
+- chinese
+- bytedance
+- milestone
+- sora-competitor
+- ai-video
 importance: 5
 confidence: confirmed
+summary: '2026 年 6 月，字节跳动发布 Seedance 2.0 视频生成模型，
 
-summary: |
-  2026 年 6 月，字节跳动发布 Seedance 2.0 视频生成模型，
   在物理世界模拟、长视频一致性、动作流畅度方面达到 SOTA，
+
   标志着中国视频生成从追赶进入并跑阶段。
 
-significance: |
-  Seedance 2.0 的发布是中国 AI 视频生成的里程碑事件：
+  '
+significance: 'Seedance 2.0 的发布是中国 AI 视频生成的里程碑事件：
+
   - 技术上达到全球 SOTA，与 Sora/Veo 正面竞争
+
   - 产品上直接开放给即梦用户，走"应用驱动"路线
+
   - 行业上推动视频生成从 Demo 向实用化转变
+
   - 生态上与 TikTok/抖音/剪映打通，形成完整创作者工具链
+
 
   这一事件也被视为中国 AI 从"跟随"转向"自主创新"的象征。
 
-background: |
-  此前字节已于 2025 年 2 月发布 Seedance 1.0，但画质和时长
+  '
+background: '此前字节已于 2025 年 2 月发布 Seedance 1.0，但画质和时长
+
   有限。Seedance 2.0 在架构、数据、训练规模上全面升级，采用
+
   Diffusion Transformer 架构，在多个视频质量基准上超越竞品。
+
   发布后即梦平台用户量激增。
 
+  '
 related:
-  - seedance-2
-  - bytedance-ai
-  - jimeng
-  - kling
-  - sora-release
-  - ai-video-generation
-
+- seedance-2
+- bytedance-ai
+- jimeng
+- kling
+- sora-release
+- ai-video-generation
 timeline:
-  - date: 2025-02
-    event: Seedance 1.0 发布
-  - date: 2026-05
-    event: 字节预热 Seedance 2.0
-  - date: 2026-06
-    event: Seedance 2.0 正式发布，视频生成 SOTA
-  - date: 2026-06
-    event: 即梦平台全面接入，用户可免费体验
-
+- date: 2025-02
+  event: Seedance 1.0 发布
 sources:
   official: https://jimeng.jianying.com
