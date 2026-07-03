@@ -32,10 +32,25 @@ Claude Code 真正的上下文消耗不是代码本身，而是**代码修改记
 - Feature 完成后：测试 → Git Commit → `/compact` → **新 Conversation**
 - 禁止在一个 Conversation 中连续开发多个模块
 
-### 文件大小
+### 文件规模（Size Policy）
 
-- **>300 行的文件必须拆分**（Python 模块按职责拆：`*_api.py` / `*_renderer.py` / `*_utils.py`）
-- Claude 每次只读需要的小文件，上下文消耗直接减少
+> 文件规模服务于可维护性，不追求固定行数。不为了满足行数而拆分，只为了降低未来维护成本而拆分。
+
+| Level | 行数 | 策略 |
+|-------|------|------|
+| **L1 健康** | ≤350 | 正常维护，不主动拆分。新增功能时可顺手优化 |
+| **L2 计划拆分** | 351–500 | 下次相关开发任务时一起拆分。否则保持现状 |
+| **L3 优先拆分** | >500 | 下一轮开发的优先任务（除非长期稳定且不再增长） |
+
+#### 当前状态 (2026-07-03)
+
+| Level | 生产文件 | 已解决 |
+|-------|---------|--------|
+| L3 (>500) | 0 | database.py ✅, pipeline.py ✅ |
+| L2 (351-500) | fetcher(497), api(420), i18n(415), twitter(371), trend_agent(367), embeddings(354) | 下次相关开发时拆分 |
+| L1 (≤350) | knowledge(327), research_agent(332), trend_reporter(333), library(307), pipeline_stages(300) 等 | 健康 |
+
+> 测试文件（test_*.py）不纳入行数限制。
 
 ### 上下文反模式（2026-06-30 已识别）
 
@@ -48,23 +63,6 @@ Claude Code 真正的上下文消耗不是代码本身，而是**代码修改记
 | JS 调试时读取完整 HTML | ~15k | `node -e "new Function(code)"` 验证语法，不读 HTML 文件 |
 | 单会话连续开发多模块 | diff 累积 | 一 Feature 一 Conversation，完成即 `/compact` |
 | 重复读取不变文件 | 叠加 | ENGINEERING_PRINCIPLES / PROJECT_MEMORY / HANDOVER 同会话只读一次 |
-
-### 当前超标文件
-
-| 文件 | 行数 | 状态 |
-|------|------|------|
-| `pipeline.py` | 279 | ✅ 已拆分为 pipeline_utils.py(138) + pipeline_stages.py(300) (2026-07-03) |
-| `fetcher.py` | 497 | 📋 待拆分 |
-| `api.py` | 420 | 📋 待拆分 |
-| `i18n.py` | 415 | 📋 待拆分 |
-| `twitter.py` | 371 | 📋 待拆分 |
-| `trend_agent.py` | 367 | 📋 待拆分 |
-| `embeddings.py` | 354 | 📋 待拆分 |
-| `trend_reporter.py` | 333 | 📋 待拆分 |
-| `research_agent.py` | 332 | 📋 待拆分 |
-| `database.py` | 55 | ✅ 已拆分为 7 个 db_*.py (2026-07-03) |
-
-> 测试文件（test_*.py）暂不纳入行数限制。
 
 ---
 
