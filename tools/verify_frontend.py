@@ -23,6 +23,7 @@ DEFAULT_PORT = int(os.environ.get("VERIFY_PORT", "8765"))
 CORE_ROUTES = [
     "/", "/library", "/timeline", "/events", "/reports", "/research",
     "/my", "/graph", "/graph3d", "/entity/openai",
+    "/article/5b811258271775ae27566e3f2d2d0751", "/report/2026-07-01.md",
 ]
 FORBIDDEN_SYNC_CLAIMS = ("已同步账号", "已云端同步", "跨设备已同步")
 
@@ -50,6 +51,8 @@ def generate_pages() -> list[Path]:
     from src.frontend.kg_d3 import generate_html
     from src.frontend.library import generate_library
     from src.frontend.my_page import generate_my_page
+    from src.frontend.article_page import generate_article_page
+    from src.frontend.report_reader import generate_report_reader
     from src.frontend.reports_page import generate_reports_page
     from src.research import generate_research_page
     from src.timeline import generate_timeline
@@ -62,6 +65,8 @@ def generate_pages() -> list[Path]:
         ("研究报告", lambda: generate_reports_page(REPORTS_DIR)),
         ("研究助手", lambda: generate_research_page(REPORTS_DIR)),
         ("我的", lambda: generate_my_page(REPORTS_DIR)),
+        ("资讯详情", lambda: generate_article_page(REPORTS_DIR)),
+        ("报告阅读", lambda: generate_report_reader(REPORTS_DIR)),
         ("实体详情", generate_entity_shell),
         ("知识图谱 2D", lambda: generate_html(output_dir=REPORTS_DIR)),
         ("知识图谱 3D", lambda: generate_3d_html(output_dir=REPORTS_DIR)),

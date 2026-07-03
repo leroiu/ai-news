@@ -43,6 +43,20 @@ def test_dashboard_has_loading_state():
     assert 'spinner' in html or 'loading' in html
 
 
+def test_dashboard_stays_focused_on_daily_decisions():
+    from src.frontend.dashboard import generate_dashboard
+    with tempfile.TemporaryDirectory() as td:
+        html = generate_dashboard(Path(td)).read_text(encoding="utf-8")
+    assert 'id="kb-card"' not in html
+    assert 'id="source-card"' not in html
+    assert 'id="recent-card"' not in html
+    assert 'id="health-card"' not in html
+    assert "allReports.slice(0,3)" in html
+    assert "filter(a=>a.score>=5).slice(0,3)" in html
+    assert "filter(a=>a.score===4).slice(0,3)" in html
+    assert 'href="/reports"' in html
+
+
 # ── Library ──
 
 def test_library_generates_html():
@@ -53,6 +67,9 @@ def test_library_generates_html():
     assert "<!DOCTYPE html>" in html
     assert "var(--bg-primary)" in html
     assert "apiFetch" in html
+    assert "CATEGORY_PREVIEW_LIMIT = 4" in html
+    assert "toggleCategory" in html
+    assert "show_all_entities" in html
 
 
 # ── Entity Page ──
@@ -89,6 +106,8 @@ def test_reports_page_generates_html():
     assert "<!DOCTYPE html>" in html
     assert "report-list" in html
     assert "reports_title" in html
+    assert "grid-template-columns:repeat(3,1fr)" in html
+    assert "border-bottom:1px solid var(--border)" in html
 
 
 def test_my_page_generates_html():
@@ -99,6 +118,28 @@ def test_my_page_generates_html():
     assert "<!DOCTYPE html>" in html
     assert "my-favorites-list" in html
     assert "账号同步待接入" in html
+    assert "uiUpdatePersonalMeta" in html
+    assert "reading_state" in html
+
+
+def test_article_detail_page_generates_traceable_reader():
+    from src.frontend.article_page import generate_article_page
+    with tempfile.TemporaryDirectory() as td:
+        html = generate_article_page(Path(td)).read_text(encoding="utf-8")
+    assert 'data-page-template="detail"' in html
+    assert "/api/articles/" in html
+    assert "source_credibility" in html
+    assert "uiUpdatePersonalMeta" in html
+
+
+def test_report_reader_generates_safe_markdown_reader():
+    from src.frontend.report_reader import generate_report_reader
+    with tempfile.TemporaryDirectory() as td:
+        html = generate_report_reader(Path(td)).read_text(encoding="utf-8")
+    assert 'data-page-template="detail"' in html
+    assert "/api/report-content/" in html
+    assert "renderMarkdown" in html
+    assert "reader-toc" in html
 
 
 # ── 2D Graph ──
@@ -132,6 +173,9 @@ def test_timeline_generates_html():
     with tempfile.TemporaryDirectory() as td:
         path = generate_timeline(output_dir=Path(td))
         html = path.read_text(encoding="utf-8")
+        assert "function getTimelineDate(entity)" in html
+        assert "String(raw)" in html
+        assert "getTimelineDate(a)" in html
     assert "<!DOCTYPE html>" in html
     assert "var(--bg-primary)" in html
 
@@ -221,6 +265,35 @@ def test_design_system_version_valid():
     parts = DESIGN_SYSTEM_VERSION.split(".")
     assert len(parts) == 3, f"无效版本号: {DESIGN_SYSTEM_VERSION}"
     assert all(p.isdigit() for p in parts), f"版本号应全数字: {DESIGN_SYSTEM_VERSION}"
+
+
+@pytest.mark.parametrize("kind,generator", [
+    ("overview", lambda td: __import__("src.frontend.dashboard", fromlist=[""]).generate_dashboard(td)),
+    ("collection", lambda td: __import__("src.frontend.library", fromlist=[""]).generate_library(td)),
+    ("detail", lambda td: __import__("src.frontend.entity_page", fromlist=[""]).generate_entity_shell()),
+    ("narrative", lambda td: __import__("src.frontend.events_page", fromlist=[""]).generate_events_page(td)),
+    ("narrative", lambda td: __import__("src.timeline", fromlist=[""]).generate_timeline(output_dir=td)),
+    ("workbench", lambda td: __import__("src.frontend.research_page", fromlist=[""]).generate_research_page(td)),
+])
+def test_pages_declare_template_kind(kind, generator):
+    with tempfile.TemporaryDirectory() as td:
+        html = generator(Path(td)).read_text(encoding="utf-8")
+    assert f'data-page-template="{kind}"' in html
+
+
+@pytest.mark.parametrize("generator", [
+    lambda td: __import__("src.frontend.dashboard", fromlist=[""]).generate_dashboard(td),
+    lambda td: __import__("src.frontend.library", fromlist=[""]).generate_library(td),
+    lambda td: __import__("src.frontend.entity_page", fromlist=[""]).generate_entity_shell(),
+    lambda td: __import__("src.frontend.events_page", fromlist=[""]).generate_events_page(td),
+    lambda td: __import__("src.timeline", fromlist=[""]).generate_timeline(output_dir=td),
+    lambda td: __import__("src.frontend.kg_d3", fromlist=[""]).generate_html(output_dir=td),
+    lambda td: __import__("src.frontend.kg_3d", fromlist=[""]).generate_3d_html(output_dir=td),
+])
+def test_rating_pages_explain_editorial_rating(generator):
+    with tempfile.TemporaryDirectory() as td:
+        html = generator(Path(td)).read_text(encoding="utf-8")
+    assert "editorial_rating_help" in html
 
 
 # ── i18n 完整性 ──

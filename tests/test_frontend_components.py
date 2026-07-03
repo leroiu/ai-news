@@ -1,11 +1,13 @@
 """轻量前端组件层测试。"""
 from src.frontend.frontend_components import (
     COMPONENT_CSS, badge, button, card, empty_state, filter_bar,
-    favorite_button, page_header, section, stat,
+    favorite_button, page_header, section, stat, editorial_rating,
+    source_meta, evidence_label, topic_tag, state_panel,
 )
 from src.frontend.frontend_interactions import COMPONENT_JS
 from src.frontend.frontend_styles import SHARED_JS
 from src.frontend.frontend_shell import PageShell, render_page
+from src.frontend.frontend_templates import PAGE_KINDS, page_template
 
 
 def test_components_escape_plain_text():
@@ -57,7 +59,7 @@ def test_component_js_exposes_reusable_interactions():
 
 
 def test_shared_js_exposes_favorite_store():
-    for name in ("uiToggleFavorite", "uiFavoriteStore", "uiFavoriteKey"):
+    for name in ("uiToggleFavorite", "uiFavoriteStore", "uiFavoriteKey", "uiPersonalMetaStore", "uiGetPersonalMeta", "uiUpdatePersonalMeta"):
         assert f"function {name}" in SHARED_JS
 
 
@@ -76,6 +78,33 @@ def test_shell_composes_existing_design_system():
     assert "uiSetBusy" in html
     assert "window.demoReady=true" in html
     assert "测试页面" in html
+    assert 'data-page-template="collection"' in html
+
+
+def test_five_page_templates_have_stable_structure():
+    assert PAGE_KINDS == {"overview", "collection", "detail", "narrative", "workbench"}
+    for kind in PAGE_KINDS:
+        html = page_template(kind, context_html="context", canvas_html="canvas", aside_html="aside")
+        assert f'data-page-template="{kind}"' in html
+        assert "page-template__context" in html
+        assert "page-template__canvas" in html
+        assert "page-template__aside" in html
+
+
+def test_intelligence_components_are_semantic():
+    assert "平台重要性评级" in editorial_rating(4)
+    assert "★★★★☆" in editorial_rating(4)
+    assert 'target="_blank"' in source_meta("Source", published="2026-07-02", href="https://example.com")
+    assert "intel-evidence--fact" in evidence_label("fact")
+    assert "intel-topic" in topic_tag("Agent")
+    assert 'data-favorite-href="/entity/openai"' in favorite_button("entity", "openai", "OpenAI", "/entity/openai")
+
+
+def test_all_six_states_have_standard_markup():
+    for state in ("loading", "empty", "error", "processing", "pending", "unavailable"):
+        html = state_panel(state, state, description="desc")
+        assert f'data-ui-state="{state}"' in html
+        assert f"ui-state--{state}" in html
 
 
 def test_new_modules_stay_under_line_limit():
