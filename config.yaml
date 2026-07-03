@@ -79,6 +79,63 @@ sources:
     enabled: true
     note: "计算语言学，与大模型相关度高"
 
+  # ── Twitter/X v2 API 源 ──
+  # 需要 TWITTER_BEARER_TOKEN 环境变量 (从 developer.twitter.com 获取)
+  # Basic 套餐: 500k 推文/月, 搜索 60 req/15min, 用户时间线 100 req/15min
+
+  - name: "Twitter: AI Breaking News"
+    type: "twitter"
+    query: "AI OR LLM OR GPT OR Claude OR agent OR OpenAI OR Anthropic OR DeepSeek -is:retweet lang:en"
+    max_results: 15
+    enabled: false
+    note: "AI 关键词搜索(英文)，需要 TWITTER_BEARER_TOKEN"
+
+  - name: "Twitter: AI 中文速报"
+    type: "twitter"
+    query: "AI OR 大模型 OR GPT OR Claude OR DeepSeek OR Agent -is:retweet lang:zh"
+    max_results: 10
+    enabled: false
+    note: "AI 关键词搜索(中文)"
+
+  - name: "Twitter: AI Labs"
+    type: "twitter"
+    users:
+      - "OpenAI"
+      - "AnthropicAI"
+      - "GoogleDeepMind"
+      - "MetaAI"
+      - "DeepSeek"
+    max_results: 5
+    enabled: false
+    note: "AI 实验室官方账号推文"
+
+  # ── 微信公众号 (RSS 桥接) ──
+  # 微信无官方 RSS，通过 RSSHub 桥接。
+  # RSSHub 路由: /wechat/mp/profile/{biz_id}
+  # biz_id 获取方式: 打开公众号文章 → 复制链接中的 __biz= 参数
+  # RSSHub 公共实例: https://rsshub.app (非官方，稳定性不保证)
+  # 建议自部署: docker run -p 1200:1200 diygodme/rsshub
+
+  - name: "WeChat: 机器之心"
+    url: "https://rsshub.app/wechat/mp/profile/MzA3NTI1MjYwOQ=="
+    enabled: false
+    note: "机器之心公众号 (RSSHub 桥接)，如不稳定建议自部署 RSSHub"
+
+  - name: "WeChat: 量子位"
+    url: "https://rsshub.app/wechat/mp/profile/MzIzMjUwMjMzOQ=="
+    enabled: false
+    note: "量子位公众号 (RSSHub 桥接)"
+
+  - name: "WeChat: 新智元"
+    url: "https://rsshub.app/wechat/mp/profile/MzAwNjI5MjI0Nw=="
+    enabled: false
+    note: "新智元公众号 (RSSHub 桥接)"
+
+  - name: "WeChat: AI 科技评论"
+    url: "https://rsshub.app/wechat/mp/profile/MzU2NjUwMzIxNQ=="
+    enabled: false
+    note: "AI 科技评论公众号 (RSSHub 桥接)"
+
 # --- 分类体系 ---
 # AI 将根据此分类体系为每篇文章分配标签
 categories:

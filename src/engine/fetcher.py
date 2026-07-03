@@ -258,7 +258,7 @@ def parse_github_trending(html_bytes: bytes, source_name: str) -> list[Article]:
 
 
 async def fetch_all(config: dict | None = None) -> list[Article]:
-    """并发抓取所有启用的 RSS/HTML 源，返回 Article 列表。"""
+    """并发抓取所有启用的 RSS/HTML/Twitter 源，返回 Article 列表。"""
     if config is None:
         config = load_config()
 
@@ -271,9 +271,16 @@ async def fetch_all(config: dict | None = None) -> list[Article]:
     timeout = fetch_cfg.get("timeout", 30)
     concurrency = fetch_cfg.get("concurrency", 5)
 
-    rss_count = sum(1 for s in sources if s.get("type", "rss") == "rss")
+    # 分类统计
+    default_type = "rss"
+    rss_count = sum(1 for s in sources if s.get("type", default_type) in ("rss", "wechat"))
     html_count = sum(1 for s in sources if s.get("type") == "html")
-    log.info(f"开始抓取 {len(sources)} 个源 (RSS×{rss_count} HTML×{html_count}, 超时={timeout}s, 并发={concurrency})")
+    twitter_count = sum(1 for s in sources if s.get("type") == "twitter")
+
+    parts = [f"RSS×{rss_count}"]
+    if html_count: parts.append(f"HTML×{html_count}")
+    if twitter_count: parts.append(f"Twitter×{twitter_count}")
+    log.info(f"开始抓取 {len(sources)} 个源 ({', '.join(parts)}, 超时={timeout}s, 并发={concurrency})")
 
     all_articles: list[Article] = []
     results_summary: dict[str, tuple[bool, Optional[str]]] = {}  # {name: (ok, error)}
@@ -293,7 +300,7 @@ async def fetch_all(config: dict | None = None) -> list[Article]:
 
     # 分别抓取 RSS 和 HTML 源（不同 headers）
     async def fetch_rss_sources():
-        rss_sources = [s for s in sources if s.get("type", "rss") == "rss"]
+        rss_sources = [s for s in sources if s.get("type", default_type) in ("rss", "wechat")]
         if not rss_sources:
             return []
         async with httpx.AsyncClient(headers=rss_headers, limits=httpx.Limits(max_connections=concurrency)) as client:
@@ -308,10 +315,36 @@ async def fetch_all(config: dict | None = None) -> list[Article]:
             tasks = [_fetch_one(client, s["name"], s["url"], timeout) for s in html_sources]
             return await asyncio.gather(*tasks)
 
-    rss_results, html_results = await asyncio.gather(
-        fetch_rss_sources(), fetch_html_sources()
+    async def fetch_twitter_sources():
+        """Twitter API 源 — 使用 Bearer Token 认证，独立于 HTTP 抓取。"""
+        twitter_sources = [s for s in sources if s.get("type") == "twitter"]
+        if not twitter_sources:
+            return []
+        from src.plugins.twitter import fetch_twitter_source
+        tasks = [fetch_twitter_source(s) for s in twitter_sources]
+        return await asyncio.gather(*tasks)
+
+    rss_results, html_results, twitter_results = await asyncio.gather(
+        fetch_rss_sources(), fetch_html_sources(), fetch_twitter_sources()
     )
     results = rss_results + html_results
+
+    # Twitter 结果单独处理（已经是 Articles，不需要 HTTP 解析）
+    twitter_sources_list = [s for s in sources if s.get("type") == "twitter"]
+    for i, tw_articles in enumerate(twitter_results):
+        name = twitter_sources_list[i]["name"]
+        try:
+            count = len(tw_articles) if tw_articles else 0
+            if count > 0:
+                all_articles.extend(tw_articles)
+                results_summary[name] = (True, None)
+                log.info(f"[{name}] ✓ {count} 条推文")
+            else:
+                results_summary[name] = (True, None)  # 空结果不算失败
+                log.info(f"[{name}] ✓ 0 条新推文")
+        except Exception as e:
+            results_summary[name] = (False, str(e))
+            log.warning(f"[{name}] Twitter 错误: {e}")
 
     success_count = 0
     fail_count = 0
