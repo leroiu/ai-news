@@ -137,28 +137,7 @@ def run_daily_pipeline(
     else:
         log.info("⏭ [classify] 已完成，跳过")
 
-    # ── Stage 3: Concept Miner ──
-    if "concept_mine" not in completed_stages:
-        t1 = _tick()
-        try:
-            candidates = mine_concepts(articles, batch_size=20)
-            if candidates:
-                use_agent = os.getenv("CONCEPT_AGENT") == "1"
-                if use_agent:
-                    actions = update_pool_with_agent(candidates, articles)
-                    log.info(f"  → {len(candidates)} 个候选, {len(actions)} 项操作 (Agent)")
-                else:
-                    actions = update_pool(candidates, articles)
-                    log.info(f"  → {len(candidates)} 个候选, {len(actions)} 项操作")
-        except Exception as e:
-            log.warning(f"  ⚠ Concept Miner 失败: {e}，跳过")
-            _failed_articles.setdefault("concept_mine", []).append(str(e))
-        _log_stage("concept_mine", _tick() - t1)
-        save_checkpoint("concept_mine", [a.id for a in articles], run_id)
-    else:
-        log.info("⏭ [concept_mine] 已完成，跳过")
-
-    # ── Stage 4: Knowledge Match ──
+    # ── Stage 3: Knowledge Match ──
     if "knowledge_match" not in completed_stages:
         t1 = _tick()
         cards = load_cards()
@@ -222,7 +201,44 @@ def run_daily_pipeline(
     # ── 保存缓存 ──
     save_results(articles)
 
-    # ── Stage 7: Generate Report ──
+    # ── Stage 7: Concept Miner (★3+, 已处理跳过, 并发) ──
+    if "concept_mine" not in completed_stages:
+        t1 = _tick()
+        try:
+            high_score = [a for a in articles if a.score >= 3]
+            if high_score:
+                from src.engine.concept_miner import get_mined_ids
+                mined = get_mined_ids()
+                fresh = [a for a in high_score if a.id not in mined]
+                skipped = len(high_score) - len(fresh)
+                if skipped:
+                    log.info(f"  ⏭ 跳过 {skipped} 篇已挖掘")
+                if fresh:
+                    candidates = mine_concepts(fresh, batch_size=20, concurrency=concurrency)
+                    if candidates:
+                        use_agent = os.getenv("CONCEPT_AGENT") == "1"
+                        if use_agent:
+                            actions = update_pool_with_agent(candidates, fresh)
+                            log.info(f"  → {len(candidates)} 个候选, {len(actions)} 项操作 (Agent)")
+                        else:
+                            actions = update_pool(candidates, fresh)
+                            log.info(f"  → {len(candidates)} 个候选, {len(actions)} 项操作")
+                    # 标记为已挖掘
+                    from src.engine.concept_miner import mark_mined
+                    mark_mined([a.id for a in fresh])
+                else:
+                    log.info(f"  → 所有 ★3+ 文章均已挖掘过")
+            else:
+                log.info(f"  → 无 ★3+ 文章 (需 ≥3 分)")
+        except Exception as e:
+            log.warning(f"  ⚠ Concept Miner 失败: {e}，跳过")
+            _failed_articles.setdefault("concept_mine", []).append(str(e))
+        _log_stage("concept_mine", _tick() - t1)
+        save_checkpoint("concept_mine", [a.id for a in articles], run_id)
+    else:
+        log.info("⏭ [concept_mine] 已完成，跳过")
+
+    # ── Stage 8: Generate Report ──
     if "write_report" not in completed_stages:
         t1 = _tick()
         config = load_config()

@@ -22,6 +22,7 @@ from .utils import log, load_config, ROOT_DIR, ensure_dir
 from .ai_client import call_ai
 
 POOL_PATH = ROOT_DIR / "data" / "candidate_concepts.json"
+MINED_CACHE_PATH = ROOT_DIR / "data" / "mined_article_ids.json"
 
 # 高权威来源
 HIGH_AUTHORITY_SOURCES = {
@@ -82,32 +83,96 @@ def _build_prompt(articles: list[Article]) -> tuple[str, str]:
     return system, "\n".join(lines)
 
 
-def mine_concepts(articles: list[Article], batch_size: int = 30) -> list[dict]:
-    """
-    从文章批次中抽取候选概念。
+# ── 已挖掘文章追踪 (避免重复处理) ──
 
-    Returns: list of candidate concept dicts
-    """
-    all_candidates: list[dict] = []
+def get_mined_ids() -> set[str]:
+    """返回已挖掘过的文章 ID 集合。"""
+    if MINED_CACHE_PATH.exists():
+        try:
+            data = json.loads(MINED_CACHE_PATH.read_text(encoding="utf-8"))
+            return set(data.get("ids", []))
+        except (json.JSONDecodeError, OSError):
+            pass
+    return set()
 
-    for i in range(0, len(articles), batch_size):
-        batch = articles[i:i + batch_size]
-        system, user = _build_prompt(batch)
 
-        log.info(f"概念挖掘 {i//batch_size + 1}/{(len(articles)-1)//batch_size + 1} ({len(batch)}篇)")
-        results = call_ai(system, user, max_tokens=4096)
+def mark_mined(article_ids: list[str]):
+    """将文章标记为已挖掘。"""
+    existing = get_mined_ids()
+    existing.update(article_ids)
+    MINED_CACHE_PATH.parent.mkdir(parents=True, exist_ok=True)
+    MINED_CACHE_PATH.write_text(
+        json.dumps({"ids": list(existing), "updated": datetime.now(timezone.utc).isoformat()},
+                   ensure_ascii=False),
+        encoding="utf-8",
+    )
 
-        if results is None:
-            log.warning("概念挖掘失败，跳过本批")
+
+def _mine_batch(batch: list[Article]) -> list[dict]:
+    """处理单个批次，返回候选概念列表（同步）。"""
+    system, user = _build_prompt(batch)
+    results = call_ai(system, user, max_tokens=4096)
+    if results is None:
+        return []
+    candidates: list[dict] = []
+    for item in results:
+        if not isinstance(item, dict):
             continue
+        name = item.get("name", "").strip()
+        if not name:
+            continue
+        candidates.append(item)
+    return candidates
 
-        for item in results:
-            if not isinstance(item, dict):
-                continue
-            name = item.get("name", "").strip()
-            if not name:
-                continue
-            all_candidates.append(item)
+
+async def _mine_batch_async(batch: list[Article]) -> list[dict]:
+    """异步包装器——在线程池中运行同步 AI 调用。"""
+    import asyncio as _asyncio
+    return await _asyncio.to_thread(_mine_batch, batch)
+
+
+def mine_concepts(articles: list[Article], batch_size: int = 30,
+                  concurrency: int = 3) -> list[dict]:
+    """
+    从文章批次中抽取候选概念。支持并发处理多个批次。
+
+    Args:
+        articles: 文章列表
+        batch_size: 每批文章数
+        concurrency: 并发批次数 (默认 3)
+    """
+    import asyncio as _asyncio
+
+    if not articles:
+        return []
+
+    batches = [articles[i:i + batch_size] for i in range(0, len(articles), batch_size)]
+    total_batches = len(batches)
+    log.info(f"概念挖掘: {len(articles)} 篇 → {total_batches} 批 (batch={batch_size}, 并发={concurrency})")
+
+    async def _run():
+        sem = _asyncio.Semaphore(concurrency)
+
+        async def _bounded(batch, idx):
+            async with sem:
+                log.info(f"概念挖掘 {idx}/{total_batches} ({len(batch)}篇)")
+                return await _mine_batch_async(batch)
+
+        tasks = [_bounded(b, i + 1) for i, b in enumerate(batches)]
+        return await _asyncio.gather(*tasks)
+
+    try:
+        results = _asyncio.run(_run())
+    except RuntimeError:
+        # 已在事件循环中（pipeline 本身就是 sync）
+        import asyncio
+        loop = asyncio.new_event_loop()
+        results = loop.run_until_complete(_run())
+        loop.close()
+
+    all_candidates: list[dict] = []
+    for r in results:
+        all_candidates.extend(r)
 
     return all_candidates
 
