@@ -47,8 +47,9 @@ AI Intelligence Platform — 每天从 RSS 自动抓取 AI 资讯，AI 处理后
 
 | 页面 | 文件 | 状态 | 备注 |
 |------|------|------|------|
-| Today（原 Dashboard） | `src/frontend/dashboard.py` | ✅ 完成 | Hero 重设计 + 收藏按钮 + 报告历史 |
-| Topics（原 Library） | `src/frontend/library.py` | ✅ 完成 | 语义搜索 + Category Nav + 收藏按钮 |
+| Today（原 Dashboard） | `src/frontend/dashboard.py` | ✅ V7.2.1 标杆 | 聚焦报告中心、6 条头条预览与 3 条最近报告；移除知识库和运维模块 |
+| Article Detail | `src/frontend/article_page.py` | ✅ V7 标杆 | 杂志式标题、证据轨道、无卡片阅读区与可信度侧栏 |
+| Topics（原 Library） | `src/frontend/library.py` | ✅ V7.2.2 | 编辑型分类列表；每类默认 4 项，支持展开/收起与完整搜索结果 |
 | Graph (2D) | `src/frontend/kg_d3.py` | ✅ 完成 | D3.js 力导向图 |
 | Graph (3D) | `src/frontend/kg_3d.py` | ✅ 完成 | Three.js + 3d-force-graph |
 | Timeline | `src/frontend/timeline_renderer.py` | ✅ 完成 | 年份分布 + 类型筛选 |
@@ -63,8 +64,8 @@ AI Intelligence Platform — 每天从 RSS 自动抓取 AI 资讯，AI 处理后
 
 | 项 | 值 |
 |----|-----|
-| 当前版本 | `DESIGN_SYSTEM_VERSION = "5.2.0"` in `frontend_styles.py` |
-| 上次变更 | 2026-07-02 — v5.2.0: 品牌升级（AI 观察室）、全局收藏系统（localStorage）、My 页面、导航重构（5 项 aliases） |
+| 当前版本 | `DESIGN_SYSTEM_VERSION = "7.2.3"` in `frontend_styles.py` |
+| 上次变更 | 2026-07-03 — v7.2.3: Reports 编辑型归档列表与紧凑统计 |
 | 项目状态 | 9 页面全部完成 ✅ / 249 tests / 123 卡片 / 14 活跃 RSS 源 |
 | 主题系统 | `:root` 暗色 + `[data-theme="light"]` 亮色，localStorage 持久化，9 页面全覆盖 |
 | CSS Token | 13 个变量 + `.favorite-btn` / `.ui-favorite` 收藏组件 |
@@ -77,14 +78,15 @@ AI Intelligence Platform — 每天从 RSS 自动抓取 AI 资讯，AI 处理后
 | 收藏系统当前为 localStorage MVP，无账号同步 | My 页面 | 📋 待后端账号体系 |
 | Research 页面为初版，视觉风格与成熟页面有差距 | Research | 📋 待优化 |
 | 移动端（<480px）部分页面 nav 换行拥挤 | 全部 | 📋 待优化 |
-| Codex 改动未 commit（18 modified + 3 new） | 全部 | 🔴 待提交 |
+| Codex 改动未 commit | 全部 | ✅ 已提交 (2026-07-03) |
 
 ### 当前分配给 Codex 的任务
 
 | # | 任务 | 优先级 | 预估 |
 |---|------|--------|------|
-| 1 | **Research 页面视觉优化** — 统一风格、报告区块美化、加载状态动画 | 🔵 中 | 1-2h |
-| 2 | **移动端响应式打磨** — 所有页面在 320-480px 下的 nav/卡片/表单优化 | 🔵 中 | 2-3h |
+| 1 | **V7 全站推广** — 将首页/文章标杆的编辑型排版推广到 Topics、Timeline、Reports、My | 🔴 高 | 3-5h |
+| 2 | **首页第二轮** — 聚焦报告与头条，移除知识库、实体、管道和健康模块 | ✅ 完成 | — |
+| 3 | **移动端响应式打磨** — 所有页面在 320-480px 下的导航、密度和表单优化 | 🔵 中 | 2-3h |
 | 3 | **收藏同步后端接入** — 账号体系就绪后，localStorage → 服务端同步 | ⚫ 暂缓 | - |
 
 ---
@@ -305,6 +307,13 @@ http://127.0.0.1:8765/events            # Events
 
 | 日期 | 设计系统版本 | 变更 | 影响页面 |
 |------|-------------|------|----------|
+| 2026-07-03 | 7.2.3 | **Codex 全站同步提交** — Claude 提交全部 Codex 改动（16 文件, +391/-259）；后端修复 timeline date 归一化；141 张 methodology 卡片入库 | 全部 |
+| 2026-07-03 | 7.2.3 | **Reports 编辑型归档** — 卡片列表改为连续分隔行，统计区在桌面与移动端均保持紧凑三列 | Reports |
+| 2026-07-03 | 7.2.2 | **Topics 渐进披露** — 全量卡片墙改为编辑型分隔列表，每类默认 4 项并支持展开/收起；搜索结果保持完整 | Topics |
+| 2026-07-03 | 7.2.1 | **Today 信息架构减法** — 头条压缩至 6 条、最近报告压缩至 3 条；移除重复知识库入口、核心实体、数据管道和系统健康 | Today |
+| 2026-07-03 | 7.2.0 | **双主题基础重构** — 深色改为暖石墨编辑室，亮色改为暖纸底与纸张内容面；替换首页旧 GitHub 色彩硬编码并完成 48 项视觉矩阵验收 | 全局 Token / Today |
+| 2026-07-03 | 7.1.0 | **编辑型首页第二轮** — 卡片仪表盘改为刊头、非对称情报栏与分隔章节；Timeline/Topics 恢复里程碑事件及 2D/3D 知识图谱二级入口 | Today / Timeline / Topics |
+| 2026-07-03 | 7.0.0 | **系统视觉升级启动** — 暖灰黑/纸白主题 Token、编辑型展示字体、紧凑分段导航；Article 改为杂志式阅读版式，Dashboard 建立 Briefing 标杆 | 全部 Token / Today / Article |
 | 2026-07-02 | 5.2.0 | **品牌升级 + 收藏系统 + My 页面** — AI 观察室品牌重命名、全局 localStorage 收藏、收藏按钮遍布 Dashboard/Library、My 页面（收藏列表+分类+标签+同步状态）、导航重构（5 项 aliases）、`tools/verify_frontend.py` 一键验证、Makefile | 全部 |
 | 2026-07-01 | 5.1.0 | **Research Assistant 页面** — 新建研究助手页面（表单+AI报告渲染），新增 `POST /api/research` 端点，nav 新增"研究"入口 | research |
 | 2026-07-01 | 5.1.0 | **Category Navigation** — Library 页顶部分类标签可点击，smooth scroll + sticky + scroll spy | library |
