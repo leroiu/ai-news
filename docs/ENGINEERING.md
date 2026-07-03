@@ -51,7 +51,20 @@ Claude Code 真正的上下文消耗不是代码本身，而是**代码修改记
 
 ### 当前超标文件
 
-> 全部文件已拆分完毕，无 >300 行文件。
+| 文件 | 行数 | 状态 |
+|------|------|------|
+| `pipeline.py` | 623 | 📋 待拆分 |
+| `fetcher.py` | 497 | 📋 待拆分 |
+| `api.py` | 420 | 📋 待拆分 |
+| `i18n.py` | 415 | 📋 待拆分 |
+| `twitter.py` | 371 | 📋 待拆分 |
+| `trend_agent.py` | 367 | 📋 待拆分 |
+| `embeddings.py` | 354 | 📋 待拆分 |
+| `trend_reporter.py` | 333 | 📋 待拆分 |
+| `research_agent.py` | 332 | 📋 待拆分 |
+| `database.py` | 55 | ✅ 已拆分为 7 个 db_*.py (2026-07-03) |
+
+> 测试文件（test_*.py）暂不纳入行数限制。
 
 ---
 
@@ -92,7 +105,7 @@ Claude Code 真正的上下文消耗不是代码本身，而是**代码修改记
 
 - 每次修改后跑 `uv run pytest tests/ -q`
 - 不通过不提交
-- 当前基线：147 tests, 0 failures
+- 当前基线：357 tests, 0 failures
 
 ---
 

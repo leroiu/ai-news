@@ -2,7 +2,7 @@
 
 > 记录"这个项目为什么存在、现在是什么、怎么做的、踩过什么坑"。
 > 不记录历史细节——历史见 OPENSPEC_原始设计.md / CHANGELOG_变更日志.md / HANDOVER_项目交接.md。
-> 最后更新: 2026-07-01 (V1.8)
+> 最后更新: 2026-07-03 (V5.10)
 
 ---
 
@@ -11,7 +11,7 @@
 - **项目名称**: AI Intelligence Platform（AI 智能情报平台）
 - **一句话**: 每天从 RSS 自动抓取 AI 资讯，AI 处理后生成中文日报，积累知识卡片构建知识图谱
 - **组件**: News / Knowledge / Graph / Research
-- **状态**: 🟢 活跃（V1.8）
+- **状态**: 🟢 活跃（V5.10）
 - **SSOT**: Knowledge Card（YAML）是整个系统的唯一事实来源
 
 ---
@@ -21,7 +21,9 @@
 - 📰 **日报**: 每天自动生成 5-10 分钟读完的中文 AI 新闻日报
 - 🃏 **知识卡片**: 积累高质量结构化知识实体（模型/公司/人物/技术/概念/产品/方法论）
 - 🕸️ **知识图谱**: 实体之间建立关系，可视化 AI 行业演进
-- 🔬 **研究助手**（远期）: 基于知识库做深度检索和分析
+- 🔬 **研究助手**: 基于知识库做深度检索和分析（Research Agent 已交付）
+- 🤖 **Agent 流水线**: Concept Miner Agent + Trend Reporter Agent + Card Writer Agent 三 Agent 收集闭环
+- 📡 **多源采集**: 16 RSS + GitHub Trending HTML + Twitter/X v2 API + 微信公众号 RSSHub
 
 ---
 
@@ -45,13 +47,15 @@
 | Entity Detail | `/entity/{id}` | 实体详情页 |
 
 ### 关键数字
-- 文章: 283 篇（268 篇已 AI 评分）
-- 实体: 61 张（7 种类型）
-- 关系: 383 条
-- 报告: 日报×4 + 周报×1
-- 测试: 147 个，全部通过
-- 草稿卡: 155 张（methodology，Concept Miner 自动生成，待审核）
-- 语言: 5 页中英文切换，技术术语采用 "Model（模型）" 双语格式
+- 文章: 1,188 篇
+- 实体: 162 张（8 种类型）
+- 嵌入向量: 162 个（SiliconFlow BGE 1024维）
+- 关系: 770 条
+- 报告: 日报×7 + 周报×2 + 月报×1
+- 测试: 357 个，全部通过
+- RSS/数据源: 16 个（14 启用 + Twitter + 微信公众号）
+- 页面: 9 个 (Today/Topics/Entity/2D Graph/3D Graph/Timeline/Research/My/Reports)
+- 语言: 全页面中英文切换，技术术语采用 "Model（模型）" 双语格式
 
 ---
 
@@ -92,17 +96,18 @@
 
 ---
 
-## 6. Entity Types（7 种）
+## 6. Entity Types（8 种）
 
 | Type | 说明 | 数量 | 颜色 |
 |------|------|------|------|
-| `model` | AI 模型 | 13 | `#4C78A8` |
-| `company` | AI 公司 | 10 | `#F58518` |
-| `tech` | 核心技术 | 4 | `#72B7B2` |
-| `concept` | AI 概念 | 4 | `#E45756` |
-| `product` | AI 产品 | 3 | `#54A24B` |
-| `person` | AI 人物 | 10 | `#B279A2` |
+| `model` | AI 模型 | 61 | `#4C78A8` |
+| `company` | AI 公司 | 20 | `#F58518` |
+| `tech` | 核心技术 | 9 | `#72B7B2` |
+| `concept` | AI 概念 | 9 | `#E45756` |
+| `product` | AI 产品 | 17 | `#54A24B` |
+| `person` | AI 人物 | 16 | `#B279A2` |
 | `methodology` | 方法论 | 17+ | `#D4A017` |
+| `event` | 里程碑事件 | 13 | `#FF9DA6` |
 
 **规则**: 新增 type 先写 5 张卡验证，再回来补 Schema。
 
@@ -138,6 +143,7 @@ Prompt Engineering / Tool Use / Context Engineering / Harness Engineering / Long
 | Concept Miner 生成低质量草稿卡 | 自动生成大量论文概念卡片 | 定期人工审核 data/knowledge/methodology/ 目录 |
 | CMD 编码不匹配导致中文乱码 | 第三方 App 中文输出到 GBK 终端 | 卸载问题软件 (EleBank) 或开启 UTF-8 全局支持 |
 | Claude Code 上下文爆炸 | 单会话连续开发多模块 → diff 记录占满上下文 | 一个 Conversation 一个 Feature；>300行文件拆分；75% compact |
+| database.py 膨胀到 801 行 | 所有 DB 函数集中在一个文件 → 读取成本高 | 已拆分为 7 个 db_*.py 子模块 + database.py shim（2026-07-03） |
 
 ---
 

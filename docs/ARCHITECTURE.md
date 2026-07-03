@@ -159,24 +159,38 @@ CREATE INDEX idx_reports_date ON reports(date);
 ### 3.2 路由表
 
 ```
-页面路由 (4):
-  GET /               → reports/dashboard.html
-  GET /library        → reports/library.html
-  GET /graph          → reports/knowledge-graph.html
-  GET /timeline       → reports/timeline.html
+页面路由 (9):
+  GET /               → Dashboard (今日)
+  GET /library        → Library (专题)
+  GET /timeline       → Timeline (时间线)
+  GET /events         → Events (里程碑)
+  GET /graph          → 2D Knowledge Graph
+  GET /graph-3d       → 3D Knowledge Graph
+  GET /entity/{id}    → Entity Detail
+  GET /research       → Research Workbench
+  GET /my             → My Favorites
 
-API 路由 (8):
+API 路由 (20+):
   GET /api/health                          → {"status": "ok"}
-  GET /api/entities?type=model             → [Entity, ...]
+  GET /api/entities?type=model&page=1      → [Entity, ...] (分页)
   GET /api/entities/{entity_id}            → Entity + relationships
-  GET /api/relationships?entity_id=xxx     → [Relationship, ...]
-  GET /api/articles?limit=50&min_score=0   → [Article, ...]
-  GET /api/reports?type=daily&limit=30     → [Report, ...]
-  GET /api/search?q=GPT&limit=20           → {entities, articles}
-  GET /api/stats                           → {entities, articles, relationships, by_type}
+  GET /api/entities/{id}/versions           → 版本历史
+  POST/PUT/DELETE /api/entities             → 写操作
+  GET /api/relationships?entity_id=xxx      → [Relationship, ...]
+  POST/DELETE /api/relationships            → 写操作
+  GET /api/articles?limit=50&page=1         → [Article, ...] (分页)
+  GET /api/articles/{article_id}            → Article by ID
+  GET /api/reports?type=daily               → [Report, ...]
+  GET /api/search?q=GPT&semantic=true       → {entities, articles}
+  GET /api/stats                            → 统计
+  POST /api/research                        → Research Agent
+  POST /api/pipeline/run                     → 手动触发 Pipeline
+  GET /api/export                           → 数据导出
+  GET/POST /api/migrations                  → 迁移管理
+  POST /api/embeddings/rebuild              → 重建嵌入
 
 静态文件:
-  /reports/*                               → reports/ 目录下的文件
+  /report-files/*                           → reports/ 目录下的 Markdown 文件
 ```
 
 ### 3.3 API-driven UI 模式
@@ -369,7 +383,7 @@ def match_cards(articles, cards):
 ```python
 def build_graph():
     cards = load_cards()
-    nodes = [card_to_node(c) for c in cards]       # 61 nodes
+    nodes = [card_to_node(c) for c in cards]       # 162 nodes
     edges = []
     for card in cards:
         for related_id in card.related:
@@ -429,7 +443,7 @@ def call_ai(system: str, user: str, max_tokens=4096) -> list[dict] | None:
 
 ### 9.1 公共模式
 
-所有 4 个页面遵循相同的 API-driven 模式：
+所有 9 个页面遵循相同的 API-driven 模式：
 
 ```
 1. 静态 HTML shell（一次性生成，数据变化不需重新生成）
@@ -439,10 +453,21 @@ def call_ai(system: str, user: str, max_tokens=4096) -> list[dict] | None:
 5. 纯客户端 DOM 渲染
 ```
 
-### 9.2 页面间导航
+### 9.2 页面清单
 
-所有页面顶部包含统一的导航栏，链接到其他三个页面。
-当前页面高亮显示 `.active` 样式。
+所有 9 个页面遵循相同的 API-driven 模式：
+
+| 页面 | 路由 | 对应前端模块 |
+|------|------|-------------|
+| Dashboard (今日) | `/` | `dashboard.py` |
+| Library (专题) | `/library` | `library.py` |
+| Entity Detail | `/entity/{id}` | `entity_page.py` |
+| 2D Graph | `/graph` | `kg_d3.py` |
+| 3D Graph | `/graph-3d` | `kg_3d.py` |
+| Timeline | `/timeline` | `timeline_renderer.py` |
+| Events | `/events` | `events_page.py` |
+| Research | `/research` | `research_page.py` |
+| My Favorites | `/my` | `my_page.py` |
 
 ---
 
@@ -473,11 +498,14 @@ uv run python pipeline.py [--flags]
 
 | 层 | 策略 | 测试数 |
 |-----|------|--------|
-| 数据库 | 临时 SQLite + monkeypatch DB_PATH | 39 |
-| API | FastAPI TestClient + mock 数据库函数 | 21 |
-| AI 模块 | mock `call_ai()` 返回固定数据 | 54 |
-| 纯函数 | 直接调用，无 mock | 33 |
-| **合计** | | **147** |
+| 数据库 | 临时 SQLite + monkeypatch DB_PATH (→ db_core.DB_PATH) | 60+ |
+| API | FastAPI TestClient + mock 数据库函数 | 40+ |
+| AI 模块 | mock `call_ai()` 返回固定数据 | 70+ |
+| 前端页面 | HTML 结构验证 + CSS 变量 + 响应式 + i18n | 20+ |
+| 边界条件 | 空搜索/超长输入/不存在实体/零结果 | 20+ |
+| 纯函数 + 其他 | 直接调用，无 mock | 60+ |
+| Embedding | cosine/存储/重建/混合搜索/语义匹配 | 30+ |
+| **合计** | | **357** |
 
 ### 11.2 Mock 模式
 
