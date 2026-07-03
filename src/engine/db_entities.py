@@ -8,7 +8,7 @@ import json
 from datetime import datetime, timezone
 from typing import Optional
 
-from .db_core import get_db, _row_to_entity
+from .db_core import get_db, _row_to_entity, _normalize_timeline
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -35,7 +35,7 @@ def upsert_entity(entity: dict):
         entity.get("release_date", ""), entity.get("company", ""),
         json.dumps(entity.get("tags", []), default=str),
         json.dumps(entity.get("aliases", []), default=str),
-        json.dumps(entity.get("timeline", []), default=str),
+        json.dumps(_normalize_timeline(entity.get("timeline", [])), default=str),
         entity.get("color", "#999"), now,
     ))
     conn.commit()

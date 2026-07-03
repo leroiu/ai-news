@@ -157,14 +157,32 @@ def init_db():
     log.debug(f"数据库已初始化: {DB_PATH}")
 
 
+def _normalize_timeline(timeline: list) -> list:
+    """归一化 timeline 中的 date 字段为字符串。
+
+    YAML 中 date: 2024 会被解析为 int，需统一转为 str。
+    支持 YYYY / YYYY-MM / YYYY-MM-DD 三种格式。
+    """
+    if not timeline:
+        return timeline
+    for event in timeline:
+        if isinstance(event, dict):
+            d = event.get("date")
+            if d is not None and not isinstance(d, str):
+                event["date"] = str(d)
+    return timeline
+
+
 def _row_to_entity(r: sqlite3.Row) -> dict:
-    """将 SQLite Row 转换为 entity dict，自动解析 JSON 字段。"""
+    """将 SQLite Row 转换为 entity dict，自动解析 JSON 字段并归一化 timeline 日期。"""
     d = dict(r)
     for f in ("tags", "aliases", "timeline"):
         try:
             d[f] = json.loads(d.get(f, "[]"))
         except (json.JSONDecodeError, TypeError):
             d[f] = []
+    # 归一化 timeline date 类型 (int → str)
+    d["timeline"] = _normalize_timeline(d["timeline"])
     return d
 
 
