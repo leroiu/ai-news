@@ -6,7 +6,7 @@ TYPE_COLORS、TYPE_ICONS、CSS_TEMPLATE、JS_TEMPLATE。
 使用共享设计系统 (frontend_styles.py) 消除重复。
 """
 import json
-from .frontend_styles import TYPE_COLORS, TYPE_ICONS, ANIMATION_CSS, RESPONSIVE_CSS, ERROR_CSS, SHARED_JS, THEME_VARS
+from .frontend_styles import TYPE_COLORS, TYPE_ICONS, ANIMATION_CSS, RESPONSIVE_CSS, ERROR_CSS, INTELLIGENCE_CSS, SHARED_JS, THEME_VARS
 
 C_JSON = json.dumps(TYPE_COLORS)
 I_JSON = json.dumps(TYPE_ICONS)
@@ -16,9 +16,13 @@ I_JSON = json.dumps(TYPE_ICONS)
 CSS_TEMPLATE = """\
 <style>
 """ + THEME_VARS + """
+""" + INTELLIGENCE_CSS + """
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg-primary);color:var(--text-primary);padding:24px 0 0 0;overflow-x:hidden}
 .top-bar{padding:0 24px;max-width:100%}
+.related-views{display:flex;gap:8px;margin:-8px 24px 20px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.related-views a{padding:5px 10px;border-radius:999px;color:var(--text-secondary);font-size:11px;text-decoration:none}
+.related-views a:hover,.related-views a.active{background:var(--accent-subtle);color:var(--accent)}
 h1{font-size:22px;color:var(--accent);margin-bottom:4px}
 .date{font-size:12px;color:var(--text-secondary);margin-bottom:16px}
 .nav{display:flex;gap:12px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
@@ -81,7 +85,11 @@ h1{font-size:22px;color:var(--accent);margin-bottom:4px}
 
 @media (max-width:768px){
   .controls{flex-direction:column;align-items:flex-start}
-  .year-slider-wrap{margin-left:0}
+  .year-slider-wrap{width:100%;max-width:100%;margin-left:0}
+  .year-slider{width:min(200px,calc(100vw - 150px))}
+  .year-range{min-width:40px}
+  .intel-rating-help{margin-left:24px;margin-right:24px;max-width:calc(100vw - 48px)}
+  .card-stars .intel-rating__label{display:none}
   .tl-card{width:220px}
   .tl-card.expanded{width:320px}
 }
@@ -158,8 +166,13 @@ async function init() {
   } catch(e) { showError("timeline-inner", T("error_loading"), e.message); }
 }
 
+function getTimelineDate(entity) {
+  const raw = entity.release_date || (entity.timeline && entity.timeline[0] && entity.timeline[0].date);
+  return raw === null || raw === undefined || raw === "" ? "" : String(raw);
+}
+
 function getYear(entity) {
-  const date = entity.release_date || (entity.timeline && entity.timeline[0] && entity.timeline[0].date);
+  const date = getTimelineDate(entity);
   return date ? date.slice(0, 4) : null;
 }
 
@@ -182,9 +195,9 @@ function renderBarChart(entities) {
   const byYear = {};
   let minY = Infinity, maxY = -Infinity;
   entities.forEach(e => {
-    const date = e.release_date || (e.timeline && e.timeline[0] && e.timeline[0].date);
+    const date = getTimelineDate(e);
     if (!date) return;
-    const year = parseInt(date.slice(0, 4));
+    const year = parseInt(String(date).slice(0, 4));
     byYear[year] = (byYear[year] || 0) + 1;
     if (year < minY) minY = year;
     if (year > maxY) maxY = year;
@@ -205,8 +218,8 @@ function renderBarChart(entities) {
 function renderTimeline(entities) {
   const container = document.getElementById("timeline-inner");
   const sorted = [...entities].sort((a, b) => {
-    const da = a.release_date || (a.timeline && a.timeline[0] && a.timeline[0].date) || "9999";
-    const db = b.release_date || (b.timeline && b.timeline[0] && b.timeline[0].date) || "9999";
+    const da = getTimelineDate(a) || "9999";
+    const db = getTimelineDate(b) || "9999";
     return da.localeCompare(db);
   });
 
@@ -227,26 +240,25 @@ function renderTimeline(entities) {
     const cards = grouped[year];
     html += '<div class="tl-year-row"><div class="tl-year-label">' + year + '</div><div class="tl-year-cards">';
     cards.forEach(e => {
-      const date = e.release_date || (e.timeline && e.timeline[0] && e.timeline[0].date) || "";
+      const date = getTimelineDate(e);
       const color = e.color || C[e.type] || "#999";
       const icon = I[e.type] || "📌";
-      const stars = "★".repeat(e.importance || 0);
-      const timelineEvents = (e.timeline || []).map(function(t) { return '<div><span class="tl-event-date">' + (t.date||"") + '</span>' + (t.event||"") + '</div>'; }).join("");
+      const timelineEvents = (e.timeline || []).map(function(t) { return '<div><span class="tl-event-date">' + (t.date == null ? "" : String(t.date)) + '</span>' + (t.event||"") + '</div>'; }).join("");
       const typeName = TLbl(e.type);
 
       html += '<div class="tl-card" data-id="' + e.id + '" onclick="toggleCard(this, event)">' +
-        '<div class="card-stars" title="' + T("importance_label") + ': ' + (e.importance||0) + '">' + stars + '</div>' +
+        '<div class="card-stars">' + editorialRatingHTML(e.importance||0) + '</div>' +
         '<div class="card-type" style="background:' + color + '22;color:' + color + '">' + icon + ' ' + typeName + '</div>' +
         '<div class="card-name" title="' + e.name + '">' + e.name + '</div>' +
         '<div class="card-date">' + (date || T("no_date")) + '</div>' +
-        (e.summary ? '<div class="card-summary">' + e.summary.slice(0, 300) + '</div>' : '') +
+        (e.summary ? '<div class="card-summary">' + evidenceLabelHTML('fact') + ' ' + e.summary.slice(0, 300) + '</div>' : '') +
         '<div class="card-detail">' +
           (e.significance ? '<p style="margin-bottom:6px;color:#c9d1d9">' + e.significance.slice(0, 400) + '</p>' : '') +
           (e.background ? '<p style="margin-bottom:6px">' + e.background.slice(0, 300) + '</p>' : '') +
           (timelineEvents ? '<div class="card-timeline">' + timelineEvents + '</div>' : '') +
           ((e.tags || []).length ? '<div class="card-tags">' + e.tags.slice(0,8).map(function(t) { return '<span class="tag">' + t + '</span>'; }).join("") + '</div>' : '') +
           '<a class="card-link" href="/entity/' + e.id + '" onclick="event.stopPropagation()">' + T("view_detail") + ' →</a>' +
-          favoriteButtonHTML('timeline', e.id, e.name) +
+          favoriteButtonHTML('timeline', e.id, e.name, '', '/entity/'+e.id) +
         '</div>' +
       '</div>';
     });

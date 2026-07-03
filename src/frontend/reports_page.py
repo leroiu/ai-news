@@ -5,7 +5,7 @@ from typing import Optional
 
 from .frontend_styles import (
     RESET_CSS, NAV_CSS, SPINNER_CSS, SKELETON_CSS, BUTTON_CSS,
-    ANIMATION_CSS, RESPONSIVE_CSS, ERROR_CSS, SHARED_JS, TYPE_COLORS,
+    ANIMATION_CSS, RESPONSIVE_CSS, ERROR_CSS, INTELLIGENCE_CSS, SHARED_JS, TYPE_COLORS,
 )
 from src.interfaces.i18n import t, i18n_js, nav_html
 from src.engine.utils import ROOT_DIR, ensure_dir, log
@@ -34,14 +34,14 @@ body{{padding:24px;max-width:1100px;margin:0 auto;animation:fadeIn .35s ease-out
 {NAV_CSS}
 {SPINNER_CSS}
 {BUTTON_CSS}
-h1{{font-size:24px;color:var(--accent);margin:8px 0}}
+h1{{font-family:var(--font-display);font-size:38px;letter-spacing:-.035em;color:var(--text-primary);margin:26px 0 8px}}
 .subtitle{{color:var(--text-secondary);font-size:13px;margin-bottom:20px}}
-.section{{margin-bottom:32px}}
-.section h2{{font-size:18px;color:var(--text-primary);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border)}}
+.section{{margin:36px 0 42px}}
+.section h2{{font-family:var(--font-display);font-size:21px;color:var(--text-primary);margin-bottom:0;padding-bottom:10px;border-bottom:1px solid var(--border-strong)}}
 .section h3{{font-size:13px;color:var(--text-secondary);margin-bottom:6px;font-weight:600}}
-.report-list{{display:flex;flex-direction:column;gap:6px}}
-.report-item{{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);text-decoration:none;color:var(--text-primary);transition:all .15s}}
-.report-item:hover{{border-color:var(--accent);background:var(--bg-elevated)}}
+.report-list{{display:flex;flex-direction:column}}
+.report-item{{display:flex;align-items:center;gap:12px;padding:14px 0;background:transparent;border:0;border-bottom:1px solid var(--border);border-radius:0;text-decoration:none;color:var(--text-primary);transition:all .15s}}
+.report-item:hover{{padding-left:8px;background:var(--accent-subtle)}}
 .report-main{{display:flex;align-items:center;gap:12px;flex:1;color:inherit;text-decoration:none;min-width:0}}
 .report-item .icon{{font-size:16px;flex-shrink:0}}
 .report-item .label{{font-size:14px;font-weight:500}}
@@ -52,19 +52,23 @@ h1{{font-size:24px;color:var(--accent);margin:8px 0}}
 .badge-daily{{background:#1f6feb22;color:var(--accent)}}
 .badge-weekly{{background:#3fb95022;color:var(--success)}}
 .badge-monthly{{background:#e3b34122;color:var(--warning)}}
-.grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}}
-.stat-card{{padding:16px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);text-align:center}}
+#stats-grid{{display:grid;grid-template-columns:repeat(3,1fr)!important;gap:0;margin:26px 0 8px;border-top:1px solid var(--border-strong);border-bottom:1px solid var(--border)}}
+.stat-card{{padding:18px 12px;background:transparent;border:0;border-right:1px solid var(--border);border-radius:0;text-align:left}}
+.stat-card:last-child{{border-right:0}}
 .stat-card .num{{font-size:32px;font-weight:700;color:var(--accent)}}
 .stat-card .label{{font-size:11px;color:var(--text-secondary);margin-top:4px}}
+@media(max-width:480px){{body{{padding:16px 12px}}h1{{font-size:32px}}.stat-card{{padding:14px 8px}}.stat-card .num{{font-size:26px}}.report-item{{padding:12px 0}}}}
 {ANIMATION_CSS}
 {RESPONSIVE_CSS}
 {ERROR_CSS}
+{INTELLIGENCE_CSS}
 </style>
 </head>
-<body>
+<body data-page-template="collection">
 {nav_html("reports")}
 <h1 data-i18n="reports_title">{t("reports_title", lang)}</h1>
 <p class="subtitle" data-i18n="reports_subtitle">{t("reports_subtitle", lang)}</p>
+<details class="intel-rating-help"><summary data-i18n="editorial_rating_label">{t("editorial_rating_label", lang)}</summary><p data-i18n="editorial_rating_help">{t("editorial_rating_help", lang)}</p></details>
 
 <div class="grid" id="stats-grid"><div class="spinner"><div class="loading"></div></div></div>
 
@@ -89,7 +93,7 @@ h1{{font-size:24px;color:var(--accent);margin:8px 0}}
 
 function reportItem(r) {{
   var date = r.date || "", label = date;
-  var icon = r.report_type === "daily" ? "📄" : r.report_type === "weekly" ? "📊" : "📈";
+  var icon = r.report_type === "daily" ? "D" : r.report_type === "weekly" ? "W" : "M";
   var badgeType = r.report_type === "daily" ? "badge-daily" : r.report_type === "weekly" ? "badge-weekly" : "badge-monthly";
   var path = r.path || "";
   var filename = path.split("/").pop() || path.split("\\\\").pop() || path;
@@ -97,13 +101,13 @@ function reportItem(r) {{
   var stars = r.star5 ? " ★5:"+r.star5 : "";
   var fetched = r.fetched ? " " + r.fetched + "篇" : "";
   return '<div class="report-item card-hover">' +
-    '<a class="report-main" href="/report-files/'+encodeURIComponent(filename)+'">' +
+    '<a class="report-main" href="/report/'+encodeURIComponent(filename)+'">' +
     '<span class="icon">'+icon+'</span>' +
     '<span class="label">'+label+'</span>' +
     '<span class="badge '+badgeType+'">'+TLbl(r.report_type)+'</span>' +
     '<span class="meta">'+fetched+stars+'</span>' +
     '<span class="arrow">→</span></a>' +
-    favoriteButtonHTML('report', r.report_type + '-' + date, label) +
+    favoriteButtonHTML('report', filename, label, '', '/report/'+encodeURIComponent(filename)) +
     '</div>';
 }}
 

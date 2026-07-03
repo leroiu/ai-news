@@ -13,7 +13,7 @@ import json
 from pathlib import Path
 from src.engine.utils import log, ensure_dir, ROOT_DIR
 from src.interfaces.i18n import t, i18n_js, nav_html
-from .frontend_styles import TYPE_COLORS, ANIMATION_CSS, RESPONSIVE_CSS, ERROR_CSS, SHARED_JS, THEME_VARS
+from .frontend_styles import TYPE_COLORS, ANIMATION_CSS, RESPONSIVE_CSS, ERROR_CSS, INTELLIGENCE_CSS, SHARED_JS, THEME_VARS
 
 
 def generate_entity_shell(lang: str = "zh") -> Path:
@@ -26,6 +26,7 @@ def generate_entity_shell(lang: str = "zh") -> Path:
 <title>{t("platform_title", lang)}</title>
 <style>
 {THEME_VARS}
+{INTELLIGENCE_CSS}
 *{{margin:0;padding:0;box-sizing:border-box}}
 body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg-primary);color:var(--text-primary);padding:24px;max-width:900px;margin:0 auto;animation:fadeIn .35s ease-out}}
 .nav{{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;align-items:center}}
@@ -109,7 +110,7 @@ h1 .badge{{font-size:11px;padding:2px 12px;border-radius:10px;color:#fff;flex-sh
 .back-link:hover{{background:var(--border);transform:translateY(-1px)}}
 </style>
 </head>
-<body>
+<body data-page-template="detail">
 {nav_html("")}
 <div id="root"><div class="spinner"><div class="loading"></div></div></div>
 
@@ -130,11 +131,10 @@ async function init(){{
   }}
   const e=await resp.json();
   const color=e.color||C[e.type]||"#999";
-  const stars="★".repeat(e.importance||0);
   const typeName = TLbl(e.type);
   document.title=e.name+" — "+T("platform_title");
 
-  var html='<div class="entity-heading"><h1><span class="badge" style="background:'+color+'">'+typeName+'</span>'+e.name+'<span class="stars">'+stars+'</span></h1>'+favoriteButtonHTML('entity',e.id,e.name)+'</div>';
+  var html='<div class="entity-heading"><h1><span class="badge" style="background:'+color+'">'+typeName+'</span>'+e.name+'</h1>'+favoriteButtonHTML('entity',e.id,e.name,'','/entity/'+e.id)+'</div>'+editorialRatingHTML(e.importance||0)+ratingHelpHTML();
   html+='<div class="date-line">';
   if(e.release_date)html+=e.release_date;
   if(e.company)html+=(e.release_date?" &middot; ":"")+e.company;
@@ -144,12 +144,12 @@ async function init(){{
   // ── 两栏布局：摘要 + 背景 ──
   if(e.summary||e.background){{
     html+='<div class="info-grid section">';
-    if(e.summary)html+='<div><h2>'+T("summary_label")+'</h2><p>'+e.summary+'</p></div>';
-    if(e.background)html+='<div><h2>'+T("background_label")+'</h2><p>'+e.background+'</p></div>';
+    if(e.summary)html+='<div><h2>'+T("summary_label")+' '+evidenceLabelHTML('fact')+'</h2><p>'+e.summary+'</p></div>';
+    if(e.background)html+='<div><h2>'+T("background_label")+' '+evidenceLabelHTML('fact')+'</h2><p>'+e.background+'</p></div>';
     html+='</div>';
   }}
 
-  if(e.significance)html+='<div class="section"><h2>'+T("importance_label")+'</h2><p>'+e.significance+'</p></div>';
+  if(e.significance)html+='<div class="section"><h2>'+T("importance_label")+' '+evidenceLabelHTML('analysis')+'</h2><p>'+e.significance+'</p></div>';
 
   // ── Known For / Creators ──
   if((e.known_for&&e.known_for.length)||(e.creators&&e.creators.length)){{
@@ -159,7 +159,7 @@ async function init(){{
     html+='</div>';
   }}
 
-  if(e.tags&&e.tags.length)html+='<div class="section"><h2>'+T("tags_label")+'</h2><div class="tags">'+e.tags.map(function(t){{return '<span class="tag">'+t+'</span>'}}).join("")+'</div></div>';
+  if(e.tags&&e.tags.length)html+='<div class="section"><h2>'+T("tags_label")+'</h2><div class="tags">'+e.tags.map(function(t){{return topicTagHTML(t)}}).join("")+'</div></div>';
 
   if(e.timeline&&e.timeline.length)html+='<div class="section"><h2>'+T("timeline_label")+'</h2>'+e.timeline.map(function(t){{return '<div class="tl-entry"><span class="tl-date">'+(t.date||"")+'</span><span>'+(t.event||"")+'</span></div>'}}).join("")+'</div>';
 
@@ -215,7 +215,7 @@ async function loadRelatedArticles(eid){{
     h+='<div class="article-list">';
     articles.forEach(function(a){{
       var s="★".repeat(a.score||0);
-      h+='<a class="article-item" href="'+esc(a.url)+'" target="_blank" rel="noopener">';
+      h+='<a class="article-item" href="/article/'+encodeURIComponent(a.id)+'">';
       h+='<span class="article-title">'+esc(a.title_cn||a.title)+'</span>';
       h+='<span class="article-meta">';
       if(a.published)h+='<span class="article-date">'+esc(String(a.published).slice(0,10))+'</span>';

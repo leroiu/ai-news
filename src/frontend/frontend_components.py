@@ -98,7 +98,7 @@ def state_panel(state: str, title: str, *, description: str = "", icon: str = ""
         raise ValueError("unsupported state")
     icons = {"loading":"◌", "empty":"◇", "error":"⚠", "processing":"◌", "pending":"◷", "unavailable":"—"}
     desc = f'<p>{_text(description)}</p>' if description else ""
-    return f'<div class="ui-state ui-state--{state}" role="status"><div class="ui-state__icon" aria-hidden="true">{_text(icon or icons[state])}</div><strong>{_text(title)}</strong>{desc}</div>'
+    return f'<div class="ui-state ui-state--{state}" data-ui-state="{state}" role="status"><div class="ui-state__icon" aria-hidden="true">{_text(icon or icons[state])}</div><strong>{_text(title)}</strong>{desc}</div>'
 
 
 def badge(label: str, *, tone: str = "neutral", icon: str = "") -> str:

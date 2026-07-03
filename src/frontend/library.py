@@ -1,16 +1,10 @@
-"""
-AI Intelligence Platform — Library 生成器 v2 (i18n)
-卡片详情优化：每张卡显示定义/重要性/时间/公司/关系/Timeline/标签
-支持中英文切换。使用共享设计系统 (frontend_styles.py)。
-"""
-
+"""知识资产集合页：搜索、分类导航与可展开实体卡片。"""
 import json
 from pathlib import Path
 from typing import Optional
 from src.engine.utils import log, ensure_dir, ROOT_DIR
 from src.interfaces.i18n import t, i18n_js, nav_html
-from .frontend_styles import TYPE_COLORS, ANIMATION_CSS, RESPONSIVE_CSS, ERROR_CSS, SHARED_JS, THEME_VARS
-
+from .frontend_styles import TYPE_COLORS, ANIMATION_CSS, RESPONSIVE_CSS, ERROR_CSS, INTELLIGENCE_CSS, SHARED_JS, THEME_VARS
 
 def generate_library(output_dir: Optional[Path] = None, lang: str = "zh") -> Path:
     if output_dir is None:
@@ -34,7 +28,7 @@ def _build_html(lang: str = "zh") -> str:
 {THEME_VARS}
 *{{margin:0;padding:0;box-sizing:border-box}}
 body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg-primary);color:var(--text-primary);padding:24px;max-width:1100px;margin:0 auto;animation:fadeIn .35s ease-out}}
-h1{{font-size:22px;color:var(--accent);margin-bottom:4px}}
+h1{{font-family:var(--font-display);font-size:38px;letter-spacing:-.035em;color:var(--text-primary);margin-bottom:8px}}
 .date{{font-size:12px;color:var(--text-secondary);margin-bottom:16px}}
 .nav{{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap;align-items:center}}
 .nav a{{padding:6px 14px;border-radius:var(--radius-sm);font-size:13px;text-decoration:none;color:var(--text-primary);background:var(--bg-elevated);transition:background .15s}}
@@ -44,13 +38,14 @@ h1{{font-size:22px;color:var(--accent);margin-bottom:4px}}
 .lang-btn+.lang-btn{{margin-left:0}}
 .lang-btn:hover{{background:var(--border)}}
 
-/* ── 搜索栏 ── */
 .search-wrap{{margin-bottom:16px}}
 .search-wrap input{{width:100%;padding:10px 16px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);color:var(--text-primary);font-size:14px;outline:none;transition:border-color .15s}}
 .search-wrap input:focus{{border-color:var(--accent)}}
 .search-wrap input::placeholder{{color:var(--text-muted)}}
+.related-views{{display:flex;gap:8px;margin:-8px 0 20px;padding-bottom:14px;border-bottom:1px solid var(--border);flex-wrap:wrap}}
+.related-views a{{padding:5px 10px;border-radius:999px;color:var(--text-secondary);font-size:11px;text-decoration:none}}
+.related-views a:hover,.related-views a.active{{background:var(--accent-subtle);color:var(--accent)}}
 
-/* ── 统计条 ── */
 html{{scroll-behavior:smooth}}
 .category-nav{{position:sticky;top:0;z-index:100;background:var(--bg-primary);padding:10px 0 8px;margin-bottom:18px;border-bottom:1px solid var(--border)}}
 .category-nav-inner{{display:flex;gap:6px;flex-wrap:wrap;align-items:center}}
@@ -63,13 +58,13 @@ html{{scroll-behavior:smooth}}
 .stats-extra span b{{color:var(--text-secondary)}}
 
 /* ── 分组 ── */
-.section{{margin-bottom:32px}}
-.section h2{{font-size:17px;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--bg-elevated);display:flex;align-items:center;gap:8px}}
+.section{{margin-bottom:42px}}
+.section h2{{font-family:var(--font-display);font-size:21px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border-strong);display:flex;align-items:center;gap:8px}}
 .section h2 .count{{font-size:11px;color:var(--text-secondary);font-weight:normal}}
 .section h2 .icon{{font-size:18px}}
 
 /* ── 卡片 ── */
-.card{{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:18px;margin-bottom:12px;transition:border-color .15s;cursor:pointer}}
+.card{{background:transparent;border:0;border-bottom:1px solid var(--border);border-radius:0;padding:16px 0;margin:0;transition:border-color .15s;cursor:pointer}}
 .card:hover{{border-color:#58a6ff44}}
 .card.expanded{{border-color:var(--accent);box-shadow:var(--shadow)}}
 
@@ -105,16 +100,26 @@ html{{scroll-behavior:smooth}}
 
 /* ── 空状态 ── */
 .empty{{text-align:center;padding:40px;color:var(--text-muted);font-size:13px}}
+.section-actions{{padding-top:14px}}
+.section-toggle{{padding:7px 12px;border:1px solid var(--border);border-radius:999px;background:transparent;color:var(--text-secondary);font-size:11px;cursor:pointer}}
+.section-toggle:hover{{border-color:var(--accent);color:var(--accent)}}
 .card-hover{{transition:all .2s ease}}.card-hover:hover{{transform:translateY(-2px);box-shadow:var(--shadow);border-color:#58a6ff44}}
+@media(max-width:480px){{.card{{padding:14px}}.card-header{{flex-wrap:wrap;gap:7px}}.card-header .name{{min-width:0}}.card-header .stars .intel-rating__label{{display:none}}.intel-rating-help p{{max-width:100%}}}}
 {ANIMATION_CSS}
 {RESPONSIVE_CSS}
 {ERROR_CSS}
+{INTELLIGENCE_CSS}
 </style>
 </head>
-<body>
+<body data-page-template="collection">
 <h1 data-i18n="library_title">{t("library_title", lang)}</h1>
 <p class="date" id="date-line">{t("loading", lang)}</p>
 {nav_html("/library")}
+<nav class="related-views" aria-label="Related knowledge views">
+  <a class="active" href="/library">{t("library_title", lang)}</a>
+  <a href="/graph">{t("graph_title", lang)}</a>
+  <a href="/graph3d">{t("graph_title", lang)} 3D</a>
+</nav>
 
 <div class="search-wrap">
   <input type="text" id="search" data-i18n-placeholder="search_placeholder" placeholder="{t("search_placeholder", lang)}" oninput="filterEntities()">
@@ -136,6 +141,8 @@ const I = {{model:"\\ud83e\\udde0",company:"\\ud83c\\udfe2",tech:"\\u2699\\ufe0f
 const TYPE_ORDER = ["methodology","model","company","tech","concept","product","person","event"];
 
 let allEntities = [];
+const expandedTypes = new Set();
+const CATEGORY_PREVIEW_LIMIT = 4;
 
 function updatePlaceholders() {{
   document.querySelectorAll('[data-i18n-placeholder]').forEach(function(el) {{
@@ -181,51 +188,68 @@ function filterEntities() {{
   const q = document.getElementById("search").value.toLowerCase().trim();
   if (!q) {{ renderStats(allEntities); renderAll(allEntities); return; }}
 
-  // 清除上一个定时器，300ms 防抖
+  // 1) 即时客户端过滤 — 始终可用，使用完整实体字段
+  const quickFiltered = allEntities.filter(e =>
+    (e.name||"").toLowerCase().includes(q) ||
+    (e.summary||"").toLowerCase().includes(q) ||
+    (Array.isArray(e.tags) ? e.tags.some(function(t){{return t.toLowerCase().includes(q)}}) : String(e.tags||"").toLowerCase().includes(q)) ||
+    (e.company||"").toLowerCase().includes(q) ||
+    (e.id||"").toLowerCase().includes(q)
+  );
+  renderStats(quickFiltered);
+  renderAll(quickFiltered, true);
+
+  // 2) 后台语义搜索增强 — 用搜索结果 ID 反查完整实体再渲染
   if (window._searchTimer) clearTimeout(window._searchTimer);
   window._searchTimer = setTimeout(async function() {{
     try {{
       const result = await apiFetch("/api/search?q=" + encodeURIComponent(q) + "&semantic=true&limit=61");
       if (result.entities && result.entities.length > 0) {{
-        document.getElementById("date-line").textContent =
-          new Date().toISOString().slice(0,10) + " \\u00b7 " +
-          result.entities.length + " " + T("entities_label") +
-          " \\u00b7 \\u2728 " + T("semantic_search");
-        renderStats(result.entities);
-        renderAll(result.entities);
-        return;
+        var searchIds = new Set(result.entities.map(function(e){{return e.id;}}));
+        var enriched = allEntities.filter(function(e){{return searchIds.has(e.id);}});
+        if (enriched.length > 0) {{
+          document.getElementById("date-line").textContent =
+            new Date().toISOString().slice(0,10) + " \\u00b7 " +
+            enriched.length + " " + T("entities_label") +
+            " \\u00b7 \\u2728 " + T("semantic_search");
+          renderStats(enriched);
+          renderAll(enriched, true);
+        }}
       }}
-    }} catch(e) {{ /* 降级到客户端过滤 */ }}
-    // 语义搜索不可用时，客户端过滤（原逻辑）
-    const filtered = allEntities.filter(e =>
-      (e.name||"").toLowerCase().includes(q) ||
-      (e.summary||"").toLowerCase().includes(q) ||
-      (e.tags||[]).some(t => t.toLowerCase().includes(q)) ||
-      (e.company||"").toLowerCase().includes(q)
-    );
-    renderStats(filtered);
-    renderAll(filtered);
-  }}, 300);
+    }} catch(e) {{ /* 保持即时过滤结果，不覆盖 */ }}
+  }}, 400);
 }}
 
-function renderAll(entities) {{
+function renderAll(entities, revealAll=false) {{
   const byType = {{}};
   entities.forEach(e => {{ if (!byType[e.type]) byType[e.type] = []; byType[e.type].push(e); }});
 
-  let html = "";
+  let html = ratingHelpHTML();
   TYPE_ORDER.forEach(t => {{
     const items = (byType[t] || []).sort((a,b) => (b.importance||0)-(a.importance||0));
     if (!items.length) return;
+    const expanded = revealAll || expandedTypes.has(t);
+    const visibleItems = expanded ? items : items.slice(0, CATEGORY_PREVIEW_LIMIT);
     html += '<div class="section" id="cat-' + t + '"><h2><span class="icon">' + (I[t]||"") + '</span>' + TLbl(t) + '<span class="count">' + items.length + '</span></h2>';
-    items.forEach(e => {{ html += renderCard(e); }});
+    visibleItems.forEach(e => {{ html += renderCard(e); }});
+    if (!revealAll && items.length > CATEGORY_PREVIEW_LIMIT) {{
+      html += '<div class="section-actions"><button class="section-toggle" type="button" onclick="toggleCategory(\\'' + t + '\\')">' +
+        (expanded ? T("collapse_category") : T("show_all_entities", {{n: items.length}})) + '</button></div>';
+    }}
     html += '</div>';
   }});
 
   document.getElementById("content").innerHTML = html || '<div class="empty">' + T("no_results") + '</div>';
 }}
 
+function toggleCategory(type) {{
+  if (expandedTypes.has(type)) expandedTypes.delete(type);
+  else expandedTypes.add(type);
+  renderAll(allEntities);
+  if (!expandedTypes.has(type)) scrollToCategory(type);
+}}
+
 function renderCard(e) {{
-  const stars = "\\u2605".repeat(e.importance || 0) + "\\u2606".repeat(Math.max(0,5-(e.importance||0)));
   const color = e.color || getColor(e.type);
   const date = e.release_date || (e.timeline && e.timeline[0] && e.timeline[0].date) || "";
   const company = e.company || (e.affiliations || []).join(", ") || "";
@@ -241,8 +265,8 @@ function renderCard(e) {{
     '<div class="card-header">' +
       '<span class="type-badge" style="background:' + color + '22;color:' + color + '">' + (I[e.type]||"") + ' ' + TLbl(e.type) + '</span>' +
       '<span class="name">' + e.name + '</span>' +
-      '<span class="stars" title="' + T("importance_label") + ' ' + (e.importance||0) + '/5">' + stars + '</span>' +
-      favoriteButtonHTML('entity', e.id, e.name) +
+      '<span class="stars">' + editorialRatingHTML(e.importance||0) + '</span>' +
+      favoriteButtonHTML('entity', e.id, e.name, '', '/entity/'+e.id) +
     '</div>' +
     '<div class="card-meta">' +
       (date ? '<span>\\ud83d\\udcc5 ' + date + '</span>' : "") +
@@ -250,7 +274,7 @@ function renderCard(e) {{
       (domain ? '<span>\\ud83d\\udcc2 ' + domain + '</span>' : "") +
       (creators ? '<span>\\ud83d\\udc65 ' + creators + '</span>' : "") +
     '</div>' +
-    '<div class="card-def">' + (e.summary || "") + '</div>' +
+    '<div class="card-def">' + evidenceLabelHTML('fact') + ' ' + (e.summary || "") + '</div>' +
     '<div class="card-detail">' +
       (e.significance ? '<div class="dl-row"><span class="dl-label">' + T("importance_label") + '</span><span class="dl-value">' + e.significance.slice(0,500) + '</span></div>' : "") +
       (background ? '<div class="dl-row"><span class="dl-label">' + T("background_label") + '</span><span class="dl-value">' + background.slice(0,400) + '</span></div>' : "") +

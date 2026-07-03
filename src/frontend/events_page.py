@@ -5,7 +5,7 @@ from typing import Optional
 
 from .frontend_styles import (
     TYPE_COLORS, TYPE_ICONS, RESET_CSS, NAV_CSS, SPINNER_CSS,
-    ANIMATION_CSS, RESPONSIVE_CSS, ERROR_CSS, SHARED_JS,
+    ANIMATION_CSS, RESPONSIVE_CSS, ERROR_CSS, INTELLIGENCE_CSS, SHARED_JS,
 )
 from src.interfaces.i18n import t, i18n_js, nav_html
 from src.engine.utils import ROOT_DIR, ensure_dir, log
@@ -54,9 +54,10 @@ h1{margin:8px 0;font-size:32px;color:var(--text-primary)}.subtitle{max-width:640
 __ANIMATION_CSS__
 __RESPONSIVE_CSS__
 __ERROR_CSS__
+__INTELLIGENCE_CSS__
 </style>
 </head>
-<body style="--event-color:__EVENT_COLOR__">
+<body data-page-template="narrative" style="--event-color:__EVENT_COLOR__">
 __NAV__
 <header class="hero"><div class="eyebrow" data-i18n="events_eyebrow">__EYEBROW__</div><h1 data-i18n="events_title">__TITLE__</h1><p class="subtitle" data-i18n="events_subtitle">__SUBTITLE__</p></header>
 <section class="controls" aria-label="Event filters"><input id="event-search" type="search" data-i18n-placeholder="events_search_placeholder" placeholder="__SEARCH__"><select id="year-filter" aria-label="__YEAR_FILTER__"></select><span class="count" id="event-count"></span></section>
@@ -67,7 +68,6 @@ __I18N_JS__
 const EVENT_COLOR=__EVENT_COLOR__, EVENT_ICON=__EVENT_ICON__;
 let events=[], entityMap=new Map(), detailCache=new Map();
 const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const stars=n=>"★".repeat(Math.max(0,Math.min(5,Number(n)||0)))+"☆".repeat(Math.max(0,5-(Number(n)||0)));
 const eventYear=e=>(e.release_date||"").slice(0,4)||"unknown";
 
 function applyEventI18n(){
@@ -88,7 +88,7 @@ function render(){
   const list=filteredEvents(), root=document.getElementById("events-root");
   document.getElementById("event-count").textContent=T("events_count", {n: list.length});
   if(!list.length){root.innerHTML='<div class="empty"><strong>'+T("events_empty")+'</strong><span>'+T("events_empty_hint")+'</span></div>';return}
-  root.innerHTML='<div class="timeline">'+list.map(e=>'<article class="event-item"><span class="event-dot" aria-hidden="true"></span><div class="event-card card-hover"><button class="event-main" data-id="'+esc(e.id)+'" aria-expanded="false" onclick="toggleEvent(this.dataset.id,this)"><div class="event-date">'+esc(e.release_date||T("events_unknown_date"))+'</div><h2 class="event-name">'+esc(EVENT_ICON+' '+e.name)+'</h2><p class="event-summary">'+esc(e.summary||T("no_data"))+'</p><div class="event-meta"><span class="stars" aria-label="'+esc(T("importance_label"))+' '+esc(e.importance||0)+'">'+stars(e.importance)+'</span><span class="expand-hint">'+T("events_expand")+'</span></div></button><div style="padding:0 22px 16px">'+favoriteButtonHTML('event',e.id,e.name)+'</div><div class="event-detail" id="detail-'+esc(e.id)+'"></div></div></article>').join("")+'</div>';
+  root.innerHTML=ratingHelpHTML()+'<div class="timeline">'+list.map(e=>'<article class="event-item"><span class="event-dot" aria-hidden="true"></span><div class="event-card card-hover"><button class="event-main" data-id="'+esc(e.id)+'" aria-expanded="false" onclick="toggleEvent(this.dataset.id,this)"><div class="event-date">'+esc(e.release_date||T("events_unknown_date"))+'</div><h2 class="event-name">'+esc(EVENT_ICON+' '+e.name)+'</h2><p class="event-summary">'+evidenceLabelHTML('fact')+' '+esc(e.summary||T("no_data"))+'</p><div class="event-meta">'+editorialRatingHTML(e.importance||0)+'<span class="expand-hint">'+T("events_expand")+'</span></div></button><div style="padding:0 22px 16px">'+favoriteButtonHTML('event',e.id,e.name,'','/entity/'+e.id)+'</div><div class="event-detail" id="detail-'+esc(e.id)+'"></div></div></article>').join("")+'</div>';
 }
 async function toggleEvent(id,button){
   const detail=document.getElementById("detail-"+id), opening=!detail.classList.contains("open");
@@ -122,7 +122,7 @@ init();
         "__LOADING__": t("loading", lang), "__NAV__": nav_html("events"),
         "__RESET_CSS__": RESET_CSS, "__NAV_CSS__": NAV_CSS, "__SPINNER_CSS__": SPINNER_CSS,
         "__ANIMATION_CSS__": ANIMATION_CSS, "__RESPONSIVE_CSS__": RESPONSIVE_CSS,
-        "__ERROR_CSS__": ERROR_CSS, "__SHARED_JS__": SHARED_JS, "__I18N_JS__": i18n_js(),
+        "__ERROR_CSS__": ERROR_CSS, "__INTELLIGENCE_CSS__": INTELLIGENCE_CSS, "__SHARED_JS__": SHARED_JS, "__I18N_JS__": i18n_js(),
         "__EVENT_COLOR__": json.dumps(TYPE_COLORS["event"]), "__EVENT_ICON__": json.dumps(TYPE_ICONS["event"], ensure_ascii=False),
     }
     for key, value in replacements.items():

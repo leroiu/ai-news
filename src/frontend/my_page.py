@@ -9,16 +9,18 @@ from .frontend_shell import PageShell, render_page
 
 
 MY_CSS = """\
-.my-layout{display:grid;grid-template-columns:1.4fr .9fr;gap:16px}.my-stack{display:flex;flex-direction:column;gap:16px}.my-note{color:var(--text-secondary);font-size:13px;line-height:1.7}.my-list{display:flex;flex-direction:column;gap:8px}.my-item{display:flex;justify-content:space-between;gap:14px;padding:13px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg-elevated)}.my-item__content{min-width:0}.my-item__title{display:block;color:var(--text-primary);font-size:13px;font-weight:650;text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.my-item__title:hover{color:var(--accent)}.my-item__meta{display:block;margin-top:5px;color:var(--text-secondary);font-size:11px}.my-item__actions{display:flex;align-items:center;gap:6px;flex-shrink:0}.my-filter-bar{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px}.my-filter{padding:5px 9px;border:1px solid var(--border);border-radius:999px;background:transparent;color:var(--text-secondary);font:inherit;font-size:11px;cursor:pointer}.my-filter.active{border-color:var(--accent);background:var(--accent-subtle);color:var(--accent)}.my-summary{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.my-stat{padding:12px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg-elevated)}.my-stat strong{display:block;color:var(--text-primary);font-size:20px}.my-stat span{color:var(--text-secondary);font-size:11px}.sync-box{border-left:3px solid var(--warning);background:#e3b34114}
-@media(max-width:768px){.my-layout{grid-template-columns:1fr}}
+.my-layout{display:grid;grid-template-columns:1.4fr .9fr;gap:16px}.my-stack{display:flex;flex-direction:column;gap:16px}.my-note{color:var(--text-secondary);font-size:13px;line-height:1.7}.my-list{display:flex;flex-direction:column;gap:8px}.my-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;padding:13px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg-elevated)}.my-item__content{min-width:0}.my-item__title{display:block;color:var(--text-primary);font-size:13px;font-weight:650;text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.my-item__title:hover{color:var(--accent)}.my-item__meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px;color:var(--text-secondary);font-size:11px}.my-item__actions{display:flex;align-items:flex-start;gap:6px}.my-item__editor{grid-column:1/-1;display:grid;grid-template-columns:140px 140px minmax(160px,1fr);gap:8px;padding-top:10px;border-top:1px solid var(--border)}.my-item__editor select,.my-item__editor input,.my-filter-select{min-width:0;padding:6px 8px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg-primary);color:var(--text-primary);font:inherit;font-size:11px}.my-filter-bar{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px}.my-filter{padding:5px 9px;border:1px solid var(--border);border-radius:999px;background:transparent;color:var(--text-secondary);font:inherit;font-size:11px;cursor:pointer}.my-filter.active{border-color:var(--accent);background:var(--accent-subtle);color:var(--accent)}.my-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.my-stat{padding:12px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg-elevated)}.my-stat strong{display:block;color:var(--text-primary);font-size:20px}.my-stat span{color:var(--text-secondary);font-size:11px}.sync-box{border-left:3px solid var(--warning);background:#e3b34114}
+@media(max-width:768px){.my-layout{grid-template-columns:1fr}.my-item__editor{grid-template-columns:1fr}}@media(max-width:480px){.my-item{grid-template-columns:1fr}.my-item__actions{justify-content:flex-start}}
 """
 
 
 MY_JS = r"""
-let activeFavoriteType = 'all';
+let activeFavoriteType = 'all', activeCategory = 'all', activeReading = 'all';
 function favoriteHref(item) {
+  if (item.href && item.href.startsWith('/report-files/')) return '/report/' + item.href.split('/').pop();
+  if (item.href) return item.href;
   const type = item.type || 'item', id = String(item.id || '');
-  if (type === 'news' && /^https?:\/\//.test(id)) return id;
+  if (type === 'news') return /^https?:\/\//.test(id) ? id : '/article/' + encodeURIComponent(id);
   if (['entity','event','timeline'].includes(type)) return '/entity/' + encodeURIComponent(id);
   if (type === 'report') return '/reports';
   if (type === 'research') return '/research';
@@ -29,24 +31,30 @@ function renderMyFavorites() {
   const items = typeof uiFavoriteStore === 'function' ? uiFavoriteStore() : [];
   renderFavoriteSummary(items);
   if (!items.length) {
-    root.innerHTML = '<div class="ui-empty"><div class="ui-empty__icon">◇</div><h3>'+T('my_empty_favorites')+'</h3><p>'+T('my_empty_favorites_desc')+'</p></div>';
+    root.innerHTML = uiStateHTML('empty',T('my_empty_favorites'),T('my_empty_favorites_desc'));
     return;
   }
   const types = [...new Set(items.map(item => item.type || 'item'))];
   if (activeFavoriteType !== 'all' && !types.includes(activeFavoriteType)) activeFavoriteType = 'all';
-  const filters = '<div class="my-filter-bar"><button class="my-filter '+(activeFavoriteType==='all'?'active':'')+'" onclick="setFavoriteType(\'all\')">'+T('all_label')+' · '+items.length+'</button>'+types.map(type => '<button class="my-filter '+(activeFavoriteType===type?'active':'')+'" onclick="setFavoriteType(\''+esc(type)+'\')">'+favoriteTypeLabel(type)+' · '+items.filter(item => (item.type||'item')===type).length+'</button>').join('')+'</div>';
-  const visible = activeFavoriteType === 'all' ? items : items.filter(item => (item.type || 'item') === activeFavoriteType);
+  const filters = '<div class="my-filter-bar"><button class="my-filter '+(activeFavoriteType==='all'?'active':'')+'" onclick="setFavoriteType(\'all\')">'+T('all_label')+' · '+items.length+'</button>'+types.map(type => '<button class="my-filter '+(activeFavoriteType===type?'active':'')+'" onclick="setFavoriteType(\''+esc(type)+'\')">'+favoriteTypeLabel(type)+' · '+items.filter(item => (item.type||'item')===type).length+'</button>').join('')+'<select class="my-filter-select" onchange="activeCategory=this.value;renderMyFavorites()"><option value="all">'+T('category_label')+': '+T('all_label')+'</option>'+categoryOptions(activeCategory)+'</select><select class="my-filter-select" onchange="activeReading=this.value;renderMyFavorites()"><option value="all">'+T('reading_state')+': '+T('all_label')+'</option>'+readingOptions(activeReading)+'</select></div>';
+  const visible = items.filter(item => {const meta=uiGetPersonalMeta(item.type,item.id);return (activeFavoriteType==='all'||(item.type||'item')===activeFavoriteType)&&(activeCategory==='all'||(meta.category||'')===activeCategory)&&(activeReading==='all'||meta.reading_state===activeReading)});
   root.innerHTML = filters + '<div class="my-list">' + visible.map(function (item) {
-    const href = favoriteHref(item), external = /^https?:\/\//.test(href);
-    return '<article class="my-item"><div class="my-item__content"><a class="my-item__title" href="'+esc(href)+'"'+(external?' target="_blank" rel="noopener"':'')+'>' + esc(item.title || item.id) + '</a><span class="my-item__meta">' + favoriteTypeLabel(item.type) + ' · ' + esc((item.saved_at || '').slice(0,10)) + '</span></div><div class="my-item__actions"><a class="ui-button ui-button--small ui-button--secondary" href="'+esc(href)+'"'+(external?' target="_blank" rel="noopener"':'')+'>'+T('my_revisit')+'</a><button class="ui-button ui-button--small ui-button--ghost" data-favorite-type="' + esc(item.type || 'item') + '" data-favorite-id="' + esc(item.id || '') + '" onclick="uiToggleFavorite({type:this.dataset.favoriteType,id:this.dataset.favoriteId}, this);renderMyFavorites();">' + T('my_remove') + '</button></div></article>';
+    const href=favoriteHref(item),external=/^https?:\/\//.test(href),meta=uiGetPersonalMeta(item.type,item.id),tags=(meta.tags||[]).map(topicTagHTML).join('');
+    return '<article class="my-item"><div class="my-item__content"><a class="my-item__title" href="'+esc(href)+'"'+(external?' target="_blank" rel="noopener"':'')+'>' + esc(item.title || item.id) + '</a><span class="my-item__meta"><span>'+favoriteTypeLabel(item.type)+'</span><span>· '+T('reading_'+meta.reading_state)+'</span><span>· '+categoryLabel(meta.category)+'</span>'+tags+'</span></div><div class="my-item__actions"><a class="ui-button ui-button--small ui-button--secondary" href="'+esc(href)+'"'+(external?' target="_blank" rel="noopener"':'')+'>'+T('my_revisit')+'</a><button class="ui-button ui-button--small ui-button--ghost" data-favorite-type="' + esc(item.type || 'item') + '" data-favorite-id="' + esc(item.id || '') + '" onclick="uiToggleFavorite({type:this.dataset.favoriteType,id:this.dataset.favoriteId}, this);renderMyFavorites();">' + T('my_remove') + '</button></div><div class="my-item__editor"><select onchange="updateItemMeta(\''+esc(item.type)+'\',\''+esc(item.id)+'\',{category:this.value})">'+categoryOptions(meta.category,true)+'</select><select onchange="updateItemMeta(\''+esc(item.type)+'\',\''+esc(item.id)+'\',{reading_state:this.value})">'+readingOptions(meta.reading_state,true)+'</select><input value="'+esc((meta.tags||[]).join(', '))+'" placeholder="'+T('tags_edit_label')+'" onchange="updateItemTags(\''+esc(item.type)+'\',\''+esc(item.id)+'\',this.value)"></div></article>';
   }).join('') + '</div>';
 }
 function setFavoriteType(type) { activeFavoriteType = type; renderMyFavorites(); }
+function categoryLabel(value){return T(value?'category_'+value:'uncategorized')}
+function categoryOptions(selected,includeEmpty){const values=[['',T('uncategorized')],['learning',T('category_learning')],['tools',T('category_tools')],['research',T('category_research')],['archive',T('category_archive')]];return values.filter(x=>includeEmpty||x[0]).map(x=>'<option value="'+x[0]+'" '+(selected===x[0]?'selected':'')+'>'+x[1]+'</option>').join('')}
+function readingOptions(selected,plain){return ['unread','read','later'].map(x=>'<option value="'+x+'" '+(selected===x?'selected':'')+'>'+T('reading_'+x)+'</option>').join('')}
+function updateItemMeta(type,id,patch){uiUpdatePersonalMeta(type,id,patch);renderMyFavorites()}
+function updateItemTags(type,id,value){uiUpdatePersonalMeta(type,id,{tags:value.split(/[,，]/).map(x=>x.trim()).filter(Boolean).slice(0,12)});renderMyFavorites()}
 function favoriteTypeLabel(type) { return T('favorite_type_' + (type || 'item')) === 'favorite_type_' + (type || 'item') ? (type || 'item') : T('favorite_type_' + (type || 'item')); }
 function renderFavoriteSummary(items) {
   const root = document.getElementById('my-favorites-summary');
   const types = new Set(items.map(item => item.type || 'item'));
-  root.innerHTML = '<div class="my-summary"><div class="my-stat"><strong>'+items.length+'</strong><span>'+T('my_saved_count')+'</span></div><div class="my-stat"><strong>'+types.size+'</strong><span>'+T('my_type_count')+'</span></div></div>';
+  const later=items.filter(item=>uiGetPersonalMeta(item.type,item.id).reading_state==='later').length;
+  root.innerHTML = '<div class="my-summary"><div class="my-stat"><strong>'+items.length+'</strong><span>'+T('my_saved_count')+'</span></div><div class="my-stat"><strong>'+types.size+'</strong><span>'+T('my_type_count')+'</span></div><div class="my-stat"><strong>'+later+'</strong><span>'+T('reading_later')+'</span></div></div>';
 }
 function esc(value) {
   return String(value || '').replace(/[&<>"']/g, function (ch) {
@@ -82,7 +90,7 @@ def _build_html(lang: str = "zh") -> str:
     body += card(f'<p class="my-note" data-i18n="my_loop_desc">{t("my_loop_desc", lang)}</p>', title=t("my_loop_title", lang), title_key="my_loop_title")
     body += '</section><aside class="my-stack">'
     body += card('<div id="my-favorites-summary"></div>', title=t("my_overview", lang), title_key="my_overview")
-    sync = f'<div class="sync-box ui-card__body"><strong data-i18n="sync_pending">{t("sync_pending", lang)}</strong><p class="my-note" data-i18n="my_sync_pending_desc">{t("my_sync_pending_desc", lang)}</p></div>'
+    sync = f'<div class="sync-box ui-card__body ui-state ui-state--pending" data-ui-state="pending"><div class="ui-state__icon" aria-hidden="true">◷</div><strong data-i18n="sync_pending">{t("sync_pending", lang)}</strong><p class="my-note" data-i18n="my_sync_pending_desc">{t("my_sync_pending_desc", lang)}</p></div>'
     body += card(sync, title=t("my_sync_status", lang), title_key="my_sync_status")
     body += '</aside></div>'
     return render_page(PageShell(
@@ -91,5 +99,5 @@ def _build_html(lang: str = "zh") -> str:
         body_html=body,
         lang=lang,
         extra_css=MY_CSS,
-        extra_js=MY_JS,
+        extra_js=MY_JS, page_kind="collection",
     ))

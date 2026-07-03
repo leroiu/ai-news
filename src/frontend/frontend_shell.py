@@ -49,7 +49,7 @@ def render_page(shell: PageShell) -> str:
 <a class="skip-link" href="#main-content">{t("skip_to_content", shell.lang)}</a>
 <div class="app-shell{width_class}">
   <header class="app-shell__nav">{nav_html(shell.current_page)}</header>
-  <main id="main-content" class="app-shell__main" data-page-kind="{shell.page_kind}" tabindex="-1">{shell.body_html}</main>
+  <main id="main-content" class="app-shell__main" data-page-kind="{shell.page_kind}" data-page-template="{shell.page_kind}" tabindex="-1">{shell.body_html}</main>
 </div>
 <script>{SHARED_JS}{i18n_js()}{COMPONENT_JS}{shell.extra_js}</script>
 </body>

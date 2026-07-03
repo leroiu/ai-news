@@ -44,7 +44,7 @@ function setResearchState(state, message) {
 
 function showResearchError(message) {
   const area = document.getElementById('error-area');
-  area.innerHTML = '<div class="error-box" role="alert">' + esc(message) + '</div>';
+  area.innerHTML = '<div class="error-box ui-state ui-state--error" data-ui-state="error" role="alert">' + esc(message) + '</div>';
 }
 
 async function startResearch() {
@@ -85,11 +85,11 @@ function renderResearchReport(report) {
     }
   }
   metaHtml += '</p>';
-  document.getElementById('report-header').innerHTML = '<div><div class="ui-page-header__eyebrow">'+esc(T('research_report_label'))+'</div><h2 class="report-title">'+metaHtml+'</h2></div><div>'+favoriteButtonHTML('research', topic + '-' + (meta.depth || 'standard'), topic)+'</div>';
+  document.getElementById('report-header').innerHTML = '<div><div class="ui-page-header__eyebrow">'+esc(T('research_report_label'))+'</div><h2 class="report-title">'+metaHtml+'</h2></div><div>'+favoriteButtonHTML('research', topic + '-' + (meta.depth || 'standard'), topic, '', '/research')+'</div>';
   let html = '';
   if (report.summary) html += sectionHtml('research_summary', '<div class="summary-text">'+esc(report.summary)+'</div>', true);
   if (list(report.key_findings).length) {
-    const findings = report.key_findings.map(f => '<article class="finding-card"><div class="finding-title"><span class="report-chip report-chip--'+(f.importance==='high'?'high':'medium')+'">'+esc(f.importance || '')+'</span> '+esc(f.finding || '')+'</div>'+(f.elaboration?'<p class="finding-elab">'+esc(f.elaboration)+'</p>':'')+'<div class="finding-sources">'+list(f.card_ids).map(id=>'<span class="report-chip">📋 '+esc(id)+'</span>').join('')+list(f.article_ids).map(id=>'<span class="report-chip">📄 '+esc(id)+'</span>').join('')+'</div></article>').join('');
+    const findings = report.key_findings.map(f => '<article class="finding-card"><div class="finding-title">'+evidenceLabelHTML('analysis')+' <span class="report-chip report-chip--'+(f.importance==='high'?'high':'medium')+'">'+esc(f.importance || '')+'</span> '+esc(f.finding || '')+'</div>'+(f.elaboration?'<p class="finding-elab">'+esc(f.elaboration)+'</p>':'')+'<div class="finding-sources">'+list(f.card_ids).map(id=>'<span class="report-chip">📋 '+esc(id)+'</span>').join('')+list(f.article_ids).map(id=>'<span class="report-chip">📄 '+esc(id)+'</span>').join('')+'</div></article>').join('');
     html += sectionHtml('research_key_findings', findings, true);
   }
   if (list(report.card_connections).length) html += sectionHtml('research_cards', report.card_connections.map(c=>'<div class="connection"><strong>'+esc(c.card_name || c.card_id || '')+'</strong>'+(c.relevance?'<p>'+esc(c.relevance)+'</p>':'')+'</div>').join(''));
@@ -133,10 +133,10 @@ def _build_html(lang: str = "zh") -> str:
     brief_card = card(form, title=t("research_brief_title", lang), title_key="research_brief_title")
     guide_card = card(f'<div class="research-guide">{guide}</div>', title=t("research_process_title", lang), title_key="research_process_title")
     output = f'''<section class="output-stage" aria-live="polite"><div id="output-placeholder" class="output-placeholder"><div class="output-placeholder__icon">⌁</div><h2 data-i18n="research_output_title">{t("research_output_title", lang)}</h2><p data-i18n="research_output_desc">{t("research_output_desc", lang)}</p></div>
-<div id="research-progress" class="research-progress ui-card"><div class="ui-card__body"><p class="progress-copy" data-i18n="research_generating">{t("research_generating", lang)}</p><div class="progress-grid">{''.join(f'<div class="progress-step"><strong data-i18n="{key}">{t(key, lang)}</strong><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text"></div></div>' for key in ("research_step_retrieve", "research_step_analyze", "research_step_synthesize"))}</div></div></div>
+<div id="research-progress" class="research-progress ui-card" data-ui-state="processing"><div class="ui-card__body"><p class="progress-copy" data-i18n="research_generating">{t("research_generating", lang)}</p><div class="progress-grid">{''.join(f'<div class="progress-step"><strong data-i18n="{key}">{t(key, lang)}</strong><div class="skeleton skeleton-text"></div><div class="skeleton skeleton-text"></div></div>' for key in ("research_step_retrieve", "research_step_analyze", "research_step_synthesize"))}</div></div></div>
 <div id="report-container" class="report-container"><header id="report-header" class="report-header"></header><div id="report-body" class="report-grid"></div></div><div id="error-area"></div></section>'''
     body = header + f'<div class="research-layout">{brief_card}{guide_card}</div>' + output
     return render_page(PageShell(
         title_key="research_title", current_page="research", body_html=body,
-        lang=lang, extra_css=RESEARCH_CSS, extra_js=RESEARCH_JS, wide=True,
+        lang=lang, extra_css=RESEARCH_CSS, extra_js=RESEARCH_JS, wide=True, page_kind="workbench",
     ))

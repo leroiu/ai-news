@@ -12,7 +12,7 @@ from typing import Optional
 from src.engine.utils import log, ensure_dir, ROOT_DIR
 from src.interfaces.i18n import t, i18n_js, nav_html
 from src.engine.kg_data import TYPE_COLORS, EDGE_STYLES
-from .frontend_styles import ANIMATION_CSS, RESPONSIVE_CSS, ERROR_CSS, SHARED_JS, THEME_VARS
+from .frontend_styles import ANIMATION_CSS, RESPONSIVE_CSS, ERROR_CSS, INTELLIGENCE_CSS, SHARED_JS, THEME_VARS
 
 
 def generate_html(graph: dict = None, output_dir: Optional[Path] = None, lang: str = "zh") -> Path:
@@ -77,14 +77,16 @@ svg{{width:100%;height:100%}}
 {ANIMATION_CSS}
 {RESPONSIVE_CSS}
 {ERROR_CSS}
+{INTELLIGENCE_CSS}
 /* 响应式: 窄屏侧边栏折叠 */
 @media (max-width:768px){{#sidebar{{width:60px;min-width:60px}}#sidebar-header h1{{font-size:12px}}#sidebar-header p{{display:none}}#type-list{{display:none}}#detail-pane{{width:260px;min-width:260px}}}}
 </style>
 </head>
-<body>
+<body data-page-template="collection">
 <div id="app">
 <div id="sidebar">
 <div id="sidebar-header"><h1 data-i18n="graph_title">{t("graph_title", lang)}</h1><p id="stats-line">{t("loading", lang)}</p>
+<details class="intel-rating-help"><summary data-i18n="editorial_rating_label">{t("editorial_rating_label", lang)}</summary><p data-i18n="editorial_rating_help">{t("editorial_rating_help", lang)}</p></details>
 {nav_html("/graph")}
 <a href="/graph3d" style="display:inline-block;margin-top:6px;padding:4px 12px;background:#1f6feb22;color:#58a6ff;border:1px solid #1f6feb44;border-radius:5px;font-size:10px;text-decoration:none;text-align:center">🌐 3D 视图</a>
 </div>
@@ -198,10 +200,9 @@ links.attr("opacity",e=>{{const s=typeof e.source==="object"?e.source.id:e.sourc
 
 const pane=document.getElementById("detail-pane");pane.classList.remove("hidden");
 const hdr=document.getElementById("detail-header"),body=document.getElementById("detail-body");
-const stars="★".repeat(d.importance||0)+"☆".repeat(Math.max(0,5-(d.importance||0)));
-hdr.innerHTML=`<h2>${{d.name}}</h2><span class="badge" style="background:${{d.color}}">${{TLbl(d.type)}}</span><span style="font-size:11px;color:#d2991d;margin-left:6px">${{stars}}</span>`;
+hdr.innerHTML=`<h2>${{d.name}}</h2><span class="badge" style="background:${{d.color}}">${{TLbl(d.type)}}</span>${{editorialRatingHTML(d.importance||0)}}`;
 let h="";
-if(d.summary)h+=`<p>${{d.summary}}</p>`;
+if(d.summary)h+=`<p>${{evidenceLabelHTML('fact')}} ${{d.summary}}</p>`;
 const rels=EDGES.filter(e=>{{const s=typeof e.source==="object"?e.source.id:e.source,t=typeof e.target==="object"?e.target.id:e.target;return s===id||t===id}});
 if(rels.length){{h+=`<h3>${{T("relationships_label")}} (${{rels.length}})</h3>`;rels.forEach(r=>{{const oid=(typeof r.source==="object"?r.source.id:r.source)===id?(typeof r.target==="object"?r.target.id:r.target):(typeof r.source==="object"?r.source.id:r.source);const o=nm[oid];if(o)h+=`<span class="rel-item" style="border-left:3px solid ${{r.color}}" onclick="select('${{oid}}')">${{r.label}}: ${{o.name}}</span>`;}});}}
 if(d.timeline&&d.timeline.length){{h+=`<h3>${{T("timeline_label")}}</h3>`;d.timeline.slice(-8).forEach(t=>h+=`<div class="tl-item"><span class="tl-date">${{t.date||''}}</span> ${{t.event||''}}</div>`)}}

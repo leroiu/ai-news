@@ -11,7 +11,7 @@ from typing import Optional
 
 from src.engine.utils import log, ensure_dir, ROOT_DIR
 from src.interfaces.i18n import t, i18n_js, nav_html
-from .frontend_styles import TYPE_COLORS, TYPE_ICONS, ANIMATION_CSS, RESPONSIVE_CSS, ERROR_CSS, SHARED_JS, THEME_VARS
+from .frontend_styles import TYPE_COLORS, TYPE_ICONS, ANIMATION_CSS, RESPONSIVE_CSS, ERROR_CSS, INTELLIGENCE_CSS, SHARED_JS, THEME_VARS
 from src.engine.kg_data import EDGE_STYLES
 
 
@@ -75,16 +75,18 @@ body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
 {ANIMATION_CSS}
 {RESPONSIVE_CSS}
 {ERROR_CSS}
+{INTELLIGENCE_CSS}
 @media(max-width:768px){{#sidebar{{width:220px;min-width:220px}}}}
 @media(max-width:480px){{#app{{flex-direction:column}}#sidebar{{width:100%;min-width:0;max-height:40vh}}#graph-container{{flex:1}}}}
 </style>
 </head>
-<body>
+<body data-page-template="collection">
 <div id="app">
   <div id="sidebar">
     <div id="sidebar-header">
       <h1>3D {t("graph_title", lang)}</h1>
       <p id="stats-line">{t("loading", lang)}</p>
+      <details class="intel-rating-help"><summary data-i18n="editorial_rating_label">{t("editorial_rating_label", lang)}</summary><p data-i18n="editorial_rating_help">{t("editorial_rating_help", lang)}</p></details>
       {nav_html("graph")}
     </div>
     <div id="type-list"></div>
@@ -158,7 +160,7 @@ function buildGraph(){{
     .graphData({{nodes,links}})
     .nodeColor(n=>n.color||'#999')
     .nodeVal(n=>n.val||2)
-    .nodeLabel(n=>'<b>'+ICONS[n.type]+' '+n.name+'</b><br><small>'+T("importance_label")+': '+'★'.repeat(n.importance||0)+'</small>')
+    .nodeLabel(n=>'<b>'+ICONS[n.type]+' '+n.name+'</b><br>'+editorialRatingHTML(n.importance||0))
     .linkColor(l=>l.color||'#444')
     .linkWidth(l=>highlightLinks.has(l)?3:0.5)
     .linkOpacity(0.4)
@@ -168,7 +170,7 @@ function buildGraph(){{
     .onNodeClick(node=>{{
       const panel=document.getElementById("detail-panel");
       panel.innerHTML='<h2>'+ICONS[node.type]+' '+node.name+'</h2>'+
-        '<div class="meta">'+node.type+' · '+T("importance_label")+': '+'★'.repeat(node.importance||0)+'</div>'+
+        '<div class="meta">'+topicTagHTML(TLbl(node.type))+' '+editorialRatingHTML(node.importance||0)+'</div>'+
         '<div class="summary">'+(node.summary||node.desc||T("no_data"))+'</div>'+
         '<a href="/entity/'+encodeURIComponent(node.id)+'" style="color:var(--accent,#58a6ff);font-size:11px;margin-top:8px;display:inline-block">'+T("view_detail")+'</a>';
       highlightNodes.clear();highlightLinks.clear();
