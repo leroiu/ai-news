@@ -8,7 +8,10 @@ AI Intelligence Platform — FastAPI 统一入口
 """
 
 import json
+import os
+import subprocess
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
@@ -20,10 +23,18 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from src.engine.database import (
     init_db, get_entities, get_entity, get_relationships,
-    get_articles, get_reports, search, get_stats, get_health,
+    get_articles, get_article, get_reports, search, get_stats, get_health,
     get_articles_by_entity, get_similar_entities,
+    upsert_entity, delete_entity, upsert_relationship, delete_relationship,
+    save_entity_version, get_entity_versions,
+    get_entities_paginated, get_articles_paginated,
+    run_migrations,
 )
 from src.engine.utils import ROOT_DIR
+from src.interfaces.schemas import (
+    EntityCreate, EntityUpdate, RelationshipCreate,
+    PipelineRunRequest, ResearchRequest,
+)
 
 REPORTS_DIR = ROOT_DIR / "reports"
 
@@ -98,10 +109,23 @@ def entity_page(entity_id: str):
     return FileResponse(str(REPORTS_DIR / "entity.html"))
 
 
+@app.get("/article/{article_id}")
+def article_page(article_id: str):
+    return FileResponse(str(REPORTS_DIR / "article.html"))
+
+
+@app.get("/report/{filename}")
+def report_reader_page(filename: str):
+    return FileResponse(str(REPORTS_DIR / "report-reader.html"))
+
+
 # ── API ──
 
 @app.get("/api/entities")
-def api_entities(type: str = Query(None)):
+def api_entities(type: str = Query(None), page: int = Query(0), page_size: int = Query(0)):
+    """获取实体列表。传 page/page_size 启用分页模式。"""
+    if page > 0:
+        return get_entities_paginated(type or None, page=page, page_size=page_size or 50)
     return get_entities(type or None)
 
 
@@ -146,13 +170,36 @@ def api_relationships(entity_id: str = Query(None)):
 
 
 @app.get("/api/articles")
-def api_articles(limit: int = 50, min_score: int = 0):
+def api_articles(limit: int = 50, min_score: int = 0, page: int = Query(0)):
+    """获取文章列表。传 page>0 启用分页模式。"""
+    if page > 0:
+        return get_articles_paginated(limit=limit, min_score=min_score, page=page, page_size=limit or 50)
     return get_articles(limit=limit, min_score=min_score)
+
+
+@app.get("/api/articles/{article_id}")
+def api_article(article_id: str):
+    article = get_article(article_id)
+    if not article:
+        raise HTTPException(status_code=404, detail="Article not found")
+    from src.engine.provenance import enrich_article
+    return enrich_article(article, get_entities())
 
 
 @app.get("/api/reports")
 def api_reports(type: str = "daily", limit: int = 30):
     return get_reports(report_type=type, limit=limit)
+
+
+@app.get("/api/report-content/{filename}")
+def api_report_content(filename: str):
+    """安全读取 reports 根目录内的 Markdown 报告。"""
+    if Path(filename).name != filename or not filename.endswith(".md"):
+        raise HTTPException(status_code=400, detail="Invalid report filename")
+    path = (REPORTS_DIR / filename).resolve()
+    if path.parent != REPORTS_DIR.resolve() or not path.is_file():
+        raise HTTPException(status_code=404, detail="Report not found")
+    return {"filename": filename, "content": path.read_text(encoding="utf-8")}
 
 
 @app.get("/api/search")
@@ -192,25 +239,182 @@ def api_health():
 
 
 @app.post("/api/research")
-def api_research(payload: dict):
-    """深度研究 — 输入话题，生成结构化研究报告。
-
-    ?agent=true 启用 Agent 模式（迭代式搜索 + 自评），默认 false（单次搜索）。
-    """
-    topic = (payload.get("topic") or "").strip()
-    if not topic:
-        raise HTTPException(status_code=400, detail="Topic is required")
-    depth = payload.get("depth", "standard")
-    if depth not in ("standard", "deep"):
-        depth = "standard"
-    lang = payload.get("lang", "zh")
-    if lang not in ("zh", "en"):
-        lang = "zh"
-    use_agent = payload.get("agent", False)
+def api_research(payload: ResearchRequest):
+    """深度研究 — 输入话题，生成结构化研究报告。"""
+    use_agent = payload.agent
 
     if use_agent:
         from src.engine.research_agent import research_agent
-        return research_agent(topic, depth=depth, lang=lang)
+        return research_agent(payload.topic, depth=payload.depth, lang=payload.lang)
 
     from src.research import generate_research_report
-    return generate_research_report(topic, depth=depth, lang=lang)
+    return generate_research_report(payload.topic, depth=payload.depth, lang=payload.lang)
+
+
+# ── Entity Version History API ──
+
+@app.get("/api/entities/{entity_id}/versions")
+def api_entity_versions(entity_id: str):
+    """获取知识卡片的历史版本列表。"""
+    e = get_entity(entity_id)
+    if not e:
+        raise HTTPException(status_code=404, detail="Entity not found")
+    return get_entity_versions(entity_id)
+
+
+# ── Migration API ──
+
+@app.get("/api/migrations")
+def api_get_migrations():
+    """列出已应用的数据库迁移。"""
+    from src.engine.database import get_applied_migrations
+    return {"applied": sorted(get_applied_migrations())}
+
+
+@app.post("/api/migrations/run")
+def api_run_migrations():
+    """运行所有待执行的数据库迁移。"""
+    new = run_migrations()
+    return {"status": "ok", "applied": new, "count": len(new)}
+
+
+# ── Entity Write API ──
+
+@app.post("/api/entities", status_code=201)
+def api_create_entity(payload: EntityCreate):
+    """创建新知识卡片。id 和 name 必填。"""
+    existing = get_entity(payload.id)
+    if existing:
+        raise HTTPException(status_code=409, detail=f"Entity '{payload.id}' already exists")
+
+    entity = {
+        "id": payload.id,
+        "name": payload.name,
+        "type": payload.type,
+        "importance": payload.importance,
+        "summary": payload.summary,
+        "significance": payload.significance,
+        "release_date": payload.release_date,
+        "company": payload.company,
+        "tags": payload.tags,
+        "aliases": payload.aliases,
+        "timeline": payload.timeline,
+        "color": payload.color,
+    }
+    upsert_entity(entity)
+    return get_entity(payload.id)
+
+
+@app.put("/api/entities/{entity_id}")
+def api_update_entity(entity_id: str, payload: EntityUpdate):
+    """更新知识卡片。只更新传入的字段。自动保存历史版本。"""
+    existing = get_entity(entity_id)
+    if not existing:
+        raise HTTPException(status_code=404, detail="Entity not found")
+
+    # 保存历史版本
+    changed = {k: v for k, v in payload.model_dump(exclude_none=True).items() if k != "id"}
+    if changed:
+        save_entity_version(entity_id, existing, changed_fields=", ".join(changed.keys()))
+
+    update_data = {k: v for k, v in payload.model_dump(exclude_none=True).items()}
+    update_data.pop("id", None)
+    updated = {**existing, **update_data, "id": entity_id}
+    upsert_entity(updated)
+    return get_entity(entity_id)
+
+
+@app.delete("/api/entities/{entity_id}")
+def api_delete_entity(entity_id: str):
+    """删除知识卡片及其关联关系和嵌入向量。"""
+    if not delete_entity(entity_id):
+        raise HTTPException(status_code=404, detail="Entity not found")
+    return {"deleted": entity_id}
+
+
+# ── Relationship Write API ──
+
+@app.post("/api/relationships", status_code=201)
+def api_create_relationship(payload: RelationshipCreate):
+    """创建实体间关系。source_id, target_id, rel_type 必填。"""
+    if not get_entity(payload.source_id):
+        raise HTTPException(status_code=404, detail=f"Source entity '{payload.source_id}' not found")
+    if not get_entity(payload.target_id):
+        raise HTTPException(status_code=404, detail=f"Target entity '{payload.target_id}' not found")
+
+    upsert_relationship(payload.source_id, payload.target_id, payload.rel_type, payload.label)
+    return {"source_id": payload.source_id, "target_id": payload.target_id,
+            "rel_type": payload.rel_type, "label": payload.label}
+
+
+@app.delete("/api/relationships/{rel_id}")
+def api_delete_relationship(rel_id: int):
+    """删除关系。"""
+    if not delete_relationship(rel_id):
+        raise HTTPException(status_code=404, detail="Relationship not found")
+    return {"deleted": rel_id}
+
+
+# ── Pipeline Trigger API ──
+
+@app.post("/api/pipeline/run")
+def api_run_pipeline(payload: PipelineRunRequest = PipelineRunRequest()):
+    """手动触发流水线。支持 daily/weekly/monthly 模式，可选 Agent 模式。"""
+    concept_agent = payload.concept_agent or payload.agent
+    trend_agent = payload.trend_agent or payload.agent
+
+    env = os.environ.copy()
+    env["CONCEPT_AGENT"] = "1" if concept_agent else "0"
+    env["TREND_AGENT"] = "1" if trend_agent else "0"
+
+    args = [sys.executable, "-m", "pipeline"]
+    if payload.mode == "weekly":
+        args.append("--weekly")
+    elif payload.mode == "monthly":
+        args.append("--monthly")
+
+    # 后台启动流水线，立即返回
+    project_dir = str(Path(__file__).resolve().parent.parent.parent)
+    try:
+        subprocess.Popen(args, cwd=project_dir, env=env,
+                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        return {
+            "status": "started",
+            "mode": payload.mode,
+            "concept_agent": concept_agent,
+            "trend_agent": trend_agent,
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to start pipeline: {e}")
+
+
+# ── Data Export API ──
+
+@app.get("/api/export")
+def api_export(format: str = "json"):
+    """导出全部数据（entities, articles, relationships）。format=json (准备 yaml/csv 扩展)。"""
+    if format not in ("json", "yaml"):
+        raise HTTPException(status_code=400, detail="format must be json or yaml")
+
+    entities = get_entities()
+    articles = get_articles(limit=10000)
+    relationships = get_relationships()
+
+    export = {
+        "exported_at": datetime.now(timezone.utc).isoformat(),
+        "version": "1.0",
+        "entities": entities,
+        "articles": articles,
+        "relationships": relationships,
+    }
+
+    if format == "yaml":
+        import yaml
+        from fastapi.responses import PlainTextResponse
+        return PlainTextResponse(
+            yaml.dump(export, allow_unicode=True, default_flow_style=False),
+            media_type="application/x-yaml",
+            headers={"Content-Disposition": "attachment; filename=ai-news-export.yaml"},
+        )
+
+    return export
