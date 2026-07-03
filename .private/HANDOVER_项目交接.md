@@ -10,23 +10,16 @@ Knowledge Card 是整个系统的唯一事实来源（SSOT）。
 
 ## 当前状态（2026-07-03 更新）
 
-### 本次会话完成 — database.py 拆分 + 文档同步 ✅ (2026-07-03)
+### 本次会话完成 — database.py 拆分 ✅ (2026-07-03)
+- ✅ **database.py** (801行→8文件, 全部≤179行) — Context Budget Rule 修复
+- ✅ **文档同步** — 4 个核心文档指标更新到 2026-07-03 实际状态
 
-- ✅ **database.py 拆分**（801行 → 8文件，全部 ≤179行）：Context Budget Rule 修复
-  - `db_core.py` (179L) — 连接 + Schema + Row 转换器
-  - `db_entities.py` (154L) — Entity CRUD + 版本历史 + 分页
-  - `db_relationships.py` (142L) — 关系 CRUD + 图谱查询
-  - `db_articles.py` (148L) — 文章 CRUD + 相似实体 + 分页
-  - `db_pipeline.py` (139L) — Pipeline/Collector 追踪 + Health
-  - `db_queries.py` (89L) — 报告 + 搜索 + 统计
-  - `db_migrations.py` (61L) — 迁移系统
-  - `database.py` (55L) — Re-export shim，零调用方改动
-  - 测试: 356 passed, 0 新增失败（monkeypatch 路径修正 → `db_core.DB_PATH`）
-- ✅ **文档同步**：4 个核心文档指标更新到 2026-07-03 实际状态
-  - PROJECT_MEMORY: V1.8 → V5.10, 指标全量更新（162实体/1188文章/770关系/357测试）
-  - ENGINEERING: 测试基线 147→357, 超标文件清单更新（database.py 已解决）
-  - ROADMAP: 当前指标表全量更新
-  - ARCHITECTURE: 路由表（4→9页面/8→20+API）、测试分层、页面清单更新
+### 本次会话完成 — pipeline.py 拆分 ✅ (2026-07-03)
+- ✅ **pipeline.py** (623行→3文件, 全部≤300行)
+  - `pipeline_utils.py` (138L) — Checkpoint + 计时 + 容错执行器
+  - `pipeline_stages.py` (300L) — 核心 9 阶段每日管道 + 趋势报告
+  - `pipeline.py` (279L) — CLI 入口：参数解析 + 单页面调度
+- ✅ 测试: 356 passed, 0 新增失败
 
 ### 上次会话完成 — 多源扩展 (Twitter + 微信) ✅ (2026-07-02)
 

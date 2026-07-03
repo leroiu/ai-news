@@ -53,7 +53,7 @@ Claude Code 真正的上下文消耗不是代码本身，而是**代码修改记
 
 | 文件 | 行数 | 状态 |
 |------|------|------|
-| `pipeline.py` | 623 | 📋 待拆分 |
+| `pipeline.py` | 279 | ✅ 已拆分为 pipeline_utils.py(138) + pipeline_stages.py(300) (2026-07-03) |
 | `fetcher.py` | 497 | 📋 待拆分 |
 | `api.py` | 420 | 📋 待拆分 |
 | `i18n.py` | 415 | 📋 待拆分 |
