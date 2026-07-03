@@ -34,7 +34,7 @@ from src.engine.embeddings import (
 def temp_db(tmp_path, monkeypatch):
     """Redirect DB_PATH to a temp file."""
     tmp_db = tmp_path / "test_platform.db"
-    monkeypatch.setattr("src.engine.database.DB_PATH", tmp_db)
+    monkeypatch.setattr("src.engine.db_core.DB_PATH", tmp_db)
     monkeypatch.setattr("src.engine.embeddings.ROOT_DIR", tmp_path.parent)
     init_db()
     init_embeddings_table()

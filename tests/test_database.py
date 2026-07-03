@@ -16,7 +16,7 @@ from src.engine.database import (
     init_db, get_db,
     upsert_entity, get_entities, get_entity,
     upsert_relationship, get_relationships,
-    insert_articles, get_articles,
+    insert_articles, get_articles, get_article,
     insert_report, get_reports,
     search, get_stats,
     DB_PATH,
@@ -30,7 +30,7 @@ from src.engine.database import (
 def temp_db(tmp_path, monkeypatch):
     """Redirect DB_PATH to a temp file, then clean up."""
     tmp_db = tmp_path / "test_platform.db"
-    monkeypatch.setattr("src.engine.database.DB_PATH", tmp_db)
+    monkeypatch.setattr("src.engine.db_core.DB_PATH", tmp_db)
     init_db()
     yield
     # cleanup
@@ -73,6 +73,15 @@ def _sample_article(**overrides):
         "cluster_id": "",
         **overrides,
     }
+
+
+def test_get_article_by_stable_id():
+    insert_articles([_sample_article()])
+    article = get_article("art-001")
+    assert article is not None
+    assert article["title_cn"] == "测试文章"
+    assert article["summary_points"] == ["点1", "点2", "点3"]
+    assert get_article("missing") is None
 
 
 # ── init_db ──────────────────────────────────────────────
