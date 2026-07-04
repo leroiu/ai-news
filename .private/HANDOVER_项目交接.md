@@ -14,16 +14,17 @@ Knowledge Card 是整个系统的唯一事实来源（SSOT）。
 
 | 日期 | 内容 | Commit |
 |------|------|--------|
+| 2026-07-03 | **End-of-Session Sync 制度化** — HANDOVER压缩(513→97) + ENGINEERING §8-10 + 变更影响矩阵 | `fba5396` `cec2d95` |
+| 2026-07-03 | **定时任务创建** — Windows Task Scheduler (Daily 20:57 / Weekly 周日21:07 / Monthly 1日22:07) | — |
 | 2026-07-03 | **Concept Miner 四重优化** — ★3+过滤 + 去重 + 缓存 + 3并发 | `ee3062d` |
 | 2026-07-03 | **Topics 搜索稳定性** — 关键词即时匹配 + 语义搜索仅补充空结果 | `d1e2802` |
 | 2026-07-03 | **Codex V7.2.3 全站同步** — 暖石墨/纸白双主题 + 编辑型排版 + 16文件 | `8d6d492` |
 | 2026-07-03 | **后端 Timeline date 归一化** — int→str, YYYY/YYYY-MM/YYYY-MM-DD | `8d3a818` |
 | 2026-07-03 | **数据清理** — 删除 37 张占位符 + 42 条 2026 无效事件 | `2f271d9` |
 | 2026-07-03 | **文件拆分** — database.py(801→8文件) + pipeline.py(623→3文件) | `a0a1db5` `32e3f31` |
-| 2026-07-03 | **Size Policy 升级** — 三级分级策略替代硬性 300 行 | `f369792` |
 | 2026-07-02 | **多源扩展** — Twitter/X v2 API + 微信 RSSHub 桥接 | — |
-| 2026-07-02 | **后端 P1+P2 API 补全** — Entity/Relationship 写 API + Pipeline 触发 + Pydantic 验证 + 分页 + 版本历史 + 迁移系统 | — |
-| 2026-07-02 | **3 个 Agent 全部交付** — Research Agent + Concept Miner Agent + Trend Reporter Agent | — |
+| 2026-07-02 | **后端 P1+P2 API 补全** — Entity写API + Pipeline触发 + Pydantic + 分页 + 版本历史 | — |
+| 2026-07-02 | **3 个 Agent 全部交付** — Research + Concept Miner + Trend Reporter | — |
 | 2026-07-02 | **Card Writer + 收集流水线** — Research→AI撰写→YAML 三 Agent 完整闭环 | — |
 
 > 更早的会话历史见 `git log --oneline`。
@@ -47,6 +48,8 @@ Knowledge Card 是整个系统的唯一事实来源（SSOT）。
 - 📋 methodology 卡爆增：Concept Miner 生成约 130+ 张草稿卡，需批量审核
 - ⚠ test_direct_match 预存失败（1/357）：methodology 卡数量变化导致 Jaccard 匹配漂移
 - ⚠ `docs/ARCHITECTURE.md` 576 行超过 L3 (>500)，下次相关开发时拆分
+- 📋 `docs/ENGINEERING.md` 新增 §8-10: 知识分层 / End-of-Session Sync / 减优于加
+- ✅ HANDOVER 已压缩 (513→97行)，历史会话归 git log
 
 ## 注意事项（快速参考）
 
@@ -64,6 +67,7 @@ Knowledge Card 是整个系统的唯一事实来源（SSOT）。
 - Pipeline 运行: `python pipeline.py --hours 24` (日报) / `--weekly` / `--monthly`
 - Concept Miner 优化: 仅处理 ★3+ 文章，已挖掘 ID 自动跳过，3 并发批处理
 - 定时任务: `schtasks /query /tn AI-News-Daily` 查看状态
+- 会话收尾: 说 "整理一下" / "收尾" / "sync up" → 自动按变更矩阵更新所有文档 (详见 ENGINEERING §9)
 
 ## 工程原则（详见 docs/ENGINEERING.md）
 
