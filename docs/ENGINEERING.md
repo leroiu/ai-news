@@ -113,3 +113,42 @@ Claude Code 真正的上下文消耗不是代码本身，而是**代码修改记
 - 日报：`reports/YYYY-MM-DD.md`
 - 卡片：`data/knowledge/{type}/{id}.yaml`
 - tags 不嵌套，平铺
+
+---
+
+## 8. Knowledge Layering（知识分层）
+
+> 借鉴 neat-freak 技能。不同层次的文档有不同受众和职责，不能混在一起。
+
+| 层次 | 文件 | 受众 | 职责 |
+|------|------|------|------|
+| Agent 交接 | `.private/HANDOVER.md` | AI 自己跨会话 | 上次做到哪了、当前状态、快速参考 |
+| 工程规则 | `ENGINEERING.md` + `PROJECT_MEMORY.md` | 当前项目 AI | 怎么做决策、长期约定 |
+| 对外文档 | `docs/ARCHITECTURE.md` `ROADMAP.md` `README.md` | 人类同事 | 系统怎么工作、怎么接入 |
+
+**规则**:
+- CLAUDE.md / ENGINEERING.md 是规则手册，不是变更日志。历史叙事归 git log
+- "X 时刻起 Y 上线" 不属于规则文件 → 进 git log 或 docs/CHANGELOG
+- 同主题内容合并进已有段落，不追加新段
+
+---
+
+## 9. Pre-Sync Size Check（同步前尺寸体检）
+
+每次会话结束时，检查关键文件尺寸：
+
+| 文件 | 警戒线 | 超标动作 |
+|------|--------|----------|
+| `.private/HANDOVER.md` | >300 行 | 压缩历史会话，只保留最近 3 次 |
+| `docs/ARCHITECTURE.md` | >500 行 | 拆分子文档 |
+| `.private/PROJECT_MEMORY.md` | >250 行 | 稳定内容"毕业"进 docs/，原处只留指针 |
+
+执行顺序：**先精简（破除膨胀）→ 再做增量同步（补漏）**。两件事不能混着做。
+
+---
+
+## 10. Reduce > Add（减优于加）
+
+- **删优于留**: 完成的临时计划、被推翻的决策、单次事故复盘 → 删
+- **并优于追**: 新信息改旧条目，不追加新段落。新增前先 grep 同关键字
+- **毕业优于挪腾**: 一条信息被引用 3 次以上 → 从 memory/HANDOVER "毕业"进 docs/，原处缩成一行指针或删除
