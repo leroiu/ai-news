@@ -1,0 +1,22 @@
+# Auto-generated draft — Concept Miner
+id: white-box-sensitivity-auditing-with-steering-vecto
+name: White-Box Sensitivity Auditing with Steering Vectors
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.8，出现 2 次。
+  证据: White-Box Sensitivity Auditing with Steering Vectors. Current audits of large language models (LLMs) primarily rely on black-box evaluations... | We introduce White-Box Sensitivity Auditing with Steer
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "TechCrunch AI"
+
+related: []

@@ -1,0 +1,22 @@
+# Auto-generated draft — Concept Miner
+id: self-conditioned-flow-map-language-models-via-fixe
+name: Self-conditioned Flow Map Language Models via Fixed-point Flows
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.8，出现 2 次。
+  证据: Self-conditioning is a core technique that enhances continuous flow-based language models, where the model learns to denoise generated text by conditioning on its own denoising estimate. ... Here, we 
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "TechCrunch AI"
+
+related: []

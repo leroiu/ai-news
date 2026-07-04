@@ -1,0 +1,23 @@
+# Auto-generated draft — Concept Miner
+id: intent-to-item-fulfillment
+name: Intent-to-Item Fulfillment
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.7，出现 2 次。
+  证据: ShopX: A Foundation Model for Intent-to-Item Fulfillment in Agentic Shopping... The wave of AI-native applications is moving shopping beyond page- and feed-based browsing toward intent-driven experien
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "Hacker News (AI 相关)"
+  - "TechCrunch AI"
+
+related: []

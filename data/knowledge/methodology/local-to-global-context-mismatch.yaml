@@ -1,0 +1,23 @@
+# Auto-generated draft — Concept Miner
+id: local-to-global-context-mismatch
+name: Local-to-Global Context Mismatch
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.8，出现 2 次。
+  证据: A local-to-global context mismatch arises when autoregressive traffic simulators trained on ego-centric driving logs are deployed in globally observable closed-loop environments.
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "Hacker News (AI 相关)"
+  - "TechCrunch AI"
+
+related: []

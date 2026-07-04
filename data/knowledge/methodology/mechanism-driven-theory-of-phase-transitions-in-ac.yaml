@@ -1,0 +1,22 @@
+# Auto-generated draft — Concept Miner
+id: mechanism-driven-theory-of-phase-transitions-in-ac
+name: Mechanism-Driven Theory of Phase Transitions in Active Learning
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.9，出现 2 次。
+  证据: We characterize AL dynamics by reframing budget regimes as shifts in the dominant generalization mechanism. By reinterpreting PAC-style risk components as dynamic interacting terms, we prove that domi
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "TechCrunch AI"
+
+related: []

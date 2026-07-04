@@ -1,0 +1,22 @@
+# Auto-generated draft — Concept Miner
+id: llm-individuation-problem
+name: LLM Individuation Problem
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.8，出现 2 次。
+  证据: Beckmann & Butlin's (2026) ontological framework for the LLM individuation problem inherits an unargued cross-regime co-reference assumption from the persona-vectors literature... | Beckmann & Butlin'
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "TechCrunch AI"
+
+related: []

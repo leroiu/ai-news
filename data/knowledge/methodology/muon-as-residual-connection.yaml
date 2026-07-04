@@ -1,0 +1,22 @@
+# Auto-generated draft — Concept Miner
+id: muon-as-residual-connection
+name: Muon as Residual Connection
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.7，出现 2 次。
+  证据: Muon can be understood as an implicit residual connection during training. Specifically, orthogonalizing the update can sacrifice some immediate gradient fidelity while improving representation preser
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "TechCrunch AI"
+
+related: []

@@ -1,0 +1,23 @@
+# Auto-generated draft — Concept Miner
+id: operator-level-visual-skipping
+name: Operator-Level Visual Skipping
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.8，出现 2 次。
+  证据: Attend, Transform, or Silence: Operator-Level Visual Skipping for Efficient Multimodal LLM Inference. ... we study visual-token computation from an answer-observable perspective. | Attend, Transform, 
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "Hacker News (AI 相关)"
+  - "TechCrunch AI"
+
+related: []

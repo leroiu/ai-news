@@ -1,0 +1,22 @@
+# Auto-generated draft — Concept Miner
+id: multi-layer-value-map-planner-navigator-mvp-nav
+name: Multi-layer Value Map Planner Navigator (MVP-Nav)
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.8，出现 2 次。
+  证据: Zero-shot Object Goal Navigation (ZSON) with RGB-only perception poses a fundamental challenge... | MVP-Nav: Multi-layer Value Map Planner Navigator
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "TechCrunch AI"
+
+related: []

@@ -1,0 +1,22 @@
+# Auto-generated draft — Concept Miner
+id: data-referencing-errors-dres
+name: Data Referencing Errors (DREs)
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.7，出现 2 次。
+  证据: they still make data referencing errors (DREs), i.e., incorrectly citing or omitting table values, despite understanding the table structure. | We present the first systematic evaluation of data refer
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "TechCrunch AI"
+
+related: []

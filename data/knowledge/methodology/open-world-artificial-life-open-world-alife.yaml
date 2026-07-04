@@ -1,0 +1,23 @@
+# Auto-generated draft — Concept Miner
+id: open-world-artificial-life-open-world-alife
+name: Open-World Artificial Life (open-world ALIFE)
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.9，出现 2 次。
+  证据: we argue that large language model (LLM) agents, with persistent memory, tool use, network access, and payment, now make it possible to move artificial life into the open social, technical, and econom
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "Hacker News (AI 相关)"
+  - "TechCrunch AI"
+
+related: []

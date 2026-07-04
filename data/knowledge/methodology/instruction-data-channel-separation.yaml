@@ -1,0 +1,23 @@
+# Auto-generated draft — Concept Miner
+id: instruction-data-channel-separation
+name: Instruction-Data Channel Separation
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.8，出现 2 次。
+  证据: A system-level approach to prompt injection: separating instruction and data channels in LLM agents. Most mitigation strategies focus on input filtering or model-side alignment, but the core issue is 
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "Hacker News (AI 相关)"
+  - "TechCrunch AI"
+
+related: []

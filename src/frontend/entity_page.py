@@ -13,7 +13,7 @@ import json
 from pathlib import Path
 from src.engine.utils import log, ensure_dir, ROOT_DIR
 from src.interfaces.i18n import t, i18n_js, nav_html
-from .frontend_styles import TYPE_COLORS, ANIMATION_CSS, RESPONSIVE_CSS, ERROR_CSS, INTELLIGENCE_CSS, SHARED_JS, THEME_VARS
+from .frontend_styles import ACTION_COMPONENT_CSS, ACCESSIBILITY_CSS, TYPE_COLORS, ANIMATION_CSS, RESPONSIVE_CSS, ERROR_CSS, INTELLIGENCE_CSS, SHARED_JS, THEME_VARS
 
 
 def generate_entity_shell(lang: str = "zh") -> Path:
@@ -106,13 +106,16 @@ h1 .badge{{font-size:11px;padding:2px 12px;border-radius:10px;color:#fff;flex-sh
 {ANIMATION_CSS}
 {RESPONSIVE_CSS}
 {ERROR_CSS}
+{ACTION_COMPONENT_CSS}
+{ACCESSIBILITY_CSS}
 .back-link{{display:inline-block;margin-top:20px;padding:6px 14px;border-radius:var(--radius-sm);font-size:13px;text-decoration:none;color:var(--text-primary);background:var(--bg-elevated);transition:all .15s}}
 .back-link:hover{{background:var(--border);transform:translateY(-1px)}}
 </style>
 </head>
 <body data-page-template="detail">
+<a class="skip-link" href="#root">{t("skip_to_content", lang)}</a>
 {nav_html("")}
-<div id="root"><div class="spinner"><div class="loading"></div></div></div>
+<main id="root"><div class="spinner"><div class="loading"></div></div></main>
 
 <script>
 {SHARED_JS}

@@ -46,6 +46,10 @@ body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
 #sidebar-header{{padding:16px;border-bottom:1px solid var(--border,#30363d)}}
 #sidebar-header h1{{font-size:16px;color:var(--accent,#58a6ff)}}
 #sidebar-header p{{font-size:11px;color:var(--text-secondary,#8b949e);margin-top:2px}}
+.view-switch{{display:flex;gap:6px;margin-top:10px}}
+.view-switch a,.view-switch span{{padding:5px 10px;border:1px solid var(--border,#30363d);border-radius:5px;color:var(--text-secondary,#8b949e);font-size:10px;text-decoration:none}}
+.view-switch a:hover{{border-color:var(--accent,#58a6ff);color:var(--accent,#58a6ff)}}
+.view-switch .active{{background:var(--accent-subtle,#1f6feb22);border-color:var(--accent,#58a6ff);color:var(--accent,#58a6ff)}}
 .nav{{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;align-items:center}}
 .nav a{{padding:4px 10px;border-radius:5px;font-size:10px;text-decoration:none;color:var(--text-primary,#c9d1d9);background:var(--bg-elevated,#21262d);transition:background .15s;white-space:nowrap}}
 .nav a:hover{{background:var(--border,#30363d)}}
@@ -88,6 +92,10 @@ body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
       <p id="stats-line">{t("loading", lang)}</p>
       <details class="intel-rating-help"><summary data-i18n="editorial_rating_label">{t("editorial_rating_label", lang)}</summary><p data-i18n="editorial_rating_help">{t("editorial_rating_help", lang)}</p></details>
       {nav_html("graph")}
+      <div class="view-switch" aria-label="{t("graph_view_switch", lang)}">
+        <a href="/graph">{t("graph_2d_view", lang)}</a>
+        <span class="active" aria-current="page">{t("graph_3d_view", lang)}</span>
+      </div>
     </div>
     <div id="type-list"></div>
     <div id="detail-panel">
@@ -100,7 +108,6 @@ body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
     <div id="controls">
       <button onclick="resetCamera()" title="重置视角">🏠</button>
       <button onclick="cycleView()" title="切换视图">🔄</button>
-      <a href="/graph" style="text-decoration:none"><button title="2D 视图">2D</button></a>
     </div>
   </div>
 </div>

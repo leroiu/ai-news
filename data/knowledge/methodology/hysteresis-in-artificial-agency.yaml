@@ -1,0 +1,23 @@
+# Auto-generated draft — Concept Miner
+id: hysteresis-in-artificial-agency
+name: Hysteresis in Artificial Agency
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.8，出现 2 次。
+  证据: When Regulation Has Memory: Hysteresis and Control Burden in Artificial Agency... Adaptive agents are usually judged by what they do, but an agent can appear stable while the internal effort required 
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "Hacker News (AI 相关)"
+  - "TechCrunch AI"
+
+related: []

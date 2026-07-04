@@ -1,0 +1,22 @@
+# Auto-generated draft — Concept Miner
+id: data-manifold-aware-image-diffusion-model-mind
+name: Data Manifold-aware Image diffusion moDel (MIND)
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.9，出现 2 次。
+  证据: Data Manifold-aware Image diffusioN moDel (MIND), a novel framework that explicitly models manifold geometry by integrating discrete patch tokenization into the score function of a continuous diffusio
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "TechCrunch AI"
+
+related: []

@@ -42,26 +42,66 @@ def get_reports(report_type: str = "daily", limit: int = 30) -> list[dict]:
 # ═══════════════════════════════════════════════════════════════
 
 def search(query: str, limit: int = 20, semantic: bool = False) -> dict:
-    """全文搜索实体 + 文章。semantic=True 时启用混合检索。"""
+    """全文搜索实体 + 文章。优先 FTS5 + bm25 排序，fallback 到 LIKE。semantic=True 时启用混合检索。"""
     if semantic:
         from .embeddings import search_hybrid
         return search_hybrid(query, limit=limit)
 
     conn = get_db()
-    q = f"%{query}%"
-    entities = conn.execute(
-        "SELECT id, name, type, summary, importance, color FROM entities "
-        "WHERE name LIKE ? OR summary LIKE ? LIMIT ?",
-        (q, q, limit)).fetchall()
-    articles = conn.execute(
-        "SELECT id, title, source, title_cn, one_liner, score, published "
-        "FROM articles "
-        "WHERE title LIKE ? OR title_cn LIKE ? OR one_liner LIKE ? LIMIT ?",
-        (q, q, q, limit)).fetchall()
+
+    # ── FTS5 搜索（实体） ──
+    entities = []
+    try:
+        # FTS5 需要转义特殊字符
+        escaped = query.replace('"', '""')
+        rows = conn.execute(
+            "SELECT e.id, e.name, e.type, e.summary, e.importance, e.color "
+            "FROM entities_fts f JOIN entities e ON e.id = f.entity_id "
+            "WHERE entities_fts MATCH ? ORDER BY bm25(entities_fts) LIMIT ?",
+            (f'"{escaped}"', limit)
+        ).fetchall()
+        entities = [dict(r) for r in rows]
+    except Exception:
+        entities = []
+
+    # FTS5 无结果时 fallback 到 LIKE
+    if not entities:
+        q = f"%{query}%"
+        rows = conn.execute(
+            "SELECT id, name, type, summary, importance, color FROM entities "
+            "WHERE name LIKE ? OR summary LIKE ? LIMIT ?",
+            (q, q, limit)
+        ).fetchall()
+        entities = [dict(r) for r in rows]
+
+    # ── FTS5 搜索（文章） ──
+    articles = []
+    try:
+        escaped = query.replace('"', '""')
+        rows = conn.execute(
+            "SELECT a.id, a.title, a.source, a.title_cn, a.one_liner, a.score, a.published "
+            "FROM articles_fts f JOIN articles a ON a.id = f.article_id "
+            "WHERE articles_fts MATCH ? ORDER BY bm25(articles_fts) LIMIT ?",
+            (f'"{escaped}"', limit)
+        ).fetchall()
+        articles = [dict(r) for r in rows]
+    except Exception:
+        articles = []
+
+    if not articles:
+        q = f"%{query}%"
+        rows = conn.execute(
+            "SELECT id, title, source, title_cn, one_liner, score, published "
+            "FROM articles "
+            "WHERE title LIKE ? OR title_cn LIKE ? OR one_liner LIKE ? LIMIT ?",
+            (q, q, q, limit)
+        ).fetchall()
+        articles = [dict(r) for r in rows]
+
     conn.close()
     return {
-        "entities": [dict(r) for r in entities],
-        "articles": [dict(r) for r in articles],
+        "entities": entities,
+        "articles": articles,
     }
 
 

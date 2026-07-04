@@ -1,0 +1,22 @@
+# Auto-generated draft — Concept Miner
+id: anti-loop-regularization
+name: Anti-Loop Regularization
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.9，出现 2 次。
+  证据: Anti-Loop Regularization for Discrete Vision-Language Navigation | DART-VLN: Test-Time Memory Decay and Anti-Loop Regularization for Discrete Vision-Language Navigation
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "TechCrunch AI"
+
+related: []

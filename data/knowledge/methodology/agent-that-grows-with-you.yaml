@@ -1,0 +1,22 @@
+# Auto-generated draft — Concept Miner
+id: agent-that-grows-with-you
+name: Agent That Grows With You
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.5，出现 2 次。
+  证据: NousResearch/hermes-agent: The agent that grows with you
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "TechCrunch AI"
+
+related: []

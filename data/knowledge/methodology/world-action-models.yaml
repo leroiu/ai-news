@@ -1,0 +1,22 @@
+# Auto-generated draft — Concept Miner
+id: world-action-models
+name: World Action Models
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.8，出现 2 次。
+  证据: From World Models to World Action Models: A Concise Tutorial for Robotics ... This tutorial presents a design-space view of world models as action-conditioned predictive models that estimate the futur
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "TechCrunch AI"
+
+related: []

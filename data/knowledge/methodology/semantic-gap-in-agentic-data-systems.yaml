@@ -1,0 +1,22 @@
+# Auto-generated draft — Concept Miner
+id: semantic-gap-in-agentic-data-systems
+name: Semantic Gap in Agentic Data Systems
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.8，出现 2 次。
+  证据: We present a cross-domain formative study of operationalization failures in agentic data systems, identifying a semantic gap between analytical concepts and their operationalization in database schema
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "TechCrunch AI"
+
+related: []

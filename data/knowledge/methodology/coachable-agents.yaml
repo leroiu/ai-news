@@ -1,0 +1,22 @@
+# Auto-generated draft — Concept Miner
+id: coachable-agents
+name: Coachable Agents
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.8，出现 2 次。
+  证据: We refer to ... coachable agents for interactive gameplay... | We refer to ... Coachable agents for interactive gameplay... through trial-and-error, these AI systems typically learn one, near-optimal 
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "TechCrunch AI"
+
+related: []

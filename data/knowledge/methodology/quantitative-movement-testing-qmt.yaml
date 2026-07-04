@@ -1,0 +1,22 @@
+# Auto-generated draft — Concept Miner
+id: quantitative-movement-testing-qmt
+name: Quantitative Movement Testing (QMT)
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.8，出现 2 次。
+  证据: We aimed to develop and validate Quantitative Movement Testing (QMT), a computer vision pipeline extracting 3D kinematic biom | We aimed to develop and validate Quantitative Movement Testing (QMT), a 
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "TechCrunch AI"
+
+related: []

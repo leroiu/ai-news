@@ -1,0 +1,22 @@
+# Auto-generated draft — Concept Miner
+id: causal-abstraction-metrics-benchmark
+name: Causal Abstraction Metrics Benchmark
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.8，出现 2 次。
+  证据: We introduce a benchmark of ten complex systems spanning both discrete and continuous state spaces, as well as static and dynamical regimes, each equipped with consensual ground... | We introduce a be
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "TechCrunch AI"
+
+related: []

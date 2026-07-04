@@ -1,0 +1,22 @@
+# Auto-generated draft — Concept Miner
+id: cot-x-cross-model-chain-of-thought-transfer
+name: CoT-X: Cross-Model Chain-of-Thought Transfer
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.9，出现 2 次。
+  证据: This paper investigates efficient CoT transfer across models of different scales and architectures through an adaptive reasoning summarization framework. | This paper investigates efficient CoT transf
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "TechCrunch AI"
+
+related: []

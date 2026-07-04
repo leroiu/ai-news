@@ -1,0 +1,22 @@
+# Auto-generated draft — Concept Miner
+id: constraint-driven-pipeline-for-network-topology-de
+name: Constraint-Driven Pipeline for Network Topology Design
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.8，出现 2 次。
+  证据: This work investigates the ability of Large Language Models (LLMs) to generate structurally valid and constraint-compliant network topologies through a constraint-driven pipeline combining hierarchica
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "TechCrunch AI"
+
+related: []

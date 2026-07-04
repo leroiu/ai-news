@@ -4,11 +4,12 @@ Entity CRUD + 版本历史 + 分页。
 从 database.py 拆分出来。
 """
 
+import base64
 import json
 from datetime import datetime, timezone
 from typing import Optional
 
-from .db_core import get_db, _row_to_entity, _normalize_timeline
+from .db_core import get_db, _row_to_entity, _normalize_timeline, rebuild_fts
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -40,6 +41,11 @@ def upsert_entity(entity: dict):
     ))
     conn.commit()
     conn.close()
+    # 重建 FTS5 索引
+    try:
+        rebuild_fts()
+    except Exception:
+        pass
 
 
 def get_entities(entity_type: Optional[str] = None) -> list[dict]:
@@ -151,4 +157,78 @@ def get_entities_paginated(entity_type: Optional[str] = None,
         "page": page,
         "page_size": page_size,
         "has_next": (page * page_size) < total,
+    }
+
+
+# ═══════════════════════════════════════════════════════════════
+# Cursor Pagination
+# ═══════════════════════════════════════════════════════════════
+
+def _encode_cursor(values: dict) -> str:
+    """将游标值编码为 opaque token。"""
+    return base64.urlsafe_b64encode(
+        json.dumps(values, sort_keys=True).encode()
+    ).decode().rstrip("=")
+
+
+def _decode_cursor(cursor: str) -> dict | None:
+    """解码 opaque cursor token。"""
+    try:
+        padded = cursor + "=" * (4 - len(cursor) % 4)
+        return json.loads(base64.urlsafe_b64decode(padded).decode())
+    except Exception:
+        return None
+
+
+def get_entities_cursor(entity_type: Optional[str] = None,
+                         limit: int = 50, cursor: Optional[str] = None) -> dict:
+    """
+    基于游标的分页获取实体。游标 = (importance, type, id)。
+    """
+    conn = get_db()
+    where = []
+    params: list = []
+
+    if entity_type:
+        where.append("type = ?")
+        params.append(entity_type)
+
+    if cursor:
+        decoded = _decode_cursor(cursor)
+        if decoded:
+            where.append(
+                "(importance < ? OR (importance = ? AND type > ?) "
+                "OR (importance = ? AND type = ? AND id > ?))"
+            )
+            params.extend([
+                decoded["importance"], decoded["importance"], decoded["type"],
+                decoded["importance"], decoded["type"], decoded["id"],
+            ])
+
+    where_clause = (" WHERE " + " AND ".join(where)) if where else ""
+    order = "ORDER BY importance DESC, type ASC, id ASC" if entity_type else "ORDER BY type ASC, importance DESC, id ASC"
+
+    rows = conn.execute(
+        f"SELECT * FROM entities{where_clause} {order} LIMIT ?",
+        params + [limit + 1]
+    ).fetchall()
+
+    has_next = len(rows) > limit
+    items = rows[:limit]
+    conn.close()
+
+    next_cursor = None
+    if has_next and items:
+        last = items[-1]
+        next_cursor = _encode_cursor({
+            "importance": last["importance"],
+            "type": last["type"],
+            "id": last["id"],
+        })
+
+    return {
+        "items": [_row_to_entity(r) for r in items],
+        "next_cursor": next_cursor,
+        "has_next": has_next,
+        "count": len(items),
     }

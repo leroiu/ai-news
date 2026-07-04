@@ -1,0 +1,23 @@
+# Auto-generated draft — Concept Miner
+id: knowledge-grounded-llm-agents-for-fault-tolerant-c
+name: Knowledge-Grounded LLM Agents for Fault-Tolerant Control
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.7，出现 2 次。
+  证据: A Tutorial on Autonomous Fault-Tolerant Control Using Knowledge-Grounded LLM Agents... The proposed framework treats the LLM as a reasoning engine grounded in plant knowledge | A Tutorial on Autonomou
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "Hacker News (AI 相关)"
+  - "TechCrunch AI"
+
+related: []

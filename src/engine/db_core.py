@@ -98,6 +98,37 @@ def init_db():
         updated_at  TEXT DEFAULT (datetime('now'))
     );
 
+    -- 用户
+    CREATE TABLE IF NOT EXISTS users (
+        id           INTEGER PRIMARY KEY AUTOINCREMENT,
+        username     TEXT NOT NULL UNIQUE,
+        email        TEXT DEFAULT '',
+        password_hash TEXT NOT NULL,
+        role         TEXT NOT NULL DEFAULT 'user',
+        created_at   TEXT DEFAULT (datetime('now'))
+    );
+
+    -- 收藏
+    CREATE TABLE IF NOT EXISTS favorites (
+        id          INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id     INTEGER NOT NULL,
+        item_type   TEXT NOT NULL,
+        item_id     TEXT NOT NULL,
+        created_at  TEXT DEFAULT (datetime('now')),
+        FOREIGN KEY (user_id) REFERENCES users(id),
+        UNIQUE(user_id, item_type, item_id)
+    );
+
+    -- 阅读历史
+    CREATE TABLE IF NOT EXISTS reading_history (
+        id          INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id     INTEGER NOT NULL,
+        article_id  TEXT NOT NULL,
+        read_at     TEXT DEFAULT (datetime('now')),
+        FOREIGN KEY (user_id) REFERENCES users(id),
+        UNIQUE(user_id, article_id)
+    );
+
     -- Pipeline 运行日志
     CREATE TABLE IF NOT EXISTS pipeline_runs (
         id          INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -151,10 +182,39 @@ def init_db():
     CREATE INDEX IF NOT EXISTS idx_reports_date ON reports(date);
     CREATE INDEX IF NOT EXISTS idx_entity_versions_entity_id ON entity_versions(entity_id);
     CREATE INDEX IF NOT EXISTS idx_entity_versions_created ON entity_versions(created_at);
+
+    -- FTS5 全文搜索（实体）
+    CREATE VIRTUAL TABLE IF NOT EXISTS entities_fts USING fts5(
+        entity_id UNINDEXED, name, summary, significance
+    );
+
+    -- FTS5 全文搜索（文章）
+    CREATE VIRTUAL TABLE IF NOT EXISTS articles_fts USING fts5(
+        article_id UNINDEXED, title, title_cn, one_liner
+    );
     """)
     conn.commit()
     conn.close()
     log.debug(f"数据库已初始化: {DB_PATH}")
+
+
+def rebuild_fts():
+    """重建所有 FTS5 索引。在批量数据变更后调用。"""
+    conn = get_db()
+    # 实体 FTS
+    conn.execute("DELETE FROM entities_fts")
+    conn.executescript("""
+        INSERT INTO entities_fts(entity_id, name, summary, significance)
+        SELECT id, name, summary, significance FROM entities;
+    """)
+    # 文章 FTS
+    conn.execute("DELETE FROM articles_fts")
+    conn.executescript("""
+        INSERT INTO articles_fts(article_id, title, title_cn, one_liner)
+        SELECT id, title, title_cn, one_liner FROM articles;
+    """)
+    conn.commit()
+    conn.close()
 
 
 def _normalize_timeline(timeline: list) -> list:

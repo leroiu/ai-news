@@ -40,6 +40,10 @@ body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
 #sidebar-header{{padding:16px;border-bottom:1px solid var(--border)}}
 #sidebar-header h1{{font-size:16px;color:var(--accent)}}
 #sidebar-header p{{font-size:11px;color:var(--text-secondary);margin-top:2px}}
+.view-switch{{display:flex;gap:6px;margin-top:10px}}
+.view-switch a,.view-switch span{{padding:5px 10px;border:1px solid var(--border);border-radius:5px;color:var(--text-secondary);font-size:10px;text-decoration:none}}
+.view-switch a:hover{{border-color:var(--accent);color:var(--accent)}}
+.view-switch .active{{background:var(--accent-subtle);border-color:var(--accent);color:var(--accent)}}
 .nav{{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;align-items:center}}
 .nav a{{padding:4px 10px;border-radius:5px;font-size:10px;text-decoration:none;color:var(--text-primary);background:var(--bg-elevated);transition:background .15s}}
 .nav a:hover{{background:var(--border)}}
@@ -88,7 +92,10 @@ svg{{width:100%;height:100%}}
 <div id="sidebar-header"><h1 data-i18n="graph_title">{t("graph_title", lang)}</h1><p id="stats-line">{t("loading", lang)}</p>
 <details class="intel-rating-help"><summary data-i18n="editorial_rating_label">{t("editorial_rating_label", lang)}</summary><p data-i18n="editorial_rating_help">{t("editorial_rating_help", lang)}</p></details>
 {nav_html("/graph")}
-<a href="/graph3d" style="display:inline-block;margin-top:6px;padding:4px 12px;background:#1f6feb22;color:#58a6ff;border:1px solid #1f6feb44;border-radius:5px;font-size:10px;text-decoration:none;text-align:center">🌐 3D 视图</a>
+<div class="view-switch" aria-label="{t("graph_view_switch", lang)}">
+  <span class="active" aria-current="page">{t("graph_2d_view", lang)}</span>
+  <a href="/graph3d">{t("graph_3d_view", lang)}</a>
+</div>
 </div>
 <div id="type-list"></div>
 </div>

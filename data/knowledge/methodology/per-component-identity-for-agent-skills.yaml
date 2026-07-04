@@ -1,0 +1,22 @@
+# Auto-generated draft — Concept Miner
+id: per-component-identity-for-agent-skills
+name: Per-Component Identity for Agent Skills
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.9，出现 2 次。
+  证据: We present a compact, locality-sensitive fingerprint that embeds each component of a skill...
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "TechCrunch AI"
+
+related: []

@@ -156,6 +156,21 @@ class PaginatedResponse(BaseModel):
     has_next: bool = False
 
 
+class CursorResponse(BaseModel):
+    """基于游标的分页响应。"""
+    items: list[Any] = Field(default_factory=list)
+    next_cursor: Optional[str] = None
+    has_next: bool = False
+    count: int = 0
+
+
+class ErrorResponse(BaseModel):
+    """统一 API 错误响应。"""
+    code: str
+    message: str
+    detail: Optional[str] = None
+
+
 # ═══════════════════════════════════════════════════════
 # Pipeline 触发模型
 # ═══════════════════════════════════════════════════════

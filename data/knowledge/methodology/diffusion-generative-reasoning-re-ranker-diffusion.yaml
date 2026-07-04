@@ -1,0 +1,22 @@
+# Auto-generated draft — Concept Miner
+id: diffusion-generative-reasoning-re-ranker-diffusion
+name: Diffusion Generative Reasoning Re-ranker (Diffusion-GR2)
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.8，出现 2 次。
+  证据: Diffusion-GR2: Diffusion Generative Reasoning Re-ranker... block-diffusion language models decode many positions in parallel over a few denoising steps... | Diffusion-GR2: Diffusion Generative Reasoni
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "TechCrunch AI"
+
+related: []

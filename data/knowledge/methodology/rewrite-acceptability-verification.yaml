@@ -1,0 +1,22 @@
+# Auto-generated draft — Concept Miner
+id: rewrite-acceptability-verification
+name: Rewrite-Acceptability Verification
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.8，出现 2 次。
+  证据: Theoria: Rewrite-Acceptability Verification over Informal Reasoning States... A candidate solution is rewritten into a sequence of typed state transitions, each licensed by a rewrite rule whose applic
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "TechCrunch AI"
+
+related: []

@@ -14,7 +14,7 @@ AI Intelligence Platform — 前端设计系统
 import json
 
 # ── 设计系统版本（Claude-Codex 协作协议 Layer A）──
-DESIGN_SYSTEM_VERSION = "7.2.3"
+DESIGN_SYSTEM_VERSION = "7.4.0"
 
 # ═══════════════════════════════════════════════════════════
 # 设计令牌
@@ -53,7 +53,7 @@ THEME_VARS = """:root{--bg-primary:#121311;--bg-card:#191a17;--bg-elevated:#2324
 """
 
 NAV_CSS = """\
-.nav{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap;align-items:center}
+.nav{display:flex;min-height:34px;gap:8px;margin-bottom:24px;flex-wrap:wrap;align-items:center}
 .nav a{padding:6px 14px;border-radius:var(--radius-sm);font-size:13px;text-decoration:none;color:var(--text-primary);background:var(--bg-elevated);transition:background .15s;white-space:nowrap}
 .nav a:hover{background:var(--border)}
 .nav a.active{background:var(--accent-subtle);color:var(--accent)}
@@ -63,6 +63,21 @@ NAV_CSS = """\
 [data-theme="light"] .lang-btn{background:var(--bg-elevated);color:var(--text-primary)}
 .lang-btn+.lang-btn{margin-left:0}
 .lang-btn:hover{background:var(--border)}
+"""
+
+ORDINARY_PAGE_CSS = """\
+.ordinary-page{width:min(100%,var(--content-max));margin:0 auto;padding:24px}
+.ordinary-nav{min-height:58px}
+.ordinary-heading{display:flex;min-height:112px;flex-direction:column;justify-content:flex-start;padding:4px 0 22px}
+.ordinary-heading h1{font-family:var(--font-display);font-size:38px;line-height:1.1;letter-spacing:-.035em;color:var(--text-primary)}
+.ordinary-heading__summary{max-width:760px;margin-top:8px;color:var(--text-secondary);font-size:14px;line-height:1.6}
+.ordinary-heading__meta{margin-top:10px;color:var(--text-muted);font-size:11px}
+.ordinary-tools{position:relative;z-index:20;min-height:72px}
+.ordinary-content{animation:anchorContentIn .2s ease-out}
+@keyframes anchorContentIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:768px){.ordinary-page{padding:16px}.ordinary-heading{min-height:104px}.ordinary-heading h1{font-size:32px}}
+@media(max-width:480px){.ordinary-page{padding:12px}.ordinary-nav{min-height:50px}.ordinary-heading{min-height:96px}.ordinary-heading h1{font-size:28px}.ordinary-tools{min-height:64px}}
+@media(prefers-reduced-motion:reduce){.ordinary-content{animation:none}}
 """
 
 SPINNER_CSS = """\
@@ -94,6 +109,21 @@ BUTTON_CSS = """\
 
 INTELLIGENCE_CSS = """\
 .intel-rating{display:inline-flex;align-items:center;gap:7px}.intel-rating__stars{color:var(--warning);letter-spacing:1px}.intel-rating__label{color:var(--text-secondary);font-size:10px}.intel-rating-help{margin:8px 0;color:var(--text-secondary);font-size:11px}.intel-rating-help summary{width:max-content;color:var(--accent);cursor:pointer}.intel-rating-help p{max-width:620px;margin-top:6px;line-height:1.6}.intel-source{display:flex;align-items:center;gap:6px;flex-wrap:wrap;color:var(--text-muted);font-size:11px}.intel-source a{color:var(--accent);text-decoration:none}.intel-evidence{display:inline-flex;padding:2px 7px;border:1px solid var(--border);border-radius:999px;font-size:10px;font-weight:650}.intel-evidence--fact{color:var(--success)}.intel-evidence--analysis{color:var(--accent)}.intel-evidence--inference{color:var(--warning)}.intel-evidence--advice{color:var(--text-secondary)}.intel-topic{display:inline-flex;padding:3px 8px;border-radius:999px;background:var(--bg-elevated);color:var(--text-secondary);font-size:10px}.ui-state{padding:28px 20px;text-align:center;border:1px dashed var(--border);border-radius:var(--radius);color:var(--text-secondary)}.ui-state__icon{margin-bottom:8px;font-size:24px}.ui-state strong{display:block;margin-bottom:5px;color:var(--text-primary);font-size:14px}.ui-state p{max-width:520px;margin:auto;font-size:12px;line-height:1.6}.ui-state--pending{border-style:solid;border-left:3px solid var(--warning);text-align:left}.ui-state--error{border-color:var(--danger)}.ui-state--unavailable{opacity:.8}
+"""
+
+ACTION_COMPONENT_CSS = """\
+.favorite-btn{display:inline-flex;min-height:28px;padding:3px 9px;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:999px;background:var(--bg-elevated);color:var(--text-secondary);font:inherit;font-size:10px;line-height:1.2;cursor:pointer;transition:background .18s,border-color .18s,color .18s}.favorite-btn:hover{border-color:var(--warning);color:var(--warning)}.favorite-btn.is-favorited,.favorite-btn[aria-pressed="true"]{border-color:var(--warning);background:#e3b34122;color:var(--warning)}
+:where(.filter-btn,.cat-tag,.my-filter){display:inline-flex;min-height:28px;padding:4px 10px;align-items:center;justify-content:center;gap:4px;border:1px solid var(--border);border-radius:999px;background:transparent;color:var(--text-secondary);font:inherit;font-size:11px;line-height:1.2;cursor:pointer;transition:background .18s,border-color .18s,color .18s}
+:where(.filter-btn,.cat-tag,.my-filter):hover{border-color:var(--accent);color:var(--accent)}
+:where(.filter-btn,.cat-tag,.my-filter).active{border-color:var(--accent);background:var(--accent-subtle);color:var(--accent)}
+:where(.favorite-btn,.filter-btn,.cat-tag,.my-filter):focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+"""
+
+ACCESSIBILITY_CSS = """\
+.skip-link{position:fixed;left:16px;top:8px;z-index:1000;padding:8px 12px;border-radius:6px;background:var(--accent);color:#fff;text-decoration:none;font-size:13px;font-weight:600;transform:translateY(-160%);transition:transform .18s ease}
+.skip-link:focus{transform:translateY(0)}
+:where(a,button,input,select,textarea,summary,[tabindex]):focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
 """
 
 ANIMATION_CSS = """\
@@ -130,16 +160,16 @@ RESPONSIVE_CSS = """\
 @media (max-width:480px){
   body{padding:12px}
   h1{font-size:18px}
-  .nav{gap:4px}
-  .nav a{padding:4px 8px;font-size:10px}
-  .lang-btn{padding:3px 8px;font-size:10px;margin-left:4px}
+  .nav{gap:3px;flex-wrap:nowrap;margin-bottom:18px}
+  .nav a{min-height:32px;padding:6px 7px;display:inline-flex;align-items:center;font-size:10px}
+  .lang-btn{min-width:30px;min-height:32px;padding:5px 7px;font-size:10px;margin-left:1px;flex-shrink:0}
   .card{padding:14px}
-  .btn,.btn-outline,.btn-sm{font-size:10px;padding:4px 10px}
+  .btn,.btn-outline,.btn-sm{min-height:34px;padding:6px 10px;font-size:10px}
 }
 @media (max-width:360px){
-  .nav{gap:2px;flex-wrap:nowrap}
-  .nav a{padding:3px 5px;font-size:9px}
-  .lang-btn{padding:3px 6px;font-size:9px;margin-left:2px;flex-shrink:0}
+  .nav{gap:2px}
+  .nav a{padding:6px 5px;font-size:10px}
+  .lang-btn{min-width:28px;padding:5px;font-size:10px;margin-left:0}
 }
 @media (min-width:1024px){
   .container-wide{max-width:1200px}
@@ -185,8 +215,31 @@ function themeLabel(){
 }
 document.addEventListener('DOMContentLoaded', updateThemeLabel);
 
+/* ── Auth ── */
+function getToken(){
+  try { return localStorage.getItem('ai_obs_token') || null; }
+  catch(e) { return null; }
+}
+function getCurrentUser(){
+  try { var u = localStorage.getItem('ai_obs_user'); return u ? JSON.parse(u) : null; }
+  catch(e) { return null; }
+}
+function isLoggedIn(){ return !!getToken(); }
+function isAdmin(){ var u = getCurrentUser(); return u && u.role === 'admin'; }
+function logoutFn(){
+  localStorage.removeItem('ai_obs_token');
+  localStorage.removeItem('ai_obs_user');
+  window.location.reload();
+}
+
 async function apiFetch(url, options) {
   try {
+    options = options || {};
+    var token = getToken();
+    if (token) {
+      options.headers = options.headers || {};
+      options.headers['Authorization'] = 'Bearer ' + token;
+    }
     const r = await fetch(url, options);
     if (!r.ok) throw new Error("HTTP " + r.status);
     return await r.json();
@@ -295,7 +348,7 @@ function skeletonHTML(type, count) {
 # 组合样式
 # ═══════════════════════════════════════════════════════════
 
-BASE_CSS = RESET_CSS + NAV_CSS + SPINNER_CSS + SKELETON_CSS + BUTTON_CSS + INTELLIGENCE_CSS + ANIMATION_CSS + RESPONSIVE_CSS + ERROR_CSS
+BASE_CSS = RESET_CSS + NAV_CSS + ORDINARY_PAGE_CSS + SPINNER_CSS + SKELETON_CSS + BUTTON_CSS + INTELLIGENCE_CSS + ACTION_COMPONENT_CSS + ACCESSIBILITY_CSS + ANIMATION_CSS + RESPONSIVE_CSS + ERROR_CSS
 
 # 注入顺序建议: {RESET_CSS} + 页面专属样式 + {NAV_CSS} + {SPINNER_CSS} + {SKELETON_CSS} + {BUTTON_CSS} + {ANIMATION_CSS} + {RESPONSIVE_CSS} + {ERROR_CSS}
 # 简化为: 末尾加 {ANIMATION_CSS}{RESPONSIVE_CSS}{ERROR_CSS}（骨架屏按需使用 skeletonHTML()）

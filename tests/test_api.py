@@ -16,6 +16,8 @@ from unittest.mock import patch
 
 # ── Helper: build a fresh test client with mocked DB ─────
 
+MOCK_ADMIN = {"id": 0, "username": "admin", "email": "", "role": "admin", "created_at": ""}
+
 
 @pytest.fixture
 def client():
@@ -40,6 +42,10 @@ def client():
          patch("src.api.api.run_migrations", return_value=[]) as rm, \
          patch("src.engine.database.get_applied_migrations", return_value=set()) as gam:
         from src.api import app
+        # Bypass auth for tests
+        from src.api.middleware import get_current_user, require_admin
+        app.dependency_overrides[get_current_user] = lambda: MOCK_ADMIN
+        app.dependency_overrides[require_admin] = lambda: MOCK_ADMIN
         yield TestClient(app), {
             "entities": ge, "entity": g1, "relationships": gr,
             "articles": ga, "article": gad, "reports": gre, "search": gs, "stats": gst,
@@ -48,6 +54,8 @@ def client():
             "save_entity_version": sev, "get_entity_versions": gev,
             "run_migrations": rm,
         }
+        # Clean up overrides
+        app.dependency_overrides.clear()
 
 
 # ── Health ───────────────────────────────────────────────
@@ -111,7 +119,8 @@ class TestEntityDetailApi:
         m["entity"].return_value = None
         resp = c.get("/api/entities/nonexistent")
         assert resp.status_code == 404
-        assert "detail" in resp.json()
+        data = resp.json()
+        assert data["error"]["code"] == "NOT_FOUND"
 
 
 # ── Relationships API ────────────────────────────────────

@@ -285,10 +285,11 @@ def run_daily_pipeline(
         from src.frontend.article_page import generate_article_page
         from src.frontend.report_reader import generate_report_reader
         from src.research import generate_research_page
+        from src.frontend.auth_page import generate_auth_page
 
         t1 = _tick()
         pages_ok = 0
-        pages_total = 8
+        pages_total = 9
         for name, fn in [
             ("dashboard", generate_dashboard),
             ("library", generate_library),
@@ -298,6 +299,7 @@ def run_daily_pipeline(
             ("my", generate_my_page),
             ("article", generate_article_page),
             ("report_reader", generate_report_reader),
+            ("auth", generate_auth_page),
         ]:
             try:
                 fn()

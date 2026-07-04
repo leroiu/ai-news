@@ -4,10 +4,11 @@ Article CRUD + 实体关联搜索 + 相似实体 + 文章分页。
 从 database.py 拆分出来。
 """
 
+import base64
 import json
 from typing import Optional
 
-from .db_core import get_db, _row_to_article, _row_to_entity
+from .db_core import get_db, _row_to_article, _row_to_entity, rebuild_fts
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -34,6 +35,11 @@ def insert_articles(articles: list[dict]):
         ))
     conn.commit()
     conn.close()
+    # 重建 FTS5 索引
+    try:
+        rebuild_fts()
+    except Exception:
+        pass
 
 
 def get_articles(limit: int = 50, min_score: int = 0,
@@ -145,4 +151,82 @@ def get_articles_paginated(limit: int = 50, min_score: int = 0, page: int = 1,
         "page": page,
         "page_size": page_size,
         "has_next": (page * page_size) < total,
+    }
+
+
+# ═══════════════════════════════════════════════════════════════
+# Cursor Pagination
+# ═══════════════════════════════════════════════════════════════
+
+def _encode_cursor(values: dict) -> str:
+    """将游标值编码为 opaque token。"""
+    return base64.urlsafe_b64encode(
+        json.dumps(values, sort_keys=True).encode()
+    ).decode().rstrip("=")
+
+
+def _decode_cursor(cursor: str) -> dict | None:
+    """解码 opaque cursor token。"""
+    try:
+        # 补齐 base64 padding
+        padded = cursor + "=" * (4 - len(cursor) % 4)
+        return json.loads(base64.urlsafe_b64decode(padded).decode())
+    except Exception:
+        return None
+
+
+def get_articles_cursor(limit: int = 50, min_score: int = 0,
+                         since: Optional[str] = None,
+                         cursor: Optional[str] = None) -> dict:
+    """
+    基于游标的分页获取文章。游标 = (score, published, id)。
+    向后兼容: cursor=None 时等同于首页。
+    """
+    conn = get_db()
+    where = ["score >= ?"]
+    params: list = [min_score]
+
+    if since:
+        where.append("published >= ?")
+        params.append(since)
+
+    if cursor:
+        decoded = _decode_cursor(cursor)
+        if decoded:
+            # (score DESC, published DESC, id): 用 < 翻页
+            where.append(
+                "(score < ? OR (score = ? AND published < ?) "
+                "OR (score = ? AND published = ? AND id < ?))"
+            )
+            params.extend([
+                decoded["score"], decoded["score"], decoded["published"],
+                decoded["score"], decoded["published"], decoded["id"],
+            ])
+
+    where_clause = " AND ".join(where)
+    rows = conn.execute(
+        f"SELECT * FROM articles WHERE {where_clause} "
+        "ORDER BY score DESC, published DESC, id DESC LIMIT ?",
+        params + [limit + 1]  # 多取一条判断 has_next
+    ).fetchall()
+
+    has_next = len(rows) > limit
+    items = rows[:limit]
+
+    conn.close()
+
+    next_cursor = None
+    if has_next and items:
+        last = items[-1]
+        next_cursor = _encode_cursor({
+            "score": last["score"],
+            "published": last["published"] or "",
+            "id": last["id"],
+        })
+
+    return {
+        "items": [_row_to_article(r) for r in items],
+        "next_cursor": next_cursor,
+        "has_next": has_next,
+        "count": len(items),
     }

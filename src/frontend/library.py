@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Optional
 from src.engine.utils import log, ensure_dir, ROOT_DIR
 from src.interfaces.i18n import t, i18n_js, nav_html
-from .frontend_styles import TYPE_COLORS, ANIMATION_CSS, RESPONSIVE_CSS, ERROR_CSS, INTELLIGENCE_CSS, SHARED_JS, THEME_VARS
+from .frontend_styles import ACTION_COMPONENT_CSS, ACCESSIBILITY_CSS, TYPE_COLORS, ANIMATION_CSS, RESPONSIVE_CSS, ERROR_CSS, INTELLIGENCE_CSS, SHARED_JS, THEME_VARS
 
 def generate_library(output_dir: Optional[Path] = None, lang: str = "zh") -> Path:
     if output_dir is None:
@@ -28,7 +28,7 @@ def _build_html(lang: str = "zh") -> str:
 {THEME_VARS}
 *{{margin:0;padding:0;box-sizing:border-box}}
 body{{font-family:var(--font-sans);background:var(--bg-primary);color:var(--text-primary);padding:24px;max-width:var(--content-max);margin:0 auto;animation:fadeIn .2s ease-out}}
-h1{{font-family:var(--font-display);font-size:38px;letter-spacing:-.035em;color:var(--text-primary);margin-bottom:8px}}
+h1{{font-family:var(--font-display);font-size:38px;line-height:1.1;letter-spacing:-.035em;color:var(--text-primary);margin-bottom:8px}}
 .page-heading{{min-height:112px;padding:4px 0 22px}}
 .date{{font-size:12px;color:var(--text-secondary);margin-bottom:16px}}
 .nav{{display:flex;min-height:34px;gap:8px;margin-bottom:24px;flex-wrap:wrap;align-items:center}}
@@ -106,19 +106,23 @@ html{{scroll-behavior:smooth}}
 .section-toggle{{padding:7px 12px;border:1px solid var(--border);border-radius:999px;background:transparent;color:var(--text-secondary);font-size:11px;cursor:pointer}}
 .section-toggle:hover{{border-color:var(--accent);color:var(--accent)}}
 .card-hover{{transition:all .2s ease}}.card-hover:hover{{transform:translateY(-2px);box-shadow:var(--shadow);border-color:#58a6ff44}}
-@media(max-width:480px){{.card{{padding:14px}}.card-header{{flex-wrap:wrap;gap:7px}}.card-header .name{{min-width:0}}.card-header .stars .intel-rating__label{{display:none}}.intel-rating-help p{{max-width:100%}}}}
+@media(max-width:480px){{.search-wrap input{{min-height:42px}}.related-views a{{display:inline-flex;min-height:34px;padding:7px 10px;align-items:center}}.card{{padding:14px 0}}.card-header{{flex-wrap:wrap;gap:7px}}.card-header .name{{min-width:0;font-size:14px}}.card-header .stars .intel-rating__label{{display:none}}.card-def{{font-size:12px;line-height:1.6}}.section-toggle{{min-height:36px}}.intel-rating-help p{{max-width:100%}}}}
 {ANIMATION_CSS}
 {RESPONSIVE_CSS}
 {ERROR_CSS}
 {INTELLIGENCE_CSS}
+{ACTION_COMPONENT_CSS}
+{ACCESSIBILITY_CSS}
 </style>
 </head>
 <body data-page-template="collection">
+<a class="skip-link" href="#main-content">{t("skip_to_content", lang)}</a>
 {nav_html("/library")}
 <header class="page-heading">
 <h1 data-i18n="library_title">{t("library_title", lang)}</h1>
 <p class="date" id="date-line">{t("loading", lang)}</p>
 </header>
+<main id="main-content">
 <nav class="related-views" aria-label="Related knowledge views">
   <a class="active" href="/library">{t("library_title", lang)}</a>
   <a href="/graph">{t("graph_title", lang)}</a>
@@ -135,7 +139,8 @@ html{{scroll-behavior:smooth}}
   <div class="category-nav-inner" id="category-tags"></div>
 </div>
 </div>
-<div id="content">{t("loading", lang)}</div>
+<div id="content" data-ui-state="loading">{t("loading", lang)}</div>
+</main>
 
 <script>
 {SHARED_JS}
@@ -194,42 +199,6 @@ function renderCategoryNav() {{
 }}
 
 function getColor(type) {{return COLORS[type] || "#999";}}
-
-function legacyFilterEntities() {{
-  const q = document.getElementById("search").value.toLowerCase().trim();
-  if (!q) {{ renderStats(allEntities); renderAll(allEntities); return; }}
-
-  // 1) 即时客户端过滤 — 始终可用，使用完整实体字段
-  const quickFiltered = allEntities.filter(e =>
-    (e.name||"").toLowerCase().includes(q) ||
-    (e.summary||"").toLowerCase().includes(q) ||
-    (Array.isArray(e.tags) ? e.tags.some(function(t){{return t.toLowerCase().includes(q)}}) : String(e.tags||"").toLowerCase().includes(q)) ||
-    (e.company||"").toLowerCase().includes(q) ||
-    (e.id||"").toLowerCase().includes(q)
-  );
-  renderStats(quickFiltered);
-  renderAll(quickFiltered, true);
-
-  // 2) 后台语义搜索增强 — 用搜索结果 ID 反查完整实体再渲染
-  if (window._searchTimer) clearTimeout(window._searchTimer);
-  window._searchTimer = setTimeout(async function() {{
-    try {{
-      const result = await apiFetch("/api/search?q=" + encodeURIComponent(q) + "&semantic=true&limit=61");
-      if (result.entities && result.entities.length > 0) {{
-        var searchIds = new Set(result.entities.map(function(e){{return e.id;}}));
-        var enriched = allEntities.filter(function(e){{return searchIds.has(e.id);}});
-        if (enriched.length > 0) {{
-          document.getElementById("date-line").textContent =
-            new Date().toISOString().slice(0,10) + " \\u00b7 " +
-            enriched.length + " " + T("entities_label") +
-            " \\u00b7 \\u2728 " + T("semantic_search");
-          renderStats(enriched);
-          renderAll(enriched, true);
-        }}
-      }}
-    }} catch(e) {{ /* 保持即时过滤结果，不覆盖 */ }}
-  }}, 400);
-}}
 
 function keywordMatches(e, q) {{
   return (e.name||"").toLowerCase().includes(q) ||
@@ -303,9 +272,12 @@ function renderAll(entities, revealAll=false) {{
     html += '</div>';
   }});
 
-  document.getElementById("content").innerHTML = html || '<div class="empty">' + T("no_results") + '</div>';
+  const content = document.getElementById("content");
+  content.innerHTML = html || '<div class="empty">' + T("no_results") + '</div>';
+  if (html) content.removeAttribute("data-ui-state");
+  else content.setAttribute("data-ui-state","empty");
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {{
-    document.getElementById("content").animate(
+    content.animate(
       [{{opacity:.35,transform:'translateY(4px)'}},{{opacity:1,transform:'translateY(0)'}}],
       {{duration:180,easing:'ease-out'}}
     );

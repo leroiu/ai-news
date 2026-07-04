@@ -1,0 +1,23 @@
+# Auto-generated draft — Concept Miner
+id: homophily-aware-graph-compression
+name: Homophily-aware Graph Compression
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.8，出现 2 次。
+  证据: Improving LLM Reasoning with Homophily-aware Structural and Semantic Text-Attributed Graph Compression | Improving LLM Reasoning with Homophily-aware Structural and Semantic Text-Attributed Graph Comp
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "Hacker News (AI 相关)"
+  - "TechCrunch AI"
+
+related: []

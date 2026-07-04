@@ -1,0 +1,22 @@
+# Auto-generated draft — Concept Miner
+id: human-agent-collaborative-paper-to-page-crafting
+name: Human-Agent Collaborative Paper-to-Page Crafting
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.8，出现 2 次。
+  证据: we reframe the problem, arguing that the solution lies in human-agent collaborative paper-to-page crafting | we reframe the problem, arguing that the solution lies in human-agent collaboration for cra
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "TechCrunch AI"
+
+related: []

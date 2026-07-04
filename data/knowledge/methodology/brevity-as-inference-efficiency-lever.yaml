@@ -1,0 +1,22 @@
+# Auto-generated draft — Concept Miner
+id: brevity-as-inference-efficiency-lever
+name: Brevity as Inference Efficiency Lever
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.9，出现 2 次。
+  证据: Brevity is the Soul of Inference Efficiency: Inducing Concision in VLMs via Data Curation... brevity is the missing inference-efficiency lever, and that pretraining data curation is a practical way to
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "TechCrunch AI"
+
+related: []

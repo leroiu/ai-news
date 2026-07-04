@@ -24,6 +24,7 @@ from .db_core import (
 from .db_entities import (
     upsert_entity, get_entities, get_entity, delete_entity,
     save_entity_version, get_entity_versions, get_entities_paginated,
+    get_entities_cursor,
 )
 
 # ── Relationships ──
@@ -36,6 +37,7 @@ from .db_relationships import (
 from .db_articles import (
     insert_articles, get_articles, get_article,
     get_articles_by_entity, get_similar_entities, get_articles_paginated,
+    get_articles_cursor,
 )
 
 # ── Pipeline / Collector ──

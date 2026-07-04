@@ -5,7 +5,8 @@ from typing import Optional
 
 from .frontend_styles import (
     RESET_CSS, NAV_CSS, SPINNER_CSS, SKELETON_CSS, BUTTON_CSS,
-    ANIMATION_CSS, RESPONSIVE_CSS, ERROR_CSS, INTELLIGENCE_CSS, SHARED_JS, TYPE_COLORS,
+    ANIMATION_CSS, RESPONSIVE_CSS, ERROR_CSS, INTELLIGENCE_CSS,
+    ACTION_COMPONENT_CSS, ACCESSIBILITY_CSS, SHARED_JS, TYPE_COLORS,
 )
 from src.interfaces.i18n import t, i18n_js, nav_html
 from src.engine.utils import ROOT_DIR, ensure_dir, log
@@ -30,7 +31,7 @@ def _build_html(lang: str = "zh") -> str:
 <title>{t("reports_title", lang)} — {t("platform_title", lang)}</title>
 <style>
 {RESET_CSS}
-body{{padding:24px;max-width:1100px;margin:0 auto;animation:fadeIn .35s ease-out}}
+body{{padding:24px;max-width:var(--content-max);margin:0 auto;animation:fadeIn .2s ease-out}}
 {NAV_CSS}
 {SPINNER_CSS}
 {BUTTON_CSS}
@@ -62,10 +63,14 @@ h1{{font-family:var(--font-display);font-size:38px;letter-spacing:-.035em;color:
 {RESPONSIVE_CSS}
 {ERROR_CSS}
 {INTELLIGENCE_CSS}
+{ACTION_COMPONENT_CSS}
+{ACCESSIBILITY_CSS}
 </style>
 </head>
 <body data-page-template="collection">
+<a class="skip-link" href="#main-content">{t("skip_to_content", lang)}</a>
 {nav_html("reports")}
+<main id="main-content">
 <h1 data-i18n="reports_title">{t("reports_title", lang)}</h1>
 <p class="subtitle" data-i18n="reports_subtitle">{t("reports_subtitle", lang)}</p>
 <details class="intel-rating-help"><summary data-i18n="editorial_rating_label">{t("editorial_rating_label", lang)}</summary><p data-i18n="editorial_rating_help">{t("editorial_rating_help", lang)}</p></details>
@@ -76,6 +81,7 @@ h1{{font-family:var(--font-display);font-size:38px;letter-spacing:-.035em;color:
   <h2 data-i18n="reports_weekly">📊 {t("reports_weekly", lang)}</h2>
   <div class="report-list" id="weekly-list"><div class="spinner"><div class="loading"></div></div></div>
 </section>
+</main>
 
 <section class="section">
   <h2 data-i18n="reports_monthly">📈 {t("reports_monthly", lang)}</h2>
@@ -104,7 +110,7 @@ function reportItem(r) {{
     '<a class="report-main" href="/report/'+encodeURIComponent(filename)+'">' +
     '<span class="icon">'+icon+'</span>' +
     '<span class="label">'+label+'</span>' +
-    '<span class="badge '+badgeType+'">'+TLbl(r.report_type)+'</span>' +
+    '<span class="badge '+badgeType+'">'+T('filter_'+r.report_type)+'</span>' +
     '<span class="meta">'+fetched+stars+'</span>' +
     '<span class="arrow">→</span></a>' +
     favoriteButtonHTML('report', filename, label, '', '/report/'+encodeURIComponent(filename)) +

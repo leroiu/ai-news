@@ -35,11 +35,15 @@ def generate_timeline(output_dir: Optional[Path] = None, lang: str = "zh") -> Pa
 {CSS_TEMPLATE}
 </head>
 <body data-page-template="narrative">
+<a class="skip-link" href="#main-content">{t("skip_to_content", lang)}</a>
 <div class="top-bar">
+{nav_html("/timeline")}
+<header class="timeline-heading">
 <h1 data-i18n="timeline_title">{t("timeline_title", lang)}</h1>
 <p class="date" id="date-line">{t("loading", lang)}</p>
-{nav_html("/timeline")}
+</header>
 </div>
+<main id="main-content">
 <nav class="related-views" aria-label="Related timeline views">
   <a class="active" href="/timeline">{t("timeline_title", lang)}</a>
   <a href="/events">{t("events_title", lang)}</a>
@@ -61,9 +65,10 @@ def generate_timeline(output_dir: Optional[Path] = None, lang: str = "zh") -> Pa
 <details class="intel-rating-help"><summary data-i18n="editorial_rating_label">{t("editorial_rating_label", lang)}</summary><p data-i18n="editorial_rating_help">{t("editorial_rating_help", lang)}</p></details>
 <div class="timeline-scroll" id="timeline-scroll">
   <div class="timeline-inner" id="timeline-inner">
-    <div class="timeline-empty" data-i18n="loading">{t("loading", lang)}</div>
+    <div class="timeline-empty" data-ui-state="loading" data-i18n="loading">{t("loading", lang)}</div>
   </div>
 </div>
+</main>
 
 <script>
 {i18n_js()}

@@ -5,7 +5,8 @@ from typing import Optional
 
 from .frontend_styles import (
     TYPE_COLORS, TYPE_ICONS, RESET_CSS, NAV_CSS, SPINNER_CSS,
-    ANIMATION_CSS, RESPONSIVE_CSS, ERROR_CSS, INTELLIGENCE_CSS, SHARED_JS,
+    ANIMATION_CSS, RESPONSIVE_CSS, ERROR_CSS, INTELLIGENCE_CSS,
+    ACTION_COMPONENT_CSS, ACCESSIBILITY_CSS, SHARED_JS,
 )
 from src.interfaces.i18n import t, i18n_js, nav_html
 from src.engine.utils import ROOT_DIR, ensure_dir, log
@@ -55,9 +56,12 @@ __ANIMATION_CSS__
 __RESPONSIVE_CSS__
 __ERROR_CSS__
 __INTELLIGENCE_CSS__
+__ACTION_COMPONENT_CSS__
+__ACCESSIBILITY_CSS__
 </style>
 </head>
 <body data-page-template="narrative" style="--event-color:__EVENT_COLOR__">
+<a class="skip-link" href="#events-root">__SKIP_TO_CONTENT__</a>
 __NAV__
 <header class="hero"><div class="eyebrow" data-i18n="events_eyebrow">__EYEBROW__</div><h1 data-i18n="events_title">__TITLE__</h1><p class="subtitle" data-i18n="events_subtitle">__SUBTITLE__</p></header>
 <section class="controls" aria-label="Event filters"><input id="event-search" type="search" data-i18n-placeholder="events_search_placeholder" placeholder="__SEARCH__"><select id="year-filter" aria-label="__YEAR_FILTER__"></select><span class="count" id="event-count"></span></section>
@@ -119,10 +123,12 @@ init();
         "__LANG__": lang, "__TITLE__": t("events_title", lang),
         "__EYEBROW__": t("events_eyebrow", lang), "__SUBTITLE__": t("events_subtitle", lang),
         "__SEARCH__": t("events_search_placeholder", lang), "__YEAR_FILTER__": t("events_year_filter", lang),
-        "__LOADING__": t("loading", lang), "__NAV__": nav_html("events"),
+        "__LOADING__": t("loading", lang), "__SKIP_TO_CONTENT__": t("skip_to_content", lang), "__NAV__": nav_html("events"),
         "__RESET_CSS__": RESET_CSS, "__NAV_CSS__": NAV_CSS, "__SPINNER_CSS__": SPINNER_CSS,
         "__ANIMATION_CSS__": ANIMATION_CSS, "__RESPONSIVE_CSS__": RESPONSIVE_CSS,
-        "__ERROR_CSS__": ERROR_CSS, "__INTELLIGENCE_CSS__": INTELLIGENCE_CSS, "__SHARED_JS__": SHARED_JS, "__I18N_JS__": i18n_js(),
+        "__ERROR_CSS__": ERROR_CSS, "__INTELLIGENCE_CSS__": INTELLIGENCE_CSS,
+        "__ACTION_COMPONENT_CSS__": ACTION_COMPONENT_CSS, "__ACCESSIBILITY_CSS__": ACCESSIBILITY_CSS,
+        "__SHARED_JS__": SHARED_JS, "__I18N_JS__": i18n_js(),
         "__EVENT_COLOR__": json.dumps(TYPE_COLORS["event"]), "__EVENT_ICON__": json.dumps(TYPE_ICONS["event"], ensure_ascii=False),
     }
     for key, value in replacements.items():

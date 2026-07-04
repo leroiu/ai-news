@@ -1,0 +1,23 @@
+# Auto-generated draft — Concept Miner
+id: nms-free-dual-head-detector
+name: NMS-free Dual-Head Detector
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.6，出现 2 次。
+  证据: building on YOLOv10, an NMS-free dual-head detector, we achieve state-of-the-art adaptation accuracy while being faster and more compact. | building on YOLOv10, an NMS-free dual-head detector
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "Hacker News (AI 相关)"
+  - "TechCrunch AI"
+
+related: []

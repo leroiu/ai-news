@@ -1,0 +1,23 @@
+# Auto-generated draft — Concept Miner
+id: look-but-dont-touch-with-sparse-autoencoders
+name: Look But Don't Touch with Sparse Autoencoders
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.6，出现 2 次。
+  证据: Look But Don't Touch with Sparse Autoencoders for Unlearning in Diffusion Models... We show that while SAEs reliably detect and localize semantic concepts within diffusion model activations, direct in
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "Hacker News (AI 相关)"
+  - "TechCrunch AI"
+
+related: []

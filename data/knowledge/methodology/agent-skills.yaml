@@ -1,0 +1,22 @@
+# Auto-generated draft — Concept Miner
+id: agent-skills
+name: Agent Skills
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.8，出现 2 次。
+  证据: agentskills/agentskills: Specification and documentation for Agent Skills | NVIDIA/skills: AI agent skills published by NVIDIA; alirezarezvani/claude-skills: 337 Claude Code skills & agent skills & pl
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "TechCrunch AI"
+
+related: []

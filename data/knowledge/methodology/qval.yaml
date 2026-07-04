@@ -1,0 +1,22 @@
+# Auto-generated draft — Concept Miner
+id: qval
+name: QVal
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.8，出现 2 次。
+  证据: QVal: Cheaply Evaluating Dense Supervision Signals for Long-Horizon LLM Agents... Dense supervision methods aim to solve this problem by scoring intermediate steps, from intrinsic confidence to self-d
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "TechCrunch AI"
+
+related: []

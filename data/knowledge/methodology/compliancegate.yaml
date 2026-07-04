@@ -1,0 +1,22 @@
+# Auto-generated draft — Concept Miner
+id: compliancegate
+name: ComplianceGate
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.9，出现 2 次。
+  证据: ComplianceGate: Classifier-Gated Multi-Tier LLM Routing for Inference in Regulated Industries. Large language models deployed in regulated industries operate under two constraints: compliance enforcem
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "TechCrunch AI"
+
+related: []

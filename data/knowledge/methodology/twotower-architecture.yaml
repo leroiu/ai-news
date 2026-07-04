@@ -1,0 +1,22 @@
+# Auto-generated draft — Concept Miner
+id: twotower-architecture
+name: TwoTower Architecture
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.9，出现 2 次。
+  证据: We propose TwoTower, a block-wise autoregressive diffusion model that decouples these roles into two towers: a froze... | Nemotron-Labs-TwoTower: Diffusion Language Modeling with Pretrained Autoregres
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "TechCrunch AI"
+
+related: []

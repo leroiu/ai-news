@@ -1,0 +1,22 @@
+# Auto-generated draft — Concept Miner
+id: humans-as-handlers-approach
+name: Humans-as-Handlers Approach
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.8，出现 2 次。
+  证据: I argue that within highly impactful areas (such as medicine or warfighting) there are grounds for us initially treating autonomous and opaque systems as relevantly analogous to... | AI, Trust, and Te
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "TechCrunch AI"
+
+related: []

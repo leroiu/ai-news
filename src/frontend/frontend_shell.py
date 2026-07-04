@@ -25,7 +25,7 @@ class PageShell:
 
 SHELL_CSS = """\
 .skip-link{position:fixed;top:8px;left:8px;z-index:2000;padding:8px 12px;background:var(--accent);color:#fff;border-radius:var(--radius-sm);transform:translateY(-150%)}.skip-link:focus{transform:translateY(0)}
-.app-shell{width:min(100%,1200px);margin:0 auto;padding:24px}.app-shell--wide{width:min(100%,1440px)}.app-shell__nav{position:relative;z-index:10}.app-shell__main:focus{outline:none}
+.app-shell{width:min(100%,var(--content-max));margin:0 auto;padding:24px}.app-shell--wide{width:min(100%,var(--content-max))}.app-shell__nav{position:relative;z-index:10;min-height:58px}.app-shell__main:focus{outline:none}
 @media(max-width:768px){.app-shell{padding:16px}}@media(max-width:480px){.app-shell{padding:12px}}
 """
 

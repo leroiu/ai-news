@@ -1,0 +1,22 @@
+# Auto-generated draft — Concept Miner
+id: holistic-trace-judging
+name: Holistic Trace Judging
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.8，出现 2 次。
+  证据: Modality-Driven Search with Holistic Trace Judging for ARC-AGI-2... selection among candidates, not just generation, the central challenge. | Modality-Driven Search with Holistic Trace Judging for ARC
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "TechCrunch AI"
+
+related: []

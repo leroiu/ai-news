@@ -9,6 +9,7 @@ from src.engine.utils import ROOT_DIR, ensure_dir, log
 
 
 RESEARCH_CSS = """\
+.output-placeholder[hidden]{display:none}
 .research-layout{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(300px,.55fr);gap:16px;align-items:stretch}.research-layout>.ui-card{height:100%}.research-form{display:flex;flex-direction:column;gap:18px}.field-label{display:block;margin-bottom:7px;color:var(--text-secondary);font-size:12px;font-weight:650}.research-input,.depth-select{width:100%;padding:12px 14px;background:var(--bg-primary);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-primary);font:inherit}.research-input{font-size:15px}.research-input:focus,.depth-select:focus{outline:2px solid var(--accent-subtle);border-color:var(--accent)}.research-settings{display:grid;grid-template-columns:minmax(0,1fr) minmax(210px,.55fr);gap:12px;align-items:end}.depth-select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--text-muted) 50%),linear-gradient(135deg,var(--text-muted) 50%,transparent 50%);background-position:calc(100% - 16px) 50%,calc(100% - 11px) 50%;background-size:5px 5px;background-repeat:no-repeat;padding-right:34px}.agent-toggle{display:flex;min-height:43px;padding:9px 12px;align-items:center;gap:9px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--bg-elevated);color:var(--text-secondary);font-size:12px;cursor:pointer}.agent-toggle:hover{border-color:var(--accent)}.agent-toggle input{width:15px;height:15px;accent-color:var(--accent)}.form-footer{display:flex;justify-content:space-between;gap:16px;align-items:center}.research-submit{min-width:138px}.research-submit .ui-button{width:100%;min-height:40px}.research-status{min-height:18px;color:var(--text-secondary);font-size:11px}
 .research-guide{display:grid;gap:16px}.process-step{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start}.process-step__index{display:grid;width:28px;height:28px;place-items:center;border-radius:50%;background:var(--accent-subtle);color:var(--accent);font-size:11px;font-weight:750}.process-step strong{display:block;margin-bottom:3px;color:var(--text-primary);font-size:12px}.process-step p,.scope-note{color:var(--text-secondary);font-size:11px;line-height:1.55}.scope-note{padding:12px;border-left:2px solid var(--warning);background:var(--bg-elevated);border-radius:0 var(--radius-sm) var(--radius-sm) 0}
 .output-stage{margin-top:20px}.output-placeholder{display:grid;min-height:180px;padding:34px 20px;place-content:center;text-align:center;border:1px dashed var(--border);border-radius:var(--radius);background:linear-gradient(180deg,var(--bg-card),transparent);color:var(--text-secondary)}.output-placeholder__icon{display:grid;width:42px;height:42px;margin:0 auto 12px;place-items:center;border:1px solid var(--border);border-radius:50%;background:var(--bg-elevated);color:var(--accent);font-size:20px}.output-placeholder h2{margin-bottom:6px;color:var(--text-primary);font-size:16px}.output-placeholder p{max-width:620px;font-size:12px;line-height:1.65}.research-progress{display:none}.research-progress.visible{display:block}.progress-copy{margin-bottom:16px;color:var(--text-secondary);font-size:12px}.progress-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.progress-step{position:relative;padding:16px;background:var(--bg-elevated);border-radius:var(--radius-sm);overflow:hidden}.progress-step:before{content:"";position:absolute;inset:0 auto 0 0;width:2px;background:var(--accent)}.progress-step strong{display:block;margin-bottom:10px;font-size:11px;color:var(--text-primary)}
@@ -39,15 +40,20 @@ function setResearchState(state, message) {
   progress.classList.toggle('visible', state === 'loading');
   placeholder.hidden = state !== 'idle';
   report.classList.toggle('visible', state === 'done');
+  const stage = document.querySelector('.output-stage');
+  if (state === 'loading') stage.setAttribute('data-ui-state', 'processing');
+  else if (state === 'error') stage.setAttribute('data-ui-state', 'error');
+  else stage.removeAttribute('data-ui-state');
   document.getElementById('research-status').textContent = message || '';
 }
 
 function showResearchError(message) {
   const area = document.getElementById('error-area');
-  area.innerHTML = '<div class="error-box ui-state ui-state--error" data-ui-state="error" role="alert">' + esc(message) + '</div>';
+  area.innerHTML = '<div class="error-box ui-state ui-state--error" data-ui-state="error" role="alert"><strong>'+esc(T('research_error_title'))+'</strong><p>' + esc(message) + '</p><button class="ui-button ui-button--secondary ui-button--small" type="button" onclick="startResearch()">'+esc(T('retry'))+'</button></div>';
 }
 
 async function startResearch() {
+  if (currentResearchState === 'loading') return;
   const topic = document.getElementById('research-topic').value.trim();
   const button = document.getElementById('research-btn');
   if (!topic) { showResearchError(T('research_topic_required')); document.getElementById('research-topic').focus(); return; }
@@ -59,11 +65,12 @@ async function startResearch() {
     const data = await apiFetch('/api/research', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({topic, depth:document.getElementById('research-depth').value, lang:localStorage.getItem('lang') || 'zh', agent: useAgent})});
     if (data.error) throw new Error(data.error);
     lastResearchReport = data.report || {};
+    sessionStorage.setItem('ai_observatory_last_research', JSON.stringify(lastResearchReport));
     renderResearchReport(lastResearchReport);
     setResearchState('done', T('research_done'));
     uiAnnounce(T('research_done'));
   } catch (error) {
-    setResearchState('idle', '');
+    setResearchState('error', '');
     showResearchError(error.message || T('research_ai_error'));
   } finally { uiSetBusy(button, false); }
 }
@@ -100,7 +107,18 @@ function renderResearchReport(report) {
 }
 
 function sectionHtml(key, content, wide) { return '<section class="report-section'+(wide?' report-section--wide':'')+'"><h2>'+esc(T(key))+'</h2>'+content+'</section>'; }
-function init() { updateResearchI18n(); }
+function init() {
+  updateResearchI18n();
+  try {
+    const saved = JSON.parse(sessionStorage.getItem('ai_observatory_last_research') || 'null');
+    if (saved) {
+      lastResearchReport = saved;
+      document.getElementById('research-topic').value = saved._meta?.topic || '';
+      renderResearchReport(saved);
+      setResearchState('done', T('research_restored'));
+    }
+  } catch (_) { sessionStorage.removeItem('ai_observatory_last_research'); }
+}
 document.getElementById('research-topic').addEventListener('keydown', event => { if (event.key === 'Enter') startResearch(); });
 init();
 """
@@ -138,5 +156,5 @@ def _build_html(lang: str = "zh") -> str:
     body = header + f'<div class="research-layout">{brief_card}{guide_card}</div>' + output
     return render_page(PageShell(
         title_key="research_title", current_page="research", body_html=body,
-        lang=lang, extra_css=RESEARCH_CSS, extra_js=RESEARCH_JS, wide=True, page_kind="workbench",
+        lang=lang, extra_css=RESEARCH_CSS, extra_js=RESEARCH_JS, page_kind="workbench",
     ))

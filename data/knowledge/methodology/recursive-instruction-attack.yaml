@@ -1,0 +1,22 @@
+# Auto-generated draft — Concept Miner
+id: recursive-instruction-attack
+name: Recursive Instruction Attack
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.8，出现 2 次。
+  证据: If you give a chatbot a few recursive instructions, it will start using a large number of tokens and hallucinating... this generation of AI's version of 'This sentence is false' | If you give a chatbo
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "TechCrunch AI"
+
+related: []

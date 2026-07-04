@@ -84,6 +84,9 @@ I18N: dict[str, dict[str, str]] = {
 
     # ── Graph ──
     "graph_title":        {"zh": "AI 知识图谱", "en": "AI Knowledge Graph"},
+    "graph_view_switch":  {"zh": "图谱视图切换", "en": "Graph view switch"},
+    "graph_2d_view":      {"zh": "2D 视图", "en": "2D View"},
+    "graph_3d_view":      {"zh": "3D 视图", "en": "3D View"},
     "graph_legend":       {"zh": "图例", "en": "Legend"},
     "graph_2d_mode":      {"zh": "2D 视图", "en": "2D View"},
     "graph_stats":        {"zh": "节点: {n} · 边: {e}", "en": "Nodes: {n} · Edges: {e}"},
@@ -222,6 +225,8 @@ I18N: dict[str, dict[str, str]] = {
     "research_ref_entities":    {"zh": "引用实体", "en": "Referenced Entities"},
     "research_no_results":      {"zh": "未找到相关知识卡片或文章。请尝试更具体的关键词。", "en": "No relevant knowledge cards or articles found. Try a more specific topic."},
     "research_ai_error":        {"zh": "AI 研究报告生成失败，请稍后重试。", "en": "AI research report generation failed. Please try again later."},
+    "research_error_title":     {"zh": "研究未能完成", "en": "Research could not be completed"},
+    "research_restored":        {"zh": "已恢复上次研究结果", "en": "Previous research restored"},
     "research_eyebrow":         {"zh": "Research Workspace", "en": "Research Workspace"},
     "research_brief_title":     {"zh": "定义研究任务", "en": "Define the research brief"},
     "research_depth_label":     {"zh": "研究深度", "en": "Research depth"},
@@ -243,6 +248,9 @@ I18N: dict[str, dict[str, str]] = {
     # ── My Workspace ──
     "my_title":                 {"zh": "我的沉淀", "en": "My Library"},
     "my_subtitle":              {"zh": "收藏、分类与标签会在这里成为长期可回看的个人资产。", "en": "Saved items, categories, and tags become your long-term personal knowledge assets here."},
+    "my_search_placeholder":    {"zh": "搜索收藏内容或标签…", "en": "Search saved items or tags…"},
+    "my_filter_empty_desc":     {"zh": "调整搜索词、内容类型、分类或阅读状态。", "en": "Adjust the query, content type, category, or reading state."},
+    "my_organize":              {"zh": "整理", "en": "Organize"},
     "my_eyebrow":               {"zh": "Personal Workspace", "en": "Personal Workspace"},
     "my_favorites":             {"zh": "我的收藏", "en": "Saved Items"},
     "my_overview":              {"zh": "收藏概览", "en": "Saved Overview"},
@@ -411,9 +419,20 @@ def nav_html(current_page: str = "") -> str:
     items = []
     for path, key in pages:
         cls = 'active' if current_page in aliases.get(key, {path, key}) or (current_page == "" and path == "/") else ''
-        items.append(f'<a href="{path}" class="{cls}" data-i18n="{key}">{t(key, "zh")}</a>')
+        current = ' aria-current="page"' if cls else ''
+        items.append(f'<a href="{path}" class="{cls}" data-i18n="{key}"{current}>{t(key, "zh")}</a>')
 
-    theme_btn = '<button id="theme-toggle" onclick="toggleTheme()" class="lang-btn" title="Switch theme / 切换主题">☀️</button>'
-    lang_btn = f'<button id="lang-toggle" onclick="switchLang()" class="lang-btn" title="Switch language / 切换语言">{t("lang_toggle", "zh")}</button>'
+    auth_link = (
+        '<a id="auth-link" href="/login" style="margin-left:auto;font-size:12px;padding:6px 14px;'
+        'border-radius:6px;text-decoration:none;color:var(--text-secondary)">登录</a>'
+        '<script>document.addEventListener("DOMContentLoaded",function(){'
+        'var a=document.getElementById("auth-link");if(!a)return;'
+        'var u=getCurrentUser();'
+        'if(u){a.textContent=u.username;setTimeout(function(){a.href="/my";a.style.cursor="pointer"},0);}'
+        'else{a.textContent="登录";a.href="/login";}'
+        '});</script>'
+    )
+    theme_btn = '<button id="theme-toggle" type="button" onclick="toggleTheme()" class="lang-btn" aria-label="Switch theme / 切换主题" title="Switch theme / 切换主题">☀️</button>'
+    lang_btn = f'<button id="lang-toggle" type="button" onclick="switchLang()" class="lang-btn" aria-label="Switch language / 切换语言" title="Switch language / 切换语言">{t("lang_toggle", "zh")}</button>'
 
-    return f'<div class="nav">{" ".join(items)}{theme_btn}{lang_btn}</div>'
+    return f'<nav class="nav" aria-label="Primary navigation / 主导航">{" ".join(items)}{theme_btn}{lang_btn}{auth_link}</nav>'

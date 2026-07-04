@@ -17,10 +17,11 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
 
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, Query, HTTPException
+from fastapi import FastAPI, Query, HTTPException, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
+from pydantic import BaseModel
 from src.engine.database import (
     init_db, get_entities, get_entity, get_relationships,
     get_articles, get_article, get_reports, search, get_stats, get_health,
@@ -28,12 +29,19 @@ from src.engine.database import (
     upsert_entity, delete_entity, upsert_relationship, delete_relationship,
     save_entity_version, get_entity_versions,
     get_entities_paginated, get_articles_paginated,
+    get_entities_cursor, get_articles_cursor,
     run_migrations,
 )
+from src.engine.db_core import get_db
 from src.engine.utils import ROOT_DIR
 from src.interfaces.schemas import (
     EntityCreate, EntityUpdate, RelationshipCreate,
     PipelineRunRequest, ResearchRequest,
+)
+from src.api.auth import router as auth_router
+from src.api.middleware import (
+    RateLimitMiddleware, register_error_handlers,
+    get_current_user, get_optional_user, require_admin,
 )
 
 REPORTS_DIR = ROOT_DIR / "reports"
@@ -42,11 +50,24 @@ REPORTS_DIR = ROOT_DIR / "reports"
 @asynccontextmanager
 async def lifespan(application: FastAPI):
     init_db()
+    # 初次启动时重建 FTS5 索引
+    try:
+        from src.engine.db_core import rebuild_fts
+        rebuild_fts()
+    except Exception:
+        pass
     yield
 
 
 app = FastAPI(title="AI Intelligence Platform", version="1.6", lifespan=lifespan)
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
+
+# Rate limit + 统一错误处理
+app.add_middleware(RateLimitMiddleware, max_requests=120, window_seconds=60)
+register_error_handlers(app)
+
+# Auth router
+app.include_router(auth_router)
 
 # 静态文件 — reports files (日报、周报等 .md 文件)
 if REPORTS_DIR.exists():
@@ -103,6 +124,18 @@ def my_page():
     return FileResponse(str(REPORTS_DIR / "my.html"))
 
 
+@app.get("/login")
+def login_page():
+    """登录/注册页面"""
+    return FileResponse(str(REPORTS_DIR / "auth.html"))
+
+
+@app.get("/register")
+def register_page():
+    """注册页面（与登录同一页面，tab 切换）"""
+    return FileResponse(str(REPORTS_DIR / "auth.html"))
+
+
 @app.get("/entity/{entity_id}")
 def entity_page(entity_id: str):
     """所有实体共用的详情页，entity_id 由前端 JS 从 URL 提取"""
@@ -119,11 +152,97 @@ def report_reader_page(filename: str):
     return FileResponse(str(REPORTS_DIR / "report-reader.html"))
 
 
+# ── Auth override ──
+
+@app.get("/api/auth/me")
+def api_auth_me(user: dict = Depends(get_current_user)):
+    """获取当前登录用户信息。"""
+    return {
+        "id": user["id"], "username": user["username"],
+        "email": user.get("email", ""), "role": user["role"],
+        "created_at": user.get("created_at", ""),
+    }
+
+
+# ── Favorites API ──
+
+class FavoriteToggle(BaseModel):
+    item_type: str
+    item_id: str
+
+
+@app.get("/api/favorites")
+def api_get_favorites(user: dict = Depends(get_current_user)):
+    conn = get_db()
+    rows = conn.execute(
+        "SELECT item_type, item_id, created_at FROM favorites WHERE user_id=? ORDER BY created_at DESC",
+        (user["id"],)
+    ).fetchall()
+    conn.close()
+    return [dict(r) for r in rows]
+
+
+@app.post("/api/favorites", status_code=201)
+def api_add_favorite(payload: FavoriteToggle, user: dict = Depends(get_current_user)):
+    conn = get_db()
+    conn.execute(
+        "INSERT OR IGNORE INTO favorites (user_id, item_type, item_id) VALUES (?,?,?)",
+        (user["id"], payload.item_type, payload.item_id),
+    )
+    conn.commit()
+    conn.close()
+    return {"status": "ok"}
+
+
+@app.delete("/api/favorites")
+def api_remove_favorite(payload: FavoriteToggle, user: dict = Depends(get_current_user)):
+    conn = get_db()
+    conn.execute(
+        "DELETE FROM favorites WHERE user_id=? AND item_type=? AND item_id=?",
+        (user["id"], payload.item_type, payload.item_id),
+    )
+    conn.commit()
+    conn.close()
+    return {"status": "ok"}
+
+
+# ── Reading History API ──
+
+class ReadingRecord(BaseModel):
+    article_id: str
+
+
+@app.get("/api/reading-history")
+def api_get_history(limit: int = Query(50), user: dict = Depends(get_current_user)):
+    conn = get_db()
+    rows = conn.execute(
+        "SELECT article_id, read_at FROM reading_history WHERE user_id=? ORDER BY read_at DESC LIMIT ?",
+        (user["id"], limit)
+    ).fetchall()
+    conn.close()
+    return [dict(r) for r in rows]
+
+
+@app.post("/api/reading-history", status_code=201)
+def api_record_read(payload: ReadingRecord, user: dict = Depends(get_current_user)):
+    conn = get_db()
+    conn.execute(
+        "INSERT OR REPLACE INTO reading_history (user_id, article_id, read_at) VALUES (?,?,datetime('now'))",
+        (user["id"], payload.article_id),
+    )
+    conn.commit()
+    conn.close()
+    return {"status": "ok"}
+
+
 # ── API ──
 
 @app.get("/api/entities")
-def api_entities(type: str = Query(None), page: int = Query(0), page_size: int = Query(0)):
-    """获取实体列表。传 page/page_size 启用分页模式。"""
+def api_entities(type: str = Query(None), page: int = Query(0), page_size: int = Query(0),
+                 cursor: str = Query(None), limit: int = Query(50)):
+    """获取实体列表。支持 page 分页或 cursor 分页。cursor 参数优先。"""
+    if cursor:
+        return get_entities_cursor(type or None, limit=limit, cursor=cursor)
     if page > 0:
         return get_entities_paginated(type or None, page=page, page_size=page_size or 50)
     return get_entities(type or None)
@@ -170,8 +289,11 @@ def api_relationships(entity_id: str = Query(None)):
 
 
 @app.get("/api/articles")
-def api_articles(limit: int = 50, min_score: int = 0, page: int = Query(0)):
-    """获取文章列表。传 page>0 启用分页模式。"""
+def api_articles(limit: int = 50, min_score: int = 0, page: int = Query(0),
+                 cursor: str = Query(None)):
+    """获取文章列表。支持 page 分页或 cursor 分页。cursor 参数优先。"""
+    if cursor:
+        return get_articles_cursor(limit=limit, min_score=min_score, cursor=cursor)
     if page > 0:
         return get_articles_paginated(limit=limit, min_score=min_score, page=page, page_size=limit or 50)
     return get_articles(limit=limit, min_score=min_score)
@@ -221,7 +343,8 @@ def api_embeddings_status():
 
 
 @app.post("/api/embeddings/rebuild")
-def api_rebuild_embeddings(force: bool = False):
+def api_rebuild_embeddings(force: bool = False,
+                            admin: dict = Depends(require_admin)):
     """重建所有知识卡片的嵌入向量。POST 防止误触发。"""
     from src.engine.embeddings import rebuild_card_embeddings
     return rebuild_card_embeddings(force=force)
@@ -281,7 +404,7 @@ def api_run_migrations():
 # ── Entity Write API ──
 
 @app.post("/api/entities", status_code=201)
-def api_create_entity(payload: EntityCreate):
+def api_create_entity(payload: EntityCreate, admin: dict = Depends(require_admin)):
     """创建新知识卡片。id 和 name 必填。"""
     existing = get_entity(payload.id)
     if existing:
@@ -306,7 +429,8 @@ def api_create_entity(payload: EntityCreate):
 
 
 @app.put("/api/entities/{entity_id}")
-def api_update_entity(entity_id: str, payload: EntityUpdate):
+def api_update_entity(entity_id: str, payload: EntityUpdate,
+                      admin: dict = Depends(require_admin)):
     """更新知识卡片。只更新传入的字段。自动保存历史版本。"""
     existing = get_entity(entity_id)
     if not existing:
@@ -325,7 +449,7 @@ def api_update_entity(entity_id: str, payload: EntityUpdate):
 
 
 @app.delete("/api/entities/{entity_id}")
-def api_delete_entity(entity_id: str):
+def api_delete_entity(entity_id: str, admin: dict = Depends(require_admin)):
     """删除知识卡片及其关联关系和嵌入向量。"""
     if not delete_entity(entity_id):
         raise HTTPException(status_code=404, detail="Entity not found")
@@ -335,7 +459,8 @@ def api_delete_entity(entity_id: str):
 # ── Relationship Write API ──
 
 @app.post("/api/relationships", status_code=201)
-def api_create_relationship(payload: RelationshipCreate):
+def api_create_relationship(payload: RelationshipCreate,
+                             admin: dict = Depends(require_admin)):
     """创建实体间关系。source_id, target_id, rel_type 必填。"""
     if not get_entity(payload.source_id):
         raise HTTPException(status_code=404, detail=f"Source entity '{payload.source_id}' not found")
@@ -348,7 +473,7 @@ def api_create_relationship(payload: RelationshipCreate):
 
 
 @app.delete("/api/relationships/{rel_id}")
-def api_delete_relationship(rel_id: int):
+def api_delete_relationship(rel_id: int, admin: dict = Depends(require_admin)):
     """删除关系。"""
     if not delete_relationship(rel_id):
         raise HTTPException(status_code=404, detail="Relationship not found")
@@ -358,7 +483,8 @@ def api_delete_relationship(rel_id: int):
 # ── Pipeline Trigger API ──
 
 @app.post("/api/pipeline/run")
-def api_run_pipeline(payload: PipelineRunRequest = PipelineRunRequest()):
+def api_run_pipeline(payload: PipelineRunRequest = PipelineRunRequest(),
+                     admin: dict = Depends(require_admin)):
     """手动触发流水线。支持 daily/weekly/monthly 模式，可选 Agent 模式。"""
     concept_agent = payload.concept_agent or payload.agent
     trend_agent = payload.trend_agent or payload.agent

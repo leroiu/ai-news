@@ -1,0 +1,22 @@
+# Auto-generated draft — Concept Miner
+id: implicit-policy-in-self-generated-qa
+name: Implicit Policy in Self-Generated QA
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.8，出现 2 次。
+  证据: It is an implicit policy that both selects which evidence becomes training signal and decides how that evidence is answe... | We show that this generation step is not neutral preprocessing. It is an i
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "TechCrunch AI"
+
+related: []

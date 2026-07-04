@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Optional
 from src.engine.utils import log, ensure_dir, ROOT_DIR
 from src.interfaces.i18n import t, i18n_js, nav_html
-from .frontend_styles import ANIMATION_CSS, RESPONSIVE_CSS, ERROR_CSS, INTELLIGENCE_CSS, SHARED_JS, THEME_VARS
+from .frontend_styles import ACTION_COMPONENT_CSS, ACCESSIBILITY_CSS, ANIMATION_CSS, RESPONSIVE_CSS, ERROR_CSS, INTELLIGENCE_CSS, SHARED_JS, THEME_VARS
 
 
 def generate_dashboard(output_dir: Optional[Path] = None, lang: str = "zh") -> Path:
@@ -31,12 +31,12 @@ def _build_html(lang: str = "zh") -> str:
 <style>
 {THEME_VARS}
 *{{margin:0;padding:0;box-sizing:border-box}}
-body{{font-family:var(--font-sans);background:var(--bg-primary);color:var(--text-primary);padding:36px 28px 56px;max-width:var(--content-max);margin:0 auto;animation:fadeIn .35s ease-out}}
-h1{{max-width:720px;font-family:var(--font-display);font-size:46px;font-weight:650;color:var(--text-primary);margin-bottom:10px;letter-spacing:-.045em;line-height:1.08}}
-.hero-subtitle{{font-family:var(--font-display);font-size:20px;color:var(--text-secondary);line-height:1.55;margin-bottom:6px;max-width:760px}}
-.hero-desc{{font-size:13px;color:var(--text-muted);line-height:1.6;margin-bottom:12px;max-width:760px}}
+body{{font-family:var(--font-sans);background:var(--bg-primary);color:var(--text-primary);padding:24px;max-width:var(--content-max);margin:0 auto;animation:fadeIn .2s ease-out}}
+h1{{max-width:720px;font-family:var(--font-display);font-size:38px;font-weight:650;color:var(--text-primary);margin-bottom:8px;letter-spacing:-.035em;line-height:1.1}}
+.hero-subtitle{{font-family:var(--font-display);font-size:16px;color:var(--text-secondary);line-height:1.5;margin-bottom:4px;max-width:760px}}
+.hero-desc{{display:none}}
 .date{{font-size:11px;color:var(--text-muted);margin:18px 0 28px;letter-spacing:.04em}}
-.nav{{display:flex;gap:4px;margin-bottom:30px;padding:5px;border:1px solid var(--border);border-radius:10px;flex-wrap:wrap;align-items:center;width:max-content;max-width:100%}}
+.nav{{display:flex;min-height:34px;gap:8px;margin-bottom:24px;flex-wrap:wrap;align-items:center}}
 .nav a{{padding:7px 14px;border-radius:6px;font-size:12px;text-decoration:none;color:var(--text-secondary);background:transparent;transition:background .15s,color .15s}}
 .nav a:hover{{background:var(--border)}}
 .nav a.active{{background:var(--accent-subtle);color:var(--accent)}}
@@ -77,10 +77,12 @@ h1{{max-width:720px;font-family:var(--font-display);font-size:46px;font-weight:6
 @keyframes spin{{to{{transform:rotate(360deg)}}}}
 .report-highlight{{position:relative;overflow:hidden;background:var(--bg-card);border-color:var(--border-strong)}}
 .report-highlight:before{{content:"TODAY / BRIEFING";display:block;margin-bottom:16px;color:var(--accent);font-size:10px;font-weight:700;letter-spacing:.16em}}
-.home-masthead{{position:relative;padding:24px 0 30px;margin-bottom:28px;border-bottom:1px solid var(--border)}}
-.home-masthead:before{{content:"AI OBSERVATORY / DAILY INTELLIGENCE";display:block;margin-bottom:18px;color:var(--accent);font-size:10px;font-weight:750;letter-spacing:.18em}}
+.home-masthead{{position:relative;padding:0 0 30px;margin-bottom:28px;border-bottom:1px solid var(--border)}}
+.home-masthead:before{{display:none}}
 .home-masthead .date{{margin-bottom:22px}}
-.home-masthead .nav{{margin-bottom:0}}
+.home-masthead .nav{{margin-bottom:24px}}
+.home-heading{{min-height:112px;padding:4px 0 22px}}
+.home-heading .date{{margin:8px 0 0}}
 .editorial-section{{background:transparent;border:0;border-top:1px solid var(--border-strong);border-radius:0;padding:24px 0 30px}}
 #reports-hero{{margin-bottom:34px!important;border-top-color:var(--accent)}}
 #reports-hero>div{{gap:0!important;border-top:1px solid var(--border)}}
@@ -102,6 +104,8 @@ h1{{max-width:720px;font-family:var(--font-display);font-size:46px;font-weight:6
 {RESPONSIVE_CSS}
 {ERROR_CSS}
 {INTELLIGENCE_CSS}
+{ACTION_COMPONENT_CSS}
+{ACCESSIBILITY_CSS}
 @media(max-width:768px){{[data-theme="light"] .editorial-section{{margin-left:0;margin-right:0}}}}
 @media(max-width:480px){{
   body{{padding:18px 16px 40px}}h1{{font-size:38px}}.hero-subtitle{{font-size:17px}}.hero-desc{{font-size:12px}}.nav{{width:100%;flex-wrap:nowrap;overflow-x:auto}}.card{{padding:18px}}.grid{{gap:10px}}
@@ -117,13 +121,18 @@ h1{{max-width:720px;font-family:var(--font-display);font-size:46px;font-weight:6
 </style>
 </head>
 <body data-page-template="overview">
+<a class="skip-link" href="#main-content">{t("skip_to_content", lang)}</a>
 <header class="home-masthead">
+{nav_html("today")}
+<div class="home-heading">
 <h1 data-i18n="platform_title">{t("platform_title", lang)}</h1>
 <p class="hero-subtitle" data-i18n="platform_subtitle">{t("platform_subtitle", lang)}</p>
 <p class="hero-desc" data-i18n="platform_description">{t("platform_description", lang)}</p>
 <p class="date" id="date-line">{t("loading", lang)}</p>
-{nav_html("today")}
+</div>
 </header>
+
+<main id="main-content">
 
 <div class="card report-highlight editorial-section" id="reports-hero" style="margin-bottom:16px">
   <div class="spinner"><div class="loading"></div><p style="margin-top:12px" data-i18n="loading_reports">{t("loading_reports", lang)}</p></div>
@@ -137,6 +146,7 @@ h1{{max-width:720px;font-family:var(--font-display);font-size:46px;font-weight:6
   <h2 data-i18n="report_history">{t("report_history", lang)}</h2>
   <div class="spinner"><div class="loading"></div></div>
 </div>
+</main>
 
 <p class="footer"><span data-i18n="footer_text">{t("footer_text", lang)}</span> · <a href="/" data-i18n="today">{t("today", lang)}</a> · <a href="/library" data-i18n="topics">{t("topics", lang)}</a> · <a href="/timeline" data-i18n="timeline">{t("timeline", lang)}</a> · <a href="/research" data-i18n="research">{t("research", lang)}</a> · <a href="/my" data-i18n="my">{t("my", lang)}</a></p>
 

@@ -33,6 +33,7 @@ def test_dashboard_contains_nav():
     assert 'href="/research"' in html
     assert 'href="/my"' in html
     assert 'theme-toggle' in html
+    assert html.index('class="nav"') < html.index('<h1')
 
 
 def test_dashboard_has_loading_state():
@@ -70,6 +71,12 @@ def test_library_generates_html():
     assert "CATEGORY_PREVIEW_LIMIT = 4" in html
     assert "toggleCategory" in html
     assert "show_all_entities" in html
+    assert "searchVersion" in html
+    assert "setCategory" in html
+    assert 'role="link"' in html
+    assert html.index('class="nav"') < html.index('<h1')
+    assert 'class="library-tools"' in html
+    assert 'data-ui-state="loading"' in html
 
 
 # ── Entity Page ──
@@ -120,6 +127,9 @@ def test_my_page_generates_html():
     assert "账号同步待接入" in html
     assert "uiUpdatePersonalMeta" in html
     assert "reading_state" in html
+    assert 'id="my-search"' in html
+    assert 'id="my-filter-controls"' in html
+    assert "activeQuery" in html
 
 
 def test_article_detail_page_generates_traceable_reader():
@@ -153,6 +163,8 @@ def test_kg_d3_generates_html():
     assert "d3" in html.lower()
     assert "TYPE_COLORS" in html
     assert "var(--bg-primary)" in html
+    assert 'href="/graph3d"' in html
+    assert "graph_2d_view" in html
 
 
 # ── 3D Graph ──
@@ -164,6 +176,8 @@ def test_kg_3d_generates_html():
         html = path.read_text(encoding="utf-8")
     assert "<!DOCTYPE html>" in html
     assert ("three" in html.lower() or "3d-force-graph" in html.lower())
+    assert 'href="/graph"' in html
+    assert "graph_3d_view" in html
 
 
 # ── Timeline ──
@@ -178,6 +192,9 @@ def test_timeline_generates_html():
         assert "getTimelineDate(a)" in html
     assert "<!DOCTYPE html>" in html
     assert "var(--bg-primary)" in html
+    assert html.index('class="nav"') < html.index('<h1')
+    assert "grid-template-columns:44px minmax(0,1fr)" in html
+    assert 'data-ui-state="loading"' in html
 
 
 # ── 响应式断点 ──
@@ -343,6 +360,9 @@ def test_research_page_has_form():
     assert 'id="research-depth"' in html
     assert 'startResearch()' in html
     assert 'report-container' in html
+    assert 'ai_observatory_last_research' in html
+    assert 'research_error_title' in html
+    assert "T('retry')" in html
 
 
 def test_research_page_has_nav():

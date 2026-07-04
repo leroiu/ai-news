@@ -6,7 +6,7 @@ TYPE_COLORS、TYPE_ICONS、CSS_TEMPLATE、JS_TEMPLATE。
 使用共享设计系统 (frontend_styles.py) 消除重复。
 """
 import json
-from .frontend_styles import TYPE_COLORS, TYPE_ICONS, ANIMATION_CSS, RESPONSIVE_CSS, ERROR_CSS, INTELLIGENCE_CSS, SHARED_JS, THEME_VARS
+from .frontend_styles import ACTION_COMPONENT_CSS, ACCESSIBILITY_CSS, TYPE_COLORS, TYPE_ICONS, ANIMATION_CSS, RESPONSIVE_CSS, ERROR_CSS, INTELLIGENCE_CSS, SHARED_JS, THEME_VARS
 
 C_JSON = json.dumps(TYPE_COLORS)
 I_JSON = json.dumps(TYPE_ICONS)
@@ -18,14 +18,15 @@ CSS_TEMPLATE = """\
 """ + THEME_VARS + """
 """ + INTELLIGENCE_CSS + """
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg-primary);color:var(--text-primary);padding:24px 0 0 0;overflow-x:hidden}
-.top-bar{padding:0 24px;max-width:100%}
-.related-views{display:flex;gap:8px;margin:-8px 24px 20px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+body{font-family:var(--font-sans);background:var(--bg-primary);color:var(--text-primary);width:min(100%,var(--content-max));margin:0 auto;padding:24px;overflow-x:hidden}
+.top-bar{max-width:100%}
+.timeline-heading{min-height:112px;padding:4px 0 22px}
+.related-views{display:flex;gap:8px;margin:0 0 16px;padding-bottom:12px;border-bottom:1px solid var(--border)}
 .related-views a{padding:5px 10px;border-radius:999px;color:var(--text-secondary);font-size:11px;text-decoration:none}
 .related-views a:hover,.related-views a.active{background:var(--accent-subtle);color:var(--accent)}
-h1{font-size:22px;color:var(--accent);margin-bottom:4px}
+h1{font-family:var(--font-display);font-size:38px;line-height:1.1;letter-spacing:-.035em;color:var(--text-primary);margin-bottom:8px}
 .date{font-size:12px;color:var(--text-secondary);margin-bottom:16px}
-.nav{display:flex;gap:12px;margin-bottom:12px;flex-wrap:wrap;align-items:center}
+.nav{display:flex;min-height:34px;gap:8px;margin-bottom:24px;flex-wrap:wrap;align-items:center}
 .nav a{padding:6px 14px;border-radius:6px;font-size:13px;text-decoration:none;color:var(--text-primary);background:var(--bg-elevated);transition:background .15s}
 .nav a:hover{background:#30363d}
 .nav a.active{background:var(--accent-subtle);color:#58a6ff}
@@ -34,7 +35,7 @@ h1{font-size:22px;color:var(--accent);margin-bottom:4px}
 .lang-btn:hover{background:#30363d}
 
 /* ── 控制栏 ── */
-.controls{display:flex;align-items:center;gap:12px;margin-bottom:12px;flex-wrap:wrap;padding:0 24px}
+.controls{display:flex;min-height:72px;align-items:flex-start;gap:12px;margin-bottom:12px;flex-wrap:wrap}
 .filters{display:flex;gap:6px;flex-wrap:wrap}
 .filter-btn{padding:4px 12px;border-radius:12px;font-size:11px;cursor:pointer;border:1px solid var(--border);background:var(--bg-card);color:var(--text-secondary);transition:all .15s;white-space:nowrap}
 .filter-btn:hover{border-color:var(--accent);color:#c9d1d9}
@@ -49,11 +50,11 @@ h1{font-size:22px;color:var(--accent);margin-bottom:4px}
 .year-range{font-size:11px;color:var(--accent);min-width:60px;text-align:right;cursor:pointer}
 
 /* ── 统计条 ── */
-.stats-bar{display:flex;gap:16px;padding:4px 24px;font-size:10px;color:var(--text-muted);margin-bottom:8px;flex-wrap:wrap}
+.stats-bar{display:flex;gap:16px;padding:4px 0;font-size:10px;color:var(--text-muted);margin-bottom:8px;flex-wrap:wrap}
 .stats-bar span{white-space:nowrap}
 
 /* ── 横向时间线容器 ── */
-.timeline-scroll{position:relative;overflow-x:auto;overflow-y:hidden;cursor:grab;padding:0 24px;-webkit-overflow-scrolling:touch;scroll-behavior:smooth}
+.timeline-scroll{position:relative;overflow-x:auto;overflow-y:hidden;cursor:grab;padding:0;-webkit-overflow-scrolling:touch;scroll-behavior:smooth}
 .timeline-scroll:active{cursor:grabbing}
 .timeline-scroll::-webkit-scrollbar{height:6px}
 .timeline-scroll::-webkit-scrollbar-track{background:#161b22}
@@ -63,6 +64,7 @@ h1{font-size:22px;color:var(--accent);margin-bottom:4px}
 .tl-year-row{display:flex;align-items:stretch;margin-bottom:4px}
 .tl-year-label{flex-shrink:0;width:56px;display:flex;align-items:flex-start;justify-content:flex-end;padding-right:12px;font-size:20px;font-weight:700;color:var(--text-primary);position:sticky;left:0;background:linear-gradient(to left,transparent 0,#0d1117 12px);z-index:2;padding-top:8px}
 .tl-year-cards{display:flex;gap:8px;padding:8px 0 4px 0}
+.year-more{display:none}
 .tl-card{flex-shrink:0;width:260px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:14px;transition:all .2s;cursor:pointer;position:relative}
 .tl-card:hover{border-color:#58a6ff66;transform:translateY(-2px);box-shadow:0 4px 12px #00000033}
 .tl-card.expanded{width:420px;border-color:var(--accent);z-index:3;box-shadow:0 8px 24px #00000055}
@@ -93,8 +95,19 @@ h1{font-size:22px;color:var(--accent);margin-bottom:4px}
   .tl-card{width:220px}
   .tl-card.expanded{width:320px}
 }
+@media (max-width:480px){
+  .timeline-scroll{overflow-x:hidden;cursor:default}
+  .timeline-inner{width:100%;min-width:0}
+  .tl-year-row{display:grid;grid-template-columns:44px minmax(0,1fr)}
+  .tl-year-label{position:static;width:44px;padding-right:8px;background:none;font-size:16px}
+  .tl-year-cards{min-width:0;flex-direction:column}
+  .tl-card,.tl-card.expanded{width:100%}
+  .tl-year-cards:not(.expanded-year) .tl-card--extra{display:none}
+  .year-more{display:block;min-height:36px;padding:7px 10px;border:1px solid var(--border);border-radius:999px;background:transparent;color:var(--text-secondary);font-size:10px}
+  .related-views a{display:inline-flex;min-height:34px;padding:7px 10px;align-items:center}
+}
 </style>"""
-CSS_TEMPLATE = CSS_TEMPLATE.replace("</style>", ANIMATION_CSS + RESPONSIVE_CSS + ERROR_CSS + "</style>", 1)
+CSS_TEMPLATE = CSS_TEMPLATE.replace("</style>", ANIMATION_CSS + RESPONSIVE_CSS + ERROR_CSS + ACTION_COMPONENT_CSS + ACCESSIBILITY_CSS + "</style>", 1)
 
 # ── JS 模板（原 f-string，已将 {{ → {, }} → }, {C_JSON} → __C_JSON__, {I_JSON} → __I_JSON__） ──
 
@@ -225,8 +238,10 @@ function renderTimeline(entities) {
 
   if (!sorted.length) {
     container.innerHTML = '<div class="timeline-empty">' + T("no_timeline_data") + '</div>';
+    container.setAttribute("data-ui-state","empty");
     return;
   }
+  container.removeAttribute("data-ui-state");
 
   const grouped = {};
   sorted.forEach(e => {
@@ -239,14 +254,14 @@ function renderTimeline(entities) {
   Object.keys(grouped).sort().forEach(year => {
     const cards = grouped[year];
     html += '<div class="tl-year-row"><div class="tl-year-label">' + year + '</div><div class="tl-year-cards">';
-    cards.forEach(e => {
+    cards.forEach((e, cardIndex) => {
       const date = getTimelineDate(e);
       const color = e.color || C[e.type] || "#999";
       const icon = I[e.type] || "📌";
       const timelineEvents = (e.timeline || []).map(function(t) { return '<div><span class="tl-event-date">' + (t.date == null ? "" : String(t.date)) + '</span>' + (t.event||"") + '</div>'; }).join("");
       const typeName = TLbl(e.type);
 
-      html += '<div class="tl-card" data-id="' + e.id + '" onclick="toggleCard(this, event)">' +
+      html += '<div class="tl-card '+(cardIndex >= 2 ? 'tl-card--extra' : '')+'" data-id="' + e.id + '" onclick="toggleCard(this, event)">' +
         '<div class="card-stars">' + editorialRatingHTML(e.importance||0) + '</div>' +
         '<div class="card-type" style="background:' + color + '22;color:' + color + '">' + icon + ' ' + typeName + '</div>' +
         '<div class="card-name" title="' + e.name + '">' + e.name + '</div>' +
@@ -262,10 +277,21 @@ function renderTimeline(entities) {
         '</div>' +
       '</div>';
     });
+    if (cards.length > 2) html += '<button class="year-more" type="button" onclick="toggleYear(this,event)" data-count="'+cards.length+'">'+T("show_all_entities",{n:cards.length})+'</button>';
     html += '</div></div>';
   });
 
   container.innerHTML = html;
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    container.animate([{opacity:.35,transform:'translateY(4px)'},{opacity:1,transform:'translateY(0)'}],{duration:180,easing:'ease-out'});
+  }
+}
+
+function toggleYear(button,event) {
+  event.stopPropagation();
+  const group=button.closest('.tl-year-cards');
+  const expanded=group.classList.toggle('expanded-year');
+  button.textContent=expanded?T('collapse_category'):T('show_all_entities',{n:Number(button.dataset.count||0)});
 }
 
 function toggleCard(card, event) {

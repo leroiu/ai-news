@@ -1,0 +1,22 @@
+# Auto-generated draft — Concept Miner
+id: adaptive-cluster-first-route-second-decomposition
+name: Adaptive Cluster-First Route-Second Decomposition
+type: methodology
+tags:
+  - auto-generated
+  - candidate
+importance: 2
+confidence: speculative
+
+summary: |
+  候选概念。置信度 0.8，出现 2 次。
+  证据: Existing splitting methods typically rely on fixed partitioning rules... We propose Adaptive Cluster-First Route-Second Decomposition | Adaptive Cluster-First Route-Second Decomposition for Industrial
+
+significance: |
+  自动发现的概念。需要人工审查和补充 significance、related、timeline 等字段。
+
+domain: "待分类"
+source_articles:
+  - "TechCrunch AI"
+
+related: []
