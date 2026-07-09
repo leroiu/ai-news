@@ -1,0 +1,37 @@
+# Python
+__pycache__
+*.pyc
+.venv
+.env
+.env.*
+!.env.example
+
+# Data (mounted as volume)
+data/*.db
+data/*.db-wal
+data/*.db-shm
+
+# Git
+.git
+.gitignore
+
+# Reports (generated at runtime)
+reports/
+
+# Dev tools
+.claude/
+.agents/
+.reasonix/
+.playwright-mcp/
+tools/
+tests/
+screenshots/
+test-results/
+output/
+*.png
+*.md
+!README.md
+
+# OS
+.DS_Store
+Thumbs.db
