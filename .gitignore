@@ -50,3 +50,27 @@ Desktop.ini
 # Claude Code
 .claude/
 .private/
+.reasonix/
+
+# Generated / Temp
+FileInbox/
+*.tar.gz
+*.png
+*.jpg
+run_daily.bat
+run_monthly.bat
+run_weekly.bat
+
+# Screenshots (root-level)
+dashboard-*.png
+verify-*.png
+library-*.png
+my-*.png
+reports-*.png
+research-*.png
+report-reader-*.png
+timeline-*.png
+*-acceptance-*.png
+*-full.png
+*-current.png
+timeline-snapshot.txt
