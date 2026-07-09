@@ -52,9 +52,9 @@ def test_dashboard_stays_focused_on_daily_decisions():
     assert 'id="source-card"' not in html
     assert 'id="recent-card"' not in html
     assert 'id="health-card"' not in html
-    assert "allReports.slice(0,3)" in html
-    assert "filter(a=>a.score>=5).slice(0,3)" in html
-    assert "filter(a=>a.score===4).slice(0,3)" in html
+    assert 'id="star5-list"' in html
+    assert "_star5Visible=_star5Unread().slice(0,5)" in html
+    assert "reading_state:kind,title:title" in html
     assert 'href="/reports"' in html
 
 
@@ -130,6 +130,8 @@ def test_my_page_generates_html():
     assert 'id="my-search"' in html
     assert 'id="my-filter-controls"' in html
     assert "activeQuery" in html
+    assert "uiPersonalItems" in html
+    assert "favorites.concat(personal)" in html
 
 
 def test_article_detail_page_generates_traceable_reader():
@@ -150,6 +152,25 @@ def test_report_reader_generates_safe_markdown_reader():
     assert "/api/report-content/" in html
     assert "renderMarkdown" in html
     assert "reader-toc" in html
+    assert "injectArticleActions" in html
+    assert "raBtn(id,'fav')+raBtn(id,'read')+raBtn(id,'later')" in html
+    assert "\\((\\/[^)]+)\\)" in html
+    # 联动式阅读器结构检查
+    assert 'reader-sidebar' in html
+    assert 'reader-toc-list' in html
+    assert 'reader-toc-overlay' in html
+    assert 'reader-toc-btn' in html
+    assert 'reader-nav' in html
+    assert 'setupScrollSpy' in html
+    assert 'IntersectionObserver' in html
+    assert 'goToPrevArticle' in html
+    assert 'goToNextArticle' in html
+    assert 'openTocOverlay' in html
+    assert 'closeTocOverlay' in html
+    assert '_readerTotalSections' in html
+    assert '_updateReaderProgress' in html
+    assert 'reader-progress' in html
+    assert 'reader-pos-label' in html
 
 
 # ── 2D Graph ──
@@ -195,6 +216,17 @@ def test_timeline_generates_html():
     assert html.index('class="nav"') < html.index('<h1')
     assert "grid-template-columns:44px minmax(0,1fr)" in html
     assert 'data-ui-state="loading"' in html
+
+    # 年份芯片 UI
+    assert 'id="year-chips-desktop"' in html
+    assert 'class="year-chip"' in html
+    assert 'id="year-prev"' in html
+    assert 'id="year-next"' in html
+    assert 'id="year-clear"' in html
+    assert 'id="year-current"' in html
+
+    # 不再使用滑杆
+    assert 'year-slider' not in html
 
 
 # ── 响应式断点 ──

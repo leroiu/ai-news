@@ -151,13 +151,13 @@ class TestArticlesApi:
         c, m = client
         resp = c.get("/api/articles")
         assert resp.status_code == 200
-        m["articles"].assert_called_once_with(limit=50, min_score=0)
+        m["articles"].assert_called_once_with(limit=50, min_score=0, since=None)
 
     def test_with_limit_and_score(self, client):
         c, m = client
         resp = c.get("/api/articles?limit=10&min_score=4")
         assert resp.status_code == 200
-        m["articles"].assert_called_once_with(limit=10, min_score=4)
+        m["articles"].assert_called_once_with(limit=10, min_score=4, since=None)
 
     def test_returns_data(self, client):
         c, m = client
@@ -566,3 +566,31 @@ class TestMigrations:
         resp = c.post("/api/migrations/run")
         assert resp.status_code == 200
         assert resp.json()["status"] == "ok"
+
+
+# ── Security Controls ───────────────────────────────────
+
+
+class TestSecurityControls:
+    def test_security_headers_present(self, client):
+        c, _ = client
+        resp = c.get("/api/health")
+        assert resp.headers["x-content-type-options"] == "nosniff"
+        assert resp.headers["x-frame-options"] == "DENY"
+        assert "frame-ancestors 'none'" in resp.headers["content-security-policy"]
+        assert resp.headers["referrer-policy"] == "strict-origin-when-cross-origin"
+
+    def test_sensitive_endpoints_require_auth_without_overrides(self):
+        from src.api import app
+
+        app.dependency_overrides.clear()
+        c = TestClient(app)
+
+        assert c.post("/api/migrations/run").status_code == 401
+        assert c.get("/api/export").status_code == 401
+        assert c.post(
+            "/api/research",
+            json={"topic": "transformer", "depth": "standard", "lang": "zh"},
+        ).status_code == 401
+
+        app.dependency_overrides.clear()

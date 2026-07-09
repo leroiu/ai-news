@@ -1,80 +1,106 @@
 """
-Scorer 测试 — mock AI 调用
+Scorer 测试 — 规则评分
 """
-import pytest
-from unittest.mock import patch
+
 from src.engine.fetcher import Article
-from src.engine.scorer import score, score_batch, _build_system_prompt, _build_user_prompt
+from src.engine.scorer import score, score_article, _load_scoring_config
+from src.engine.utils import load_config
 
 
-def make_article(aid: str, title: str, categories=None, one_liner=""):
+def make_article(aid: str, title: str = "Test", source: str = "Hacker News (AI 相关)",
+                  published: str = "2026-07-06T10:00:00Z",
+                  content_raw: str = "Test content", url: str = None) -> Article:
     return Article(
-        id=aid, title=title, url=f"http://test.com/{aid}",
-        source="TechCrunch", categories=categories or ["大模型发布"],
-        one_liner=one_liner or "A summary.",
+        id=aid, title=title, url=url or f"http://test.com/{aid}",
+        source=source, published=published, content_raw=content_raw,
     )
 
 
-class TestPromptBuilding:
-    def test_system_prompt_has_interests(self):
-        prompt = _build_system_prompt()
-        assert "Claude Code" in prompt or "AI Coding" in prompt or "高优先级" in prompt
+class TestScoreArticle:
+    def setup_method(self):
+        self.cfg = _load_scoring_config()
+        self.config = load_config()
 
-    def test_system_prompt_has_scoring_criteria(self):
-        prompt = _build_system_prompt()
-        assert "★★★★★" in prompt or "行业" in prompt
+    def test_openai_blog_high_score(self):
+        """OpenAI Blog + 发布关键词 + 新颖 → 高★"""
+        a = make_article("a1", "OpenAI Launches GPT-5", source="OpenAI Blog",
+                         published="2026-07-06T10:00:00Z",
+                         content_raw="OpenAI announced a major breakthrough today.")
+        result = score_article(a, self.cfg, self.config)
+        assert result.score >= 3, f"Expected >=3★, got {result.score}★"
+        assert result.score_reason.startswith("规则评分:")
+        assert isinstance(result.score_breakdown, dict)
 
-    def test_user_prompt_has_ids(self):
-        articles = [make_article("abc", "GPT-5 Released", categories=["大模型发布"])]
-        prompt = _build_user_prompt(articles)
-        assert "abc" in prompt
-        assert "GPT-5 Released" in prompt
+    def test_user_interest_boost(self):
+        """命中用户兴趣关键词 → 加分"""
+        a = make_article("a2", "DeepSeek releases new model",
+                         source="Hacker News (AI 相关)",
+                         content_raw="DeepSeek breakthrough.")
+        result = score_article(a, self.cfg, self.config)
+        kw = result.score_breakdown["keyword_match"]
+        assert kw > 0, f"Expected keyword_match > 0, got {kw}"
 
+    def test_sponsored_penalty(self):
+        """赞助/广告内容 → 扣分"""
+        a = make_article("a3", "Sponsored post", source="TechCrunch AI",
+                         content_raw="This sponsored content.")
+        result = score_article(a, self.cfg, self.config)
+        kw = result.score_breakdown["keyword_match"]
+        assert kw == 0, f"Expected keyword_match=0 (penalized), got {kw}"
 
-class TestScoreBatch:
-    @patch("src.engine.scorer.call_ai")
-    def test_successful_scoring(self, mock_call):
-        mock_call.return_value = [
-            {"id": "a1", "score": 5, "score_reason": "Milestone release", "cluster_id": "gpt5-launch"},
-            {"id": "a2", "score": 3, "score_reason": "Regular news", "cluster_id": None},
-        ]
+    def test_old_article_low_recency(self):
+        """旧文章 → 低时效分"""
+        a = make_article("a4", "Old news", source="Reddit r/artificial",
+                         published="2026-06-01T10:00:00Z")
+        result = score_article(a, self.cfg, self.config)
+        rec = result.score_breakdown["recency"]
+        assert rec <= 30, f"Expected low recency, got {rec}"
+
+    def test_score_breakdown_keys(self):
+        """score_breakdown 包含所有维度"""
+        a = make_article("a5", "Test article")
+        result = score_article(a, self.cfg, self.config)
+        assert set(result.score_breakdown.keys()) == {
+            "source_authority", "keyword_match", "recency",
+            "high_authority_bonus", "final", "stars",
+        }
+
+    def test_score_range(self):
+        """所有文章评分在 1-5★ 范围内"""
         articles = [
-            make_article("a1", "GPT-5 Released"),
-            make_article("a2", "Minor update"),
+            make_article("b1", "Big news from high source", source="OpenAI Blog"),
+            make_article("b2", "Medium news", source="TechCrunch AI"),
+            make_article("b3", "Old low quality", source="Reddit r/artificial",
+                         published="2026-06-01T10:00:00Z"),
+            make_article("b4", "Sponsored with penalty", source="The Verge AI",
+                         content_raw="This opinion piece is sponsored content."),
         ]
-        result = score_batch(articles)
-        assert result[0].score == 5
-        assert result[0].score_reason == "Milestone release"
-        assert result[0].cluster_id == "gpt5-launch"
-        assert result[1].score == 3
-
-    @patch("src.engine.scorer.call_ai")
-    def test_api_failure_defaults(self, mock_call):
-        mock_call.return_value = None
-        articles = [make_article("a1", "News")]
-        result = score_batch(articles)
-        # When AI call fails completely, articles returned unchanged (score=0)
-        assert len(result) == 1
-
-    @patch("src.engine.scorer.call_ai")
-    def test_missing_id_defaults(self, mock_call):
-        mock_call.return_value = [{"id": "different", "score": 5, "score_reason": "x"}]
-        articles = [make_article("a1", "News")]
-        result = score_batch(articles)
-        assert result[0].score == 3  # default when no match
-
-    def test_empty_articles(self):
-        assert score_batch([]) == []
+        scored = score(articles)
+        for a in scored:
+            assert 1 <= a.score <= 5, f"Score {a.score} out of range"
+            assert 0 <= a.score_breakdown["final"] <= 100
 
 
-class TestScore:
-    @patch("src.engine.scorer.score_batch")
-    def test_batches(self, mock_batch):
-        articles = [make_article(f"a{i}", f"News {i}") for i in range(45)]
-        mock_batch.side_effect = lambda x: x
-        result = score(articles, batch_size=25)
-        assert len(result) == 45
-        assert mock_batch.call_count == 2
+class TestScoreFunction:
+    def setup_method(self):
+        self.cfg = _load_scoring_config()
+        self.config = load_config()
 
-    def test_empty(self):
+    def test_empty_input(self):
         assert score([]) == []
+
+    def test_batch_scoring(self):
+        articles = [make_article(f"c{i}", f"Article {i}") for i in range(10)]
+        result = score(articles)
+        assert len(result) == 10
+        for a in result:
+            assert a.score > 0  # 每个文章都有评分
+
+    def test_source_authority_matters(self):
+        """不同来源权威性 → 不同评分"""
+        high = make_article("d1", "News", source="OpenAI Blog")
+        low = make_article("d2", "News", source="Reddit r/artificial")
+        high_cfg = score_article(high, self.cfg if hasattr(self, 'cfg') else _load_scoring_config(),
+                                 self.config if hasattr(self, 'config') else load_config())
+        low_cfg = score_article(low, _load_scoring_config(), load_config())
+        assert high_cfg.score >= low_cfg.score, "High authority source should score >= low authority"
