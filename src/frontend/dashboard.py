@@ -88,7 +88,7 @@ h1{{max-width:720px;font-family:var(--font-display);font-size:38px;font-weight:6
 #reports-hero>div{{gap:0!important;border-top:1px solid var(--border)}}
 #reports-hero>div>div{{background:transparent!important;border-radius:0!important;padding:18px 20px!important;border-right:1px solid var(--border)}}
 #reports-hero>div>div:first-child{{padding-left:0!important}}#reports-hero>div>div:last-child{{border-right:0;padding-right:0!important}}
-.editorial-grid{{grid-template-columns:1fr;margin-bottom:28px}}
+.editorial-grid{{grid-template-columns:1fr;margin-bottom:8px}}
 .editorial-grid>.card{{background:transparent;border:0;border-top:1px solid var(--border-strong);border-radius:0;padding:24px 0}}
 .editorial-section h2,.editorial-grid h2{{font-size:23px;letter-spacing:-.02em}}
 #daily-card .stat-row{{justify-content:flex-start;padding-bottom:16px;border-bottom:1px solid var(--border)}}
@@ -100,6 +100,24 @@ h1{{max-width:720px;font-family:var(--font-display);font-size:38px;font-weight:6
 .lang-btn+.lang-btn{{margin-left:0}}
 .lang-btn:hover{{background:var(--border)}}
 .card-hover{{transition:transform .2s ease,border-color .2s ease}}.card-hover:hover{{transform:translateY(-2px);border-color:var(--accent)}}
+/* Star5 Reader */
+.star5-list{{display:flex;flex-direction:column;gap:0}}
+.star5-item{{display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-bottom:1px solid var(--bg-elevated)}}
+.star5-item:last-child{{border-bottom:0}}
+.star5-item-rank{{font-size:11px;font-weight:700;color:var(--accent);min-width:20px;padding-top:1px}}
+.star5-item-body{{flex:1;min-width:0}}
+.star5-item-title{{font-size:14px;font-weight:650;margin-bottom:3px}}
+.star5-item-title a{{color:var(--text-primary);text-decoration:none}}
+.star5-item-title a:hover{{color:var(--accent)}}
+.star5-item-meta{{font-size:11px;color:var(--text-muted);margin-bottom:4px}}
+.star5-item-summary{{font-size:12px;color:var(--text-secondary);line-height:1.5;margin-bottom:8px}}
+.star5-item-actions{{display:flex;gap:6px}}
+.star5-action{{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;border:1px solid var(--border);border-radius:999px;background:transparent;color:var(--text-muted);font-size:10px;cursor:pointer;transition:all .15s;line-height:1.4}}
+.star5-action:hover{{border-color:var(--accent);color:var(--accent)}}
+.star5-action.done{{border-color:var(--success);color:var(--success);background:var(--accent-subtle)}}
+.star5-action.saved{{border-color:var(--warning);color:var(--warning);background:#e3b34122}}
+.star5-empty{{text-align:center;padding:32px 20px;color:var(--text-muted);font-size:13px}}
+.star5-empty strong{{display:block;color:var(--text-primary);margin-bottom:4px}}
 {ANIMATION_CSS}
 {RESPONSIVE_CSS}
 {ERROR_CSS}
@@ -139,12 +157,15 @@ h1{{max-width:720px;font-family:var(--font-display);font-size:38px;font-weight:6
 </div>
 
 <div class="grid editorial-grid">
-  <div class="card" id="daily-card"><div class="spinner"><div class="loading"></div></div></div>
-</div>
-
-<div class="card editorial-section" id="reports-history" style="margin-bottom:16px">
-  <h2 data-i18n="report_history">{t("report_history", lang)}</h2>
-  <div class="spinner"><div class="loading"></div></div>
+  <div class="card" id="daily-card">
+    <h2 data-i18n="star5_picks">{t("star5_picks", lang)}</h2>
+    <div style="display:flex;gap:6px;margin-bottom:14px">
+      <button class="filter-btn active" data-days="7" onclick="switchStar5Range(7,this)">7d</button>
+      <button class="filter-btn" data-days="14" onclick="switchStar5Range(14,this)">14d</button>
+      <button class="filter-btn" data-days="30" onclick="switchStar5Range(30,this)">30d</button>
+    </div>
+    <div id="star5-list"><div class="spinner"><div class="loading"></div></div></div>
+  </div>
 </div>
 </main>
 
@@ -158,10 +179,71 @@ h1{{max-width:720px;font-family:var(--font-display);font-size:38px;font-weight:6
 function starRow(s5,s4,s3){{return '<span title="★5">★5:'+(s5||0)+'</span> <span title="★4">★4:'+(s4||0)+'</span> <span title="★3">★3:'+(s3||0)+'</span>'}}
 function favBtn(type,id,title,href){{return favoriteButtonHTML(type,id,title,"",href)}}
 
+/* ── Star5 Reader ── */
+let _star5Days=7,_star5Pool=[],_star5Visible=[];
+
+function _star5Since(days){{return new Date(Date.now()-days*86400000).toISOString().slice(0,10)}}
+
+function _star5Unread(){{return _star5Pool.filter(function(a){{return uiGetPersonalMeta('news',a.id).reading_state==='unread'}})}}
+
+function star5ActionBtn(articleId,kind){{
+  var meta=uiGetPersonalMeta('news',articleId),active=false;
+  if(kind==='read')active=meta.reading_state==='read';
+  if(kind==='later')active=meta.reading_state==='later';
+  if(kind==='fav')active=uiFavoriteStore().some(function(s){{return uiFavoriteKey(s)===uiFavoriteKey({{type:'news',id:articleId}})}});
+  var icons={{fav:'★',read:'✓',later:'↳'}};
+  var labels={{fav:T(active?'favorited':'favorite'),read:T('reading_read'),later:T('reading_later')}};
+  return '<button class="star5-action'+(active?' done':'')+'" data-id="'+articleId+'" data-kind="'+kind+'" onclick="star5DoAction(this.dataset.id,this.dataset.kind,this)">'+icons[kind]+' '+labels[kind]+'</button>';
+}}
+
+function star5DoAction(articleId,kind,btn){{
+  if(kind==='fav'){{
+    var a=_star5Pool.find(function(x){{return x.id===articleId}});
+    var added=uiToggleFavorite({{type:'news',id:articleId,title:a?a.title_cn||a.title:'',href:'/article/'+encodeURIComponent(articleId)}},null);
+    btn.classList.toggle('done',added);
+    btn.innerHTML='★ '+T(added?'favorited':'favorite');
+    return;
+  }}
+  var current=_star5Pool.find(function(a){{return a.id===articleId}}), title=current?(current.title_cn||current.title):articleId;
+  uiUpdatePersonalMeta('news',articleId,{{reading_state:kind,title:title,href:'/article/'+encodeURIComponent(articleId)}});
+  _star5Visible=_star5Visible.filter(function(a){{return a.id!==articleId}});
+  var pool=_star5Pool.filter(function(a){{var s=uiGetPersonalMeta('news',a.id).reading_state;return s==='unread';}});
+  var next=pool.find(function(a){{return !_star5Visible.some(function(v){{return v.id===a.id}})}});
+  if(next)_star5Visible.push(next);
+  renderStar5();
+}}
+
+function renderStar5(){{
+  var area=document.getElementById('star5-list');
+  if(!_star5Visible.length){{area.innerHTML='<div class="star5-empty"><strong>'+T('star5_all_read')+'</strong><p>'+T('star5_all_read_hint')+'</p></div>';return}}
+  area.innerHTML='<div class="star5-list">'+_star5Visible.map(function(a,i){{
+    var title=a.title_cn||a.title;
+    return '<div class="star5-item" style="animation:fadeIn .3s ease-out"><span class="star5-item-rank">'+(i+1)+'</span><div class="star5-item-body"><div class="star5-item-title"><a href="/article/'+encodeURIComponent(a.id)+'">'+title+'</a></div><div class="star5-item-meta">'+sourceMetaHTML(a.source||'',String(a.published||'').slice(0,10),a.url)+'</div><div class="star5-item-summary">'+(a.one_liner||'')+'</div><div class="star5-item-actions">'+star5ActionBtn(a.id,'fav')+star5ActionBtn(a.id,'read')+star5ActionBtn(a.id,'later')+'</div></div></div>';
+  }}).join('')+'</div>';
+}}
+
+async function loadStar5(){{
+  var area=document.getElementById('star5-list');
+  area.innerHTML='<div class="spinner"><div class="loading"></div></div>';
+  try{{
+    _star5Pool=await apiFetch('/api/articles?limit=50&min_score=5&since='+encodeURIComponent(_star5Since(_star5Days)));
+    _star5Pool.sort(function(a,b){{return new Date(b.published)-new Date(a.published)}});
+    _star5Visible=_star5Unread().slice(0,5);
+    if(!_star5Pool.length){{area.innerHTML='<div class="star5-empty"><strong>'+T('star5_no_articles')+'</strong></div>';return}}
+    renderStar5();
+  }}catch(e){{area.innerHTML='<div class="star5-empty"><strong>'+T('error_loading')+'</strong><p>'+e.message+'</p></div>'}}
+}}
+
+function switchStar5Range(days,btn){{
+  _star5Days=days;
+  document.querySelectorAll('#daily-card .filter-btn').forEach(function(b){{b.classList.remove('active')}});
+  btn.classList.add('active');
+  loadStar5();
+}}
+
 async function init(){{
   try{{
-  const [articles,dailies,weeklies,monthlies]=await Promise.all([
-    apiFetch("/api/articles?limit=30&min_score=3"),
+  const [dailies,weeklies,monthlies]=await Promise.all([
     apiFetch("/api/reports?type=daily&limit=30"),
     apiFetch("/api/reports?type=weekly&limit=10"),
     apiFetch("/api/reports?type=monthly&limit=10"),
@@ -170,15 +252,15 @@ async function init(){{
 
   const allReports=[...dailies.map(r=>({{...r,type:"daily"}})),...weeklies.map(r=>({{...r,type:"weekly"}})),...monthlies.map(r=>({{...r,type:"monthly"}}))].sort((a,b)=>b.date.localeCompare(a.date));
   const today=new Date().toISOString().slice(0,10);
-  const todayReport=dailies.find(r=>r.date===today);
+  const todayReport=dailies.find(r=>r.date===today)||dailies[0];
   const latestWeekly=weeklies[0];
   const latestMonthly=monthlies[0];
 
   // Reports Hero
-  let heroHTML='<h2>'+T("report_center")+'</h2><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px">';
+  let heroHTML='<h2>'+T("report_center")+' <a href="/reports" style="font-size:12px;font-weight:400;color:var(--accent);text-decoration:none;margin-left:8px">'+T("view_all_reports")+' →</a></h2><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px">';
   heroHTML+='<div style="background:#0d1117;border-radius:8px;padding:16px"><h3 style="margin:0 0 8px">'+T("today_daily")+'</h3>';
   if(todayReport){{
-    heroHTML+='<div class="stat-row"><div class="stat"><span class="num blue">'+(todayReport.star5||0)+'</span><span class="lbl">★5</span></div><div class="stat"><span class="num">'+(todayReport.star4||0)+'</span><span class="lbl">★4</span></div><div class="stat"><span class="num">'+(todayReport.star3||0)+'</span><span class="lbl">★3</span></div><div class="stat"><span class="num">'+(todayReport.fetched||0)+'</span><span class="lbl">'+T("fetch_count")+'</span></div></div><a href="/report/'+today+'.md" class="btn btn-sm" style="margin-top:8px">'+T("read_daily")+'</a>';
+    heroHTML+='<div class="stat-row"><div class="stat"><span class="num blue">'+(todayReport.star5||0)+'</span><span class="lbl">★5</span></div><div class="stat"><span class="num">'+(todayReport.star4||0)+'</span><span class="lbl">★4</span></div><div class="stat"><span class="num">'+(todayReport.star3||0)+'</span><span class="lbl">★3</span></div><div class="stat"><span class="num">'+(todayReport.fetched||0)+'</span><span class="lbl">'+T("fetch_count")+'</span></div></div><a href="/report/'+todayReport.date+'.md" class="btn btn-sm" style="margin-top:8px">'+T("read_daily")+'</a>';
   }}else{{
     heroHTML+='<p style="color:var(--text-muted);font-size:13px">'+T("not_generated_yet")+'</p>';
   }}
@@ -190,38 +272,18 @@ async function init(){{
   heroHTML+='</div>';
   heroHTML+='<div style="background:#0d1117;border-radius:8px;padding:16px"><h3 style="margin:0 0 8px">'+T("latest_monthly")+'</h3>';
   if(latestMonthly){{
-    heroHTML+='<p style="font-size:18px;font-weight:700;color:#f0883e">'+latestMonthly.date+'</p><a href="/report/monthly-'+latestMonthly.date+'.md" class="btn btn-sm" style="margin-top:8px">'+T("read_monthly")+'</a>';
+    var mDate=latestMonthly.date.substring(0,7);
+    heroHTML+='<p style="font-size:18px;font-weight:700;color:#f0883e">'+mDate+'</p><a href="/report/monthly-'+mDate+'.md" class="btn btn-sm" style="margin-top:8px">'+T("read_monthly")+'</a>';
   }}else{{heroHTML+='<p style="color:var(--text-muted);font-size:13px">'+T("not_generated_yet")+'</p>'}}
   heroHTML+='</div></div>';
   document.getElementById("reports-hero").innerHTML=heroHTML;
 
-  // Articles Card
-  const sc=(s)=>articles.filter(a=>a.score===s).length;
-  const top5=articles.filter(a=>a.score>=5).slice(0,3);
-  const top4=articles.filter(a=>a.score===4).slice(0,3);
-  document.getElementById("daily-card").innerHTML=
-    '<h2>'+T("headlines")+'</h2>'+
-    ratingHelpHTML()+'<div class="stat-row">'+
-    '<div class="stat"><span class="num">'+articles.length+'</span><span class="lbl">'+T("rating_3plus")+'</span></div>'+
-    '<div class="stat"><span class="num">'+sc(5)+'</span><span class="lbl">★5</span></div>'+
-    '<div class="stat"><span class="num">'+sc(4)+'</span><span class="lbl">★4</span></div>'+
-    '<div class="stat"><span class="num">'+sc(3)+'</span><span class="lbl">★3</span></div></div>'+
-    (top5.length?'<h3>'+T("star5_headlines")+'</h3><ol class="headlines">'+top5.map(a=>'<li>'+evidenceLabelHTML('fact')+' <a href="/article/'+encodeURIComponent(a.id)+'" style="color:var(--accent)">'+(a.title_cn||a.title)+'</a> '+sourceMetaHTML(a.source||'',String(a.published||'').slice(0,10),a.url)+' '+favBtn('news',a.id,a.title_cn||a.title,'/article/'+encodeURIComponent(a.id))+'</li>').join("")+'</ol>':'')+
-    '<h3>'+T("star4_highlights")+'</h3><ol class="headlines">'+top4.map(a=>'<li>'+evidenceLabelHTML('fact')+' <a href="/article/'+encodeURIComponent(a.id)+'" style="color:var(--accent)">'+(a.title_cn||a.title)+'</a> '+sourceMetaHTML(a.source||'',String(a.published||'').slice(0,10),a.url)+' '+favBtn('news',a.id,a.title_cn||a.title,'/article/'+encodeURIComponent(a.id))+'</li>').join("")+'</ol>';
-
-  let historyHTML='<h2>'+T("recent_reports")+'</h2>';
-  if(!allReports.length){{historyHTML+='<p style="color:var(--text-muted);font-size:13px">'+T("no_reports_found")+'</p>'}}
-  else{{historyHTML+=allReports.slice(0,3).map(r=>{{
-    const isDaily=r.type==="daily";
-    const fname=isDaily?r.date+'.md':r.type+'-'+r.date+'.md';
-    return '<div class="report-entry"><span class="report-date">'+r.date+'</span><span class="report-type '+r.type+'">'+T("filter_"+r.type)+'</span>'+(isDaily?'<span class="report-stars">'+starRow(r.star5,r.star4,r.star3)+'</span>':'<span class="report-stars"></span>')+'<a href="/report/'+fname+'" class="report-link">'+T("view_report")+'</a>'+favBtn('report',fname,T("filter_"+r.type)+' '+r.date,'/report/'+fname)+(isDaily?'<span class="report-counts">'+(r.fetched||0)+'&rarr;'+(r.filtered||0)+'</span>':'')+'</div>'}}).join("")}}
-  historyHTML+='<a href="/reports" class="btn btn-outline btn-sm" style="margin-top:16px">'+T("view_all_reports")+'</a>';
-  document.getElementById("reports-history").innerHTML=historyHTML;
+  // Star5 Reader
+  loadStar5();
 
   }}catch(e){{
     showError("reports-hero",T("error_loading"),e.message);
     document.getElementById("daily-card").innerHTML="";
-    document.getElementById("reports-history").innerHTML="";
   }}
 }}
 init();

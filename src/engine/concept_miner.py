@@ -132,19 +132,66 @@ async def _mine_batch_async(batch: list[Article]) -> list[dict]:
 
 
 def mine_concepts(articles: list[Article], batch_size: int = 30,
-                  concurrency: int = 3) -> list[dict]:
+                  concurrency: int = 3, top_n: int | None = None,
+                  skip_low_authority: bool = True) -> list[dict]:
     """
     从文章批次中抽取候选概念。支持并发处理多个批次。
+
+    限流规则:
+      - 只处理 Top N 篇（按评分降序，score >= min_score）
+      - 跳过低权威来源（如果 skip_low_authority=True）
+      - 跳过已挖掘文章（通过 mined_article_ids.json）
 
     Args:
         articles: 文章列表
         batch_size: 每批文章数
         concurrency: 并发批次数 (默认 3)
+        top_n: 最多处理 N 篇（从 config.concept_miner.top_n 读取）
+        skip_low_authority: 是否跳过低权威来源
     """
     import asyncio as _asyncio
 
     if not articles:
         return []
+
+    config = load_config()
+    cm_cfg = config.get("concept_miner", {})
+
+    if top_n is None:
+        top_n = cm_cfg.get("top_n", 10)
+    min_score = cm_cfg.get("min_score", 3)
+    if skip_low_authority is None:
+        skip_low_authority = cm_cfg.get("skip_low_authority", True)
+
+    # 已挖掘缓存
+    mined_ids = get_mined_ids()
+
+    # ── 过滤阶段 ──
+    # 1. 低分过滤
+    scored = [a for a in articles if a.score >= min_score]
+    # 2. 去除已挖掘
+    fresh = [a for a in scored if a.id not in mined_ids]
+    # 3. 低权威来源过滤
+    before = len(fresh)
+    if skip_low_authority:
+        source_scores = cm_cfg.get("source_scores", {})
+        if not source_scores:
+            source_scores = load_config().get("scoring", {}).get("source_scores", {})
+        high_auth = cm_cfg.get("high_authority_sources", HIGH_AUTHORITY_SOURCES)
+        fresh = [
+            a for a in fresh
+            if a.source in high_auth or source_scores.get(a.source, 30) >= 50
+        ]
+        if before - len(fresh) > 0:
+            log.info(f"  跳过低权威来源: {before - len(fresh)} 篇")
+    # 4. Top N 截断（按评分排序）
+    fresh.sort(key=lambda a: (a.score or 0), reverse=True)
+    fresh = fresh[:top_n]
+
+    if not fresh:
+        return []
+
+    log.info(f"概念挖掘: {len(articles)} 篇 → 过滤后 {len(fresh)} 篇 (top_n={top_n}, min_score={min_score})")
 
     batches = [articles[i:i + batch_size] for i in range(0, len(articles), batch_size)]
     total_batches = len(batches)

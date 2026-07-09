@@ -82,8 +82,26 @@ svg{{width:100%;height:100%}}
 {RESPONSIVE_CSS}
 {ERROR_CSS}
 {INTELLIGENCE_CSS}
-/* 响应式: 窄屏侧边栏折叠 */
-@media (max-width:768px){{#sidebar{{width:60px;min-width:60px}}#sidebar-header h1{{font-size:12px}}#sidebar-header p{{display:none}}#type-list{{display:none}}#detail-pane{{width:260px;min-width:260px}}}}
+/* 响应式: 移动端全屏图谱 + 紧凑控制栏 */
+@media(max-width:768px){{
+  #sidebar{{display:none}}
+  #app{{flex-direction:column}}
+  #graph-area{{width:100%;height:calc(100vh - 48px)}}
+  #detail-pane{{position:fixed;bottom:0;left:0;right:0;z-index:100;width:100%!important;min-width:0!important;max-height:50vh;border-left:none;border-top:1px solid var(--border);border-radius:12px 12px 0 0;box-shadow:0 -4px 20px rgba(0,0,0,.3)}}
+  .graph-topbar{{display:flex;align-items:center;gap:8px;height:48px;padding:0 12px;background:var(--bg-card);border-bottom:1px solid var(--border);overflow-x:auto;flex-shrink:0}}
+  .graph-topbar .view-switch{{display:flex;gap:4px;margin:0;flex-shrink:0}}
+  .graph-topbar .view-switch a,.graph-topbar .view-switch span{{padding:4px 8px;font-size:10px}}
+  .graph-topbar .nav{{margin:0;flex-shrink:0;gap:4px}}
+  .graph-topbar .nav a{{padding:4px 8px;font-size:9px}}
+  .graph-topbar .lang-btn{{padding:2px 8px;font-size:9px;margin-left:auto;flex-shrink:0}}
+  .graph-topbar .filter-btn{{padding:3px 8px;font-size:9px;flex-shrink:0}}
+  #legend{{bottom:auto;top:56px;right:8px;max-width:180px}}
+  #timeline-bar{{height:36px;padding:0 10px}}
+  #timeline-bar input[type=range]{{height:20px}}
+  #detail-pane.hidden{{transform:translateY(100%)}}
+  #detail-pane:not(.hidden){{animation:drawerUp .25s ease-out}}
+  @keyframes drawerUp{{from{{transform:translateY(100%)}}to{{transform:translateY(0)}}}}
+}}
 </style>
 </head>
 <body data-page-template="collection">
@@ -98,6 +116,13 @@ svg{{width:100%;height:100%}}
 </div>
 </div>
 <div id="type-list"></div>
+</div>
+<div class="graph-topbar" id="graph-topbar">
+{nav_html("/graph")}
+<div class="view-switch" aria-label="{t("graph_view_switch", lang)}">
+  <span class="active" aria-current="page">{t("graph_2d_view", lang)}</span>
+  <a href="/graph3d">{t("graph_3d_view", lang)}</a>
+</div>
 </div>
 <div id="graph-area"><svg id="graph-svg"></svg><div id="legend"></div></div>
 <div id="detail-pane" class="hidden"><div id="detail-header"></div><div id="detail-body"><div style="display:flex;align-items:center;justify-content:center;height:100%;color:#484f58;font-size:12px" id="detail-hint">{t("select_node_hint", lang)}</div></div></div>
@@ -117,6 +142,9 @@ svg{{width:100%;height:100%}}
 const TYPE_COLORS = {type_colors_js};
 const C={edge_colors_js};
 let NODES=[],EDGES=[],nm={{}},bt={{}};
+function graphEsc(value){{return String(value??'').replace(/[&<>"']/g,c=>({{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}}[c]));}}
+function graphSafeColor(value){{var v=String(value||'');return /^#[0-9a-fA-F]{{3,8}}$/.test(v)?v:'#999';}}
+function graphJsString(value){{return String(value??'').replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\\n/g,' ');}}
 
 // Init after data loads
 (async function(){{
@@ -136,12 +164,12 @@ NODES.forEach(n=>{{if(!bt[n.type])bt[n.type]=[];bt[n.type].push(n)}});
 // Sidebar
 const tl=document.getElementById("type-list");
 Object.entries(bt).sort((a,b)=>b[1].length-a[1].length).forEach(([t,nodes])=>{{
-const c=TYPE_COLORS[t]||"#999";
+const c=graphSafeColor(TYPE_COLORS[t]||"#999");
 const d=document.createElement("div");d.className="type-group";
-d.innerHTML=`<h3 style="color:${{c}}">● ${{TLbl(t)}} (${{nodes.length}})</h3>`;
+d.innerHTML=`<h3 style="color:${{c}}">● ${{graphEsc(TLbl(t))}} (${{nodes.length}})</h3>`;
 nodes.sort((a,b)=>b.importance-a.importance).forEach(n=>{{
 const i=document.createElement("div");i.className="entity-item";
-i.innerHTML=`<div class="dot" style="background:${{c}}"></div>${{n.name}}<span class="stars">${{"★".repeat(n.importance||0)}}</span>`;
+i.innerHTML=`<div class="dot" style="background:${{c}}"></div>${{graphEsc(n.name)}}<span class="stars">${{"★".repeat(n.importance||0)}}</span>`;
 i.onclick=()=>select(n.id);d.appendChild(i);
 }});
 tl.appendChild(d);
@@ -149,7 +177,7 @@ tl.appendChild(d);
 
 // Legend
 const lg=document.getElementById("legend");
-Object.entries(TYPE_COLORS).forEach(([t,c])=>{{if(bt[t])lg.innerHTML+=`<div class="leg"><div class="leg-dot" style="background:${{c}}"></div>${{TLbl(t)}}</div>`}});
+Object.entries(TYPE_COLORS).forEach(([t,c])=>{{if(bt[t])lg.innerHTML+=`<div class="leg"><div class="leg-dot" style="background:${{graphSafeColor(c)}}"></div>${{graphEsc(TLbl(t))}}</div>`}});
 var gs = T("graph_stats", {{n: NODES.length, e: EDGES.length}});
 document.getElementById("stats-line").textContent = gs + " \\u00b7 " + Object.keys(bt).length + " " + T("types_label");
 
@@ -207,12 +235,12 @@ links.attr("opacity",e=>{{const s=typeof e.source==="object"?e.source.id:e.sourc
 
 const pane=document.getElementById("detail-pane");pane.classList.remove("hidden");
 const hdr=document.getElementById("detail-header"),body=document.getElementById("detail-body");
-hdr.innerHTML=`<h2>${{d.name}}</h2><span class="badge" style="background:${{d.color}}">${{TLbl(d.type)}}</span>${{editorialRatingHTML(d.importance||0)}}`;
+hdr.innerHTML=`<h2>${{graphEsc(d.name)}}</h2><span class="badge" style="background:${{graphSafeColor(d.color)}}">${{graphEsc(TLbl(d.type))}}</span>${{editorialRatingHTML(d.importance||0)}}`;
 let h="";
-if(d.summary)h+=`<p>${{evidenceLabelHTML('fact')}} ${{d.summary}}</p>`;
+if(d.summary)h+=`<p>${{evidenceLabelHTML('fact')}} ${{graphEsc(d.summary)}}</p>`;
 const rels=EDGES.filter(e=>{{const s=typeof e.source==="object"?e.source.id:e.source,t=typeof e.target==="object"?e.target.id:e.target;return s===id||t===id}});
-if(rels.length){{h+=`<h3>${{T("relationships_label")}} (${{rels.length}})</h3>`;rels.forEach(r=>{{const oid=(typeof r.source==="object"?r.source.id:r.source)===id?(typeof r.target==="object"?r.target.id:r.target):(typeof r.source==="object"?r.source.id:r.source);const o=nm[oid];if(o)h+=`<span class="rel-item" style="border-left:3px solid ${{r.color}}" onclick="select('${{oid}}')">${{r.label}}: ${{o.name}}</span>`;}});}}
-if(d.timeline&&d.timeline.length){{h+=`<h3>${{T("timeline_label")}}</h3>`;d.timeline.slice(-8).forEach(t=>h+=`<div class="tl-item"><span class="tl-date">${{t.date||''}}</span> ${{t.event||''}}</div>`)}}
+if(rels.length){{h+=`<h3>${{graphEsc(T("relationships_label"))}} (${{rels.length}})</h3>`;rels.forEach(r=>{{const oid=(typeof r.source==="object"?r.source.id:r.source)===id?(typeof r.target==="object"?r.target.id:r.target):(typeof r.source==="object"?r.source.id:r.source);const o=nm[oid];if(o)h+=`<span class="rel-item" style="border-left:3px solid ${{graphSafeColor(r.color)}}" onclick="select('${{graphJsString(oid)}}')">${{graphEsc(r.label)}}: ${{graphEsc(o.name)}}</span>`;}});}}
+if(d.timeline&&d.timeline.length){{h+=`<h3>${{graphEsc(T("timeline_label"))}}</h3>`;d.timeline.slice(-8).forEach(t=>h+=`<div class="tl-item"><span class="tl-date">${{graphEsc(t.date||'')}}</span> ${{graphEsc(t.event||'')}}</div>`)}}
 body.innerHTML=h;
 }}
 

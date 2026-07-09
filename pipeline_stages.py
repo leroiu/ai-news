@@ -60,6 +60,7 @@ def run_daily_pipeline(
     fetch_direct: bool,
     concurrency: int,
     fetched_count: int,
+    report_date: str | None = None,
 ) -> tuple[list, Path | None, str]:
     """执行 9 阶段每日管道。
 
@@ -67,6 +68,12 @@ def run_daily_pipeline(
     """
     report_path = None
     completed_stages = set(checkpoint.get("completed_stages", [])) if checkpoint else set()
+
+    # ── 降级模式检查 ──
+    _deg = load_config().get("degradation", {})
+    if _deg.get("skip_all_llm"):
+        log.warning("⚠️ 降级模式: skip_all_llm=true，所有 LLM 调用将被跳过")
+        log.warning("   将生成基础日报（标题 + 来源 + 时间 + 链接 + 规则评分）")
 
     # ── Stage 1: 数据获取 ──
     if "fetch+dedup" not in completed_stages:
@@ -201,11 +208,13 @@ def run_daily_pipeline(
     # ── 保存缓存 ──
     save_results(articles)
 
-    # ── Stage 7: Concept Miner (★3+, 已处理跳过, 并发) ──
+    # ── Stage 7: Concept Miner (★3+, 已处理跳过, Top-N, 跳过低权威来源) ──
     if "concept_mine" not in completed_stages:
         t1 = _tick()
         try:
-            high_score = [a for a in articles if a.score >= 3]
+            cm_cfg = load_config().get("concept_miner", {})
+            min_cm_score = cm_cfg.get("min_score", 3)
+            high_score = [a for a in articles if a.score >= min_cm_score]
             if high_score:
                 from src.engine.concept_miner import get_mined_ids
                 mined = get_mined_ids()
@@ -214,7 +223,13 @@ def run_daily_pipeline(
                 if skipped:
                     log.info(f"  ⏭ 跳过 {skipped} 篇已挖掘")
                 if fresh:
-                    candidates = mine_concepts(fresh, batch_size=20, concurrency=concurrency)
+                    candidates = mine_concepts(
+                        fresh,
+                        batch_size=cm_cfg.get("batch_size", 20),
+                        concurrency=concurrency,
+                        top_n=cm_cfg.get("top_n", 10),
+                        skip_low_authority=cm_cfg.get("skip_low_authority", True),
+                    )
                     if candidates:
                         use_agent = os.getenv("CONCEPT_AGENT") == "1"
                         if use_agent:
@@ -244,7 +259,7 @@ def run_daily_pipeline(
         config = load_config()
         min_score = config.get("output", {}).get("min_score", 3)
         report_path = generate_report(articles, fetched_count=fetched_count,
-                                      min_score=min_score)
+                                      min_score=min_score, report_date=report_date)
         _log_stage("write_report", _tick() - t1)
         save_checkpoint("write_report", [a.id for a in articles], run_id,
                         extra={"report_path": str(report_path)})
@@ -259,8 +274,9 @@ def run_daily_pipeline(
             init_db()
             article_dicts = [a.to_dict() for a in articles]
             insert_articles(article_dicts)
+            report_date_str = report_date if report_date else datetime.now().strftime("%Y-%m-%d")
             insert_report(
-                date=datetime.now().strftime("%Y-%m-%d"),
+                date=report_date_str,
                 report_type="daily", path=str(report_path),
                 fetched=fetched_count, filtered=len(articles),
                 star5=sum(1 for a in articles if a.score == 5),

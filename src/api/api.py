@@ -40,7 +40,7 @@ from src.interfaces.schemas import (
 )
 from src.api.auth import router as auth_router
 from src.api.middleware import (
-    RateLimitMiddleware, register_error_handlers,
+    RateLimitMiddleware, SecurityHeadersMiddleware, register_error_handlers,
     get_current_user, get_optional_user, require_admin,
 )
 
@@ -60,7 +60,13 @@ async def lifespan(application: FastAPI):
 
 
 app = FastAPI(title="AI Intelligence Platform", version="1.6", lifespan=lifespan)
-app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
+cors_origins = [
+    origin.strip()
+    for origin in os.environ.get("CORS_ALLOW_ORIGINS", "").split(",")
+    if origin.strip()
+]
+app.add_middleware(CORSMiddleware, allow_origins=cors_origins, allow_methods=["*"], allow_headers=["*"])
+app.add_middleware(SecurityHeadersMiddleware)
 
 # Rate limit + 统一错误处理
 app.add_middleware(RateLimitMiddleware, max_requests=120, window_seconds=60)
@@ -290,13 +296,13 @@ def api_relationships(entity_id: str = Query(None)):
 
 @app.get("/api/articles")
 def api_articles(limit: int = 50, min_score: int = 0, page: int = Query(0),
-                 cursor: str = Query(None)):
-    """获取文章列表。支持 page 分页或 cursor 分页。cursor 参数优先。"""
+                 cursor: str = Query(None), since: str = Query(None)):
+    """获取文章列表。支持 page 分页或 cursor 分页。cursor 参数优先。since 按发布日期过滤 (YYYY-MM-DD)。"""
     if cursor:
-        return get_articles_cursor(limit=limit, min_score=min_score, cursor=cursor)
+        return get_articles_cursor(limit=limit, min_score=min_score, cursor=cursor, since=since)
     if page > 0:
-        return get_articles_paginated(limit=limit, min_score=min_score, page=page, page_size=limit or 50)
-    return get_articles(limit=limit, min_score=min_score)
+        return get_articles_paginated(limit=limit, min_score=min_score, page=page, page_size=limit or 50, since=since)
+    return get_articles(limit=limit, min_score=min_score, since=since)
 
 
 @app.get("/api/articles/{article_id}")
@@ -362,7 +368,7 @@ def api_health():
 
 
 @app.post("/api/research")
-def api_research(payload: ResearchRequest):
+def api_research(payload: ResearchRequest, user: dict = Depends(get_current_user)):
     """深度研究 — 输入话题，生成结构化研究报告。"""
     use_agent = payload.agent
 
@@ -388,14 +394,14 @@ def api_entity_versions(entity_id: str):
 # ── Migration API ──
 
 @app.get("/api/migrations")
-def api_get_migrations():
+def api_get_migrations(admin: dict = Depends(require_admin)):
     """列出已应用的数据库迁移。"""
     from src.engine.database import get_applied_migrations
     return {"applied": sorted(get_applied_migrations())}
 
 
 @app.post("/api/migrations/run")
-def api_run_migrations():
+def api_run_migrations(admin: dict = Depends(require_admin)):
     """运行所有待执行的数据库迁移。"""
     new = run_migrations()
     return {"status": "ok", "applied": new, "count": len(new)}
@@ -517,7 +523,7 @@ def api_run_pipeline(payload: PipelineRunRequest = PipelineRunRequest(),
 # ── Data Export API ──
 
 @app.get("/api/export")
-def api_export(format: str = "json"):
+def api_export(format: str = "json", admin: dict = Depends(require_admin)):
     """导出全部数据（entities, articles, relationships）。format=json (准备 yaml/csv 扩展)。"""
     if format not in ("json", "yaml"):
         raise HTTPException(status_code=400, detail="format must be json or yaml")

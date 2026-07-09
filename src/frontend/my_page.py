@@ -32,7 +32,14 @@ function favoriteHref(item) {
 function renderMyFavorites() {
   const root = document.getElementById('my-favorites-list');
   const controls = document.getElementById('my-filter-controls');
-  const items = typeof uiFavoriteStore === 'function' ? uiFavoriteStore() : [];
+  const favorites = typeof uiFavoriteStore === 'function' ? uiFavoriteStore() : [];
+  const personal = typeof uiPersonalItems === 'function' ? uiPersonalItems() : [];
+  const merged = new Map();
+  favorites.concat(personal).forEach(function(item){
+    const key=uiFavoriteKey(item), previous=merged.get(key)||{};
+    merged.set(key,Object.assign({},item,previous,{title:previous.title||item.title,href:previous.href||item.href}));
+  });
+  const items = Array.from(merged.values());
   renderFavoriteSummary(items);
   const types = [...new Set(items.map(item => item.type || 'item'))];
   if (activeFavoriteType !== 'all' && !types.includes(activeFavoriteType)) activeFavoriteType = 'all';
@@ -43,7 +50,8 @@ function renderMyFavorites() {
   if(!visible.length){root.innerHTML=uiStateHTML('empty',T('no_results'),T('my_filter_empty_desc'));return}
   root.innerHTML = '<div class="my-list">' + visible.map(function (item) {
     const href=favoriteHref(item),external=/^https?:\/\//.test(href),meta=uiGetPersonalMeta(item.type,item.id),tags=(meta.tags||[]).map(topicTagHTML).join('');
-    return '<article class="my-item"><div class="my-item__content"><a class="my-item__title" href="'+esc(href)+'"'+(external?' target="_blank" rel="noopener"':'')+'>' + esc(item.title || item.id) + '</a><span class="my-item__meta"><span>'+favoriteTypeLabel(item.type)+'</span><span>· '+T('reading_'+meta.reading_state)+'</span><span>· '+categoryLabel(meta.category)+'</span>'+tags+'</span></div><div class="my-item__actions"><a class="ui-button ui-button--small ui-button--secondary" href="'+esc(href)+'"'+(external?' target="_blank" rel="noopener"':'')+'>'+T('my_revisit')+'</a><button class="ui-button ui-button--small ui-button--ghost" onclick="this.closest(\'.my-item\').classList.toggle(\'editing\')">'+T('my_organize')+'</button><button class="ui-button ui-button--small ui-button--ghost" data-favorite-type="' + esc(item.type || 'item') + '" data-favorite-id="' + esc(item.id || '') + '" onclick="uiToggleFavorite({type:this.dataset.favoriteType,id:this.dataset.favoriteId}, this);renderMyFavorites();">' + T('my_remove') + '</button></div><div class="my-item__editor"><select onchange="updateItemMeta(\''+esc(item.type)+'\',\''+esc(item.id)+'\',{category:this.value})">'+categoryOptions(meta.category,true)+'</select><select onchange="updateItemMeta(\''+esc(item.type)+'\',\''+esc(item.id)+'\',{reading_state:this.value})">'+readingOptions(meta.reading_state,true)+'</select><input value="'+esc((meta.tags||[]).join(', '))+'" placeholder="'+T('tags_edit_label')+'" onchange="updateItemTags(\''+esc(item.type)+'\',\''+esc(item.id)+'\',this.value)"></div></article>';
+    const isFavorite=favorites.some(saved=>uiFavoriteKey(saved)===uiFavoriteKey(item));
+    return '<article class="my-item"><div class="my-item__content"><a class="my-item__title" href="'+esc(href)+'"'+(external?' target="_blank" rel="noopener"':'')+'>' + esc(item.title || item.id) + '</a><span class="my-item__meta"><span>'+favoriteTypeLabel(item.type)+'</span><span>· '+T('reading_'+meta.reading_state)+'</span><span>· '+categoryLabel(meta.category)+'</span>'+tags+'</span></div><div class="my-item__actions"><button class="ui-button ui-button--small ui-button--ghost" onclick="this.closest(\'.my-item\').classList.toggle(\'editing\')">'+T('my_organize')+'</button>'+(isFavorite?'<button class="ui-button ui-button--small ui-button--ghost" data-favorite-type="' + esc(item.type || 'item') + '" data-favorite-id="' + esc(item.id || '') + '" onclick="uiToggleFavorite({type:this.dataset.favoriteType,id:this.dataset.favoriteId}, this);renderMyFavorites();">' + T('my_remove') + '</button>':'')+'</div><div class="my-item__editor"><select onchange="updateItemMeta(\''+esc(item.type)+'\',\''+esc(item.id)+'\',{category:this.value})">'+categoryOptions(meta.category,true)+'</select><select onchange="updateItemMeta(\''+esc(item.type)+'\',\''+esc(item.id)+'\',{reading_state:this.value})">'+readingOptions(meta.reading_state,true)+'</select><input value="'+esc((meta.tags||[]).join(', '))+'" placeholder="'+T('tags_edit_label')+'" onchange="updateItemTags(\''+esc(item.type)+'\',\''+esc(item.id)+'\',this.value)"></div></article>';
   }).join('') + '</div>';
 }
 function setFavoriteType(type) { activeFavoriteType = type; renderMyFavorites(); }

@@ -42,12 +42,28 @@ h1{font-family:var(--font-display);font-size:38px;line-height:1.1;letter-spacing
 .filter-btn.active{background:#1f6feb33;border-color:var(--accent);color:#58a6ff}
 .filter-btn.hidden{opacity:0.25}
 
-/* ── 年份滑块 ── */
-.year-slider-wrap{display:flex;align-items:center;gap:8px;margin-left:auto;flex-shrink:0}
-.year-slider-wrap label{font-size:11px;color:var(--text-secondary);white-space:nowrap}
-.year-slider{-webkit-appearance:none;width:200px;height:4px;background:var(--bg-elevated);border-radius:2px;outline:none}
-.year-slider::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;background:#58a6ff;border-radius:50%;cursor:pointer}
-.year-range{font-size:11px;color:var(--accent);min-width:60px;text-align:right;cursor:pointer}
+/* ── 年份芯片（桌面 + 移动端统一） ── */
+.year-chips{display:flex;gap:4px;flex-wrap:wrap;max-width:520px}
+.year-chip{min-height:28px;padding:3px 10px;border:1px solid var(--border);border-radius:999px;background:transparent;color:var(--text-muted);font:inherit;font-size:11px;cursor:pointer;transition:all .12s;white-space:nowrap}
+.year-chip:hover{border-color:var(--accent);color:var(--accent)}
+.year-chip.active{background:var(--accent-subtle);border-color:var(--accent);color:var(--accent);font-weight:600}
+.year-chip[data-year=""]{font-size:10px;color:var(--text-secondary);order:-1}
+.year-chip[data-year=""]:hover{color:var(--accent)}
+.year-chip[data-year=""]:only-child{opacity:0.4;pointer-events:none}
+
+/* ── 年份导航（移动端） ── */
+.year-nav{display:none;align-items:center;gap:6px;margin-left:auto;flex-shrink:0}
+.year-nav-btn{display:inline-flex;align-items:center;justify-content:center;min-width:36px;min-height:36px;padding:4px 10px;border:1px solid var(--border);border-radius:6px;background:var(--bg-card);color:var(--text-secondary);font:inherit;font-size:11px;cursor:pointer;transition:all .12s;white-space:nowrap}
+.year-nav-btn:hover{border-color:var(--accent);color:var(--accent)}
+.year-nav-btn:disabled{opacity:.3;cursor:default;pointer-events:none}
+.year-nav-current{min-width:56px;text-align:center;font-size:16px;font-weight:700;color:var(--accent)}
+.year-nav-label{font-size:10px;color:var(--text-muted);white-space:nowrap}
+.year-nav-clear{display:inline-flex;align-items:center;gap:2px;padding:3px 8px;border:none;background:var(--bg-elevated);color:var(--text-muted);border-radius:4px;font-size:9px;cursor:pointer}
+.year-nav-clear:hover{color:var(--accent);background:var(--accent-subtle)}
+.year-chips{display:flex;gap:4px;flex-wrap:wrap;max-width:320px}
+.year-chip{min-height:28px;padding:2px 8px;border:1px solid var(--border);border-radius:999px;background:transparent;color:var(--text-muted);font-size:10px;cursor:pointer;transition:all .12s}
+.year-chip:hover{border-color:var(--accent);color:var(--accent)}
+.year-chip.active{background:var(--accent-subtle);border-color:var(--accent);color:var(--accent)}
 
 /* ── 统计条 ── */
 .stats-bar{display:flex;gap:16px;padding:4px 0;font-size:10px;color:var(--text-muted);margin-bottom:8px;flex-wrap:wrap}
@@ -67,12 +83,12 @@ h1{font-family:var(--font-display);font-size:38px;line-height:1.1;letter-spacing
 .year-more{display:none}
 .tl-card{flex-shrink:0;width:260px;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:14px;transition:all .2s;cursor:pointer;position:relative}
 .tl-card:hover{border-color:#58a6ff66;transform:translateY(-2px);box-shadow:0 4px 12px #00000033}
-.tl-card.expanded{width:420px;border-color:var(--accent);z-index:3;box-shadow:0 8px 24px #00000055}
+.tl-card.expanded{width:420px;border-color:var(--accent);z-index:3;box-shadow:0 8px 24px #00000055;max-height:80vh;overflow-y:auto}
 .tl-card .card-type{display:inline-flex;align-items:center;gap:3px;padding:1px 8px;border-radius:8px;font-size:9px;color:#fff;margin-bottom:6px}
 .tl-card .card-name{font-size:13px;font-weight:600;color:var(--accent);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tl-card .card-date{font-size:10px;color:var(--text-secondary);margin-bottom:6px}
 .tl-card .card-summary{font-size:11px;color:var(--text-secondary);line-height:1.4;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
-.tl-card .card-detail{display:none;margin-top:8px;padding-top:8px;border-top:1px solid #21262d;font-size:11px;color:var(--text-secondary);line-height:1.5}
+.tl-card .card-detail{display:none;margin-top:8px;padding-top:8px;border-top:1px solid #21262d;font-size:11px;color:var(--text-secondary);line-height:1.5;word-break:break-word;overflow-wrap:break-word}
 .tl-card.expanded .card-detail{display:block}
 .tl-card.expanded .card-summary{-webkit-line-clamp:unset}
 .tl-card .card-tags{display:flex;gap:3px;flex-wrap:wrap;margin-top:8px}
@@ -81,15 +97,16 @@ h1{font-family:var(--font-display);font-size:38px;line-height:1.1;letter-spacing
 .tl-card .card-link{display:inline-block;margin-top:6px;font-size:10px;color:var(--accent);text-decoration:none}
 .tl-card .card-link:hover{text-decoration:underline}
 .favorite-btn{display:inline-block;margin-top:7px;padding:2px 7px;border:1px solid var(--border);background:var(--bg-elevated);color:var(--text-secondary);border-radius:999px;cursor:pointer;font-size:10px;line-height:1.4}.favorite-btn:hover,.favorite-btn.is-favorited,.favorite-btn[aria-pressed="true"]{border-color:var(--warning);background:#e3b34122;color:var(--warning)}
-.tl-card .card-timeline{margin-top:6px;font-size:10px;color:var(--text-muted);line-height:1.6}
+.tl-card .card-timeline{margin-top:6px;font-size:10px;color:var(--text-muted);line-height:1.6;word-break:break-word}
 .tl-card .card-timeline .tl-event-date{color:#6e7681;font-family:monospace;margin-right:4px}
 .timeline-empty{text-align:center;padding:60px 24px;color:var(--text-muted);font-size:14px}
 
 @media (max-width:768px){
   .controls{flex-direction:column;align-items:flex-start}
-  .year-slider-wrap{width:100%;max-width:100%;margin-left:0}
-  .year-slider{width:min(200px,calc(100vw - 150px))}
-  .year-range{min-width:40px}
+  .year-chips{max-width:100%;overflow-x:auto;flex-wrap:nowrap;padding-bottom:4px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .year-chips::-webkit-scrollbar{display:none}
+  .year-nav{display:flex;width:100%;margin-left:0;justify-content:space-between}
+  .year-nav-inner{display:flex;align-items:center;gap:6px}
   .intel-rating-help{margin-left:24px;margin-right:24px;max-width:calc(100vw - 48px)}
   .card-stars .intel-rating__label{display:none}
   .tl-card{width:220px}
@@ -133,14 +150,8 @@ async function init() {
     if (y) years.add(parseInt(y));
   });
   const yearList = [...years].sort();
-  if (yearList.length) {
-    const slider = document.getElementById("year-slider");
-    slider.min = yearList[0];
-    slider.max = yearList[yearList.length - 1];
-    slider.value = yearList[yearList.length - 1];
-    document.getElementById("year-range").textContent = T("all_label");
-  }
 
+  buildYearChips(yearList);
   renderBarChart(allEntities);
   renderTimeline(allEntities);
 
@@ -163,20 +174,54 @@ async function init() {
     }
   });
 
-  document.getElementById("year-slider").addEventListener("input", (e) => {
-    activeYear = parseInt(e.target.value);
-    document.getElementById("year-range").textContent = activeYear;
-    applyFilters();
+  // Wire year chip clicks
+  document.getElementById("year-chips-desktop").addEventListener("click", function(e) {
+    var chip = e.target.closest(".year-chip");
+    if (!chip) return;
+    var year = chip.dataset.year;
+    setYear(year ? parseInt(year) : null);
   });
 
-  document.getElementById("year-range").addEventListener("click", () => {
-    activeYear = null;
-    const slider = document.getElementById("year-slider");
-    slider.value = slider.max;
-    document.getElementById("year-range").textContent = T("all_label");
-    applyFilters();
+  // Wire mobile year nav
+  document.getElementById("year-prev").addEventListener("click", function() {
+    var chips = document.querySelectorAll("#year-chips-desktop .year-chip[data-year]");
+    if (!chips.length) return;
+    var currentIdx = activeYear ? Array.from(chips).findIndex(function(c) { return parseInt(c.dataset.year) === activeYear; }) : -1;
+    if (currentIdx <= 0) { setYear(parseInt(chips[chips.length - 1].dataset.year)); return; }
+    setYear(parseInt(chips[currentIdx - 1].dataset.year));
   });
+  document.getElementById("year-next").addEventListener("click", function() {
+    var chips = document.querySelectorAll("#year-chips-desktop .year-chip[data-year]");
+    if (!chips.length) return;
+    var currentIdx = activeYear ? Array.from(chips).findIndex(function(c) { return parseInt(c.dataset.year) === activeYear; }) : -1;
+    if (currentIdx < 0 || currentIdx >= chips.length - 1) { setYear(parseInt(chips[0].dataset.year)); return; }
+    setYear(parseInt(chips[currentIdx + 1].dataset.year));
+  });
+  document.getElementById("year-clear").addEventListener("click", function() { setYear(null); });
   } catch(e) { showError("timeline-inner", T("error_loading"), e.message); }
+}
+
+function buildYearChips(yearList) {
+  var container = document.getElementById("year-chips-desktop");
+  if (!container) return;
+  var chips = '<button class="year-chip active" data-year="">' + T("all_label") + '</button>';
+  yearList.forEach(function(y) {
+    chips += '<button class="year-chip" data-year="' + y + '">' + y + '</button>';
+  });
+  container.innerHTML = chips;
+}
+
+function setYear(year) {
+  activeYear = year;
+  // Update chips
+  document.querySelectorAll("#year-chips-desktop .year-chip").forEach(function(c) {
+    c.classList.toggle("active", (c.dataset.year || null) === (year ? String(year) : null));
+  });
+  // Update mobile nav
+  document.getElementById("year-current").textContent = year || T("all_label");
+  document.getElementById("year-prev").disabled = !year;
+  document.getElementById("year-next").disabled = !year;
+  applyFilters();
 }
 
 function getTimelineDate(entity) {

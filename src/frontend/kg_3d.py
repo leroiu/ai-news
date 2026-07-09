@@ -80,8 +80,25 @@ body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
 {RESPONSIVE_CSS}
 {ERROR_CSS}
 {INTELLIGENCE_CSS}
-@media(max-width:768px){{#sidebar{{width:220px;min-width:220px}}}}
-@media(max-width:480px){{#app{{flex-direction:column}}#sidebar{{width:100%;min-width:0;max-height:40vh}}#graph-container{{flex:1}}}}
+/* 移动端: 全屏图谱 + 紧凑顶栏 + 底部详情抽屉 */
+@media(max-width:768px){{
+  #sidebar{{display:none}}
+  #app{{flex-direction:column}}
+  #graph-container{{width:100%;height:calc(100vh - 48px)}}
+  #detail-panel{{position:fixed;bottom:0;left:0;right:0;z-index:100;min-height:auto;max-height:45vh;border-top:1px solid var(--border);border-radius:12px 12px 0 0;box-shadow:0 -4px 20px rgba(0,0,0,.3);padding:12px 14px}}
+  .graph-topbar{{display:flex;align-items:center;gap:8px;height:48px;padding:0 12px;background:var(--bg-card);border-bottom:1px solid var(--border);overflow-x:auto;flex-shrink:0}}
+  .graph-topbar .view-switch{{display:flex;gap:4px;margin:0;flex-shrink:0}}
+  .graph-topbar .view-switch a,.graph-topbar .view-switch span{{padding:4px 8px;font-size:10px}}
+  .graph-topbar .nav{{margin:0;flex-shrink:0;gap:4px}}
+  .graph-topbar .nav a{{padding:4px 8px;font-size:9px}}
+  .graph-topbar .lang-btn{{padding:2px 8px;font-size:9px;margin-left:auto;flex-shrink:0}}
+  #hint{{font-size:10px;top:56px}}
+  #controls{{bottom:8px;right:8px}}
+  #controls button{{width:32px;height:32px;font-size:14px}}
+}}
+@media(max-width:480px){{
+  #graph-container{{height:calc(100vh - 48px)}}
+}}
 </style>
 </head>
 <body data-page-template="collection">
@@ -102,6 +119,13 @@ body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
       <p style="color:var(--text-secondary,#8b949e)">{t("select_node_hint", lang)}</p>
     </div>
   </div>
+  <div class="graph-topbar" id="graph-topbar">
+{nav_html("graph")}
+<div class="view-switch" aria-label="{t("graph_view_switch", lang)}">
+  <a href="/graph">{t("graph_2d_view", lang)}</a>
+  <span class="active" aria-current="page">{t("graph_3d_view", lang)}</span>
+</div>
+</div>
   <div id="graph-container">
     <div class="spinner" id="loader"><div><div class="loading"></div><p style="margin-top:12px">{t("loading", lang)}</p></div></div>
     <div id="hint">🖱 拖拽旋转 · 滚轮缩放 · 右键平移 · 点击节点查看详情</div>
@@ -119,6 +143,9 @@ body{{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
 const TC={type_colors_js}, ICONS={icons_js}, EC={edge_colors_js};
 let graph, nodes=[], links=[], highlightNodes=new Set(), highlightLinks=new Set();
 let currentView=0;
+function graphEsc(value){{return String(value??'').replace(/[&<>"']/g,c=>({{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}}[c]));}}
+function graphSafeColor(value){{var v=String(value||'');return /^#[0-9a-fA-F]{{3,8}}$/.test(v)?v:'#999';}}
+function graphJsString(value){{return String(value??'').replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\\n/g,' ');}}
 const views=[
   {{pos:[0,0,300],look:[0,0,0]}},
   {{pos:[0,300,50],look:[0,0,0]}},
@@ -131,8 +158,8 @@ function cycleView(){{currentView=(currentView+1)%views.length;const v=views[cur
 function renderTypeList(){{
   const counts={{}};nodes.forEach(n=>{{const t=n.type||'unknown';counts[t]=(counts[t]||0)+1}});
   const items=Object.entries(counts).sort((a,b)=>b[1]-a[1]).map(([t,c])=>
-    '<div class="type-item" onclick="filterByType(\\''+t+'\\')"><span class="type-dot" style="background:'+(TC[t]||'#999')+'"></span>'+t+'<span class="type-count">'+c+'</span></div>').join('');
-  document.getElementById("type-list").innerHTML='<div class="type-group"><h3>'+T("type_filter")+' ('+nodes.length+')</h3>'+items+'</div>';
+    '<div class="type-item" onclick="filterByType(\\''+graphJsString(t)+'\\')"><span class="type-dot" style="background:'+graphSafeColor(TC[t]||'#999')+'"></span>'+graphEsc(t)+'<span class="type-count">'+c+'</span></div>').join('');
+  document.getElementById("type-list").innerHTML='<div class="type-group"><h3>'+graphEsc(T("type_filter"))+' ('+nodes.length+')</h3>'+items+'</div>';
 }}
 
 let typeFilter=null;
@@ -149,8 +176,8 @@ async function init(){{
   applyI18n();
   try{{
     const [entData,relData]=await Promise.all([apiFetch("/api/entities"),apiFetch("/api/relationships")]);
-    nodes=(entData||[]).map(e=>({{...e,val:(e.importance||1)*2,color:TC[e.type]||'#999',desc:(e.summary||'').slice(0,200)}}));
-    links=(relData||[]).map(r=>({{source:r.source_id,target:r.target_id,type:r.relation_type||'related',color:EC[r.relation_type]||'#999'}}));
+    nodes=(entData||[]).map(e=>({{...e,val:(e.importance||1)*2,color:graphSafeColor(TC[e.type]||'#999'),desc:(e.summary||'').slice(0,200)}}));
+    links=(relData||[]).map(r=>({{source:r.source_id,target:r.target_id,type:r.relation_type||'related',color:graphSafeColor(EC[r.relation_type]||'#999')}}));
     const loader=document.getElementById("loader");if(loader)loader.style.display="none";
     document.getElementById("stats-line").textContent=T("graph_stats", {{n: nodes.length, e: links.length}});
     buildGraph();
@@ -167,7 +194,7 @@ function buildGraph(){{
     .graphData({{nodes,links}})
     .nodeColor(n=>n.color||'#999')
     .nodeVal(n=>n.val||2)
-    .nodeLabel(n=>'<b>'+ICONS[n.type]+' '+n.name+'</b><br>'+editorialRatingHTML(n.importance||0))
+    .nodeLabel(n=>'<b>'+graphEsc(ICONS[n.type]||'')+' '+graphEsc(n.name)+'</b><br>'+editorialRatingHTML(n.importance||0))
     .linkColor(l=>l.color||'#444')
     .linkWidth(l=>highlightLinks.has(l)?3:0.5)
     .linkOpacity(0.4)
@@ -176,9 +203,9 @@ function buildGraph(){{
     .backgroundColor('#0d1117')
     .onNodeClick(node=>{{
       const panel=document.getElementById("detail-panel");
-      panel.innerHTML='<h2>'+ICONS[node.type]+' '+node.name+'</h2>'+
-        '<div class="meta">'+topicTagHTML(TLbl(node.type))+' '+editorialRatingHTML(node.importance||0)+'</div>'+
-        '<div class="summary">'+(node.summary||node.desc||T("no_data"))+'</div>'+
+      panel.innerHTML='<h2>'+graphEsc(ICONS[node.type]||'')+' '+graphEsc(node.name)+'</h2>'+
+        '<div class="meta">'+topicTagHTML(graphEsc(TLbl(node.type)))+' '+editorialRatingHTML(node.importance||0)+'</div>'+
+        '<div class="summary">'+graphEsc(node.summary||node.desc||T("no_data"))+'</div>'+
         '<a href="/entity/'+encodeURIComponent(node.id)+'" style="color:var(--accent,#58a6ff);font-size:11px;margin-top:8px;display:inline-block">'+T("view_detail")+'</a>';
       highlightNodes.clear();highlightLinks.clear();
       highlightNodes.add(node);

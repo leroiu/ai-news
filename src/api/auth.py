@@ -3,6 +3,8 @@
 """
 
 import os
+import secrets
+import warnings
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 
@@ -17,7 +19,44 @@ router = APIRouter(prefix="/api/auth", tags=["auth"])
 
 # ── 配置 ──
 
-SECRET_KEY = os.environ.get("JWT_SECRET", "ai-news-dev-secret-change-in-production")
+_INSECURE_SECRET_VALUES = {
+    "",
+    "ai-news-dev-secret-change-in-production",
+    "change-me-in-production",
+}
+
+
+def _load_secret_key() -> str:
+    """加载 JWT 签名密钥。
+
+    安全原则：
+    - 显式配置了公开默认值时直接失败，避免生产环境被伪造 token。
+    - 未配置时使用进程内临时密钥，保留本地开发可用性，但重启后 token 失效。
+    - 生产环境必须通过环境变量或平台 secret 配置稳定强密钥。
+    """
+    configured = os.environ.get("JWT_SECRET", "").strip()
+    env = (os.environ.get("AI_NEWS_ENV") or os.environ.get("APP_ENV") or "").lower()
+
+    if configured in _INSECURE_SECRET_VALUES:
+        if env in {"prod", "production", "staging"} or configured:
+            raise RuntimeError(
+                "JWT_SECRET is missing or insecure. Configure a strong secret before starting."
+            )
+        warnings.warn(
+            "JWT_SECRET is not set; using an ephemeral development secret. "
+            "Existing tokens will be invalid after restart.",
+            RuntimeWarning,
+            stacklevel=2,
+        )
+        return secrets.token_urlsafe(48)
+
+    if len(configured) < 32:
+        raise RuntimeError("JWT_SECRET must be at least 32 characters.")
+
+    return configured
+
+
+SECRET_KEY = _load_secret_key()
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_HOURS = 24
 

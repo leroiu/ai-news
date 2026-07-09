@@ -156,6 +156,100 @@ categories:
   - "行业应用"
   - "人物/观点"
 
+# --- 分类规则 ---
+classifier:
+  method: rules_first   # rules_first（规则优先）| llm_only（纯 LLM）
+  rule_threshold: 0.6   # 规则置信度 ≥ 此值时直接采纳，不调 LLM
+  max_categories: 3     # 每篇文章最多分类数
+
+  # 关键词规则：命中任一 pattern 即为该分类投票
+  # 置信度 = 匹配项数 / 总规则项数
+  keyword_rules:
+    - category: "大模型发布"
+      patterns:
+        - "(发布|推出|launch|release|发布).*?(模型|GPT|Claude|Gemini|Llama|DeepSeek)"
+        - "(GPT|Claude|Gemini|Llama|DeepSeek).*?(发布|推出|发布|开源)"
+      weight: 3
+    - category: "开源模型"
+      patterns:
+        - "(开源|open.?source|开源发布|社区版)"
+        - "(Hugging.?Face|huggingface).*(模型|model)"
+      weight: 2
+    - category: "Agent"
+      patterns:
+        - "(Agent|agent|MCP|function.?calling|tool.?use|AI.?代理)"
+        - "(Agentic|自主代理|multi.?agent|多Agent)"
+      weight: 2
+    - category: "编程/AI Coding"
+      patterns:
+        - "(编程|代码|code|coding|Copilot|IDE|代码生成|编码)"
+        - "(Claude Code|GitHub Copilot|Cursor|Windsurf)"
+      weight: 2
+    - category: "视频生成"
+      patterns:
+        - "(视频|video|文生视频|Sora|Runway|Pika|视频生成|视频编辑)"
+      weight: 2
+    - category: "图像生成"
+      patterns:
+        - "(图像|图片|image|文生图|Stable Diffusion|Midjourney|DALL.E)"
+      weight: 2
+    - category: "语音"
+      patterns:
+        - "(语音|speech|TTS|STT|声音|voice|语音合成|语音识别)"
+      weight: 2
+    - category: "机器人"
+      patterns:
+        - "(机器人|robot|具身|embodied|人形|humanoid|自动驾驶|self.?driving)"
+      weight: 2
+    - category: "芯片/算力"
+      patterns:
+        - "(芯片|chip|GPU|NPU|TPU|算力|compute|推理优化|H100|B100)"
+      weight: 2
+    - category: "融资/商业"
+      patterns:
+        - "(融资|funding|种子轮|A轮|收购|acquisition|IPO|营收|revenue)"
+      weight: 2
+    - category: "论文/研究"
+      patterns:
+        - "(论文|paper|研究|research|arxiv|技术报告|technical.?report)"
+      weight: 2
+    - category: "政策/监管"
+      patterns:
+        - "(政策|policy|监管|regulation|法案|AI.?Act|出口管制|伦理)"
+      weight: 1
+    - category: "安全/对齐"
+      patterns:
+        - "(安全|safety|对齐|alignment|红队|red.?team|偏见|bias|幻觉|hallucination)"
+      weight: 1
+    - category: "工具/平台"
+      patterns:
+        - "(工具|tool|平台|platform|API|SaaS|SDK|框架|framework)"
+      weight: 1
+    - category: "行业应用"
+      patterns:
+        - "(医疗|health|法律|legal|金融|finance|教育|education|行业应用)"
+      weight: 1
+    - category: "人物/观点"
+      patterns:
+        - "(访谈|interview|观点|opinion|Sam Altman|Demis Hassabis|Yann LeCun)"
+      weight: 1
+
+# --- 概念挖掘 ---
+concept_miner:
+  enabled: true           # 是否启用
+  top_n: 10               # 每轮最多挖掘 N 篇文章（按评分排序）
+  min_score: 3            # ★3+ 才能进入候选
+  batch_size: 20
+  concurrency: 3
+  skip_low_authority: true  # 跳过低权威来源（不在 source_scores 白名单且 score<50）
+  high_authority_sources:
+    - "OpenAI Blog"
+    - "Anthropic Research"
+    - "Google AI Blog"
+    - "DeepMind Blog"
+    - "ArXiv AI"
+    - "ArXiv CS.CL"
+
 # --- 用户兴趣 ---
 # 权重影响评分。高权重内容得分更高。
 interests:
@@ -178,22 +272,88 @@ interests:
     - "纯学术论文"
     - "视频生成"
 
+# --- 降级模式 ---
+# 所有 LLM 不可用时，Pipeline 仍能生成基础日报
+degradation:
+  # 降级模式下跳过所有 LLM 调用
+  skip_all_llm: false
+  # 基础日报内容标志（用于日志和前端标记）
+  minimal_report: false
+
+# --- 摘要 ---
+summarizer:
+  # 只对 Top N 篇文章调用 LLM 摘要，其余使用 fallback
+  top_n: 20
+  # Fallback 摘要截取原文前 N 字符
+  fallback_truncate: 200
+
 # --- 评分 ---
 scoring:
-  # 评分维度权重
-  weights:
-    industry_impact: 0.40     # 行业影响力
-    technical_breakthrough: 0.25  # 技术突破性
-    user_relevance: 0.25      # 用户相关性
-    information_uniqueness: 0.10  # 信息独特性
+  method: rules    # rules（规则评分）| llm（AI 评分，已弃用）
 
-  # 星级阈值
+  # 四维权重（总和=1.0）
+  weights:
+    source_authority: 0.30   # 来源权威性
+    keyword_match: 0.30      # 关键词匹配
+    recency: 0.20            # 时效性
+    high_authority_bonus: 0.20  # 高权威来源加成
+
+  # 来源权威分 (0-100)
+  source_scores:
+    "OpenAI Blog": 95
+    "Anthropic Research": 90
+    "Google AI Blog": 85
+    "DeepMind Blog": 85
+    "ArXiv AI": 70
+    "ArXiv CS.CL": 65
+    "MIT Technology Review AI": 60
+    "TechCrunch AI": 55
+    "VentureBeat AI": 55
+    "GitHub Trending (Python)": 55
+    "Hacker News (AI 相关)": 50
+    "The Verge AI": 50
+    "Hacker News (全部)": 40
+    "Reddit r/MachineLearning": 35
+    "Reddit r/artificial": 30
+  source_default: 30
+
+  # 关键词加分（命中一项累加，上限100）
+  keyword_boost:
+    - patterns:
+        - "发布|推出|launch|release|open.?source|milestone|breakthrough|开源"
+      score: 20
+    - patterns:
+        - "更新|upgrade|改进|合作|partnership|融资|funding|收购"
+        - "论文|research|study|benchmark|评测"
+      score: 10
+    - patterns:
+        - "{interests_high}"
+      score: 15
+  keyword_penalty:
+    - patterns:
+        - "广告|sponsored|opinion|评论|观点"
+      score: -15
+
+  # 时效性（小时）
+  recency:
+    peak_hours: 24     # 24h 内满分
+    decay_hours: 72    # 72h 线性衰减到最低分
+    min_score: 10      # 最低时效分
+
+  # 高权威来源列表（额外加成基础）
+  high_authority_sources:
+    - "OpenAI Blog"
+    - "Anthropic Research"
+    - "Google AI Blog"
+    - "DeepMind Blog"
+
+  # 星级阈值（百分制 → 星级）
   thresholds:
-    star_5: 85   # 85分以上 ★★★★★
-    star_4: 70   # 70-84分  ★★★★
-    star_3: 50   # 50-69分  ★★★
-    star_2: 30   # 30-49分  ★★
-    star_1: 0    # 0-29分   ★
+    star_5: 85
+    star_4: 70
+    star_3: 50
+    star_2: 30
+    star_1: 0
 
 # --- 去重 ---
 dedup:

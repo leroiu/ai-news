@@ -6,7 +6,7 @@ FastAPI 中间件 — Rate Limit + 统一错误处理。
 
 import time
 from collections import defaultdict
-from typing import Callable
+import os
 
 from fastapi import Request, HTTPException
 from fastapi.responses import JSONResponse
@@ -58,13 +58,14 @@ def _validation_exception_handler(request: Request, exc: Exception) -> JSONRespo
 
 def _generic_exception_handler(request: Request, exc: Exception) -> JSONResponse:
     """兜底异常处理器。"""
+    expose_detail = os.environ.get("AI_NEWS_DEBUG_ERRORS") == "1"
     return JSONResponse(
         status_code=500,
         content={
             "error": {
                 "code": "INTERNAL_ERROR",
                 "message": "An unexpected error occurred",
-                "detail": str(exc) if __debug__ else None,
+                "detail": str(exc) if expose_detail else None,
             }
         },
     )
@@ -122,6 +123,41 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
         else:
             response.headers["X-RateLimit-Reset"] = str(int(now + self.window_seconds))
 
+        return response
+
+
+class SecurityHeadersMiddleware(BaseHTTPMiddleware):
+    """注入基础安全响应头。
+
+    当前前端仍使用内联 CSS/JS 和少量外部图库 CDN，因此 CSP 先采用
+    可运行的收敛版本；后续若迁移为外部静态资源，可去掉 unsafe-inline。
+    """
+
+    CSP = (
+        "default-src 'self'; "
+        "script-src 'self' 'unsafe-inline' https://d3js.org https://unpkg.com; "
+        "style-src 'self' 'unsafe-inline'; "
+        "img-src 'self' data: https:; "
+        "connect-src 'self'; "
+        "font-src 'self' data:; "
+        "object-src 'none'; "
+        "base-uri 'self'; "
+        "frame-ancestors 'none'; "
+        "form-action 'self'"
+    )
+
+    async def dispatch(self, request: Request, call_next):
+        response = await call_next(request)
+        response.headers.setdefault("X-Content-Type-Options", "nosniff")
+        response.headers.setdefault("X-Frame-Options", "DENY")
+        response.headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
+        response.headers.setdefault("Permissions-Policy", "camera=(), microphone=(), geolocation=()")
+        response.headers.setdefault("Content-Security-Policy", self.CSP)
+        if request.url.scheme == "https":
+            response.headers.setdefault(
+                "Strict-Transport-Security",
+                "max-age=31536000; includeSubDomains",
+            )
         return response
 
 

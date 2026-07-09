@@ -54,10 +54,16 @@ def generate_timeline(output_dir: Optional[Path] = None, lang: str = "zh") -> Pa
     <button class="filter-btn active" data-type="all" data-i18n="all_label">{t("all_label", lang)}</button>
     {filter_btns}
   </div>
-  <div class="year-slider-wrap">
-    <label for="year-slider" data-i18n="jump_to">{t("jump_to", lang)}</label>
-    <input type="range" id="year-slider" class="year-slider" min="0" max="100" value="0">
-    <span class="year-range" id="year-range">—</span>
+  <div class="year-chips" id="year-chips-desktop">
+    <button class="year-chip active" data-year="" data-i18n="all_label">{t("all_label", lang)}</button>
+  </div>
+  <div class="year-nav" id="year-nav">
+    <div class="year-nav-inner">
+      <button class="year-nav-btn" id="year-prev" title="{t("prev_year", lang)}">‹</button>
+      <span class="year-nav-current" id="year-current">{t("all_label", lang)}</span>
+      <button class="year-nav-btn" id="year-next" title="{t("next_year", lang)}">›</button>
+      <button class="year-nav-clear" id="year-clear" data-i18n="clear">{t("clear", lang)}</button>
+    </div>
   </div>
 </div>
 

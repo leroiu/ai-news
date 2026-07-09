@@ -275,10 +275,20 @@ function uiGetPersonalMeta(type, id) {
 }
 function uiUpdatePersonalMeta(type, id, patch) {
   const store=uiPersonalMetaStore(), key=uiFavoriteKey({type:type,id:id});
-  store[key]=Object.assign({},uiGetPersonalMeta(type,id),patch||{}, {updated_at:new Date().toISOString()});
+  store[key]=Object.assign({},uiGetPersonalMeta(type,id),patch||{}, {type:type,id:id,updated_at:new Date().toISOString()});
   localStorage.setItem('ai_observatory_personal_meta',JSON.stringify(store));
   if(typeof uiToast==='function')uiToast(typeof T==='function'?T('personal_saved'):'Saved','success');
   return store[key];
+}
+function uiPersonalItems() {
+  const store=uiPersonalMetaStore();
+  return Object.keys(store).map(function(key) {
+    const meta=store[key]||{}, split=key.indexOf(':');
+    return Object.assign({},meta,{
+      type:meta.type||key.slice(0,split<0?key.length:split),
+      id:meta.id||key.slice(split<0?key.length:split+1)
+    });
+  }).filter(function(item){return item.id&&item.reading_state&&item.reading_state!=='unread'});
 }
 function uiFavoriteKey(item) {
   return String((item && item.type) || 'item') + ':' + String((item && item.id) || '');

@@ -37,9 +37,9 @@ body{{padding:24px;max-width:var(--content-max);margin:0 auto;animation:fadeIn .
 {BUTTON_CSS}
 h1{{font-family:var(--font-display);font-size:38px;letter-spacing:-.035em;color:var(--text-primary);margin:26px 0 8px}}
 .subtitle{{color:var(--text-secondary);font-size:13px;margin-bottom:20px}}
-.section{{margin:36px 0 42px}}
-.section h2{{font-family:var(--font-display);font-size:21px;color:var(--text-primary);margin-bottom:0;padding-bottom:10px;border-bottom:1px solid var(--border-strong)}}
-.section h3{{font-size:13px;color:var(--text-secondary);margin-bottom:6px;font-weight:600}}
+.section{{margin:40px 0 28px}}
+.section h2{{font-family:var(--font-display);font-size:23px;color:var(--text-primary);margin-bottom:0;padding-bottom:12px;border-bottom:2px solid var(--border-strong)}}
+.section h3{{font-size:11px;color:var(--text-muted);margin-bottom:8px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}}
 .report-list{{display:flex;flex-direction:column}}
 .report-item{{display:flex;align-items:center;gap:12px;padding:14px 0;background:transparent;border:0;border-bottom:1px solid var(--border);border-radius:0;text-decoration:none;color:var(--text-primary);transition:all .15s}}
 .report-item:hover{{padding-left:8px;background:var(--accent-subtle)}}

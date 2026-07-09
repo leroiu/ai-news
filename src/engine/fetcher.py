@@ -47,6 +47,7 @@ class Article:
 
     # --- Classifier 产出 ---
     categories: list[str] = field(default_factory=list)
+    classification_meta: dict = field(default_factory=dict)  # method, confidence 等
 
     # --- Summarizer 产出 ---
     title_cn: str = ""
@@ -56,6 +57,7 @@ class Article:
     # --- Scorer 产出 ---
     score: int = 0
     score_reason: str = ""
+    score_breakdown: dict = field(default_factory=dict)  # 规则评分明细
     cluster_id: str = ""              # 事件聚类 ID（同事件多源合并）
 
     @staticmethod
