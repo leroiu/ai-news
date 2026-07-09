@@ -13,7 +13,8 @@ set -euo pipefail
 APP_DIR="/home/admin/app"
 BACKUP_DIR="$APP_DIR/data/backups"
 TIMESTAMP=$(date '+%Y%m%d_%H%M%S')
-DB="$APP_DIR/data/news.db"
+DB="$APP_DIR/data/platform.db"
+DB_NAME="platform"
 KEEP_DAYS=30
 
 mkdir -p "$BACKUP_DIR"
@@ -21,7 +22,7 @@ mkdir -p "$BACKUP_DIR"
 # 备份数据库文件
 for ext in "" "-wal" "-shm"; do
   if [ -f "${DB}${ext}" ]; then
-    cp "${DB}${ext}" "$BACKUP_DIR/news_${TIMESTAMP}.db${ext}"
+    cp "${DB}${ext}" "$BACKUP_DIR/${DB_NAME}_${TIMESTAMP}.db${ext}"
   fi
 done
 
@@ -42,6 +43,6 @@ print(f'{datetime.now():%Y-%m-%d %H:%M:%S}  backup: {\" \".join(stats)}')
 " >> "$BACKUP_DIR/backup.log"
 
 # 清理旧备份
-find "$BACKUP_DIR" -name "news_*.db*" -mtime +${KEEP_DAYS} -delete 2>/dev/null || true
+find "$BACKUP_DIR" -name "${DB_NAME}_*.db*" -mtime +${KEEP_DAYS} -delete 2>/dev/null || true
 
-echo "backup done: $TIMESTAMP ($(ls "$BACKUP_DIR"/news_*.db 2>/dev/null | wc -l) 个备份)"
+echo "backup done: $TIMESTAMP ($(ls "$BACKUP_DIR"/${DB_NAME}_*.db 2>/dev/null | wc -l) 个备份)"

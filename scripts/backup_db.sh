@@ -20,7 +20,7 @@ TIMESTAMP=$(date '+%Y%m%d_%H%M%S')
 
 SERVER="admin@121.43.80.221"
 APP_DIR="/home/admin/app"
-SSH_OPTS="-o ConnectTimeout=10 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
+SSH_OPTS="-o ConnectTimeout=10 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i $HOME/.ssh/id_ed25519"
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -50,20 +50,21 @@ else
 fi
 
 # 2. 检查服务器数据库文件
-DB_SIZE=$(ssh $SSH_OPTS "$SERVER" "stat -c%s $APP_DIR/data/news.db 2>/dev/null || echo 0" 2>/dev/null | tr -d '\r\n')
+DB_FILE="platform.db"
+DB_SIZE=$(ssh $SSH_OPTS "$SERVER" "stat -c%s /home/admin/app/data/$DB_FILE 2>/dev/null || echo 0" 2>/dev/null | tr -d '\r\n')
 if [ "${DB_SIZE:-0}" -eq 0 ]; then
-  fail "服务器数据库不存在或为空"
+  fail "服务器数据库 $DB_FILE 不存在或为空"
   exit 1
 fi
 DB_SIZE_MB=$(awk "BEGIN {printf \"%.1f\", $DB_SIZE/1024/1024}")
-pass "服务器数据库: ${DB_SIZE_MB} MB"
+pass "服务器数据库 ($DB_FILE): ${DB_SIZE_MB} MB"
 
 # 3. 备份数据库
-BACKUP_FILE="$BACKUP_DIR/news_${TIMESTAMP}.db"
+BACKUP_FILE="$BACKUP_DIR/platform_${TIMESTAMP}.db"
 echo ""
-echo "  下载数据库到 $BACKUP_FILE ..."
-scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-  "$SERVER:$APP_DIR/data/news.db" "$BACKUP_FILE"
+echo "  下载 $DB_FILE 到 $BACKUP_FILE ..."
+scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i "$HOME/.ssh/id_ed25519" \
+  "$SERVER:$APP_DIR/data/$DB_FILE" "$BACKUP_FILE"
 
 # 4. 验证备份
 LOCAL_SIZE=$(stat -c%s "$BACKUP_FILE" 2>/dev/null || echo 0)
@@ -77,26 +78,24 @@ fi
 # 5. 保留备注：记录表数据量
 echo ""
 echo "  数据库统计:"
-ssh $SSH_OPTS "$SERVER" "
-  cd $APP_DIR && .venv/bin/python -c \"
+ssh $SSH_OPTS "$SERVER" "cd $APP_DIR && .venv/bin/python -c '
 import sqlite3
-db = sqlite3.connect('data/news.db')
-tables = ['articles','entities','relationships','reports']
+db = sqlite3.connect(\"data/platform.db\")
+tables = [\"articles\",\"entities\",\"relationships\",\"reports\"]
 for t in tables:
     try:
-        c = db.execute(f'SELECT COUNT(*) FROM {t}').fetchone()[0]
-        print(f'    {t}: {c}')
+        c = db.execute(\"SELECT COUNT(*) FROM \" + t).fetchone()[0]
+        print(f\"    {t}: {c}\")
     except:
-        print(f'    {t}: N/A')
+        print(f\"    {t}: N/A\")
 db.close()
-\" 2>/dev/null || echo '    统计失败'
-"
+'" 2>/dev/null || echo '    统计失败'
 
 # 6. 清理 30 天前的旧备份
-OLD_COUNT=$(find "$BACKUP_DIR" -name "news_*.db" -mtime +30 2>/dev/null | wc -l)
+OLD_COUNT=$(find "$BACKUP_DIR" -name "platform_*.db" -mtime +30 2>/dev/null | wc -l)
 if [ "$OLD_COUNT" -gt 0 ]; then
   warn "清理 $OLD_COUNT 个超过 30 天的旧备份"
-  find "$BACKUP_DIR" -name "news_*.db" -mtime +30 -delete
+  find "$BACKUP_DIR" -name "platform_*.db" -mtime +30 -delete
 fi
 
 # 7. 备份报告
@@ -105,5 +104,5 @@ echo "=============================================="
 echo "  备份完成"
 echo "  文件: $BACKUP_FILE"
 echo "  大小: ${DB_SIZE_MB} MB"
-echo "  当前备份数: $(ls "$BACKUP_DIR"/news_*.db 2>/dev/null | wc -l)"
+echo "  当前备份数: $(ls "$BACKUP_DIR"/platform_*.db 2>/dev/null | wc -l)"
 echo "=============================================="
