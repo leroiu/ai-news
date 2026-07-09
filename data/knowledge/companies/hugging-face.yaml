@@ -1,0 +1,41 @@
+id: hugging-face
+name: Hugging Face
+type: company
+aliases:
+- HuggingFace
+- Hugging Face
+- HF
+- 🤗
+release_date: 2026-07
+status: active
+tags:
+- open-source
+- platform
+- models
+- datasets
+- community
+- hub
+importance: 5
+confidence: confirmed
+summary: 'Hugging Face 是 AI 开源生态的中心枢纽，托管 100 万+ 模型、数据集和 AI 应用。
+
+  提供 Transformers/Diffusers 库、HF Hub、Spaces（AI App 托管）、AutoTrain、Inference API 等全栈工具链。'
+significance: |
+  Hugging Face 已成为 AI 领域的"GitHub"，模型发布的首选平台。
+  核心产品线：
+  - Model Hub：100 万+ 模型，标准化的模型卡和推理 API
+  - Transformers 库：最广泛使用的深度学习框架抽象层
+  - Spaces：AI 应用快速托管，支持 Gradio/Streamlit
+  - Datasets：标准化数据集管理
+  - AutoTrain：零代码模型微调
+  - Inference API / Inference Endpoints：生产级模型部署
+  - TGI (Text Generation Inference)：LLM 推理引擎
+
+  SmolLM、SmolVLM 等自家模型系列推动小模型生态。
+  SafeRLHF、TRL 等对齐工具链的维护者。
+
+domain: AI Platform / Open Source
+related:
+  - transformers
+  - tgi
+  - pytorch

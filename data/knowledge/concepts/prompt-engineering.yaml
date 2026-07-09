@@ -1,0 +1,48 @@
+id: prompt-engineering
+name: Prompt Engineering
+type: concept
+aliases:
+- 提示工程
+- 提示词工程
+- prompt engineering
+- prompt design
+- prompt optimization
+release_date: 2022-01
+status: active
+tags:
+- prompting
+- llm
+- technique
+- optimization
+- agent
+importance: 4
+confidence: confirmed
+summary: 'Prompt Engineering 已从"手工艺"演变为系统性认知架构设计。
+
+  2025-2026 年的关键发现：推理链的结构设计比模型选择更重要——仅架构变化就能带来 4%→74% 的提升。'
+significance: |
+  关键技术矩阵：
+  - Zero-shot CoT：基础推理，适合一般场景
+  - Few-shot CoT：领域特定推理，token 成本高
+  - Self-consistency：多链多数投票，高准确率但 3-5× 成本
+  - Tree-of-Thoughts：探索分支路径，适合创意/战略，10-50× 成本
+  - Least-to-Most：分解可拆解任务
+  - ReAct：推理+工具调用交织，Agent 的基础模式
+
+  Reasoning Model 时代的 prompt 变化：
+  - 保持 prompt 简洁直接
+  - 用分隔符（markdown/XML 标签）划分指令区
+  - 先 zero-shot，不够再加 few-shot
+  - 通过 API 参数控制推理深度
+  - 对重要输出做验证
+
+  生产最佳实践：
+  - 40-60% 的生产 prompt 被 indiscriminate CoT 主动伤害
+  - 按难度路由：简单→非推理模型+经典 CoT；困难→reasoning model
+  - 轨迹评估：区分"最终答案"和"推理过程"分别评分
+
+domain: AI / LLM Techniques
+related:
+  - chain-of-thought
+  - reasoning-model
+  - react-pattern

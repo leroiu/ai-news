@@ -1,0 +1,34 @@
+id: together-ai
+name: Together AI
+type: company
+aliases:
+- Together AI
+- Together
+- Together Computer
+release_date: 2026-07
+status: active
+tags:
+- cloud
+- inference
+- open-source
+- gpu
+- fine-tuning
+importance: 4
+confidence: confirmed
+summary: 'Together AI 是云端 AI 基础设施平台，提供开源模型访问和 GPU 算力。
+
+  ~$1.5B 估值，投资方包括 Salesforce Ventures、Lux Capital、Kleiner Perkins。'
+significance: |
+  核心业务：
+  - 开源模型 API：低成本访问 Llama、Mistral、DeepSeek 等
+  - GPU 计算：模型训练和微调基础设施
+  - 模型微调服务：企业定制模型
+
+  定位：开源 AI 生态的关键基础设施，聚焦高性价比推理和微调。
+  与 Groq（硬件）和 Replicate（模型库）构成差异化竞争。
+
+domain: AI Cloud Infrastructure
+related:
+  - groq
+  - replicate
+  - hugging-face

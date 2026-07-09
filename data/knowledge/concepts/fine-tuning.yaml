@@ -1,0 +1,47 @@
+id: fine-tuning
+name: Fine-tuning
+type: concept
+aliases:
+- 微调
+- fine-tuning
+- 指令微调
+- SFT
+- supervised fine-tuning
+- LoRA
+- QLoRA
+release_date: 2022-01
+status: active
+tags:
+- training
+- llm
+- optimization
+- technique
+- adaptation
+importance: 4
+confidence: confirmed
+summary: 'Fine-tuning 是在预训练模型基础上用特定数据继续训练，以适应特定任务或领域。
+
+  从全参数微调到 LoRA/QLoRA 等参数高效方法，大幅降低了微调门槛。'
+significance: |
+  主要方法（按资源需求排序）：
+  - 全参数微调：更新所有参数，需要大量 GPU 资源
+  - LoRA（Low-Rank Adaptation）：插入低秩矩阵，仅训练新增参数
+  - QLoRA：LoRA + 4-bit 量化，单 GPU 即可微调 70B 模型
+  - Adapter：在 Transformer 层间插入适配器模块
+
+  应用场景：
+  - 指令跟随微调（Instruct tuning）
+  - 领域适应（医疗、法律、金融）
+  - 风格迁移和角色扮演
+  - 去毒化和安全对齐
+
+  关键工具：
+  - Hugging Face TRL（Transformer Reinforcement Learning）
+  - Axolotl、Unsloth
+  - 主流平台：Together AI、Fireworks、Replicate
+
+domain: AI / Training Techniques
+related:
+  - lora
+  - rlhf
+  - hugging-face

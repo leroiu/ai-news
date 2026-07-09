@@ -1,0 +1,49 @@
+id: reasoning-model
+name: Reasoning Model
+type: concept
+aliases:
+- 推理模型
+- reasoning model
+- thinking model
+- o-series
+- R1
+- thinking-mode
+release_date: 2024-09
+status: active
+tags:
+- reasoning
+- llm
+- architecture
+- inference
+- thinking
+importance: 5
+confidence: confirmed
+summary: 'Reasoning Model 是训练时就内置推理链能力的 LLM，能自主进行多步思考再输出答案。
+
+  代表模型：OpenAI o1/o3、DeepSeek R1、Claude Opus 4.7 thinking-mode、Gemini 3 Ultra deep-think。'
+significance: |
+  与普通 LLM 的核心区别：
+  - 训练阶段即强化推理链条，非仅 post-hoc prompting
+  - 推理过程在"隐藏思维空间"中进行，用户看到的是精炼结果
+  - 通过 API `thinking_budget` 控制推理深度（低/中/高）
+  - Token 消耗显著增加（10-50×），但复杂任务准确率大幅提升
+
+  使用建议：
+  - Prompt 简洁直接，不加 "think step by step"
+  - 用分隔符（markdown/XML）分隔指令部分
+  - 先试 zero-shot，不够再加 few-shot
+  - 给模型设定明确目标和输出格式
+  - 验证重要输出的推理轨迹
+
+  最佳场景：
+  - 模糊任务中的多步推理
+  - 大型非结构化数据的信息挖掘
+  - 多跳研究和深度分析
+  - 复杂代码生成和调试
+
+domain: AI / LLM Architecture
+related:
+  - chain-of-thought
+  - deepseek-r1
+  - gpt-5
+  - claude-opus-4-8

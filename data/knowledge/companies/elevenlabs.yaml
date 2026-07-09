@@ -1,0 +1,36 @@
+id: elevenlabs
+name: ElevenLabs
+type: company
+aliases:
+- ElevenLabs
+- 11Labs
+- 十一实验室
+release_date: 2026-07
+status: active
+tags:
+- voice-ai
+- speech-synthesis
+- tts
+- voice-cloning
+- dubbing
+importance: 4
+confidence: confirmed
+summary: 'ElevenLabs 是 AI 语音合成领域的领导者，提供超逼真的语音合成、语音克隆、语音转语音和配音服务。
+
+  2026年2月完成 $500M D轮融资，估值 $11B，投资方包括 Sequoia、a16z、Salesforce Ventures。'
+significance: |
+  核心产品：
+  - 语音合成（TTS）：超逼真多语言语音
+  - 语音克隆：几分钟即可克隆任意声音
+  - 语音转语音：保留原始情感的语音转换
+  - AI Dubbing：视频自动配音和多语言翻译
+
+  应用场景：有声书、内容创作、视频配音、游戏角色语音、企业语音助手
+
+  竞争优势：语音质量业界领先，支持多语言多口音，API 易于集成。
+  估值从 2024 年到 2026 年翻了近 10 倍。
+
+domain: Voice AI / Speech Technology
+related:
+  - tts
+  - voice-cloning

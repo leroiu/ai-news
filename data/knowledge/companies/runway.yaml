@@ -1,0 +1,38 @@
+id: runway
+name: Runway
+type: company
+aliases:
+- Runway
+- Runway ML
+- Runway AI
+- runwayml
+release_date: 2026-07
+status: active
+tags:
+- video-generation
+- generative-ai
+- text-to-video
+- media
+- creative-tools
+importance: 4
+confidence: confirmed
+summary: 'Runway 是 AI 视频生成和编辑领域的先驱，提供文生视频、图生视频、视频编辑等创意工具。
+
+  2026年2月完成 $315M E轮融资，估值 $5.3B，投资方包括 General Atlantic、NVIDIA、Fidelity。'
+significance: |
+  核心产品：
+  - Gen-3 / Gen-4：文生视频模型
+  - 视频编辑：AI 驱动的视频修复、擦除、风格迁移
+  - Real-Time：实时视频处理
+
+  竞争优势：
+  - 在生成视频领域的技术先发优势
+  - 从研究者工具扩展到专业创作者平台
+  - 与好莱坞和创意产业的深度合作
+
+  估值 12 个月内从 ~$1.4B 增长到 $5.3B，反映市场对生成式视频的强烈信心。
+
+domain: Generative Video / Creative AI
+related:
+  - sora
+  - video-generation

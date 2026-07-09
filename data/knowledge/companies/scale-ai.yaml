@@ -1,0 +1,34 @@
+id: scale-ai
+name: Scale AI
+type: company
+aliases:
+- Scale AI
+- Scale
+- Scale Data
+release_date: 2026-07
+status: active
+tags:
+- data
+- annotation
+- training-data
+- rlhf
+- enterprise
+importance: 4
+confidence: confirmed
+summary: 'Scale AI 是 AI 数据基础设施公司，提供高质量标注数据、RLHF 数据、模型评估和测试。
+
+  被视为 AI 产业链"卖铲子"的关键角色，估值超 $10B。'
+significance: |
+  核心业务：
+  - 数据标注：图像、文本、视频、3D 点云标注
+  - RLHF 数据：人类偏好数据收集和标注
+  - 模型评估：自动化模型测试和基准测试
+  - 生成式 AI 数据：SFT、DPO 训练数据
+
+  客户：OpenAI、Meta、Microsoft、美国国防部等
+  2024 年估值为 $13.8B，是 AI 数据领域的绝对领导者。
+
+domain: AI Infrastructure / Data
+related:
+  - rlhf
+  - fine-tuning

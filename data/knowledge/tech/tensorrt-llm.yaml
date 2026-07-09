@@ -1,0 +1,41 @@
+id: tensorrt-llm
+name: TensorRT-LLM
+type: tech
+aliases:
+- TensorRT-LLM
+- TRT-LLM
+- TensorRT
+- NVIDIA inference
+release_date: 2023-10
+status: active
+tags:
+- inference
+- nvidia
+- serving
+- optimization
+- production
+importance: 4
+confidence: confirmed
+summary: 'TensorRT-LLM 是 NVIDIA 的 LLM 推理优化引擎，提供最高吞吐量但仅限 NVIDIA GPU。
+
+  可达 2500-4000+ tok/s（H100 FP8），比 vLLM 快 10-30%。'
+significance: |
+  性能皇冠：
+  - 吞吐量：H100 FP8 上 2500-4000+ tok/s（70B 模型）
+  - 比 vLLM 快 10-30%
+  - 新增 FP4 量化支持（Blackwell B200）
+  - 编译时间减少 40%（增量编译 v0.17.1）
+
+  代价：
+  - NVIDIA only（CUDA 完全绑定）
+  - 编译过程痛苦：换 GPU 就要重新编译
+  - API 不够用户友好
+  - 需要强大的工程团队维护
+
+  适用：大规模 NVIDIA 集群、对性能极致追求、有专业工程团队
+
+domain: AI Infrastructure / Inference
+related:
+  - vllm
+  - nvidia
+  - groq

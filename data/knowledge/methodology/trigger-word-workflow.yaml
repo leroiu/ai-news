@@ -1,0 +1,51 @@
+id: trigger-word-workflow
+name: 触发词工作流
+type: methodology
+aliases:
+- 触发词
+- trigger word
+- slash-command-workflow
+- 自然语言触发
+- NL-trigger
+release_date: 2026-07
+status: active
+tags:
+- workflow
+- automation
+- claude-code
+- trigger-word
+- agent
+importance: 3
+confidence: confirmed
+summary: '用自然语言触发词替代记忆步骤，实现"你说触发词，AI 按固定 SOP 执行"。
+
+  每个触发词对应唯一操作 + 固定输出格式（状态+证据+下一步），不含糊、不重叠。'
+
+significance: |
+  设计原则：
+  1. 每个触发词对应唯一操作，不含糊、不重叠
+  2. 输出格式固定：状态（PASS/FAIL）+ 关键证据 + 下一步
+  3. 不需要 AI 判断"该做什么" — 触发词已决定
+  4. L2 操作需要用户一次确认，不增加摩擦
+
+  触发词体系示例：
+  - "体检" → 环境检查（只读）
+  - "准备部署" → 分析变更产清单（不执行）
+  - "执行前端部署" → 前端上传+重生成+reload
+  - "执行后端部署" → 后端上传+服务重启（L2 需确认）
+  - "执行报告部署" → 报告同步+重生成
+  - "验收" → 冒烟测试（只读）
+  - "回滚" → 恢复到部署前版本（L3 逐条确认）
+
+  优势：
+  - 消除记忆负担：不需要记 SSH/scp/Python 命令
+  - 可审计：每次执行记录在 deploy_history.log
+  - 可复现：相同触发词永远执行相同操作
+  - 安全边界：权限分级防止误操作
+
+domain: DevOps / AI Collaboration
+source_articles:
+  - "ai-news 项目部署体系（2026-07-06）"
+related:
+  - deployment-agent-system
+  - permission-grading

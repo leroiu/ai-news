@@ -1,0 +1,34 @@
+id: noam-brown
+name: Noam Brown
+type: person
+aliases:
+- Noam Brown
+- 诺姆·布朗
+release_date: 2026-07
+status: active
+tags:
+- openai
+- reasoning
+- game-theory
+- poker-ai
+- o-series
+importance: 4
+confidence: confirmed
+summary: 'Noam Brown 是 OpenAI 推理研究负责人，领导了 o1/o3 reasoning model 的研发。
+
+  前 Meta AI 研究员，以 Libratus/Pluribus（超级扑克 AI）闻名，卡内基梅隆大学博士。'
+significance: |
+  关键贡献：
+  - 领导 OpenAI o1/o3 系列推理模型研发，开创 "thinking model" 范式
+  - Libratus（2017）：在单挑无限注德州扑克中击败人类顶级选手
+  - Pluribus（2019）：首次 AI 在多玩家扑克中击败人类
+  - 将博弈论中的"推理时间计算"思想引入 LLM
+
+  研究重点：推理时计算（inference-time compute）、自博弈（self-play）、搜索算法与 LLM 结合。
+  "LLM 的下一个重大突破不在于更大的模型，而在于更聪明的推理方式。"
+
+domain: AI Leadership / Reasoning
+related:
+  - openai
+  - reasoning-model
+  - chain-of-thought

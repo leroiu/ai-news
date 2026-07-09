@@ -1,0 +1,43 @@
+id: world-model
+name: World Model
+type: concept
+aliases:
+- 世界模型
+- world model
+- internal simulator
+- imagination model
+- PlaNet
+- Dreamer
+- MuZero
+release_date: 2024-01
+status: active
+tags:
+- agi
+- planning
+- reinforcement-learning
+- simulation
+- robotics
+importance: 4
+confidence: confirmed
+summary: 'World Model 是学习环境结构和动态的内部模拟器，使 AI 能在行动前"想象"结果。
+
+  被视为通往 AGI 的核心范式，架构从 RNN 扩展到 Transformer、Diffusion、语言增强多模态。'
+significance: |
+  关键系统：
+  - PlaNet / Dreamer 家族：基于隐空间学习的规划
+  - MuZero：无需环境模型的规划（learning a model by itself）
+  - Sora / Genie：视频/游戏世界模型
+  - Cosmos (NVIDIA)：物理世界模拟
+
+  新兴趋势：思维链推理与世界模型想象融合 — Agent 在行动前先模拟结果。
+
+  核心挑战：
+  - 复合预测误差
+  - Sim-to-real 迁移
+  - 缺乏统一评估标准
+
+domain: AI / AGI / Robotics
+related:
+  - agi
+  - reinforcement-learning
+  - reasoning-model

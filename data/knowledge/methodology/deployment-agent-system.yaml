@@ -1,0 +1,48 @@
+id: deployment-agent-system
+name: 部署 Agent 体系
+type: methodology
+aliases:
+- 部署Agent
+- Deployment Agent
+- 自动化部署
+- 触发词部署
+- trigger-word-deployment
+release_date: 2026-07
+status: active
+tags:
+- deployment
+- automation
+- devops
+- agent
+- claude-code
+- server
+- ssh
+importance: 4
+confidence: confirmed
+summary: '将服务器部署流程从"人脑记步骤"升级为"触发词 + 固定脚本 + 固定输出"的模式。
+
+  核心架构是双层：.agents/（AI 读的 SOP 规则文档）+ scripts/（人直接跑的 bash 脚本）+ 触发词（你说词 AI 做事）。'
+
+significance: |
+  传统部署依赖人记忆步骤，容易在 scp 静默失败、缓存残留、Pipeline 覆盖等问题上反复踩坑。
+
+  该模式通过三层解耦解决：
+  1. 宪法层（deployment_rules.md）：铁律 + 陷阱库 + 权限分级 L0-L3+🚫
+  2. SOP 层（deploy_planner/executor/debugger/qa）：单一职责的执行流程
+  3. 脚本层（preflight/deploy_frontend/deploy_backend/qa_smoke）：可重复执行的 shell
+
+  引入 L0-L3+🚫 权限分级：
+  - L0（只读）：自动执行
+  - L1（低风险）：执行后报告
+  - L2（中风险）：需确认一次
+  - L3（高风险）：逐条确认
+  - 🚫（绝对禁止）：任何情况不执行
+
+domain: DevOps / AI Infrastructure
+source_articles:
+  - "ai-news 项目实战验证（2026-07）"
+related:
+  - deployment-automation
+  - permission-grading
+  - trigger-workflow
+  - ssh-key-setup

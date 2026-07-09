@@ -1,0 +1,48 @@
+id: chain-of-thought
+name: Chain-of-Thought Prompting
+type: concept
+aliases:
+- CoT
+- 思维链
+- CoT Prompting
+- Chain-of-Thought
+- step-by-step reasoning
+release_date: 2023-01
+status: active
+tags:
+- prompting
+- reasoning
+- llm
+- technique
+- inference
+importance: 5
+confidence: confirmed
+summary: 'Chain-of-Thought (CoT) 是让 LLM 在回答前先输出中间推理步骤的技术。
+
+  2025-2026 年已分化为两类：经典 CoT Prompting（手动写"think step by step"）
+  和 Reasoning Model 原生思维（模型内置隐式推理链，如 o3、R1、Opus thinking-mode）。'
+significance: |
+  经典 CoT：
+  - Zero-shot CoT：在 prompt 末尾加 "Let's think step by step"
+  - Few-shot CoT：给出含推理过程的示例
+  - Self-consistency：采样 N 条 CoT 链，多数投票
+  - Tree-of-Thoughts (ToT)：探索分支推理路径，Game of 24 上 4% → 74%
+  - Chain-of-Draft：用精简符号标记推理步骤，降本保质量
+
+  Reasoning Model 时代的变化：
+  - o3、GPT-5-thinking、Claude Opus 4.7 thinking-mode、Gemini 3 Ultra deep-think、DeepSeek R1 等内置推理
+  - 通过 API `thinking_budget` 参数控制推理深度
+  - Prompt 应简洁直接，不加 "think step by step"
+  - Token 消耗比 no-CoT 多 10-50×，需路由按难度分级
+
+  生产建议：
+  - 简单分类/提取 → 不用 CoT
+  - 数学/逻辑/多步推理 → CoT 或 reasoning model
+  - Tool-using agent → ReAct 模式
+  - 创意/战略 → Tree-of-Thoughts
+
+domain: AI / LLM Techniques
+related:
+  - prompt-engineering
+  - reasoning-model
+  - react-pattern
