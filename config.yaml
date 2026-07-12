@@ -82,7 +82,7 @@ sources:
   # ── 中文直连 RSS 源 ──
   - name: "36氪"
     url: "https://36kr.com/feed"
-    enabled: true
+    enabled: false
     note: "36氪官方综合 RSS；覆盖科技与创业，依赖后续分类和评分筛选 AI 相关内容"
 
   # ── Twitter/X v2 API 源 ──
