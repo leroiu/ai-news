@@ -32,16 +32,16 @@ jobs:
 
       - name: Commit and push changes
         run: |
+          set -e
           git config user.name  "ai-news-bot"
           git config user.email "bot@ai-news.local"
-          git add \
-            data/inbox.jsonl \
-            data/processed_cache.json \
-            data/source_health.json
+          # inbox.jsonl 是唯一需要跨 Action 运行持久化的文件
+          # processed_cache / source_health 在 .gitignore 中，不提交
+          git add data/inbox.jsonl
           if git diff --staged --quiet; then
             echo "No new articles"
           else
-            COUNT=$(git diff --staged data/inbox.jsonl | grep '^+' | wc -l)
+            COUNT=$(git diff --staged data/inbox.jsonl | grep '^+[^+]' | wc -l)
             git commit -m "collector: $(date -u +%Y-%m-%dT%H:%M)Z — ~${COUNT} articles"
             git push
             echo "Pushed ${COUNT} new articles"
