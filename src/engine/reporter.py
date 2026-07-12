@@ -41,7 +41,7 @@ def _format_one(a: Article, is_primary: bool = True) -> str:
         meta_parts.append(f"评分理由：{a.score_reason}")
     lines.append(" · ".join(meta_parts))
 
-    lines.extend(["", "---", ""])
+    lines.extend(["", f"[详情](/article/{a.id})", "", "---", ""])
     return "\n".join(lines)
 
 
@@ -94,6 +94,7 @@ def generate_report(
     fetched_count: int = 0,
     output_dir: Optional[Path] = None,
     min_score: int = 3,
+    report_date: str | None = None,
 ) -> Path:
     """生成日报 Markdown 文件。"""
     if output_dir is None:
@@ -115,7 +116,7 @@ def generate_report(
     template_path = ROOT_DIR / "templates" / "daily-report.md"
     template = template_path.read_text(encoding="utf-8")
 
-    today = datetime.now().strftime("%Y-%m-%d")
+    today = report_date if report_date else datetime.now().strftime("%Y-%m-%d")
     report = template.format(
         date=today,
         fetched=fetched_count,

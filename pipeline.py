@@ -101,9 +101,17 @@ def _parse_args() -> dict:
         "only_unprocessed": "--only-unprocessed" in sys.argv,
         "do_resume": "--resume" in sys.argv,
         "reset_checkpoint": "--reset-checkpoint" in sys.argv,
+        "report_date": None,
         "limit": None,
         "concurrency": 3,
     }
+
+    # --date YYYY-MM-DD
+    for i, arg in enumerate(sys.argv):
+        if arg.startswith("--date="):
+            args["report_date"] = arg.split("=")[1]
+        elif arg == "--date" and i + 1 < len(sys.argv):
+            args["report_date"] = sys.argv[i + 1]
 
     # --limit N
     for i, arg in enumerate(sys.argv):
@@ -214,6 +222,7 @@ def main() -> int:
             fetch_direct=args["fetch_direct"],
             concurrency=args["concurrency"],
             fetched_count=fetched_count,
+            report_date=args["report_date"],
         )
 
         total = _tick() - t0
