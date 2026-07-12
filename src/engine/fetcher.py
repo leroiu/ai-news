@@ -19,6 +19,7 @@ import feedparser
 import httpx
 from bs4 import BeautifulSoup
 
+from .source_validation import validate_source
 from .utils import log, load_config, ROOT_DIR
 
 FETCH_RETRY_MAX = 3
@@ -264,9 +265,26 @@ async def fetch_all(config: dict | None = None) -> list[Article]:
     if config is None:
         config = load_config()
 
-    sources = [s for s in config.get("sources", []) if s.get("enabled", True)]
-    if not sources:
+    configured_sources = [s for s in config.get("sources", []) if s.get("enabled", True)]
+    if not configured_sources:
         log.warning("没有启用的 RSS 源")
+        return []
+
+    sources: list[dict] = []
+    results_summary: dict[str, tuple[bool, Optional[str]]] = {}
+    for source in configured_sources:
+        validation_error = validate_source(source)
+        if validation_error:
+            name = str(source.get("name", "未命名来源"))
+            error = f"配置无效: {validation_error}"
+            log.error(f"[{name}] {error}")
+            results_summary[name] = (False, error)
+            continue
+        sources.append(source)
+
+    if not sources:
+        log.warning("没有可用的 RSS 源")
+        _update_source_health(results_summary)
         return []
 
     fetch_cfg = config.get("fetch", {})
@@ -285,8 +303,6 @@ async def fetch_all(config: dict | None = None) -> list[Article]:
     log.info(f"开始抓取 {len(sources)} 个源 ({', '.join(parts)}, 超时={timeout}s, 并发={concurrency})")
 
     all_articles: list[Article] = []
-    results_summary: dict[str, tuple[bool, Optional[str]]] = {}  # {name: (ok, error)}
-
     # 建立 source name → config 的映射，方便后续判断类型
     source_map: dict[str, dict] = {s["name"]: s for s in sources}
 

@@ -1,0 +1,18 @@
+project_id: ai-news
+name: AI News
+status: active
+current_goal: 扩展并验证中文数据源：接入 36氪官方 RSS，校验 WeChat RSSHub 配置
+current_phase: "1D"
+priority: high
+repository_path: 20_Projects/ai-news
+active_branch: master
+last_updated: 2026-07-12
+open_tasks:
+  - 复核并提交扩展和验证更多数据源（TASKS.md #43）
+blocked_by: []
+risks:
+  - 两份部署文档仍未跟踪，尚未纳入版本控制
+  - 本地凭据、私有状态与运行时数据必须继续排除在 Git、Vault 和同步范围之外
+decisions_needed:
+  - RSSHub 公共实例恢复可用后，是否启用已校验的 WeChat 来源，或改用自部署实例
+next_action: 由用户复核 36氪新增来源、WeChat 保持禁用的边界和测试结果，再决定是否提交

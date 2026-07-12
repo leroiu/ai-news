@@ -79,6 +79,12 @@ sources:
     enabled: true
     note: "计算语言学，与大模型相关度高"
 
+  # ── 中文直连 RSS 源 ──
+  - name: "36氪"
+    url: "https://36kr.com/feed"
+    enabled: true
+    note: "36氪官方综合 RSS；覆盖科技与创业，依赖后续分类和评分筛选 AI 相关内容"
+
   # ── Twitter/X v2 API 源 ──
   # 需要 TWITTER_BEARER_TOKEN 环境变量 (从 developer.twitter.com 获取)
   # Basic 套餐: 500k 推文/月, 搜索 60 req/15min, 用户时间线 100 req/15min
@@ -118,21 +124,29 @@ sources:
 
   - name: "WeChat: 机器之心"
     url: "https://rsshub.app/wechat/mp/profile/MzA3NTI1MjYwOQ=="
+    type: "wechat"
+    biz_id: "MzA3NTI1MjYwOQ=="
     enabled: false
     note: "机器之心公众号 (RSSHub 桥接)，如不稳定建议自部署 RSSHub"
 
   - name: "WeChat: 量子位"
     url: "https://rsshub.app/wechat/mp/profile/MzIzMjUwMjMzOQ=="
+    type: "wechat"
+    biz_id: "MzIzMjUwMjMzOQ=="
     enabled: false
     note: "量子位公众号 (RSSHub 桥接)"
 
   - name: "WeChat: 新智元"
     url: "https://rsshub.app/wechat/mp/profile/MzAwNjI5MjI0Nw=="
+    type: "wechat"
+    biz_id: "MzAwNjI5MjI0Nw=="
     enabled: false
     note: "新智元公众号 (RSSHub 桥接)"
 
   - name: "WeChat: AI 科技评论"
     url: "https://rsshub.app/wechat/mp/profile/MzU2NjUwMzIxNQ=="
+    type: "wechat"
+    biz_id: "MzU2NjUwMzIxNQ=="
     enabled: false
     note: "AI 科技评论公众号 (RSSHub 桥接)"
 
@@ -313,6 +327,7 @@ scoring:
     "Hacker News (AI 相关)": 50
     "The Verge AI": 50
     "Hacker News (全部)": 40
+    "36氪": 40
     "Reddit r/MachineLearning": 35
     "Reddit r/artificial": 30
   source_default: 30
