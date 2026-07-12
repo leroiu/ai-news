@@ -1,0 +1,48 @@
+name: AI News Collector
+
+on:
+  schedule:
+    # 每小时第 7 分钟触发（避开 :00/:30 高峰）
+    - cron: '7 * * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: collector
+  cancel-in-progress: true
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Run collector
+        run: uv run python collector.py
+
+      - name: Commit and push changes
+        run: |
+          git config user.name  "ai-news-bot"
+          git config user.email "bot@ai-news.local"
+          git add \
+            data/inbox.jsonl \
+            data/processed_cache.json \
+            data/source_health.json
+          if git diff --staged --quiet; then
+            echo "No new articles"
+          else
+            COUNT=$(git diff --staged data/inbox.jsonl | grep '^+' | wc -l)
+            git commit -m "collector: $(date -u +%Y-%m-%dT%H:%M)Z — ~${COUNT} articles"
+            git push
+            echo "Pushed ${COUNT} new articles"
+          fi
