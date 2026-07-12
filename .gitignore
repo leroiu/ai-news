@@ -52,6 +52,15 @@ Desktop.ini
 .private/
 .reasonix/
 
+# Local agent execution configuration
+.agents/
+
+# Runtime state (local, rebuildable or continuously changing)
+data/candidate_concepts.json
+data/mined_article_ids.json
+data/processed_cache.json
+data/source_health.json
+
 # Generated / Temp
 FileInbox/
 *.tar.gz
@@ -60,6 +69,10 @@ FileInbox/
 run_daily.bat
 run_monthly.bat
 run_weekly.bat
+
+# Legacy root-level launchers (replacements live in scripts/windows/)
+/run-*.bat
+/run-*.vbs
 
 # Screenshots (root-level)
 dashboard-*.png
