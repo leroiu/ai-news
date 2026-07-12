@@ -100,6 +100,17 @@ def run_daily_pipeline(
                         pass
             log.info(f"数据源: inbox.jsonl (近 {max_hours}h)")
             articles = read_inbox(since_hours=max_hours)
+            # 按 article_id 去重（防止 inbox 跨 Action 运行累积重复）
+            before = len(articles)
+            seen_ids: set[str] = set()
+            unique: list = []
+            for a in articles:
+                if a.id not in seen_ids:
+                    seen_ids.add(a.id)
+                    unique.append(a)
+            articles = unique
+            if before > len(articles):
+                log.info(f"  → 去重: {before} → {len(articles)} 篇 (移除 {before - len(articles)} 篇重复)")
             log.info(f"  → inbox 中 {len(articles)} 篇待分析")
 
         _log_stage("fetch+dedup", _tick() - t_fetch)

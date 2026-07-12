@@ -109,6 +109,32 @@ def generate_report(
     clusters = _cluster_articles(filtered)
     clustered_count = sum(1 for _, others in clusters if others)
 
+    # ── 覆盖状态 ──
+    # complete:   有真实抓取且文章数达预期
+    # partial:    有抓取但文章数偏低
+    # reconstructed: 无原始抓取数据，使用 inbox 存稿重建
+    if fetched_count > 0:
+        if len(filtered) >= 10:
+            coverage_status = "complete"
+        else:
+            coverage_status = "partial"
+    else:
+        coverage_status = "reconstructed"
+
+    # coverage_banner 在模板中插入覆盖状态提示
+    coverage_banner = ""
+    if coverage_status == "reconstructed":
+        coverage_banner = (
+            "> ⚠️ 历史补档 | 当天原始采集未运行，使用库存数据重建。\n"
+            ">    本日报不反映当日完整信息。\n"
+            "\n"
+        )
+    elif coverage_status == "partial":
+        coverage_banner = (
+            "> ⚠️ 数据不完整（采集源部分可用），本日报不反映当日完整信息。\n"
+            "\n"
+        )
+
     article_md = []
     for primary, others in clusters:
         article_md.append(_format_cluster(primary, others))
@@ -119,6 +145,7 @@ def generate_report(
     today = report_date if report_date else datetime.now().strftime("%Y-%m-%d")
     report = template.format(
         date=today,
+        coverage_banner=coverage_banner,
         fetched=fetched_count,
         filtered=len(filtered),
         star5=count(5),

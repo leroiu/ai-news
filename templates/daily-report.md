@@ -1,6 +1,6 @@
 📅 AI NEWS 日报｜{date}
 
-> 抓取 {fetched} 条 → 筛选 {filtered} 条
+{coverage_banner}> 抓取 {fetched} 条 → 筛选 {filtered} 条
 > ★★★★★ {star5} 条 ｜ ★★★★ {star4} 条 ｜ ★★★ {star3} 条
 
 ---
