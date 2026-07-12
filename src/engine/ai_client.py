@@ -5,12 +5,15 @@ AI News - 共享 AI 客户端
 含指数退避重试，防止单次网络波动丢弃整批文章。
 
 环境变量:
-  AI_PROVIDER         deepseek (默认) | kimi
+  AI_PROVIDER         deepseek (默认) | kimi | agnes
   DEEPSEEK_API_KEY    DeepSeek API Key
   DEEPSEEK_MODEL      DeepSeek 模型名 (默认 deepseek-chat)
   MOONSHOT_API_KEY    Kimi/Moonshot API Key
   MOONSHOT_BASE_URL   Kimi API 地址 (默认 https://api.moonshot.cn/v1)
   MOONSHOT_MODEL      Kimi 模型名 (默认 moonshot-v1-8k)
+  AGNES_API_KEY       Agnes API Key
+  AGNES_BASE_URL      Agnes API 地址 (默认 https://apihub.agnes-ai.com/v1)
+  AGNES_MODEL         Agnes 模型名 (默认 agnes-2.0-flash)
 """
 
 import json
@@ -205,6 +208,16 @@ def call_ai(
             model_env="MOONSHOT_MODEL",
             default_model="moonshot-v1-8k",
             label="Kimi",
+        )
+    elif provider == "agnes":
+        return _call_openai_compatible(
+            system_prompt, user_prompt, model, temperature, max_tokens,
+            api_key_env="AGNES_API_KEY",
+            base_url_env="AGNES_BASE_URL",
+            default_base="https://apihub.agnes-ai.com/v1",
+            model_env="AGNES_MODEL",
+            default_model="agnes-2.0-flash",
+            label="Agnes",
         )
     else:
         # deepseek (默认)

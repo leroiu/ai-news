@@ -297,7 +297,7 @@ degradation:
 # --- 摘要 ---
 summarizer:
   # 只对 Top N 篇文章调用 LLM 摘要，其余使用 fallback
-  top_n: 20
+  top_n: 100
   # Fallback 摘要截取原文前 N 字符
   fallback_truncate: 200
 
