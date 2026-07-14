@@ -23,12 +23,27 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from src.engine.utils import log, setup_logging, load_config, append_inbox
 from src.engine.fetcher import fetch_all
 from src.engine.dedup import deduplicate
-from src.engine.database import log_collector_run
+from src.engine.db_core import init_db
+
+
+def _safe_log_collector_run(fetched: int, new_articles: int, duration: float) -> None:
+    """安全记录 collector 运行 — DB 不可用时静默跳过。"""
+    try:
+        from src.engine.database import log_collector_run
+        log_collector_run(fetched=fetched, new_articles=new_articles, duration=duration)
+    except Exception as e:
+        log.warning(f"无法记录 collector 运行 (DB 不可用): {e}")
 
 
 def main() -> int:
     setup_logging("INFO")
     start = time.time()
+
+    # CI 环境中 DB 文件不存在，需要先初始化 schema
+    try:
+        init_db()
+    except Exception as e:
+        log.warning(f"DB 初始化失败 (非致命): {e}")
 
     skip_cache = "--no-cache" in sys.argv
     if skip_cache:
@@ -39,7 +54,7 @@ def main() -> int:
     fetched_count = len(articles)
     if not articles:
         log.warning("没有抓取到任何文章")
-        log_collector_run(fetched=0, new_articles=0, duration=time.time() - start)
+        _safe_log_collector_run(fetched=0, new_articles=0, duration=time.time() - start)
         return 0
     log.info(f"抓取: {fetched_count} 篇")
 
@@ -51,7 +66,7 @@ def main() -> int:
         log.info("无新文章，跳过写入")
         elapsed = time.time() - start
         log.info(f"收集器完成 ({elapsed:.1f}s)")
-        log_collector_run(fetched=fetched_count, new_articles=0, duration=elapsed)
+        _safe_log_collector_run(fetched=fetched_count, new_articles=0, duration=elapsed)
         return 0
 
     # ---- 3. 写入 inbox ----
@@ -66,7 +81,7 @@ def main() -> int:
 
     elapsed = time.time() - start
     log.info(f"收集器完成 ({elapsed:.1f}s) — {len(articles)} 篇新文章入 inbox")
-    log_collector_run(fetched=fetched_count, new_articles=len(articles), duration=elapsed)
+    _safe_log_collector_run(fetched=fetched_count, new_articles=len(articles), duration=elapsed)
     return 0
 
 
