@@ -1,0 +1,340 @@
+{
+  "schema_version": 1,
+  "rule_version": 3,
+  "created_at": "2026-07-16T18:04:58.750836+00:00",
+  "routes": [
+    "/",
+    "/library",
+    "/timeline",
+    "/events",
+    "/reports",
+    "/research",
+    "/my",
+    "/entity/openai",
+    "/article/fixture-article-1",
+    "/report/2026-07-16.md"
+  ],
+  "cases": [
+    "desktop-dark",
+    "desktop-light",
+    "mobile-dark"
+  ],
+  "violation_count": 39,
+  "violations": [
+    {
+      "rule": "clickable-keyboard",
+      "selector": "div.timeline-inner > div.tl-year-row:nth-of-type(1) > div.tl-year-cards:nth-of-type(2) > div.tl-card",
+      "detail": "非原生 onclick 缺少：role=button/link、tabindex>=0、Enter/Space handler",
+      "route": "/timeline",
+      "case": "desktop-dark",
+      "fingerprint": "clickable-keyboard|/timeline|desktop-dark|div.timeline-inner > div.tl-year-row:nth-of-type(1) > div.tl-year-cards:nth-of-type(2) > div.tl-card"
+    },
+    {
+      "rule": "clickable-keyboard",
+      "selector": "div.timeline-inner > div.tl-year-row:nth-of-type(2) > div.tl-year-cards:nth-of-type(2) > div.tl-card",
+      "detail": "非原生 onclick 缺少：role=button/link、tabindex>=0、Enter/Space handler",
+      "route": "/timeline",
+      "case": "desktop-dark",
+      "fingerprint": "clickable-keyboard|/timeline|desktop-dark|div.timeline-inner > div.tl-year-row:nth-of-type(2) > div.tl-year-cards:nth-of-type(2) > div.tl-card"
+    },
+    {
+      "rule": "clickable-keyboard",
+      "selector": "div.timeline-inner > div.tl-year-row:nth-of-type(3) > div.tl-year-cards:nth-of-type(2) > div.tl-card:nth-of-type(1)",
+      "detail": "非原生 onclick 缺少：role=button/link、tabindex>=0、Enter/Space handler",
+      "route": "/timeline",
+      "case": "desktop-dark",
+      "fingerprint": "clickable-keyboard|/timeline|desktop-dark|div.timeline-inner > div.tl-year-row:nth-of-type(3) > div.tl-year-cards:nth-of-type(2) > div.tl-card:nth-of-type(1)"
+    },
+    {
+      "rule": "clickable-keyboard",
+      "selector": "div.timeline-inner > div.tl-year-row:nth-of-type(3) > div.tl-year-cards:nth-of-type(2) > div.tl-card:nth-of-type(2)",
+      "detail": "非原生 onclick 缺少：role=button/link、tabindex>=0、Enter/Space handler",
+      "route": "/timeline",
+      "case": "desktop-dark",
+      "fingerprint": "clickable-keyboard|/timeline|desktop-dark|div.timeline-inner > div.tl-year-row:nth-of-type(3) > div.tl-year-cards:nth-of-type(2) > div.tl-card:nth-of-type(2)"
+    },
+    {
+      "rule": "clickable-keyboard",
+      "selector": "div.timeline-inner > div.tl-year-row:nth-of-type(4) > div.tl-year-cards:nth-of-type(2) > div.tl-card:nth-of-type(1)",
+      "detail": "非原生 onclick 缺少：role=button/link、tabindex>=0、Enter/Space handler",
+      "route": "/timeline",
+      "case": "desktop-dark",
+      "fingerprint": "clickable-keyboard|/timeline|desktop-dark|div.timeline-inner > div.tl-year-row:nth-of-type(4) > div.tl-year-cards:nth-of-type(2) > div.tl-card:nth-of-type(1)"
+    },
+    {
+      "rule": "clickable-keyboard",
+      "selector": "div.timeline-inner > div.tl-year-row:nth-of-type(4) > div.tl-year-cards:nth-of-type(2) > div.tl-card:nth-of-type(2)",
+      "detail": "非原生 onclick 缺少：role=button/link、tabindex>=0、Enter/Space handler",
+      "route": "/timeline",
+      "case": "desktop-dark",
+      "fingerprint": "clickable-keyboard|/timeline|desktop-dark|div.timeline-inner > div.tl-year-row:nth-of-type(4) > div.tl-year-cards:nth-of-type(2) > div.tl-card:nth-of-type(2)"
+    },
+    {
+      "rule": "clickable-keyboard",
+      "selector": "div.timeline-inner > div.tl-year-row:nth-of-type(5) > div.tl-year-cards:nth-of-type(2) > div.tl-card",
+      "detail": "非原生 onclick 缺少：role=button/link、tabindex>=0、Enter/Space handler",
+      "route": "/timeline",
+      "case": "desktop-dark",
+      "fingerprint": "clickable-keyboard|/timeline|desktop-dark|div.timeline-inner > div.tl-year-row:nth-of-type(5) > div.tl-year-cards:nth-of-type(2) > div.tl-card"
+    },
+    {
+      "rule": "clickable-keyboard",
+      "selector": "div.timeline-inner > div.tl-year-row:nth-of-type(1) > div.tl-year-cards:nth-of-type(2) > div.tl-card",
+      "detail": "非原生 onclick 缺少：role=button/link、tabindex>=0、Enter/Space handler",
+      "route": "/timeline",
+      "case": "desktop-light",
+      "fingerprint": "clickable-keyboard|/timeline|desktop-light|div.timeline-inner > div.tl-year-row:nth-of-type(1) > div.tl-year-cards:nth-of-type(2) > div.tl-card"
+    },
+    {
+      "rule": "clickable-keyboard",
+      "selector": "div.timeline-inner > div.tl-year-row:nth-of-type(2) > div.tl-year-cards:nth-of-type(2) > div.tl-card",
+      "detail": "非原生 onclick 缺少：role=button/link、tabindex>=0、Enter/Space handler",
+      "route": "/timeline",
+      "case": "desktop-light",
+      "fingerprint": "clickable-keyboard|/timeline|desktop-light|div.timeline-inner > div.tl-year-row:nth-of-type(2) > div.tl-year-cards:nth-of-type(2) > div.tl-card"
+    },
+    {
+      "rule": "clickable-keyboard",
+      "selector": "div.timeline-inner > div.tl-year-row:nth-of-type(3) > div.tl-year-cards:nth-of-type(2) > div.tl-card:nth-of-type(1)",
+      "detail": "非原生 onclick 缺少：role=button/link、tabindex>=0、Enter/Space handler",
+      "route": "/timeline",
+      "case": "desktop-light",
+      "fingerprint": "clickable-keyboard|/timeline|desktop-light|div.timeline-inner > div.tl-year-row:nth-of-type(3) > div.tl-year-cards:nth-of-type(2) > div.tl-card:nth-of-type(1)"
+    },
+    {
+      "rule": "clickable-keyboard",
+      "selector": "div.timeline-inner > div.tl-year-row:nth-of-type(3) > div.tl-year-cards:nth-of-type(2) > div.tl-card:nth-of-type(2)",
+      "detail": "非原生 onclick 缺少：role=button/link、tabindex>=0、Enter/Space handler",
+      "route": "/timeline",
+      "case": "desktop-light",
+      "fingerprint": "clickable-keyboard|/timeline|desktop-light|div.timeline-inner > div.tl-year-row:nth-of-type(3) > div.tl-year-cards:nth-of-type(2) > div.tl-card:nth-of-type(2)"
+    },
+    {
+      "rule": "clickable-keyboard",
+      "selector": "div.timeline-inner > div.tl-year-row:nth-of-type(4) > div.tl-year-cards:nth-of-type(2) > div.tl-card:nth-of-type(1)",
+      "detail": "非原生 onclick 缺少：role=button/link、tabindex>=0、Enter/Space handler",
+      "route": "/timeline",
+      "case": "desktop-light",
+      "fingerprint": "clickable-keyboard|/timeline|desktop-light|div.timeline-inner > div.tl-year-row:nth-of-type(4) > div.tl-year-cards:nth-of-type(2) > div.tl-card:nth-of-type(1)"
+    },
+    {
+      "rule": "clickable-keyboard",
+      "selector": "div.timeline-inner > div.tl-year-row:nth-of-type(4) > div.tl-year-cards:nth-of-type(2) > div.tl-card:nth-of-type(2)",
+      "detail": "非原生 onclick 缺少：role=button/link、tabindex>=0、Enter/Space handler",
+      "route": "/timeline",
+      "case": "desktop-light",
+      "fingerprint": "clickable-keyboard|/timeline|desktop-light|div.timeline-inner > div.tl-year-row:nth-of-type(4) > div.tl-year-cards:nth-of-type(2) > div.tl-card:nth-of-type(2)"
+    },
+    {
+      "rule": "clickable-keyboard",
+      "selector": "div.timeline-inner > div.tl-year-row:nth-of-type(5) > div.tl-year-cards:nth-of-type(2) > div.tl-card",
+      "detail": "非原生 onclick 缺少：role=button/link、tabindex>=0、Enter/Space handler",
+      "route": "/timeline",
+      "case": "desktop-light",
+      "fingerprint": "clickable-keyboard|/timeline|desktop-light|div.timeline-inner > div.tl-year-row:nth-of-type(5) > div.tl-year-cards:nth-of-type(2) > div.tl-card"
+    },
+    {
+      "rule": "clickable-keyboard",
+      "selector": "div.timeline-inner > div.tl-year-row:nth-of-type(1) > div.tl-year-cards:nth-of-type(2) > div.tl-card",
+      "detail": "非原生 onclick 缺少：role=button/link、tabindex>=0、Enter/Space handler",
+      "route": "/timeline",
+      "case": "mobile-dark",
+      "fingerprint": "clickable-keyboard|/timeline|mobile-dark|div.timeline-inner > div.tl-year-row:nth-of-type(1) > div.tl-year-cards:nth-of-type(2) > div.tl-card"
+    },
+    {
+      "rule": "clickable-keyboard",
+      "selector": "div.timeline-inner > div.tl-year-row:nth-of-type(2) > div.tl-year-cards:nth-of-type(2) > div.tl-card",
+      "detail": "非原生 onclick 缺少：role=button/link、tabindex>=0、Enter/Space handler",
+      "route": "/timeline",
+      "case": "mobile-dark",
+      "fingerprint": "clickable-keyboard|/timeline|mobile-dark|div.timeline-inner > div.tl-year-row:nth-of-type(2) > div.tl-year-cards:nth-of-type(2) > div.tl-card"
+    },
+    {
+      "rule": "clickable-keyboard",
+      "selector": "div.timeline-inner > div.tl-year-row:nth-of-type(3) > div.tl-year-cards:nth-of-type(2) > div.tl-card:nth-of-type(1)",
+      "detail": "非原生 onclick 缺少：role=button/link、tabindex>=0、Enter/Space handler",
+      "route": "/timeline",
+      "case": "mobile-dark",
+      "fingerprint": "clickable-keyboard|/timeline|mobile-dark|div.timeline-inner > div.tl-year-row:nth-of-type(3) > div.tl-year-cards:nth-of-type(2) > div.tl-card:nth-of-type(1)"
+    },
+    {
+      "rule": "clickable-keyboard",
+      "selector": "div.timeline-inner > div.tl-year-row:nth-of-type(3) > div.tl-year-cards:nth-of-type(2) > div.tl-card:nth-of-type(2)",
+      "detail": "非原生 onclick 缺少：role=button/link、tabindex>=0、Enter/Space handler",
+      "route": "/timeline",
+      "case": "mobile-dark",
+      "fingerprint": "clickable-keyboard|/timeline|mobile-dark|div.timeline-inner > div.tl-year-row:nth-of-type(3) > div.tl-year-cards:nth-of-type(2) > div.tl-card:nth-of-type(2)"
+    },
+    {
+      "rule": "clickable-keyboard",
+      "selector": "div.timeline-inner > div.tl-year-row:nth-of-type(4) > div.tl-year-cards:nth-of-type(2) > div.tl-card:nth-of-type(1)",
+      "detail": "非原生 onclick 缺少：role=button/link、tabindex>=0、Enter/Space handler",
+      "route": "/timeline",
+      "case": "mobile-dark",
+      "fingerprint": "clickable-keyboard|/timeline|mobile-dark|div.timeline-inner > div.tl-year-row:nth-of-type(4) > div.tl-year-cards:nth-of-type(2) > div.tl-card:nth-of-type(1)"
+    },
+    {
+      "rule": "clickable-keyboard",
+      "selector": "div.timeline-inner > div.tl-year-row:nth-of-type(4) > div.tl-year-cards:nth-of-type(2) > div.tl-card:nth-of-type(2)",
+      "detail": "非原生 onclick 缺少：role=button/link、tabindex>=0、Enter/Space handler",
+      "route": "/timeline",
+      "case": "mobile-dark",
+      "fingerprint": "clickable-keyboard|/timeline|mobile-dark|div.timeline-inner > div.tl-year-row:nth-of-type(4) > div.tl-year-cards:nth-of-type(2) > div.tl-card:nth-of-type(2)"
+    },
+    {
+      "rule": "clickable-keyboard",
+      "selector": "div.timeline-inner > div.tl-year-row:nth-of-type(5) > div.tl-year-cards:nth-of-type(2) > div.tl-card",
+      "detail": "非原生 onclick 缺少：role=button/link、tabindex>=0、Enter/Space handler",
+      "route": "/timeline",
+      "case": "mobile-dark",
+      "fingerprint": "clickable-keyboard|/timeline|mobile-dark|div.timeline-inner > div.tl-year-row:nth-of-type(5) > div.tl-year-cards:nth-of-type(2) > div.tl-card"
+    },
+    {
+      "rule": "control-name",
+      "selector": "#event-search",
+      "detail": "可见控件缺少可访问名称",
+      "route": "/events",
+      "case": "desktop-dark",
+      "fingerprint": "control-name|/events|desktop-dark|#event-search"
+    },
+    {
+      "rule": "control-name",
+      "selector": "#event-search",
+      "detail": "可见控件缺少可访问名称",
+      "route": "/events",
+      "case": "desktop-light",
+      "fingerprint": "control-name|/events|desktop-light|#event-search"
+    },
+    {
+      "rule": "control-name",
+      "selector": "#event-search",
+      "detail": "可见控件缺少可访问名称",
+      "route": "/events",
+      "case": "mobile-dark",
+      "fingerprint": "control-name|/events|mobile-dark|#event-search"
+    },
+    {
+      "rule": "control-name",
+      "selector": "#search",
+      "detail": "可见控件缺少可访问名称",
+      "route": "/library",
+      "case": "desktop-dark",
+      "fingerprint": "control-name|/library|desktop-dark|#search"
+    },
+    {
+      "rule": "control-name",
+      "selector": "#search",
+      "detail": "可见控件缺少可访问名称",
+      "route": "/library",
+      "case": "desktop-light",
+      "fingerprint": "control-name|/library|desktop-light|#search"
+    },
+    {
+      "rule": "control-name",
+      "selector": "#search",
+      "detail": "可见控件缺少可访问名称",
+      "route": "/library",
+      "case": "mobile-dark",
+      "fingerprint": "control-name|/library|mobile-dark|#search"
+    },
+    {
+      "rule": "control-name",
+      "selector": "#my-search",
+      "detail": "可见控件缺少可访问名称",
+      "route": "/my",
+      "case": "desktop-dark",
+      "fingerprint": "control-name|/my|desktop-dark|#my-search"
+    },
+    {
+      "rule": "control-name",
+      "selector": "#my-search",
+      "detail": "可见控件缺少可访问名称",
+      "route": "/my",
+      "case": "desktop-light",
+      "fingerprint": "control-name|/my|desktop-light|#my-search"
+    },
+    {
+      "rule": "control-name",
+      "selector": "#my-search",
+      "detail": "可见控件缺少可访问名称",
+      "route": "/my",
+      "case": "mobile-dark",
+      "fingerprint": "control-name|/my|mobile-dark|#my-search"
+    },
+    {
+      "rule": "single-h1",
+      "selector": "html > body",
+      "detail": "h1 数量为 2",
+      "route": "/report/2026-07-16.md",
+      "case": "desktop-dark",
+      "fingerprint": "single-h1|/report/2026-07-16.md|desktop-dark|html > body"
+    },
+    {
+      "rule": "single-h1",
+      "selector": "html > body",
+      "detail": "h1 数量为 2",
+      "route": "/report/2026-07-16.md",
+      "case": "desktop-light",
+      "fingerprint": "single-h1|/report/2026-07-16.md|desktop-light|html > body"
+    },
+    {
+      "rule": "single-h1",
+      "selector": "html > body",
+      "detail": "h1 数量为 2",
+      "route": "/report/2026-07-16.md",
+      "case": "mobile-dark",
+      "fingerprint": "single-h1|/report/2026-07-16.md|mobile-dark|html > body"
+    },
+    {
+      "rule": "single-main",
+      "selector": "html > body",
+      "detail": "main 数量为 2",
+      "route": "/article/fixture-article-1",
+      "case": "desktop-dark",
+      "fingerprint": "single-main|/article/fixture-article-1|desktop-dark|html > body"
+    },
+    {
+      "rule": "single-main",
+      "selector": "html > body",
+      "detail": "main 数量为 2",
+      "route": "/article/fixture-article-1",
+      "case": "desktop-light",
+      "fingerprint": "single-main|/article/fixture-article-1|desktop-light|html > body"
+    },
+    {
+      "rule": "single-main",
+      "selector": "html > body",
+      "detail": "main 数量为 2",
+      "route": "/article/fixture-article-1",
+      "case": "mobile-dark",
+      "fingerprint": "single-main|/article/fixture-article-1|mobile-dark|html > body"
+    },
+    {
+      "rule": "single-main",
+      "selector": "html > body",
+      "detail": "main 数量为 2",
+      "route": "/report/2026-07-16.md",
+      "case": "desktop-dark",
+      "fingerprint": "single-main|/report/2026-07-16.md|desktop-dark|html > body"
+    },
+    {
+      "rule": "single-main",
+      "selector": "html > body",
+      "detail": "main 数量为 2",
+      "route": "/report/2026-07-16.md",
+      "case": "desktop-light",
+      "fingerprint": "single-main|/report/2026-07-16.md|desktop-light|html > body"
+    },
+    {
+      "rule": "single-main",
+      "selector": "html > body",
+      "detail": "main 数量为 2",
+      "route": "/report/2026-07-16.md",
+      "case": "mobile-dark",
+      "fingerprint": "single-main|/report/2026-07-16.md|mobile-dark|html > body"
+    }
+  ],
+  "evidence": "output/accessibility-gate/20260716T180401.683643Z-baseline/audit/audit.json",
+  "evidence_sha256": "f9cf207c53f3b907bd1603df9335229dc2f9cdc099f8466b23efca75d96fbe76",
+  "policy": "普通 check 只读取基线；新增违规失败，已修复违规列为 resolved。基线变更必须显式 baseline --force。"
+}

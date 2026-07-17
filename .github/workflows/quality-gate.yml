@@ -1,0 +1,72 @@
+name: AI News Quality Gate
+
+on:
+  pull_request: {}
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - data/inbox.jsonl
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    # P6 性能基线绑定 win32-x64；Linux runner 必须另建并审查独立基线。
+    runs-on: windows-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout without persisted credentials
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Install pinned uv and Python
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          version: 0.11.24
+          python-version: 3.13.14
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+
+      - name: Install pinned Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24.17.0
+          cache: npm
+
+      - name: Restore frozen dependencies
+        run: |
+          uv sync --frozen --all-groups
+          npm ci
+
+      - name: Install Chromium runtime
+        run: npx playwright install chromium
+
+      - name: Quality checkpoint
+        run: uv run --frozen python tools/quality_gate.py checkpoint
+
+      - name: Browser gate
+        run: uv run --frozen python tools/browser_gate.py --profile core
+
+      - name: Accessibility gate
+        run: uv run --frozen python tools/accessibility_gate.py check
+
+      - name: Performance gate
+        run: uv run --frozen python tools/performance_gate.py check
+
+      - name: Upload immutable gate evidence
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: quality-gate-${{ github.run_id }}-${{ github.run_attempt }}
+          path: output/
+          if-no-files-found: error
+          retention-days: 14

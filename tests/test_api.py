@@ -71,6 +71,18 @@ class TestHealth:
         assert "db" in data
         assert "last_pipeline" in data
         assert "last_collector" in data
+        assert data["environment"] == "unknown"
+        assert data["release"] == "unknown"
+
+    def test_health_exposes_non_sensitive_deployment_binding(self, client, monkeypatch):
+        monkeypatch.setenv("AI_NEWS_ENVIRONMENT", "dev")
+        monkeypatch.setenv("AI_NEWS_RELEASE_SHA", "a" * 40)
+        c, _ = client
+
+        data = c.get("/api/health").json()
+
+        assert data["environment"] == "dev"
+        assert data["release"] == "a" * 40
 
 
 # ── Entities API ─────────────────────────────────────────

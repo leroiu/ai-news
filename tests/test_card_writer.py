@@ -66,9 +66,13 @@ class TestSaveCard:
         result = save_card("name: Test\n", "methodology")
         assert result is None
 
-    def test_existing_card_skipped(self):
+    def test_existing_card_skipped(self, tmp_path, monkeypatch):
         """已有卡片不被覆盖。"""
-        # 用一个已知存在的 card id
+        import src.engine.card_writer as card_writer
+        monkeypatch.setattr(card_writer, "ROOT_DIR", tmp_path)
+        target = tmp_path / "data" / "knowledge" / "methodology" / "agent-orchestration.yaml"
+        target.parent.mkdir(parents=True)
+        target.write_text("id: agent-orchestration\nname: Existing\n", encoding="utf-8")
         result = save_card(
             "id: agent-orchestration\nname: Test\n",
             "methodology",

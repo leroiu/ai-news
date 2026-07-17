@@ -147,7 +147,7 @@ class TestExtractKeywords:
 class TestLoadCards:
     def test_loads_from_data_dir(self):
         cards = load_cards()
-        assert len(cards) >= 20
+        assert len(cards) == 4
         ids = {c.id for c in cards}
         assert "transformer" in ids
         assert "gpt-4" in ids
@@ -171,7 +171,7 @@ class TestMatchCards:
             url="http://test.com/1", source="TechCrunch",
             categories=["大模型发布"],
         )
-        matched = match_cards([article], cards)
+        matched = match_cards([article], cards, use_semantic=False)
         assert "test1" in matched
         card_ids = {c.id for c in matched["test1"]}
         assert any(c in card_ids for c in ["openai", "gpt-4", "gpt-4o", "gpt-4-release"])

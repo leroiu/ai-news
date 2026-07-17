@@ -87,3 +87,23 @@ timeline-*.png
 *-full.png
 *-current.png
 timeline-snapshot.txt
+
+# Portable, content-addressed baseline evidence used by clean CI checkouts.
+# Keep every other generated output ignored; replacing either file requires
+# an explicit baseline review and a matching path/SHA update.
+!output/
+output/*
+!output/accessibility-gate/
+output/accessibility-gate/*
+!output/accessibility-gate/20260716T180401.683643Z-baseline/
+output/accessibility-gate/20260716T180401.683643Z-baseline/*
+!output/accessibility-gate/20260716T180401.683643Z-baseline/audit/
+output/accessibility-gate/20260716T180401.683643Z-baseline/audit/*
+!output/accessibility-gate/20260716T180401.683643Z-baseline/audit/audit.json
+!output/performance-gate/
+output/performance-gate/*
+!output/performance-gate/20260716T190301.222528Z-baseline/
+output/performance-gate/20260716T190301.222528Z-baseline/*
+!output/performance-gate/20260716T190301.222528Z-baseline/audit/
+output/performance-gate/20260716T190301.222528Z-baseline/audit/*
+!output/performance-gate/20260716T190301.222528Z-baseline/audit/audit.json
