@@ -23,7 +23,7 @@ def test_quality_workflow_has_bounded_non_collector_triggers():
     triggers = workflow["on"]
 
     assert set(triggers) == {"pull_request", "push", "workflow_dispatch"}
-    assert triggers["push"]["branches"] == ["main"]
+    assert triggers["push"]["branches"] == ["master"]
     assert "data/inbox.jsonl" in triggers["push"]["paths-ignore"]
     assert workflow["concurrency"]["cancel-in-progress"] == "true"
 
