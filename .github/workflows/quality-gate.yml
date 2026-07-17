@@ -21,6 +21,10 @@ jobs:
     # P6 性能基线绑定 win32-x64；Linux runner 必须另建并审查独立基线。
     runs-on: windows-latest
     timeout-minutes: 45
+    env:
+      # GitHub-hosted Windows defaults to a legacy console code page; every
+      # gate emits Chinese evidence labels, so make Python output portable.
+      PYTHONUTF8: "1"
 
     steps:
       - name: Checkout without persisted credentials

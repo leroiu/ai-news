@@ -39,6 +39,7 @@ def test_quality_workflow_uses_minimum_permissions_and_no_deploy_or_secrets():
     assert "git push" not in text
     assert workflow["jobs"]["quality"]["timeout-minutes"] == "45"
     assert workflow["jobs"]["quality"]["runs-on"] == "windows-latest"
+    assert workflow["jobs"]["quality"]["env"]["PYTHONUTF8"] == "1"
 
 
 def test_quality_workflow_restores_frozen_python_and_node_dependencies():
