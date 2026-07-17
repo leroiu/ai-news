@@ -231,6 +231,45 @@ def merge_audits(page_audit: dict, api_audit: dict) -> dict:
     }
 
 
+def collect_audit(runtime: Path, audit_root: Path) -> tuple[dict, dict[str, subprocess.CompletedProcess[str]]]:
+    """采集一轮隔离性能审计，并保存每个阶段的原始日志。"""
+    phase_audits = {}
+    results: dict[str, subprocess.CompletedProcess[str]] = {}
+    for mode in ("pages", "apis"):
+        phase_dir = audit_root / mode
+        phase_dir.mkdir(parents=True, exist_ok=False)
+        process = None
+        result = None
+        try:
+            port = free_port()
+            process = start_server(runtime, port, phase_dir)
+            result = run_audit(mode, f"http://127.0.0.1:{port}", phase_dir)
+        finally:
+            stop_server(process)
+        if result is None:
+            raise RuntimeError(f"{mode} 性能审计未能启动")
+        results[mode] = result
+        (phase_dir / "audit.stdout.log").write_text(result.stdout, encoding="utf-8")
+        (phase_dir / "audit.stderr.log").write_text(result.stderr, encoding="utf-8")
+        audit_path = phase_dir / "audit" / "audit.json"
+        if not audit_path.is_file():
+            raise RuntimeError(f"{mode} 性能审计未生成 audit.json")
+        phase_audits[mode] = json.loads(audit_path.read_text(encoding="utf-8"))
+        if result.returncode:
+            raise RuntimeError(f"{mode} 性能审计失败，退出码 {result.returncode}")
+
+    audit = merge_audits(phase_audits["pages"], phase_audits["apis"])
+    merged_dir = audit_root / "audit"
+    merged_dir.mkdir(parents=True, exist_ok=False)
+    (merged_dir / "audit.json").write_text(
+        json.dumps(audit, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    audit_error = validate_audit(audit)
+    if audit_error:
+        raise RuntimeError(audit_error)
+    return audit, results
+
+
 def _is_number(value: Any) -> bool:
     return (
         isinstance(value, (int, float))
@@ -595,6 +634,20 @@ def compare_budgets(audit: dict, baseline: dict) -> list[dict]:
     return violations
 
 
+def confirmed_violations(
+    initial: list[dict], recheck: list[dict]
+) -> tuple[list[dict], list[dict]]:
+    """只有同一预算指纹在独立复测中仍超限时才确认回归。"""
+    recheck_fingerprints = {item["fingerprint"] for item in recheck}
+    confirmed = [
+        item for item in initial if item["fingerprint"] in recheck_fingerprints
+    ]
+    transient = [
+        item for item in initial if item["fingerprint"] not in recheck_fingerprints
+    ]
+    return confirmed, transient
+
+
 def _validate_budget(
     target_kind: str,
     target: str,
@@ -829,48 +882,11 @@ def main() -> int:
     audit = None
     baseline = None
     violations = []
+    recheck: dict[str, Any] | None = None
     error = ""
     try:
         fixture = prepare_runtime(run_dir)
-        phase_audits = {}
-        for mode in ("pages", "apis"):
-            phase_dir = run_dir / mode
-            phase_dir.mkdir(parents=True, exist_ok=False)
-            process = None
-            try:
-                port = free_port()
-                process = start_server(Path(fixture["runtime"]), port, phase_dir)
-                result = run_audit(mode, f"http://127.0.0.1:{port}", phase_dir)
-                audit_results[mode] = result
-            finally:
-                stop_server(process)
-            (phase_dir / "audit.stdout.log").write_text(
-                result.stdout, encoding="utf-8"
-            )
-            (phase_dir / "audit.stderr.log").write_text(
-                result.stderr, encoding="utf-8"
-            )
-            audit_path = phase_dir / "audit" / "audit.json"
-            if not audit_path.is_file():
-                raise RuntimeError(f"{mode} 性能审计未生成 audit.json")
-            phase_audits[mode] = json.loads(
-                audit_path.read_text(encoding="utf-8")
-            )
-            if result.returncode:
-                raise RuntimeError(
-                    f"{mode} 性能审计失败，退出码 {result.returncode}"
-                )
-
-        audit = merge_audits(phase_audits["pages"], phase_audits["apis"])
-        merged_dir = run_dir / "audit"
-        merged_dir.mkdir(parents=True, exist_ok=False)
-        merged_path = merged_dir / "audit.json"
-        merged_path.write_text(
-            json.dumps(audit, ensure_ascii=False, indent=2), encoding="utf-8"
-        )
-        audit_error = validate_audit(audit)
-        if audit_error:
-            raise RuntimeError(audit_error)
+        audit, audit_results = collect_audit(Path(fixture["runtime"]), run_dir)
         if args.command == "baseline":
             if args.baseline_path.resolve().exists() and not args.force:
                 raise RuntimeError(
@@ -885,7 +901,29 @@ def main() -> int:
                 raise RuntimeError(baseline_error)
             violations = compare_budgets(audit, baseline)
             if violations:
-                error = f"发现 {len(violations)} 个性能预算回归"
+                recheck_root = run_dir / "recheck"
+                recheck_audit, recheck_results = collect_audit(
+                    Path(fixture["runtime"]), recheck_root
+                )
+                recheck_violations = compare_budgets(recheck_audit, baseline)
+                confirmed, transient = confirmed_violations(
+                    violations, recheck_violations
+                )
+                recheck = {
+                    "attempted": True,
+                    "audit_path": str(recheck_root / "audit" / "audit.json"),
+                    "exit_codes": {
+                        mode: result.returncode
+                        for mode, result in recheck_results.items()
+                    },
+                    "initial_violations": violations,
+                    "recheck_violations": recheck_violations,
+                    "confirmed_violations": confirmed,
+                    "transient_violations": transient,
+                }
+                violations = confirmed
+                if violations:
+                    error = f"发现 {len(violations)} 个稳定性能预算回归"
     except (
         OSError,
         RuntimeError,
@@ -931,6 +969,7 @@ def main() -> int:
             "rule_version": baseline.get("rule_version") if baseline else None,
         },
         "violations": violations,
+        "recheck": recheck,
         "pollution": {
             "detected": pollution,
             "before_digest": before_digest,

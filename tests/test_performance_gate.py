@@ -1,10 +1,14 @@
 from __future__ import annotations
 
 from copy import deepcopy
+import json
 from pathlib import Path
+from types import SimpleNamespace
+import subprocess
 
 import pytest
 
+import tools.performance_gate as performance_gate
 from tools.browser_gate import CORE_ROUTES
 from tools.performance_gate import (
     API_ENDPOINTS,
@@ -14,6 +18,7 @@ from tools.performance_gate import (
     build_budgets,
     budget_value,
     compare_budgets,
+    confirmed_violations,
     create_baseline,
     validate_audit,
     validate_baseline,
@@ -307,3 +312,131 @@ def test_compare_budgets_reports_stable_violation():
         "page|/|domNodes|max",
         "api|/api/health|durationMs|p95",
     ]
+
+
+def test_confirmed_violations_only_keeps_reproducible_fingerprints():
+    initial = [
+        {"fingerprint": "page|/events|longTaskMaxMs|max", "actual": 52},
+        {"fingerprint": "api|/api/health|durationMs|p95", "actual": 90},
+    ]
+    recheck = [
+        {"fingerprint": "api|/api/health|durationMs|p95", "actual": 95},
+    ]
+
+    confirmed, transient = confirmed_violations(initial, recheck)
+
+    assert confirmed == [initial[1]]
+    assert transient == [initial[0]]
+
+
+def _baseline_for_main_test(tmp_path: Path, audit: dict) -> Path:
+    evidence = tmp_path / "evidence.json"
+    write_evidence(evidence, audit)
+    baseline_path = tmp_path / "baseline.json"
+    create_baseline(baseline_path, audit, evidence, force=False)
+    return baseline_path
+
+
+def _audit_result() -> dict[str, subprocess.CompletedProcess[str]]:
+    return {
+        mode: subprocess.CompletedProcess([mode], 0, "", "")
+        for mode in ("pages", "apis")
+    }
+
+
+def test_main_allows_a_transient_violation_only_after_clean_recheck(tmp_path: Path, monkeypatch):
+    baseline_audit = sample_audit()
+    baseline_path = _baseline_for_main_test(tmp_path, baseline_audit)
+    initial = deepcopy(baseline_audit)
+    events = next(item for item in initial["pages"] if item["route"] == "/events")
+    events["aggregate"]["longTaskMaxMs"] = metric(52)
+    recheck = deepcopy(baseline_audit)
+    calls = []
+
+    def fake_collect(runtime, audit_root):
+        calls.append(audit_root)
+        return (initial if len(calls) == 1 else recheck), _audit_result()
+
+    monkeypatch.setattr(
+        performance_gate,
+        "parse_args",
+        lambda: SimpleNamespace(
+            command="check", output_dir=tmp_path / "output", baseline_path=baseline_path
+        ),
+    )
+    monkeypatch.setattr(performance_gate, "prepare_runtime", lambda _: {"runtime": str(tmp_path)})
+    monkeypatch.setattr(performance_gate, "collect_audit", fake_collect)
+    monkeypatch.setattr(performance_gate, "protected_digest", lambda: ("same", {}))
+
+    assert performance_gate.main() == 0
+    summary = next((tmp_path / "output").glob("*-check/summary.json"))
+    payload = json.loads(summary.read_text(encoding="utf-8"))
+    assert len(calls) == 2
+    assert payload["status"] == "passed"
+    assert payload["violations"] == []
+    assert payload["recheck"]["confirmed_violations"] == []
+    assert payload["recheck"]["transient_violations"][0]["fingerprint"] == (
+        "page|/events|longTaskMaxMs|max"
+    )
+
+
+def test_main_fails_closed_when_recheck_cannot_be_collected(tmp_path: Path, monkeypatch):
+    baseline_audit = sample_audit()
+    baseline_path = _baseline_for_main_test(tmp_path, baseline_audit)
+    initial = deepcopy(baseline_audit)
+    events = next(item for item in initial["pages"] if item["route"] == "/events")
+    events["aggregate"]["longTaskMaxMs"] = metric(52)
+    calls = []
+
+    def fake_collect(runtime, audit_root):
+        calls.append(audit_root)
+        if len(calls) == 1:
+            return initial, _audit_result()
+        raise RuntimeError("recheck infrastructure failure")
+
+    monkeypatch.setattr(
+        performance_gate,
+        "parse_args",
+        lambda: SimpleNamespace(
+            command="check", output_dir=tmp_path / "output", baseline_path=baseline_path
+        ),
+    )
+    monkeypatch.setattr(performance_gate, "prepare_runtime", lambda _: {"runtime": str(tmp_path)})
+    monkeypatch.setattr(performance_gate, "collect_audit", fake_collect)
+    monkeypatch.setattr(performance_gate, "protected_digest", lambda: ("same", {}))
+
+    assert performance_gate.main() == 1
+    summary = next((tmp_path / "output").glob("*-check/summary.json"))
+    payload = json.loads(summary.read_text(encoding="utf-8"))
+    assert len(calls) == 2
+    assert payload["status"] == "failed"
+    assert "recheck infrastructure failure" in payload["error"]
+
+
+def test_main_rejects_a_reproducible_violation(tmp_path: Path, monkeypatch):
+    baseline_audit = sample_audit()
+    baseline_path = _baseline_for_main_test(tmp_path, baseline_audit)
+    violating = deepcopy(baseline_audit)
+    events = next(item for item in violating["pages"] if item["route"] == "/events")
+    events["aggregate"]["longTaskMaxMs"] = metric(52)
+
+    monkeypatch.setattr(
+        performance_gate,
+        "parse_args",
+        lambda: SimpleNamespace(
+            command="check", output_dir=tmp_path / "output", baseline_path=baseline_path
+        ),
+    )
+    monkeypatch.setattr(performance_gate, "prepare_runtime", lambda _: {"runtime": str(tmp_path)})
+    monkeypatch.setattr(
+        performance_gate,
+        "collect_audit",
+        lambda *_: (deepcopy(violating), _audit_result()),
+    )
+    monkeypatch.setattr(performance_gate, "protected_digest", lambda: ("same", {}))
+
+    assert performance_gate.main() == 1
+    summary = next((tmp_path / "output").glob("*-check/summary.json"))
+    payload = json.loads(summary.read_text(encoding="utf-8"))
+    assert payload["status"] == "failed"
+    assert payload["violations"][0]["fingerprint"] == "page|/events|longTaskMaxMs|max"
