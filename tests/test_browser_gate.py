@@ -135,6 +135,17 @@ def test_browser_audit_blocks_non_application_websocket(tmp_path: Path):
     node = shutil.which("node")
     if not node:
         pytest.skip("Node.js 不可用")
+    playwright_check = subprocess.run(
+        [node, "-e", "require.resolve('@playwright/test')"],
+        cwd=Path(__file__).resolve().parent.parent,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+        check=False,
+    )
+    if playwright_check.returncode:
+        pytest.skip("@playwright/test 未安装；CI 会在 npm ci 后执行此测试")
 
     class Handler(BaseHTTPRequestHandler):
         def do_GET(self):
