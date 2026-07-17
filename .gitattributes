@@ -12,6 +12,12 @@
 *.md text
 *.mdx text
 
+# The portable baseline checksums address exact raw-audit bytes.  Keep these
+# two evidence files out of Windows CRLF conversion so the SHA-256 contract is
+# identical in every checkout.
+output/accessibility-gate/20260716T180401.683643Z-baseline/audit/audit.json -text
+output/performance-gate/20260716T190301.222528Z-baseline/audit/audit.json -text
+
 # Shell scripts
 *.sh text eol=lf
 *.bat text eol=crlf

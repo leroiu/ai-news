@@ -1064,6 +1064,6 @@
     }
   },
   "evidence": "output/performance-gate/20260716T190301.222528Z-baseline/audit/audit.json",
-  "evidence_sha256": "949f6314f2cb961459c5dfee6f45d1392efbb712828cf74d566eb3c932a13b24",
+  "evidence_sha256": "804023f21051129c49cb87b436e8794dca278acb512b78e8609d5b71cef1d0d0",
   "policy": "普通 check 只读取预算；任何放宽或矩阵变更必须显式 baseline --force 并审查。"
 }
