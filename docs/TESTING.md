@@ -430,7 +430,7 @@ output/performance-gate/<run-id>-<command>/
 
 ## CI 质量工作流
 
-`.github/workflows/quality-gate.yml` 在 PR、main 分支的非纯采集数据 push 和手动触发时运行。工作流使用只读仓库权限、分支级并发取消和 45 分钟总超时。当前 runner 固定为 `windows-latest`，Node 固定为 `24.17.0`，因为已审查的 P6 性能基线绑定 `win32-x64 / Node v24.17.0 / Chromium 149.0.7827.55`；Linux runner 必须建立独立性能基线后才能启用。工作流固定执行：
+`.github/workflows/quality-gate.yml` 在 PR、master 分支的非纯采集数据 push 和手动触发时运行。工作流使用只读仓库权限、分支级并发取消和 45 分钟总超时。当前 runner 固定为 `windows-latest`，Node 固定为 `24.17.0`，因为已审查的 P6 性能基线绑定 `win32-x64 / Node v24.17.0 / Chromium 149.0.7827.55`；Linux runner 必须建立独立性能基线后才能启用。工作流固定执行：
 
 1. 从 `uv.lock` 和 `package-lock.json` 冻结恢复依赖；
 2. 安装固定版本 Chromium；
