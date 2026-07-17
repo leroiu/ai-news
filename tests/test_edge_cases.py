@@ -101,22 +101,20 @@ def test_load_cards_from_empty_dir():
         assert cards == []
 
 
-def test_match_cards_empty_articles():
+def test_match_cards_empty_articles(isolated_cards_dir):
     """空文章列表匹配不崩溃。"""
     from src.engine.knowledge import match_cards, load_cards
-    from src.engine.utils import ROOT_DIR
-    cards = load_cards(ROOT_DIR / "data" / "knowledge")
+    cards = load_cards(isolated_cards_dir)
     matches = match_cards([], cards)
     assert isinstance(matches, dict)
     assert matches == {}
 
 
-def test_match_cards_with_articles():
+def test_match_cards_with_articles(isolated_cards_dir):
     """有文章时能匹配卡片。"""
     from src.engine.knowledge import match_cards, load_cards
     from src.engine.fetcher import Article
-    from src.engine.utils import ROOT_DIR
-    cards = load_cards(ROOT_DIR / "data" / "knowledge")
+    cards = load_cards(isolated_cards_dir)
     articles = [
         Article(id="test-gpt4", title="GPT-4 model released with vision capabilities",
                 url="http://test.com/gpt4", source="rss")
@@ -195,12 +193,11 @@ def test_build_graph_default():
     assert "nodes" in graph or "stats" in graph
 
 
-def test_build_graph_with_cards():
+def test_build_graph_with_cards(isolated_cards_dir):
     """传入知识卡片列表构建图谱。"""
     from src.engine.kg_data import build_graph
     from src.engine.knowledge import load_cards
-    from src.engine.utils import ROOT_DIR
-    cards = load_cards(ROOT_DIR / "data" / "knowledge")
+    cards = load_cards(isolated_cards_dir)
     graph = build_graph(cards[:20])  # 限制20张测试
     assert isinstance(graph, dict)
     assert len(graph.get("nodes", [])) > 0

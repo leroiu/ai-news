@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "metric": "percent_covered",
+  "branch": true,
+  "minimum_percent": 56.42,
+  "tolerance": 0.1,
+  "observed_percent": 56.428,
+  "covered_lines": 3129,
+  "num_statements": 5207,
+  "covered_branches": 694,
+  "num_branches": 1568,
+  "source": "src,pipeline,pipeline_stages,pipeline_utils,collector",
+  "included_top_level_modules": [
+    "pipeline.py",
+    "pipeline_stages.py",
+    "pipeline_utils.py",
+    "collector.py"
+  ],
+  "evidence": "output/quality-gate/20260716T103652.107988Z-checkpoint/summary.json",
+  "created_at": "2026-07-16T18:37:26+08:00",
+  "supersedes": {
+    "minimum_percent": 57.55,
+    "reason": "第一轮 Reviewer 证明旧报告未实际包含声明的四个顶层模块；本基线按修正后的完整源范围重建，并随隔离及协程卫生测试提高到最新完整观测值。"
+  },
+  "policy": "普通 baseline/checkpoint 只能读取此文件，不会自动创建或降低门槛。基线变更必须附完整证据与原因。"
+}
