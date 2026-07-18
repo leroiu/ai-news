@@ -428,6 +428,22 @@ output/performance-gate/<run-id>-<command>/
 
 `summary.json` 同时记录两阶段退出码、预算违规和 `data/reports/cache/logs` 前后内容指纹。本门禁是单用户本地回归测试，不替代 `docs/PERFORMANCE_TEST_PLAN.md` 中面向获批目标服务器的 k6 并发、峰值和耐久测试。
 
+## Agent 失败诊断计划
+
+长程 Agent 遇到任一门禁失败时，应先将对应 `summary.json` 转为只读诊断计划，而不是猜测修复路径：
+
+```powershell
+uv run python tools/agent_failure_diagnosis.py `
+  --gate performance-arbitration `
+  --summary output/performance-arbitration/<run-id>/summary.json `
+  --evidence-root . `
+  --output output/agent-diagnosis/<run-id>.json
+```
+
+门禁类型固定为 `quality`、`browser`、`accessibility`、`performance`、`performance-arbitration`，必须显式提供，不能根据文件名推断。诊断器校验 summary 的关键字段、内部计数一致性、通过语义和 SHA-256；无效 JSON、缺失审计、相互矛盾的结果或伪造“通过”都会以非零退出码安全失败。仲裁诊断还会在 `--evidence-root` 这个受控目录内重新读取三份 Runner summary，核对路径、内容 SHA-256、运行 ID、状态、分类和违规指纹；没有可追溯的原始证据时不会接受仲裁“通过”。
+
+输出只包含失败分类、违规指纹、证据路径、可选的本地复测命令和 `needs_human` 标志。它不会修改代码、运行 Git 写操作、触发 CI、部署或访问外部网络。性能仲裁的单 Runner 噪声输出 `environment_noise` 并允许 Agent 继续；两个及以上 Runner 的稳定预算失败或任何仲裁基础设施错误要求人工介入。
+
 ## CI 质量工作流
 
 `.github/workflows/quality-gate.yml` 在 PR、master 分支的非纯采集数据 push 和手动触发时运行。工作流使用只读仓库权限、分支级并发取消和 45 分钟总超时。当前 runner 固定为 `windows-latest`，Node 固定为 `24.17.0`，因为已审查的 P6 性能基线绑定 `win32-x64 / Node v24.17.0 / Chromium 149.0.7827.55`；Linux runner 必须建立独立性能基线后才能启用。工作流固定执行：
