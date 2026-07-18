@@ -434,8 +434,10 @@ output/performance-gate/<run-id>-<command>/
 
 1. 从 `uv.lock` 和 `package-lock.json` 冻结恢复依赖；
 2. 安装固定版本 Chromium；
-3. 串行运行 quality、browser、accessibility、performance；
-4. 无论成功或失败，都上传本次 `output/` 完整证据，artifact 名绑定 run id 与 attempt。
+3. 串行运行 quality、browser、accessibility；
+4. 在三个独立的 GitHub-hosted Windows Runner 上并行运行性能门禁；每个 Runner 仍在内部执行一次独立复测；
+5. 汇总 Job 下载三个不可变性能审计后仲裁：0 个失败通过；1 个完整、无污染的稳定预算失败记为环境噪声并通过；2 个及以上失败、缺失审计或基础设施异常均失败；
+6. 无论成功或失败，都上传本次 `output/` 完整证据，artifact 名绑定 run id、attempt 和性能 Runner 标识。
 
 `tests/test_ci_workflow.py` 在本地解析 YAML 并保护触发器、权限、工具版本、冻结参数、门禁顺序和证据上传契约。P5/P6 的原始 accessibility/performance audit 以仓库相对路径和原 SHA-256 暴露为可提交证据，避免干净 checkout 依赖本机绝对 `output/` 路径；除这两个内容寻址文件外，其他 `output/` 仍被忽略。测试只能证明工作流定义正确；实际 GitHub runner 结果仍需未来 push/PR 后的 Actions 证据。
 
