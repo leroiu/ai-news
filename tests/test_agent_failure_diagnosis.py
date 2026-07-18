@@ -15,24 +15,151 @@ def write_summary(tmp_path: Path, name: str, payload: dict) -> Path:
     return path
 
 
+def pollution() -> dict:
+    return {
+        "detected": False,
+        "before_digest": "before",
+        "after_digest": "after",
+        "before_counts": {"data": 1},
+        "after_counts": {"data": 1},
+    }
+
+
 def quality_summary(*, result: str = "pass", exit_code: int = 0) -> dict:
-    return {"result": result, "exit_code": exit_code, "test_counts": {}, "failure_fingerprints": [], "git_content_changed": False, "runtime_content_changed": False}
+    return {
+        "run_id": "quality-run",
+        "profile": "checkpoint",
+        "started_at": "2026-07-19T00:00:00+00:00",
+        "finished_at": "2026-07-19T00:01:00+00:00",
+        "duration_seconds": 60.0,
+        "working_directory": "C:/repo",
+        "python_executable": "C:/python.exe",
+        "git_branch": "codex/test",
+        "git_head": "a" * 40,
+        "initial_status_count": 0,
+        "result": result,
+        "exit_code": exit_code,
+        "pytest_returncode": exit_code,
+        "pytest_duration_seconds": 42.0,
+        "process_tree_cleaned": True,
+        "test_counts": {"passed": 5, "collected": 5},
+        "failure_fingerprints": [],
+        "git_status_added": [],
+        "git_status_removed": [],
+        "git_digest_before": "before",
+        "git_digest_after": "after",
+        "git_content_changed": False,
+        "protected_runtime_paths": ["data"],
+        "runtime_digest_before": "before",
+        "runtime_digest_after": "after",
+        "runtime_content_changed": False,
+        "coverage_enabled": True,
+        "coverage_summary": {"percent_covered": 56.5},
+        "coverage_baseline": {"minimum_percent": 56.0},
+        "coverage_baseline_path": ".quality/coverage-baseline.json",
+        "evidence_directory": "output/quality-gate/quality-run",
+    }
 
 
-def browser_summary(*, status: str = "passed", exit_code: int | None = 0, pollution: bool = False) -> dict:
-    return {"schema_version": 1, "status": status, "browser": {"exit_code": exit_code}, "pollution": {"detected": pollution}, "error": ""}
+def browser_summary(*, status: str = "passed", exit_code: int | None = 0, polluted: bool = False) -> dict:
+    pollute = pollution()
+    pollute["detected"] = polluted
+    return {
+        "schema_version": 1,
+        "run_id": "browser-run",
+        "generated_at": "2026-07-19T00:00:00Z",
+        "status": status,
+        "profile": "core",
+        "prepare_only": False,
+        "routes": ["/"],
+        "viewports": [{"name": "desktop"}, {"name": "mobile"}],
+        "network": {"policy": "loopback-only", "allowed_external_origins": []},
+        "fixed_browser_time": "2026-07-16T12:00:00.000Z",
+        "runtime": {"runtime": "output/browser-run/runtime"},
+        "browser": {
+            "exit_code": exit_code,
+            "stdout": "",
+            "stderr": "",
+            "audit": {
+                "cases": [{
+                    "passed": status == "passed",
+                    "failures": [],
+                    "screenshots": {"full": "full.png", "top": "top.png", "bottom": "bottom.png"},
+                }],
+            },
+        },
+        "pollution": pollute,
+        "error": "" if status == "passed" else "browser failed",
+        "run_dir": "output/browser-gate/browser-run",
+    }
 
 
 def accessibility_summary(*, status: str = "passed", new: list | None = None) -> dict:
-    return {"schema_version": 1, "status": status, "audit": {"exit_code": 0}, "pollution": {"detected": False}, "comparison": {"new": new or []}, "error": ""}
+    new = new or []
+    return {
+        "schema_version": 1,
+        "run_id": "accessibility-run",
+        "command": "check",
+        "status": status,
+        "generated_at": "2026-07-19T00:00:00Z",
+        "routes": ["/"],
+        "cases": ["desktop-dark"],
+        "fixture": {"runtime": "output/accessibility-run/runtime"},
+        "audit": {"exit_code": 0, "summary": {"checks": 1, "violations": 0, "infrastructureFailures": 0}},
+        "baseline": {"path": ".quality/accessibility-baseline.json", "violation_count": 0},
+        "comparison": {"known_count": 0, "new_count": len(new), "resolved_count": 0, "known": [], "new": new, "resolved": []},
+        "pollution": pollution(),
+        "error": "" if status == "passed" else "accessibility failed",
+        "run_dir": "output/accessibility-gate/accessibility-run",
+    }
 
 
 def performance_summary(*, status: str = "passed", violations: list | None = None) -> dict:
-    return {"schema_version": 1, "command": "check", "status": status, "audit": {"exit_codes": {"pages": 0, "apis": 0}}, "pollution": {"detected": False}, "violations": violations or [], "error": ""}
+    return {
+        "schema_version": 1,
+        "run_id": "performance-run",
+        "command": "check",
+        "status": status,
+        "generated_at": "2026-07-19T00:00:00Z",
+        "audit": {
+            "exit_codes": {"pages": 0, "apis": 0},
+            "summary": {"pageRoutes": 1, "pageSamples": 3, "apiEndpoints": 1, "apiSamples": 20, "pageErrors": 0, "apiErrors": 0},
+        },
+        "baseline": {"path": ".quality/performance-baseline.json", "rule_version": 1},
+        "violations": violations or [],
+        "recheck": {},
+        "pollution": pollution(),
+        "fixture": {"runtime": "output/performance-run/runtime"},
+        "error": "" if status == "passed" else "performance failed",
+        "run_dir": "output/performance-gate/performance-run",
+    }
+
+
+def arbitration_run(index: int, classification: str = "passed") -> dict:
+    status = "passed" if classification == "passed" else "failed"
+    return {
+        "summary_path": f"performance-evidence/runner-{index}/summary.json",
+        "summary_sha256": f"{index:x}" * 64,
+        "classification": classification,
+        "fingerprints": [f"page|/{index}|metric|max"] if classification == "budget_regression" else [],
+        "run_id": f"runner-{index}",
+        "status": status,
+        "error": "runner infrastructure error" if classification == "infrastructure_error" else "",
+    }
 
 
 def arbitration_summary(*, status: str = "passed", verdict: str = "passed", failures: int = 0, found: int = 3) -> dict:
-    return {"schema_version": 1, "status": status, "verdict": verdict, "expected_runs": 3, "found_runs": found, "runs": [{}, {}, {}], "budget_regression_runs": failures, "error": ""}
+    classifications = ["budget_regression"] * failures + ["passed"] * (found - failures)
+    return {
+        "schema_version": 1,
+        "status": status,
+        "verdict": verdict,
+        "expected_runs": 3,
+        "found_runs": found,
+        "runs": [arbitration_run(index + 1, value) for index, value in enumerate(classifications)],
+        "budget_regression_runs": failures,
+        "error": "" if status == "passed" else "arbitration blocked",
+    }
 
 
 @pytest.mark.parametrize(
@@ -84,10 +211,10 @@ def test_one_runner_noise_is_continue_without_human_escalation(tmp_path: Path):
 
 
 def test_arbitration_infrastructure_error_requires_human_even_when_three_artifacts_exist(tmp_path: Path):
-    result = diagnose(
-        "performance-arbitration",
-        write_summary(tmp_path, "infra", arbitration_summary(status="failed", verdict="infrastructure_error")),
-    )
+    payload = arbitration_summary(status="failed", verdict="infrastructure_error")
+    payload.pop("budget_regression_runs")
+    payload["runs"][0] = arbitration_run(1, "infrastructure_error")
+    result = diagnose("performance-arbitration", write_summary(tmp_path, "infra", payload))
     assert result["classification"] == "infrastructure_error"
     assert result["needs_human"] is True
 
@@ -95,16 +222,23 @@ def test_arbitration_infrastructure_error_requires_human_even_when_three_artifac
 @pytest.mark.parametrize(
     ("gate", "payload"),
     [
-        ("quality", quality_summary(result="pass", exit_code=1)),
-        ("browser", browser_summary(pollution=True)),
+        ("quality", {key: value for key, value in quality_summary().items() if key != "coverage_summary"}),
+        ("browser", {**browser_summary(), "browser": {"exit_code": 0, "stdout": "", "stderr": "", "audit": {"cases": []}}}),
         ("accessibility", {"schema_version": 1, "status": "passed"}),
-        ("performance", performance_summary(violations=[{"fingerprint": "forged"}])),
-        ("performance-arbitration", arbitration_summary(found=2)),
+        ("performance", {**performance_summary(), "audit": {"exit_codes": {"pages": 0, "apis": 0}}}),
+        ("performance-arbitration", {**arbitration_summary(), "runs": []}),
     ],
 )
 def test_forged_or_incomplete_passing_evidence_fails_closed(tmp_path: Path, gate: str, payload: dict):
     with pytest.raises(ValueError):
         diagnose(gate, write_summary(tmp_path, gate, payload))
+
+
+def test_arbitration_rejects_runner_entries_without_auditable_evidence(tmp_path: Path):
+    payload = arbitration_summary()
+    payload["runs"][1].pop("summary_sha256")
+    with pytest.raises(ValueError):
+        diagnose("performance-arbitration", write_summary(tmp_path, "forged-run", payload))
 
 
 def test_invalid_json_fails_closed(tmp_path: Path):

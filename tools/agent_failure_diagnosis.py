@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 from pathlib import Path
 from typing import Any
 
@@ -46,6 +47,72 @@ def _string_fingerprints(items: Any) -> list[str]:
     return list(items)
 
 
+def _nonempty_string(value: Any, message: str) -> str:
+    _require(isinstance(value, str) and value.strip(), message)
+    return value
+
+
+def _nonnegative_number(value: Any, message: str) -> float:
+    _require(
+        isinstance(value, (int, float))
+        and not isinstance(value, bool)
+        and math.isfinite(value)
+        and value >= 0,
+        message,
+    )
+    return float(value)
+
+
+def _require_keys(mapping: Any, keys: tuple[str, ...], message: str) -> dict:
+    _require(isinstance(mapping, dict) and all(key in mapping for key in keys), message)
+    return mapping
+
+
+def _complete_pollution(pollution: Any, gate: str) -> dict:
+    evidence = _require_keys(
+        pollution,
+        ("detected", "before_digest", "after_digest", "before_counts", "after_counts"),
+        f"{gate} 缺少完整污染审计",
+    )
+    _require(isinstance(evidence["detected"], bool), f"{gate} 污染状态无效")
+    _nonempty_string(evidence["before_digest"], f"{gate} 缺少污染前摘要")
+    _nonempty_string(evidence["after_digest"], f"{gate} 缺少污染后摘要")
+    _require(
+        isinstance(evidence["before_counts"], dict)
+        and isinstance(evidence["after_counts"], dict),
+        f"{gate} 污染计数无效",
+    )
+    return evidence
+
+
+def _require_run_metadata(summary: dict, gate: str) -> None:
+    for key in ("run_id", "generated_at", "run_dir"):
+        _nonempty_string(summary.get(key), f"{gate} 缺少 {key}")
+
+
+def _complete_arbitration_run(run: Any) -> dict:
+    evidence = _require_keys(
+        run,
+        ("summary_path", "summary_sha256", "classification", "fingerprints", "run_id", "status", "error"),
+        "performance-arbitration Runner 缺少完整证据",
+    )
+    _nonempty_string(evidence["summary_path"], "performance-arbitration Runner 缺少 summary_path")
+    digest = _nonempty_string(evidence["summary_sha256"], "performance-arbitration Runner 缺少 summary_sha256")
+    _require(len(digest) == 64 and all(char in "0123456789abcdef" for char in digest.lower()), "performance-arbitration Runner SHA-256 无效")
+    _nonempty_string(evidence["run_id"], "performance-arbitration Runner 缺少 run_id")
+    _require(evidence["classification"] in {"passed", "budget_regression", "infrastructure_error"}, "performance-arbitration Runner 分类无效")
+    _require(evidence["status"] in {"passed", "failed"}, "performance-arbitration Runner 状态无效")
+    _require(isinstance(evidence["error"], str), "performance-arbitration Runner error 无效")
+    fingerprints = _string_fingerprints(evidence["fingerprints"])
+    if evidence["classification"] == "passed":
+        _require(evidence["status"] == "passed" and not fingerprints and not evidence["error"], "performance-arbitration 通过 Runner 包含失败证据")
+    elif evidence["classification"] == "budget_regression":
+        _require(evidence["status"] == "failed" and fingerprints, "performance-arbitration 预算回归 Runner 缺少指纹")
+    else:
+        _require(evidence["status"] == "failed" and evidence["error"], "performance-arbitration 基础设施异常 Runner 缺少错误")
+    return evidence
+
+
 def _base(gate: str, path: Path, summary: dict) -> dict[str, Any]:
     return {
         "schema_version": 1,
@@ -73,12 +140,33 @@ def _failed(result: dict, classification: str, reason: str, fingerprints: list[s
 
 def _diagnose_quality(result: dict, summary: dict) -> dict:
     _require(summary.get("result") in {"pass", "test_failure", "coverage_regression", "timeout", "infra_error", "git_pollution"}, "quality result 无效")
+    for key in (
+        "run_id", "profile", "started_at", "finished_at", "working_directory",
+        "python_executable", "git_branch", "git_head", "git_digest_before",
+        "git_digest_after", "runtime_digest_before", "runtime_digest_after",
+        "coverage_baseline_path", "evidence_directory",
+    ):
+        _nonempty_string(summary.get(key), f"quality 缺少 {key}")
+    for key in ("duration_seconds", "pytest_duration_seconds"):
+        _nonnegative_number(summary.get(key), f"quality {key} 无效")
+    for key in ("initial_status_count", "pytest_returncode"):
+        _require(isinstance(summary.get(key), int), f"quality {key} 无效")
+    _require(summary.get("process_tree_cleaned") is None or isinstance(summary.get("process_tree_cleaned"), bool), "quality process_tree_cleaned 无效")
     _require(isinstance(summary.get("exit_code"), int), "quality 缺少 exit_code")
-    _require(isinstance(summary.get("test_counts"), dict), "quality 缺少 test_counts")
+    counts = summary.get("test_counts")
+    _require(isinstance(counts, dict) and counts and all(isinstance(value, int) and value >= 0 for value in counts.values()), "quality test_counts 无效")
+    _require(isinstance(summary.get("git_status_added"), list) and isinstance(summary.get("git_status_removed"), list), "quality Git 审计无效")
+    _require(isinstance(summary.get("protected_runtime_paths"), list), "quality 受保护路径审计无效")
+    _require(isinstance(summary.get("coverage_enabled"), bool), "quality coverage_enabled 无效")
+    coverage = _require_keys(summary.get("coverage_summary"), ("percent_covered",), "quality 缺少 coverage_summary")
+    _nonnegative_number(coverage["percent_covered"], "quality coverage 百分比无效")
+    baseline = _require_keys(summary.get("coverage_baseline"), ("minimum_percent",), "quality 缺少 coverage_baseline")
+    _nonnegative_number(baseline["minimum_percent"], "quality coverage 基线无效")
     fingerprints = _string_fingerprints(summary.get("failure_fingerprints"))
     passed = summary["result"] == "pass"
     _require(passed == (summary["exit_code"] == 0), "quality result 与 exit_code 不一致")
     if passed:
+        _require(counts.get("passed", 0) > 0, "quality 通过结果缺少通过测试计数")
         _require(not fingerprints and not summary.get("git_content_changed") and not summary.get("runtime_content_changed"), "quality 通过结果包含失败证据")
         result.update(classification="continue", reason="质量门禁通过")
         return result
@@ -88,11 +176,29 @@ def _diagnose_quality(result: dict, summary: dict) -> dict:
 
 def _diagnose_browser(result: dict, summary: dict) -> dict:
     _require(summary.get("schema_version") == 1 and summary.get("status") in {"passed", "failed"}, "browser summary 无效")
+    _require_run_metadata(summary, "browser")
+    _require(summary.get("profile") == "core" and summary.get("prepare_only") is False, "browser 不是完整 core 审计")
+    _require(isinstance(summary.get("routes"), list) and summary["routes"], "browser 缺少路由证据")
+    _require(isinstance(summary.get("viewports"), list) and len(summary["viewports"]) >= 2, "browser 缺少视口证据")
+    network = _require_keys(summary.get("network"), ("policy", "allowed_external_origins"), "browser 缺少网络策略证据")
+    _require(network["policy"] == "loopback-only" and network["allowed_external_origins"] == [], "browser 网络策略不安全")
+    _nonempty_string(summary.get("fixed_browser_time"), "browser 缺少固定时间证据")
+    _require(isinstance(summary.get("runtime"), dict), "browser 缺少隔离运行时证据")
     browser = summary.get("browser")
-    pollution = summary.get("pollution")
-    _require(isinstance(browser, dict) and isinstance(pollution, dict), "browser 缺少审计或污染证据")
+    pollution = _complete_pollution(summary.get("pollution"), "browser")
+    _require(isinstance(browser, dict), "browser 缺少审计证据")
     exit_code = browser.get("exit_code")
     _require(isinstance(exit_code, int) or exit_code is None, "browser exit_code 无效")
+    _require(isinstance(browser.get("stdout"), str) and isinstance(browser.get("stderr"), str), "browser 缺少进程证据")
+    audit = _require_keys(browser.get("audit"), ("cases",), "browser 缺少浏览器 audit")
+    cases = audit["cases"]
+    _require(isinstance(cases, list) and cases, "browser 浏览器 audit 不完整")
+    for case in cases:
+        item = _require_keys(case, ("passed", "failures", "screenshots"), "browser case 证据不完整")
+        _require(isinstance(item["passed"], bool) and isinstance(item["failures"], list), "browser case 状态无效")
+        screenshots = _require_keys(item["screenshots"], ("full", "top", "bottom"), "browser case 缺少截图证据")
+        for screenshot in screenshots.values():
+            _nonempty_string(screenshot, "browser 截图证据无效")
     if summary["status"] == "passed":
         _require(exit_code == 0 and pollution.get("detected") is False and not summary.get("error"), "browser 通过结果包含失败证据")
         result.update(classification="continue", reason="浏览器门禁通过")
@@ -102,14 +208,29 @@ def _diagnose_browser(result: dict, summary: dict) -> dict:
 
 def _diagnose_accessibility(result: dict, summary: dict) -> dict:
     _require(summary.get("schema_version") == 1 and summary.get("status") in {"passed", "failed"}, "accessibility summary 无效")
+    _require_run_metadata(summary, "accessibility")
+    _require(summary.get("command") == "check", "accessibility command 无效")
+    _require(isinstance(summary.get("routes"), list) and summary["routes"], "accessibility 缺少路由证据")
+    _require(isinstance(summary.get("cases"), list) and summary["cases"], "accessibility 缺少 case 证据")
     audit = summary.get("audit")
-    pollution = summary.get("pollution")
+    pollution = _complete_pollution(summary.get("pollution"), "accessibility")
     comparison = summary.get("comparison")
-    _require(isinstance(audit, dict) and isinstance(pollution, dict) and isinstance(comparison, dict), "accessibility 缺少审计、比较或污染证据")
+    _require(isinstance(audit, dict) and isinstance(comparison, dict), "accessibility 缺少审计或比较证据")
     exit_code = audit.get("exit_code")
     _require(isinstance(exit_code, int) or exit_code is None, "accessibility exit_code 无效")
+    audit_summary = _require_keys(audit.get("summary"), ("checks", "violations", "infrastructureFailures"), "accessibility 缺少 audit 汇总")
+    _require(all(isinstance(value, int) and value >= 0 for value in audit_summary.values()), "accessibility audit 汇总无效")
+    baseline = _require_keys(summary.get("baseline"), ("path", "violation_count"), "accessibility 缺少基线证据")
+    _nonempty_string(baseline["path"], "accessibility baseline path 无效")
     new = comparison.get("new")
-    _require(isinstance(new, list), "accessibility comparison.new 无效")
+    known, resolved = comparison.get("known"), comparison.get("resolved")
+    _require(isinstance(new, list) and isinstance(known, list) and isinstance(resolved, list), "accessibility comparison 明细无效")
+    _require(
+        comparison.get("new_count") == len(new)
+        and comparison.get("known_count") == len(known)
+        and comparison.get("resolved_count") == len(resolved),
+        "accessibility comparison 计数不一致",
+    )
     fingerprints = _fingerprints(new)
     if summary["status"] == "passed":
         _require(exit_code == 0 and not fingerprints and pollution.get("detected") is False and not summary.get("error"), "accessibility 通过结果包含失败证据")
@@ -120,10 +241,20 @@ def _diagnose_accessibility(result: dict, summary: dict) -> dict:
 
 def _diagnose_performance(result: dict, summary: dict) -> dict:
     _require(summary.get("schema_version") == 1 and summary.get("command") == "check" and summary.get("status") in {"passed", "failed"}, "performance summary 无效")
+    _require_run_metadata(summary, "performance")
+    _nonempty_string(summary.get("generated_at"), "performance 缺少 generated_at")
     audit = summary.get("audit")
-    pollution = summary.get("pollution")
-    _require(isinstance(audit, dict) and isinstance(pollution, dict), "performance 缺少审计或污染证据")
+    pollution = _complete_pollution(summary.get("pollution"), "performance")
+    _require(isinstance(audit, dict), "performance 缺少审计证据")
     _require(audit.get("exit_codes") == {"pages": 0, "apis": 0}, "performance 审计退出码无效")
+    audit_summary = _require_keys(audit.get("summary"), ("pageRoutes", "pageSamples", "apiEndpoints", "apiSamples", "pageErrors", "apiErrors"), "performance 缺少 audit 汇总")
+    _require(all(isinstance(value, int) and value >= 0 for value in audit_summary.values()), "performance audit 汇总无效")
+    _require(audit_summary["pageRoutes"] > 0 and audit_summary["pageSamples"] > 0 and audit_summary["apiEndpoints"] > 0 and audit_summary["apiSamples"] > 0, "performance 样本证据不完整")
+    baseline = _require_keys(summary.get("baseline"), ("path", "rule_version"), "performance 缺少基线证据")
+    _nonempty_string(baseline["path"], "performance baseline path 无效")
+    _require(isinstance(baseline["rule_version"], int), "performance baseline rule_version 无效")
+    _require("recheck" in summary and (summary["recheck"] is None or isinstance(summary["recheck"], dict)), "performance 复测证据无效")
+    _require(isinstance(summary.get("fixture"), dict), "performance 缺少夹具证据")
     fingerprints = _fingerprints(summary.get("violations"))
     if summary["status"] == "passed":
         _require(not fingerprints and pollution.get("detected") is False and not summary.get("error"), "performance 通过结果包含失败证据")
@@ -136,18 +267,28 @@ def _diagnose_arbitration(result: dict, summary: dict) -> dict:
     _require(summary.get("schema_version") == 1 and summary.get("status") in {"passed", "failed"}, "performance-arbitration summary 无效")
     expected, found = summary.get("expected_runs"), summary.get("found_runs")
     verdict = summary.get("verdict")
-    _require(expected == 3 and isinstance(found, int) and isinstance(summary.get("runs"), list), "performance-arbitration Runner 证据无效")
-    failures = summary.get("budget_regression_runs")
-    _require(isinstance(failures, int) and failures >= 0, "performance-arbitration 失败计数无效")
+    runs = summary.get("runs")
+    _require(expected == 3 and found == 3 and isinstance(runs, list) and len(runs) == found, "performance-arbitration Runner 证据无效")
+    validated_runs = [_complete_arbitration_run(run) for run in runs]
+    _require(len({run["run_id"] for run in validated_runs}) == found, "performance-arbitration Runner run_id 不唯一")
     if summary["status"] == "passed":
+        failures = summary.get("budget_regression_runs")
+        _require(isinstance(failures, int) and failures >= 0, "performance-arbitration 失败计数无效")
         _require(found == 3 and verdict in {"passed", "passed_with_environment_noise"}, "performance-arbitration 通过结果无效")
         _require((verdict == "passed") == (failures == 0), "performance-arbitration 通过计数不一致")
         _require((verdict == "passed_with_environment_noise") == (failures == 1), "performance-arbitration 噪声计数不一致")
+        observed_failures = sum(run["classification"] == "budget_regression" for run in validated_runs)
+        _require(observed_failures == failures and all(run["classification"] != "infrastructure_error" for run in validated_runs), "performance-arbitration Runner 结论不一致")
         result.update(classification="continue" if failures == 0 else "environment_noise", reason="性能仲裁通过")
         return result
     _require(verdict in {"infrastructure_error", "inconclusive_budget_regression"}, "performance-arbitration 失败结论无效")
     if verdict == "inconclusive_budget_regression":
+        failures = summary.get("budget_regression_runs")
+        _require(isinstance(failures, int) and failures >= 0, "performance-arbitration 失败计数无效")
         _require(found == 3 and failures >= 2, "performance-arbitration 回归计数不一致")
+        _require(sum(run["classification"] == "budget_regression" for run in validated_runs) == failures, "performance-arbitration Runner 回归计数不一致")
+    else:
+        _require(any(run["classification"] == "infrastructure_error" for run in validated_runs), "performance-arbitration 基础设施结论缺少 Runner 证据")
     return _failed(result, verdict, str(summary.get("error") or "性能仲裁阻断"), needs_human=True)
 
 
