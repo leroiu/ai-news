@@ -358,7 +358,12 @@ def api_stats():
 @app.get("/api/health")
 def api_health():
     """系统健康检查：DB 状态 + 最后 pipeline/collector 运行记录。"""
-    return get_health()
+    health = get_health()
+    # 部署系统可注入这两个非敏感标识，供 post-deploy 门禁确认目标环境和版本。
+    # 未配置时显式返回 unknown，避免把“能访问”误判成“部署了预期版本”。
+    health["environment"] = os.environ.get("AI_NEWS_ENVIRONMENT", "unknown")
+    health["release"] = os.environ.get("AI_NEWS_RELEASE_SHA", "unknown")
+    return health
 
 
 @app.post("/api/research")

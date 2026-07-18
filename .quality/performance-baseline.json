@@ -1,0 +1,1069 @@
+{
+  "schema_version": 1,
+  "rule_version": 4,
+  "created_at": "2026-07-16T19:03:47.237753+00:00",
+  "routes": [
+    "/",
+    "/library",
+    "/timeline",
+    "/events",
+    "/reports",
+    "/research",
+    "/my",
+    "/entity/openai",
+    "/article/fixture-article-1",
+    "/report/2026-07-16.md"
+  ],
+  "api_endpoints": [
+    "/api/health",
+    "/api/entities",
+    "/api/articles?limit=10&min_score=0",
+    "/api/reports?type=daily&limit=5",
+    "/api/entities/openai"
+  ],
+  "page_samples": 3,
+  "api_samples": 20,
+  "measurement": {
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "colorScheme": "dark",
+    "reducedMotion": "reduce",
+    "cacheDisabled": true,
+    "pageWarmupsPerRoute": 1,
+    "apiWarmupsPerEndpoint": 1
+  },
+  "environment": {
+    "node": "v24.17.0",
+    "playwright": "1.61.1",
+    "chromium": "149.0.7827.55",
+    "platform": "win32-x64"
+  },
+  "budgets": {
+    "pages": {
+      "/": {
+        "ttfbMs": {
+          "stat": "p50",
+          "observed": 4.2,
+          "limit": 24.2,
+          "absolute_cap": 500.0,
+          "additive_margin": 20.0,
+          "multiplier": 1.35
+        },
+        "domContentLoadedMs": {
+          "stat": "p50",
+          "observed": 14.1,
+          "limit": 114.1,
+          "absolute_cap": 1500.0,
+          "additive_margin": 100.0,
+          "multiplier": 1.35
+        },
+        "loadMs": {
+          "stat": "p50",
+          "observed": 15.4,
+          "limit": 115.4,
+          "absolute_cap": 2000.0,
+          "additive_margin": 100.0,
+          "multiplier": 1.35
+        },
+        "fcpMs": {
+          "stat": "p50",
+          "observed": 120.0,
+          "limit": 195.0,
+          "absolute_cap": 1500.0,
+          "additive_margin": 75.0,
+          "multiplier": 1.35
+        },
+        "lcpMs": {
+          "stat": "p50",
+          "observed": 120.0,
+          "limit": 195.0,
+          "absolute_cap": 2500.0,
+          "additive_margin": 75.0,
+          "multiplier": 1.35
+        },
+        "cls": {
+          "stat": "max",
+          "observed": 0.0,
+          "limit": 0.02,
+          "absolute_cap": 0.5,
+          "additive_margin": 0.02,
+          "multiplier": 1.05
+        },
+        "longTaskMaxMs": {
+          "stat": "max",
+          "observed": 58.0,
+          "limit": 108.0,
+          "absolute_cap": 200.0,
+          "additive_margin": 50.0,
+          "multiplier": 1.5
+        },
+        "requestCount": {
+          "stat": "max",
+          "observed": 5.0,
+          "limit": 5.0,
+          "absolute_cap": 50.0,
+          "additive_margin": 0.0,
+          "multiplier": 1.0
+        },
+        "encodedBytes": {
+          "stat": "max",
+          "observed": 61840.0,
+          "limit": 65936.0,
+          "absolute_cap": 524288.0,
+          "additive_margin": 4096.0,
+          "multiplier": 1.05
+        },
+        "decodedBytes": {
+          "stat": "max",
+          "observed": 58334.0,
+          "limit": 62430.0,
+          "absolute_cap": 1048576.0,
+          "additive_margin": 4096.0,
+          "multiplier": 1.05
+        },
+        "domNodes": {
+          "stat": "max",
+          "observed": 84.0,
+          "limit": 134.0,
+          "absolute_cap": 2500.0,
+          "additive_margin": 50.0,
+          "multiplier": 1.1
+        }
+      },
+      "/library": {
+        "ttfbMs": {
+          "stat": "p50",
+          "observed": 3.8,
+          "limit": 23.8,
+          "absolute_cap": 500.0,
+          "additive_margin": 20.0,
+          "multiplier": 1.35
+        },
+        "domContentLoadedMs": {
+          "stat": "p50",
+          "observed": 12.1,
+          "limit": 112.1,
+          "absolute_cap": 1500.0,
+          "additive_margin": 100.0,
+          "multiplier": 1.35
+        },
+        "loadMs": {
+          "stat": "p50",
+          "observed": 16.8,
+          "limit": 116.8,
+          "absolute_cap": 2000.0,
+          "additive_margin": 100.0,
+          "multiplier": 1.35
+        },
+        "fcpMs": {
+          "stat": "p50",
+          "observed": 172.0,
+          "limit": 247.0,
+          "absolute_cap": 1500.0,
+          "additive_margin": 75.0,
+          "multiplier": 1.35
+        },
+        "lcpMs": {
+          "stat": "p50",
+          "observed": 172.0,
+          "limit": 247.0,
+          "absolute_cap": 2500.0,
+          "additive_margin": 75.0,
+          "multiplier": 1.35
+        },
+        "cls": {
+          "stat": "max",
+          "observed": 0.0,
+          "limit": 0.02,
+          "absolute_cap": 0.5,
+          "additive_margin": 0.02,
+          "multiplier": 1.05
+        },
+        "longTaskMaxMs": {
+          "stat": "max",
+          "observed": 89.0,
+          "limit": 139.0,
+          "absolute_cap": 200.0,
+          "additive_margin": 50.0,
+          "multiplier": 1.5
+        },
+        "requestCount": {
+          "stat": "max",
+          "observed": 2.0,
+          "limit": 2.0,
+          "absolute_cap": 50.0,
+          "additive_margin": 0.0,
+          "multiplier": 1.0
+        },
+        "encodedBytes": {
+          "stat": "max",
+          "observed": 63711.0,
+          "limit": 67807.0,
+          "absolute_cap": 524288.0,
+          "additive_margin": 4096.0,
+          "multiplier": 1.05
+        },
+        "decodedBytes": {
+          "stat": "max",
+          "observed": 62236.0,
+          "limit": 66332.0,
+          "absolute_cap": 1048576.0,
+          "additive_margin": 4096.0,
+          "multiplier": 1.05
+        },
+        "domNodes": {
+          "stat": "max",
+          "observed": 305.0,
+          "limit": 355.0,
+          "absolute_cap": 2500.0,
+          "additive_margin": 50.0,
+          "multiplier": 1.1
+        }
+      },
+      "/timeline": {
+        "ttfbMs": {
+          "stat": "p50",
+          "observed": 3.7,
+          "limit": 23.7,
+          "absolute_cap": 500.0,
+          "additive_margin": 20.0,
+          "multiplier": 1.35
+        },
+        "domContentLoadedMs": {
+          "stat": "p50",
+          "observed": 11.9,
+          "limit": 111.9,
+          "absolute_cap": 1500.0,
+          "additive_margin": 100.0,
+          "multiplier": 1.35
+        },
+        "loadMs": {
+          "stat": "p50",
+          "observed": 12.7,
+          "limit": 112.7,
+          "absolute_cap": 2000.0,
+          "additive_margin": 100.0,
+          "multiplier": 1.35
+        },
+        "fcpMs": {
+          "stat": "p50",
+          "observed": 80.0,
+          "limit": 155.0,
+          "absolute_cap": 1500.0,
+          "additive_margin": 75.0,
+          "multiplier": 1.35
+        },
+        "lcpMs": {
+          "stat": "p50",
+          "observed": 80.0,
+          "limit": 155.0,
+          "absolute_cap": 2500.0,
+          "additive_margin": 75.0,
+          "multiplier": 1.35
+        },
+        "cls": {
+          "stat": "max",
+          "observed": 0.374,
+          "limit": 0.394,
+          "absolute_cap": 0.5,
+          "additive_margin": 0.02,
+          "multiplier": 1.05
+        },
+        "longTaskMaxMs": {
+          "stat": "max",
+          "observed": 53.0,
+          "limit": 103.0,
+          "absolute_cap": 200.0,
+          "additive_margin": 50.0,
+          "multiplier": 1.5
+        },
+        "requestCount": {
+          "stat": "max",
+          "observed": 2.0,
+          "limit": 2.0,
+          "absolute_cap": 50.0,
+          "additive_margin": 0.0,
+          "multiplier": 1.0
+        },
+        "encodedBytes": {
+          "stat": "max",
+          "observed": 66764.0,
+          "limit": 70860.0,
+          "absolute_cap": 524288.0,
+          "additive_margin": 4096.0,
+          "multiplier": 1.05
+        },
+        "decodedBytes": {
+          "stat": "max",
+          "observed": 65289.0,
+          "limit": 69385.0,
+          "absolute_cap": 1048576.0,
+          "additive_margin": 4096.0,
+          "multiplier": 1.05
+        },
+        "domNodes": {
+          "stat": "max",
+          "observed": 218.0,
+          "limit": 268.0,
+          "absolute_cap": 2500.0,
+          "additive_margin": 50.0,
+          "multiplier": 1.1
+        }
+      },
+      "/events": {
+        "ttfbMs": {
+          "stat": "p50",
+          "observed": 4.0,
+          "limit": 24.0,
+          "absolute_cap": 500.0,
+          "additive_margin": 20.0,
+          "multiplier": 1.35
+        },
+        "domContentLoadedMs": {
+          "stat": "p50",
+          "observed": 44.1,
+          "limit": 144.1,
+          "absolute_cap": 1500.0,
+          "additive_margin": 100.0,
+          "multiplier": 1.35
+        },
+        "loadMs": {
+          "stat": "p50",
+          "observed": 45.2,
+          "limit": 145.2,
+          "absolute_cap": 2000.0,
+          "additive_margin": 100.0,
+          "multiplier": 1.35
+        },
+        "fcpMs": {
+          "stat": "p50",
+          "observed": 84.0,
+          "limit": 159.0,
+          "absolute_cap": 1500.0,
+          "additive_margin": 75.0,
+          "multiplier": 1.35
+        },
+        "lcpMs": {
+          "stat": "p50",
+          "observed": 84.0,
+          "limit": 159.0,
+          "absolute_cap": 2500.0,
+          "additive_margin": 75.0,
+          "multiplier": 1.35
+        },
+        "cls": {
+          "stat": "max",
+          "observed": 0.0,
+          "limit": 0.02,
+          "absolute_cap": 0.5,
+          "additive_margin": 0.02,
+          "multiplier": 1.05
+        },
+        "longTaskMaxMs": {
+          "stat": "max",
+          "observed": 0.0,
+          "limit": 50.0,
+          "absolute_cap": 200.0,
+          "additive_margin": 50.0,
+          "multiplier": 1.5
+        },
+        "requestCount": {
+          "stat": "max",
+          "observed": 3.0,
+          "limit": 3.0,
+          "absolute_cap": 50.0,
+          "additive_margin": 0.0,
+          "multiplier": 1.0
+        },
+        "encodedBytes": {
+          "stat": "max",
+          "observed": 56557.0,
+          "limit": 60653.0,
+          "absolute_cap": 524288.0,
+          "additive_margin": 4096.0,
+          "multiplier": 1.05
+        },
+        "decodedBytes": {
+          "stat": "max",
+          "observed": 54405.0,
+          "limit": 58501.0,
+          "absolute_cap": 1048576.0,
+          "additive_margin": 4096.0,
+          "multiplier": 1.05
+        },
+        "domNodes": {
+          "stat": "max",
+          "observed": 50.0,
+          "limit": 100.0,
+          "absolute_cap": 2500.0,
+          "additive_margin": 50.0,
+          "multiplier": 1.1
+        }
+      },
+      "/reports": {
+        "ttfbMs": {
+          "stat": "p50",
+          "observed": 4.3,
+          "limit": 24.3,
+          "absolute_cap": 500.0,
+          "additive_margin": 20.0,
+          "multiplier": 1.35
+        },
+        "domContentLoadedMs": {
+          "stat": "p50",
+          "observed": 49.8,
+          "limit": 149.8,
+          "absolute_cap": 1500.0,
+          "additive_margin": 100.0,
+          "multiplier": 1.35
+        },
+        "loadMs": {
+          "stat": "p50",
+          "observed": 50.4,
+          "limit": 150.4,
+          "absolute_cap": 2000.0,
+          "additive_margin": 100.0,
+          "multiplier": 1.35
+        },
+        "fcpMs": {
+          "stat": "p50",
+          "observed": 108.0,
+          "limit": 183.0,
+          "absolute_cap": 1500.0,
+          "additive_margin": 75.0,
+          "multiplier": 1.35
+        },
+        "lcpMs": {
+          "stat": "p50",
+          "observed": 108.0,
+          "limit": 183.0,
+          "absolute_cap": 2500.0,
+          "additive_margin": 75.0,
+          "multiplier": 1.35
+        },
+        "cls": {
+          "stat": "max",
+          "observed": 0.0,
+          "limit": 0.02,
+          "absolute_cap": 0.5,
+          "additive_margin": 0.02,
+          "multiplier": 1.05
+        },
+        "longTaskMaxMs": {
+          "stat": "max",
+          "observed": 0.0,
+          "limit": 50.0,
+          "absolute_cap": 200.0,
+          "additive_margin": 50.0,
+          "multiplier": 1.5
+        },
+        "requestCount": {
+          "stat": "max",
+          "observed": 4.0,
+          "limit": 4.0,
+          "absolute_cap": 50.0,
+          "additive_margin": 0.0,
+          "multiplier": 1.0
+        },
+        "encodedBytes": {
+          "stat": "max",
+          "observed": 51209.0,
+          "limit": 55305.0,
+          "absolute_cap": 524288.0,
+          "additive_margin": 4096.0,
+          "multiplier": 1.05
+        },
+        "decodedBytes": {
+          "stat": "max",
+          "observed": 48385.0,
+          "limit": 52481.0,
+          "absolute_cap": 1048576.0,
+          "additive_margin": 4096.0,
+          "multiplier": 1.05
+        },
+        "domNodes": {
+          "stat": "max",
+          "observed": 54.0,
+          "limit": 104.0,
+          "absolute_cap": 2500.0,
+          "additive_margin": 50.0,
+          "multiplier": 1.1
+        }
+      },
+      "/research": {
+        "ttfbMs": {
+          "stat": "p50",
+          "observed": 3.7,
+          "limit": 23.7,
+          "absolute_cap": 500.0,
+          "additive_margin": 20.0,
+          "multiplier": 1.35
+        },
+        "domContentLoadedMs": {
+          "stat": "p50",
+          "observed": 12.4,
+          "limit": 112.4,
+          "absolute_cap": 1500.0,
+          "additive_margin": 100.0,
+          "multiplier": 1.35
+        },
+        "loadMs": {
+          "stat": "p50",
+          "observed": 79.4,
+          "limit": 179.4,
+          "absolute_cap": 2000.0,
+          "additive_margin": 100.0,
+          "multiplier": 1.35
+        },
+        "fcpMs": {
+          "stat": "p50",
+          "observed": 100.0,
+          "limit": 175.0,
+          "absolute_cap": 1500.0,
+          "additive_margin": 75.0,
+          "multiplier": 1.35
+        },
+        "lcpMs": {
+          "stat": "p50",
+          "observed": 100.0,
+          "limit": 175.0,
+          "absolute_cap": 2500.0,
+          "additive_margin": 75.0,
+          "multiplier": 1.35
+        },
+        "cls": {
+          "stat": "max",
+          "observed": 0.0,
+          "limit": 0.02,
+          "absolute_cap": 0.5,
+          "additive_margin": 0.02,
+          "multiplier": 1.05
+        },
+        "longTaskMaxMs": {
+          "stat": "max",
+          "observed": 69.0,
+          "limit": 119.0,
+          "absolute_cap": 200.0,
+          "additive_margin": 50.0,
+          "multiplier": 1.5
+        },
+        "requestCount": {
+          "stat": "max",
+          "observed": 1.0,
+          "limit": 1.0,
+          "absolute_cap": 50.0,
+          "additive_margin": 0.0,
+          "multiplier": 1.0
+        },
+        "encodedBytes": {
+          "stat": "max",
+          "observed": 73233.0,
+          "limit": 77329.0,
+          "absolute_cap": 524288.0,
+          "additive_margin": 4096.0,
+          "multiplier": 1.05
+        },
+        "decodedBytes": {
+          "stat": "max",
+          "observed": 72436.0,
+          "limit": 76532.0,
+          "absolute_cap": 1048576.0,
+          "additive_margin": 4096.0,
+          "multiplier": 1.05
+        },
+        "domNodes": {
+          "stat": "max",
+          "observed": 95.0,
+          "limit": 145.0,
+          "absolute_cap": 2500.0,
+          "additive_margin": 50.0,
+          "multiplier": 1.1
+        }
+      },
+      "/my": {
+        "ttfbMs": {
+          "stat": "p50",
+          "observed": 3.9,
+          "limit": 23.9,
+          "absolute_cap": 500.0,
+          "additive_margin": 20.0,
+          "multiplier": 1.35
+        },
+        "domContentLoadedMs": {
+          "stat": "p50",
+          "observed": 13.0,
+          "limit": 113.0,
+          "absolute_cap": 1500.0,
+          "additive_margin": 100.0,
+          "multiplier": 1.35
+        },
+        "loadMs": {
+          "stat": "p50",
+          "observed": 67.2,
+          "limit": 167.2,
+          "absolute_cap": 2000.0,
+          "additive_margin": 100.0,
+          "multiplier": 1.35
+        },
+        "fcpMs": {
+          "stat": "p50",
+          "observed": 76.0,
+          "limit": 151.0,
+          "absolute_cap": 1500.0,
+          "additive_margin": 75.0,
+          "multiplier": 1.35
+        },
+        "lcpMs": {
+          "stat": "p50",
+          "observed": 76.0,
+          "limit": 151.0,
+          "absolute_cap": 2500.0,
+          "additive_margin": 75.0,
+          "multiplier": 1.35
+        },
+        "cls": {
+          "stat": "max",
+          "observed": 0.0,
+          "limit": 0.02,
+          "absolute_cap": 0.5,
+          "additive_margin": 0.02,
+          "multiplier": 1.05
+        },
+        "longTaskMaxMs": {
+          "stat": "max",
+          "observed": 60.0,
+          "limit": 110.0,
+          "absolute_cap": 200.0,
+          "additive_margin": 50.0,
+          "multiplier": 1.5
+        },
+        "requestCount": {
+          "stat": "max",
+          "observed": 1.0,
+          "limit": 1.0,
+          "absolute_cap": 50.0,
+          "additive_margin": 0.0,
+          "multiplier": 1.0
+        },
+        "encodedBytes": {
+          "stat": "max",
+          "observed": 67294.0,
+          "limit": 71390.0,
+          "absolute_cap": 524288.0,
+          "additive_margin": 4096.0,
+          "multiplier": 1.05
+        },
+        "decodedBytes": {
+          "stat": "max",
+          "observed": 66497.0,
+          "limit": 70593.0,
+          "absolute_cap": 1048576.0,
+          "additive_margin": 4096.0,
+          "multiplier": 1.05
+        },
+        "domNodes": {
+          "stat": "max",
+          "observed": 83.0,
+          "limit": 133.0,
+          "absolute_cap": 2500.0,
+          "additive_margin": 50.0,
+          "multiplier": 1.1
+        }
+      },
+      "/entity/openai": {
+        "ttfbMs": {
+          "stat": "p50",
+          "observed": 3.8,
+          "limit": 23.8,
+          "absolute_cap": 500.0,
+          "additive_margin": 20.0,
+          "multiplier": 1.35
+        },
+        "domContentLoadedMs": {
+          "stat": "p50",
+          "observed": 13.7,
+          "limit": 113.7,
+          "absolute_cap": 1500.0,
+          "additive_margin": 100.0,
+          "multiplier": 1.35
+        },
+        "loadMs": {
+          "stat": "p50",
+          "observed": 14.3,
+          "limit": 114.3,
+          "absolute_cap": 2000.0,
+          "additive_margin": 100.0,
+          "multiplier": 1.35
+        },
+        "fcpMs": {
+          "stat": "p50",
+          "observed": 84.0,
+          "limit": 159.0,
+          "absolute_cap": 1500.0,
+          "additive_margin": 75.0,
+          "multiplier": 1.35
+        },
+        "lcpMs": {
+          "stat": "p50",
+          "observed": 84.0,
+          "limit": 159.0,
+          "absolute_cap": 2500.0,
+          "additive_margin": 75.0,
+          "multiplier": 1.35
+        },
+        "cls": {
+          "stat": "max",
+          "observed": 0.001,
+          "limit": 0.021,
+          "absolute_cap": 0.5,
+          "additive_margin": 0.02,
+          "multiplier": 1.05
+        },
+        "longTaskMaxMs": {
+          "stat": "max",
+          "observed": 0.0,
+          "limit": 50.0,
+          "absolute_cap": 200.0,
+          "additive_margin": 50.0,
+          "multiplier": 1.5
+        },
+        "requestCount": {
+          "stat": "max",
+          "observed": 4.0,
+          "limit": 4.0,
+          "absolute_cap": 50.0,
+          "additive_margin": 0.0,
+          "multiplier": 1.0
+        },
+        "encodedBytes": {
+          "stat": "max",
+          "observed": 60052.0,
+          "limit": 64148.0,
+          "absolute_cap": 524288.0,
+          "additive_margin": 4096.0,
+          "multiplier": 1.05
+        },
+        "decodedBytes": {
+          "stat": "max",
+          "observed": 57226.0,
+          "limit": 61322.0,
+          "absolute_cap": 1048576.0,
+          "additive_margin": 4096.0,
+          "multiplier": 1.05
+        },
+        "domNodes": {
+          "stat": "max",
+          "observed": 95.0,
+          "limit": 145.0,
+          "absolute_cap": 2500.0,
+          "additive_margin": 50.0,
+          "multiplier": 1.1
+        }
+      },
+      "/article/fixture-article-1": {
+        "ttfbMs": {
+          "stat": "p50",
+          "observed": 3.5,
+          "limit": 23.5,
+          "absolute_cap": 500.0,
+          "additive_margin": 20.0,
+          "multiplier": 1.35
+        },
+        "domContentLoadedMs": {
+          "stat": "p50",
+          "observed": 12.1,
+          "limit": 112.1,
+          "absolute_cap": 1500.0,
+          "additive_margin": 100.0,
+          "multiplier": 1.35
+        },
+        "loadMs": {
+          "stat": "p50",
+          "observed": 12.6,
+          "limit": 112.6,
+          "absolute_cap": 2000.0,
+          "additive_margin": 100.0,
+          "multiplier": 1.35
+        },
+        "fcpMs": {
+          "stat": "p50",
+          "observed": 40.0,
+          "limit": 115.0,
+          "absolute_cap": 1500.0,
+          "additive_margin": 75.0,
+          "multiplier": 1.35
+        },
+        "lcpMs": {
+          "stat": "p50",
+          "observed": 112.0,
+          "limit": 187.0,
+          "absolute_cap": 2500.0,
+          "additive_margin": 75.0,
+          "multiplier": 1.35
+        },
+        "cls": {
+          "stat": "max",
+          "observed": 0.0,
+          "limit": 0.02,
+          "absolute_cap": 0.5,
+          "additive_margin": 0.02,
+          "multiplier": 1.05
+        },
+        "longTaskMaxMs": {
+          "stat": "max",
+          "observed": 63.0,
+          "limit": 113.0,
+          "absolute_cap": 200.0,
+          "additive_margin": 50.0,
+          "multiplier": 1.5
+        },
+        "requestCount": {
+          "stat": "max",
+          "observed": 2.0,
+          "limit": 2.0,
+          "absolute_cap": 50.0,
+          "additive_margin": 0.0,
+          "multiplier": 1.0
+        },
+        "encodedBytes": {
+          "stat": "max",
+          "observed": 64960.0,
+          "limit": 69056.0,
+          "absolute_cap": 524288.0,
+          "additive_margin": 4096.0,
+          "multiplier": 1.05
+        },
+        "decodedBytes": {
+          "stat": "max",
+          "observed": 63486.0,
+          "limit": 67582.0,
+          "absolute_cap": 1048576.0,
+          "additive_margin": 4096.0,
+          "multiplier": 1.05
+        },
+        "domNodes": {
+          "stat": "max",
+          "observed": 106.0,
+          "limit": 156.0,
+          "absolute_cap": 2500.0,
+          "additive_margin": 50.0,
+          "multiplier": 1.1
+        }
+      },
+      "/report/2026-07-16.md": {
+        "ttfbMs": {
+          "stat": "p50",
+          "observed": 4.3,
+          "limit": 24.3,
+          "absolute_cap": 500.0,
+          "additive_margin": 20.0,
+          "multiplier": 1.35
+        },
+        "domContentLoadedMs": {
+          "stat": "p50",
+          "observed": 13.1,
+          "limit": 113.1,
+          "absolute_cap": 1500.0,
+          "additive_margin": 100.0,
+          "multiplier": 1.35
+        },
+        "loadMs": {
+          "stat": "p50",
+          "observed": 13.7,
+          "limit": 113.7,
+          "absolute_cap": 2000.0,
+          "additive_margin": 100.0,
+          "multiplier": 1.35
+        },
+        "fcpMs": {
+          "stat": "p50",
+          "observed": 48.0,
+          "limit": 123.0,
+          "absolute_cap": 1500.0,
+          "additive_margin": 75.0,
+          "multiplier": 1.35
+        },
+        "lcpMs": {
+          "stat": "p50",
+          "observed": 56.0,
+          "limit": 131.0,
+          "absolute_cap": 2500.0,
+          "additive_margin": 75.0,
+          "multiplier": 1.35
+        },
+        "cls": {
+          "stat": "max",
+          "observed": 0.0,
+          "limit": 0.02,
+          "absolute_cap": 0.5,
+          "additive_margin": 0.02,
+          "multiplier": 1.05
+        },
+        "longTaskMaxMs": {
+          "stat": "max",
+          "observed": 0.0,
+          "limit": 50.0,
+          "absolute_cap": 200.0,
+          "additive_margin": 50.0,
+          "multiplier": 1.5
+        },
+        "requestCount": {
+          "stat": "max",
+          "observed": 2.0,
+          "limit": 2.0,
+          "absolute_cap": 50.0,
+          "additive_margin": 0.0,
+          "multiplier": 1.0
+        },
+        "encodedBytes": {
+          "stat": "max",
+          "observed": 76580.0,
+          "limit": 80676.0,
+          "absolute_cap": 524288.0,
+          "additive_margin": 4096.0,
+          "multiplier": 1.05
+        },
+        "decodedBytes": {
+          "stat": "max",
+          "observed": 75106.0,
+          "limit": 79202.0,
+          "absolute_cap": 1048576.0,
+          "additive_margin": 4096.0,
+          "multiplier": 1.05
+        },
+        "domNodes": {
+          "stat": "max",
+          "observed": 51.0,
+          "limit": 101.0,
+          "absolute_cap": 2500.0,
+          "additive_margin": 50.0,
+          "multiplier": 1.1
+        }
+      }
+    },
+    "apis": {
+      "/api/health": {
+        "durationMs": {
+          "stat": "p95",
+          "observed": 16.195,
+          "limit": 36.195,
+          "absolute_cap": 500.0,
+          "additive_margin": 20.0,
+          "multiplier": 1.5
+        },
+        "bodyBytes": {
+          "stat": "max",
+          "observed": 130.0,
+          "limit": 1154.0,
+          "absolute_cap": 1048576.0,
+          "additive_margin": 1024.0,
+          "multiplier": 1.05
+        }
+      },
+      "/api/entities": {
+        "durationMs": {
+          "stat": "p95",
+          "observed": 17.494,
+          "limit": 37.494,
+          "absolute_cap": 500.0,
+          "additive_margin": 20.0,
+          "multiplier": 1.5
+        },
+        "bodyBytes": {
+          "stat": "max",
+          "observed": 3465.0,
+          "limit": 4489.0,
+          "absolute_cap": 1048576.0,
+          "additive_margin": 1024.0,
+          "multiplier": 1.05
+        }
+      },
+      "/api/articles?limit=10&min_score=0": {
+        "durationMs": {
+          "stat": "p95",
+          "observed": 17.049,
+          "limit": 37.049,
+          "absolute_cap": 500.0,
+          "additive_margin": 20.0,
+          "multiplier": 1.5
+        },
+        "bodyBytes": {
+          "stat": "max",
+          "observed": 1127.0,
+          "limit": 2151.0,
+          "absolute_cap": 1048576.0,
+          "additive_margin": 1024.0,
+          "multiplier": 1.05
+        }
+      },
+      "/api/reports?type=daily&limit=5": {
+        "durationMs": {
+          "stat": "p95",
+          "observed": 16.74,
+          "limit": 36.74,
+          "absolute_cap": 500.0,
+          "additive_margin": 20.0,
+          "multiplier": 1.5
+        },
+        "bodyBytes": {
+          "stat": "max",
+          "observed": 172.0,
+          "limit": 1196.0,
+          "absolute_cap": 1048576.0,
+          "additive_margin": 1024.0,
+          "multiplier": 1.05
+        }
+      },
+      "/api/entities/openai": {
+        "durationMs": {
+          "stat": "p95",
+          "observed": 21.917,
+          "limit": 41.917,
+          "absolute_cap": 500.0,
+          "additive_margin": 20.0,
+          "multiplier": 1.5
+        },
+        "bodyBytes": {
+          "stat": "max",
+          "observed": 808.0,
+          "limit": 1832.0,
+          "absolute_cap": 1048576.0,
+          "additive_margin": 1024.0,
+          "multiplier": 1.05
+        }
+      }
+    }
+  },
+  "known_debt": [
+    {
+      "kind": "page",
+      "target": "/timeline",
+      "metric": "cls",
+      "observed": 0.374,
+      "quality_target": 0.1,
+      "fingerprint": "page|/timeline|cls|max"
+    }
+  ],
+  "strategy": {
+    "formula": "limit = min(absolute_cap, max(observed * multiplier, observed + additive_margin))",
+    "timing": "页面时间使用 3 次冷缓存样本 p50；API 使用 20 次样本 p95",
+    "structure": "请求数不允许增长；传输/解码体积与 DOM 使用较小比例和固定余量",
+    "absolute_caps": {
+      "page_ttfb_ms": 500,
+      "page_load_ms": 2000,
+      "page_lcp_ms": 2500,
+      "page_cls_quality_target": 0.1,
+      "page_cls_safety_cap": 0.5,
+      "page_long_task_max_ms": 200,
+      "page_encoded_bytes": 524288,
+      "page_decoded_bytes": 1048576,
+      "page_dom_nodes": 2500,
+      "api_p95_ms": 500
+    }
+  },
+  "evidence": "output/performance-gate/20260716T190301.222528Z-baseline/audit/audit.json",
+  "evidence_sha256": "804023f21051129c49cb87b436e8794dca278acb512b78e8609d5b71cef1d0d0",
+  "policy": "普通 check 只读取预算；任何放宽或矩阵变更必须显式 baseline --force 并审查。"
+}

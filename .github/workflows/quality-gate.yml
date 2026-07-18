@@ -1,0 +1,147 @@
+name: AI News Quality Gate
+
+on:
+  pull_request: {}
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - data/inbox.jsonl
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    runs-on: windows-latest
+    timeout-minutes: 45
+    env:
+      PYTHONUTF8: "1"
+    steps:
+      - name: Checkout without persisted credentials
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Install pinned uv and Python
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          version: 0.11.24
+          python-version: 3.13.14
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+      - name: Install pinned Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24.17.0
+          cache: npm
+      - name: Restore frozen dependencies
+        run: |
+          uv sync --frozen --all-groups
+          npm ci
+      - name: Install Chromium runtime
+        run: npx playwright install chromium
+      - name: Quality checkpoint
+        run: uv run --frozen python tools/quality_gate.py checkpoint
+      - name: Browser gate
+        run: uv run --frozen python tools/browser_gate.py --profile core
+      - name: Accessibility gate
+        run: uv run --frozen python tools/accessibility_gate.py check
+      - name: Upload quality evidence
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: quality-gate-${{ github.run_id }}-${{ github.run_attempt }}
+          path: output/
+          if-no-files-found: error
+          retention-days: 14
+
+  performance:
+    needs: quality
+    runs-on: windows-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [one, two, three]
+    env:
+      PYTHONUTF8: "1"
+    steps:
+      - name: Checkout without persisted credentials
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Install pinned uv and Python
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          version: 0.11.24
+          python-version: 3.13.14
+          enable-cache: true
+          cache-dependency-glob: uv.lock
+      - name: Install pinned Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24.17.0
+          cache: npm
+      - name: Restore frozen dependencies
+        run: |
+          uv sync --frozen --all-groups
+          npm ci
+      - name: Install Chromium runtime
+        run: npx playwright install chromium
+      - name: Performance gate
+        run: |
+          uv run --frozen python tools/performance_gate.py check
+          $exitCode = $LASTEXITCODE
+          "performance_exit_code=$exitCode" >> $env:GITHUB_OUTPUT
+          exit 0
+      - name: Upload performance evidence
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: performance-gate-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.runner }}
+          path: output/performance-gate/
+          if-no-files-found: warn
+          retention-days: 14
+
+  performance-arbitration:
+    needs: [quality, performance]
+    if: ${{ always() }}
+    runs-on: windows-latest
+    timeout-minutes: 15
+    env:
+      PYTHONUTF8: "1"
+    steps:
+      - name: Checkout without persisted credentials
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Install pinned uv and Python
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          version: 0.11.24
+          python-version: 3.13.14
+      - name: Restore frozen Python dependencies
+        run: uv sync --frozen --all-groups
+      - name: Download performance evidence
+        id: download
+        continue-on-error: true
+        uses: actions/download-artifact@v7
+        with:
+          pattern: performance-gate-${{ github.run_id }}-${{ github.run_attempt }}-*
+          path: performance-evidence
+      - name: Arbitrate independent performance runners
+        if: ${{ always() }}
+        run: uv run --frozen python tools/performance_arbitration.py --input-dir performance-evidence --output output/performance-arbitration/summary.json
+      - name: Upload arbitration evidence
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: performance-arbitration-${{ github.run_id }}-${{ github.run_attempt }}
+          path: output/performance-arbitration/
+          if-no-files-found: error
+          retention-days: 14

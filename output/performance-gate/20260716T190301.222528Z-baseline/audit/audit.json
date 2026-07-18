@@ -1,0 +1,4078 @@
+{
+  "schemaVersion": 1,
+  "ruleVersion": 4,
+  "mode": "merged",
+  "generatedAt": "2026-07-16T19:03:47.107121+00:00",
+  "fixedTime": "2026-07-16T12:00:00.000Z",
+  "origins": {
+    "pages": "http://127.0.0.1:61290",
+    "apis": "http://127.0.0.1:50556"
+  },
+  "environment": {
+    "node": "v24.17.0",
+    "playwright": "1.61.1",
+    "chromium": "149.0.7827.55",
+    "platform": "win32-x64"
+  },
+  "measurement": {
+    "viewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "colorScheme": "dark",
+    "reducedMotion": "reduce",
+    "cacheDisabled": true,
+    "pageWarmupsPerRoute": 1,
+    "apiWarmupsPerEndpoint": 1
+  },
+  "pageSamples": 3,
+  "apiSamples": 20,
+  "routes": [
+    "/",
+    "/library",
+    "/timeline",
+    "/events",
+    "/reports",
+    "/research",
+    "/my",
+    "/entity/openai",
+    "/article/fixture-article-1",
+    "/report/2026-07-16.md"
+  ],
+  "apiEndpoints": [
+    "/api/health",
+    "/api/entities",
+    "/api/articles?limit=10&min_score=0",
+    "/api/reports?type=daily&limit=5",
+    "/api/entities/openai"
+  ],
+  "pages": [
+    {
+      "route": "/",
+      "warmup": {
+        "route": "/",
+        "sample": 0,
+        "status": 200,
+        "navigationError": "",
+        "wallMs": 1117.789,
+        "ttfbMs": 97.7,
+        "domContentLoadedMs": 114.1,
+        "loadMs": 120,
+        "fcpMs": 316,
+        "lcpMs": 316,
+        "cls": 0,
+        "longTaskCount": 1,
+        "longTaskTotalMs": 139,
+        "longTaskMaxMs": 139,
+        "domNodes": 84,
+        "bodyTextLength": 272,
+        "requestCount": 5,
+        "encodedBytes": 61840,
+        "decodedBytes": 58334,
+        "badResponses": [],
+        "ignoredResponses": [],
+        "failedRequests": [],
+        "externalRequests": [],
+        "webSockets": [],
+        "nonGetRequests": [],
+        "responses": [
+          {
+            "url": "http://127.0.0.1:61290/",
+            "status": 200,
+            "method": "GET",
+            "resourceType": "document",
+            "bodyBytes": 57562
+          },
+          {
+            "url": "http://127.0.0.1:61290/api/reports?type=daily&limit=30",
+            "status": 200,
+            "method": "GET",
+            "resourceType": "fetch",
+            "bodyBytes": 172
+          },
+          {
+            "url": "http://127.0.0.1:61290/api/reports?type=weekly&limit=10",
+            "status": 200,
+            "method": "GET",
+            "resourceType": "fetch",
+            "bodyBytes": 2
+          },
+          {
+            "url": "http://127.0.0.1:61290/api/reports?type=monthly&limit=10",
+            "status": 200,
+            "method": "GET",
+            "resourceType": "fetch",
+            "bodyBytes": 2
+          },
+          {
+            "url": "http://127.0.0.1:61290/api/articles?limit=50&min_score=5&since=2026-07-09",
+            "status": 200,
+            "method": "GET",
+            "resourceType": "fetch",
+            "bodyBytes": 596
+          }
+        ]
+      },
+      "warmupErrors": 0,
+      "samples": [
+        {
+          "route": "/",
+          "sample": 1,
+          "status": 200,
+          "navigationError": "",
+          "wallMs": 903.849,
+          "ttfbMs": 5.6,
+          "domContentLoadedMs": 15.7,
+          "loadMs": 16.7,
+          "fcpMs": 124,
+          "lcpMs": 124,
+          "cls": 0,
+          "longTaskCount": 1,
+          "longTaskTotalMs": 57,
+          "longTaskMaxMs": 57,
+          "domNodes": 84,
+          "bodyTextLength": 272,
+          "requestCount": 5,
+          "encodedBytes": 61840,
+          "decodedBytes": 58334,
+          "badResponses": [],
+          "ignoredResponses": [],
+          "failedRequests": [],
+          "externalRequests": [],
+          "webSockets": [],
+          "nonGetRequests": [],
+          "responses": [
+            {
+              "url": "http://127.0.0.1:61290/",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "document",
+              "bodyBytes": 57562
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/reports?type=weekly&limit=10",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 2
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/reports?type=daily&limit=30",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 172
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/reports?type=monthly&limit=10",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 2
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/articles?limit=50&min_score=5&since=2026-07-09",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 596
+            }
+          ]
+        },
+        {
+          "route": "/",
+          "sample": 2,
+          "status": 200,
+          "navigationError": "",
+          "wallMs": 902.565,
+          "ttfbMs": 4,
+          "domContentLoadedMs": 14.1,
+          "loadMs": 15.4,
+          "fcpMs": 116,
+          "lcpMs": 116,
+          "cls": 0,
+          "longTaskCount": 1,
+          "longTaskTotalMs": 55,
+          "longTaskMaxMs": 55,
+          "domNodes": 84,
+          "bodyTextLength": 272,
+          "requestCount": 5,
+          "encodedBytes": 61840,
+          "decodedBytes": 58334,
+          "badResponses": [],
+          "ignoredResponses": [],
+          "failedRequests": [],
+          "externalRequests": [],
+          "webSockets": [],
+          "nonGetRequests": [],
+          "responses": [
+            {
+              "url": "http://127.0.0.1:61290/",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "document",
+              "bodyBytes": 57562
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/reports?type=daily&limit=30",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 172
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/reports?type=monthly&limit=10",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 2
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/reports?type=weekly&limit=10",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 2
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/articles?limit=50&min_score=5&since=2026-07-09",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 596
+            }
+          ]
+        },
+        {
+          "route": "/",
+          "sample": 3,
+          "status": 200,
+          "navigationError": "",
+          "wallMs": 902.752,
+          "ttfbMs": 4.2,
+          "domContentLoadedMs": 13.7,
+          "loadMs": 14.7,
+          "fcpMs": 120,
+          "lcpMs": 120,
+          "cls": 0,
+          "longTaskCount": 1,
+          "longTaskTotalMs": 58,
+          "longTaskMaxMs": 58,
+          "domNodes": 84,
+          "bodyTextLength": 272,
+          "requestCount": 5,
+          "encodedBytes": 61840,
+          "decodedBytes": 58334,
+          "badResponses": [],
+          "ignoredResponses": [],
+          "failedRequests": [],
+          "externalRequests": [],
+          "webSockets": [],
+          "nonGetRequests": [],
+          "responses": [
+            {
+              "url": "http://127.0.0.1:61290/",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "document",
+              "bodyBytes": 57562
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/reports?type=daily&limit=30",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 172
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/reports?type=weekly&limit=10",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 2
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/reports?type=monthly&limit=10",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 2
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/articles?limit=50&min_score=5&since=2026-07-09",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 596
+            }
+          ]
+        }
+      ],
+      "aggregate": {
+        "route": "/",
+        "samples": 3,
+        "statusErrors": 0,
+        "navigationErrors": 0,
+        "failedRequests": 0,
+        "badResponses": 0,
+        "externalRequests": 0,
+        "webSockets": 0,
+        "nonGetRequests": 0,
+        "ttfbMs": {
+          "min": 4,
+          "p50": 4.2,
+          "p95": 5.6,
+          "max": 5.6
+        },
+        "domContentLoadedMs": {
+          "min": 13.7,
+          "p50": 14.1,
+          "p95": 15.7,
+          "max": 15.7
+        },
+        "loadMs": {
+          "min": 14.7,
+          "p50": 15.4,
+          "p95": 16.7,
+          "max": 16.7
+        },
+        "fcpMs": {
+          "min": 116,
+          "p50": 120,
+          "p95": 124,
+          "max": 124
+        },
+        "lcpMs": {
+          "min": 116,
+          "p50": 120,
+          "p95": 124,
+          "max": 124
+        },
+        "cls": {
+          "min": 0,
+          "p50": 0,
+          "p95": 0,
+          "max": 0
+        },
+        "longTaskCount": {
+          "min": 1,
+          "p50": 1,
+          "p95": 1,
+          "max": 1
+        },
+        "longTaskTotalMs": {
+          "min": 55,
+          "p50": 57,
+          "p95": 58,
+          "max": 58
+        },
+        "longTaskMaxMs": {
+          "min": 55,
+          "p50": 57,
+          "p95": 58,
+          "max": 58
+        },
+        "requestCount": {
+          "min": 5,
+          "p50": 5,
+          "p95": 5,
+          "max": 5
+        },
+        "encodedBytes": {
+          "min": 61840,
+          "p50": 61840,
+          "p95": 61840,
+          "max": 61840
+        },
+        "decodedBytes": {
+          "min": 58334,
+          "p50": 58334,
+          "p95": 58334,
+          "max": 58334
+        },
+        "domNodes": {
+          "min": 84,
+          "p50": 84,
+          "p95": 84,
+          "max": 84
+        },
+        "bodyTextLength": {
+          "min": 272,
+          "p50": 272,
+          "p95": 272,
+          "max": 272
+        },
+        "wallMs": {
+          "min": 902.565,
+          "p50": 902.752,
+          "p95": 903.849,
+          "max": 903.849
+        }
+      }
+    },
+    {
+      "route": "/library",
+      "warmup": {
+        "route": "/library",
+        "sample": 0,
+        "status": 200,
+        "navigationError": "",
+        "wallMs": 888.885,
+        "ttfbMs": 4,
+        "domContentLoadedMs": 67,
+        "loadMs": 67.6,
+        "fcpMs": 256,
+        "lcpMs": 256,
+        "cls": 0,
+        "longTaskCount": 1,
+        "longTaskTotalMs": 152,
+        "longTaskMaxMs": 152,
+        "domNodes": 305,
+        "bodyTextLength": 1269,
+        "requestCount": 2,
+        "encodedBytes": 63711,
+        "decodedBytes": 62236,
+        "badResponses": [],
+        "ignoredResponses": [],
+        "failedRequests": [],
+        "externalRequests": [],
+        "webSockets": [],
+        "nonGetRequests": [],
+        "responses": [
+          {
+            "url": "http://127.0.0.1:61290/library",
+            "status": 200,
+            "method": "GET",
+            "resourceType": "document",
+            "bodyBytes": 58771
+          },
+          {
+            "url": "http://127.0.0.1:61290/api/entities",
+            "status": 200,
+            "method": "GET",
+            "resourceType": "fetch",
+            "bodyBytes": 3465
+          }
+        ]
+      },
+      "warmupErrors": 0,
+      "samples": [
+        {
+          "route": "/library",
+          "sample": 1,
+          "status": 200,
+          "navigationError": "",
+          "wallMs": 869.9,
+          "ttfbMs": 3.8,
+          "domContentLoadedMs": 12.8,
+          "loadMs": 17.1,
+          "fcpMs": 172,
+          "lcpMs": 172,
+          "cls": 0,
+          "longTaskCount": 1,
+          "longTaskTotalMs": 81,
+          "longTaskMaxMs": 81,
+          "domNodes": 305,
+          "bodyTextLength": 1269,
+          "requestCount": 2,
+          "encodedBytes": 63711,
+          "decodedBytes": 62236,
+          "badResponses": [],
+          "ignoredResponses": [],
+          "failedRequests": [],
+          "externalRequests": [],
+          "webSockets": [],
+          "nonGetRequests": [],
+          "responses": [
+            {
+              "url": "http://127.0.0.1:61290/library",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "document",
+              "bodyBytes": 58771
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/entities",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 3465
+            }
+          ]
+        },
+        {
+          "route": "/library",
+          "sample": 2,
+          "status": 200,
+          "navigationError": "",
+          "wallMs": 857.76,
+          "ttfbMs": 3.7,
+          "domContentLoadedMs": 11.2,
+          "loadMs": 15.3,
+          "fcpMs": 180,
+          "lcpMs": 180,
+          "cls": 0,
+          "longTaskCount": 1,
+          "longTaskTotalMs": 89,
+          "longTaskMaxMs": 89,
+          "domNodes": 305,
+          "bodyTextLength": 1269,
+          "requestCount": 2,
+          "encodedBytes": 63711,
+          "decodedBytes": 62236,
+          "badResponses": [],
+          "ignoredResponses": [],
+          "failedRequests": [],
+          "externalRequests": [],
+          "webSockets": [],
+          "nonGetRequests": [],
+          "responses": [
+            {
+              "url": "http://127.0.0.1:61290/library",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "document",
+              "bodyBytes": 58771
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/entities",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 3465
+            }
+          ]
+        },
+        {
+          "route": "/library",
+          "sample": 3,
+          "status": 200,
+          "navigationError": "",
+          "wallMs": 866.705,
+          "ttfbMs": 3.8,
+          "domContentLoadedMs": 12.1,
+          "loadMs": 16.8,
+          "fcpMs": 168,
+          "lcpMs": 168,
+          "cls": 0,
+          "longTaskCount": 1,
+          "longTaskTotalMs": 78,
+          "longTaskMaxMs": 78,
+          "domNodes": 305,
+          "bodyTextLength": 1269,
+          "requestCount": 2,
+          "encodedBytes": 63711,
+          "decodedBytes": 62236,
+          "badResponses": [],
+          "ignoredResponses": [],
+          "failedRequests": [],
+          "externalRequests": [],
+          "webSockets": [],
+          "nonGetRequests": [],
+          "responses": [
+            {
+              "url": "http://127.0.0.1:61290/library",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "document",
+              "bodyBytes": 58771
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/entities",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 3465
+            }
+          ]
+        }
+      ],
+      "aggregate": {
+        "route": "/library",
+        "samples": 3,
+        "statusErrors": 0,
+        "navigationErrors": 0,
+        "failedRequests": 0,
+        "badResponses": 0,
+        "externalRequests": 0,
+        "webSockets": 0,
+        "nonGetRequests": 0,
+        "ttfbMs": {
+          "min": 3.7,
+          "p50": 3.8,
+          "p95": 3.8,
+          "max": 3.8
+        },
+        "domContentLoadedMs": {
+          "min": 11.2,
+          "p50": 12.1,
+          "p95": 12.8,
+          "max": 12.8
+        },
+        "loadMs": {
+          "min": 15.3,
+          "p50": 16.8,
+          "p95": 17.1,
+          "max": 17.1
+        },
+        "fcpMs": {
+          "min": 168,
+          "p50": 172,
+          "p95": 180,
+          "max": 180
+        },
+        "lcpMs": {
+          "min": 168,
+          "p50": 172,
+          "p95": 180,
+          "max": 180
+        },
+        "cls": {
+          "min": 0,
+          "p50": 0,
+          "p95": 0,
+          "max": 0
+        },
+        "longTaskCount": {
+          "min": 1,
+          "p50": 1,
+          "p95": 1,
+          "max": 1
+        },
+        "longTaskTotalMs": {
+          "min": 78,
+          "p50": 81,
+          "p95": 89,
+          "max": 89
+        },
+        "longTaskMaxMs": {
+          "min": 78,
+          "p50": 81,
+          "p95": 89,
+          "max": 89
+        },
+        "requestCount": {
+          "min": 2,
+          "p50": 2,
+          "p95": 2,
+          "max": 2
+        },
+        "encodedBytes": {
+          "min": 63711,
+          "p50": 63711,
+          "p95": 63711,
+          "max": 63711
+        },
+        "decodedBytes": {
+          "min": 62236,
+          "p50": 62236,
+          "p95": 62236,
+          "max": 62236
+        },
+        "domNodes": {
+          "min": 305,
+          "p50": 305,
+          "p95": 305,
+          "max": 305
+        },
+        "bodyTextLength": {
+          "min": 1269,
+          "p50": 1269,
+          "p95": 1269,
+          "max": 1269
+        },
+        "wallMs": {
+          "min": 857.76,
+          "p50": 866.705,
+          "p95": 869.9,
+          "max": 869.9
+        }
+      }
+    },
+    {
+      "route": "/timeline",
+      "warmup": {
+        "route": "/timeline",
+        "sample": 0,
+        "status": 200,
+        "navigationError": "",
+        "wallMs": 886.476,
+        "ttfbMs": 3.5,
+        "domContentLoadedMs": 66.6,
+        "loadMs": 67,
+        "fcpMs": 84,
+        "lcpMs": 84,
+        "cls": 0.374,
+        "longTaskCount": 1,
+        "longTaskTotalMs": 55,
+        "longTaskMaxMs": 55,
+        "domNodes": 218,
+        "bodyTextLength": 839,
+        "requestCount": 2,
+        "encodedBytes": 66764,
+        "decodedBytes": 65289,
+        "badResponses": [],
+        "ignoredResponses": [],
+        "failedRequests": [],
+        "externalRequests": [],
+        "webSockets": [],
+        "nonGetRequests": [],
+        "responses": [
+          {
+            "url": "http://127.0.0.1:61290/timeline",
+            "status": 200,
+            "method": "GET",
+            "resourceType": "document",
+            "bodyBytes": 61824
+          },
+          {
+            "url": "http://127.0.0.1:61290/api/entities",
+            "status": 200,
+            "method": "GET",
+            "resourceType": "fetch",
+            "bodyBytes": 3465
+          }
+        ]
+      },
+      "warmupErrors": 0,
+      "samples": [
+        {
+          "route": "/timeline",
+          "sample": 1,
+          "status": 200,
+          "navigationError": "",
+          "wallMs": 882.156,
+          "ttfbMs": 5.7,
+          "domContentLoadedMs": 70.5,
+          "loadMs": 71,
+          "fcpMs": 92,
+          "lcpMs": 92,
+          "cls": 0.374,
+          "longTaskCount": 1,
+          "longTaskTotalMs": 53,
+          "longTaskMaxMs": 53,
+          "domNodes": 218,
+          "bodyTextLength": 839,
+          "requestCount": 2,
+          "encodedBytes": 66764,
+          "decodedBytes": 65289,
+          "badResponses": [],
+          "ignoredResponses": [],
+          "failedRequests": [],
+          "externalRequests": [],
+          "webSockets": [],
+          "nonGetRequests": [],
+          "responses": [
+            {
+              "url": "http://127.0.0.1:61290/timeline",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "document",
+              "bodyBytes": 61824
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/entities",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 3465
+            }
+          ]
+        },
+        {
+          "route": "/timeline",
+          "sample": 2,
+          "status": 200,
+          "navigationError": "",
+          "wallMs": 866.944,
+          "ttfbMs": 3.6,
+          "domContentLoadedMs": 11.1,
+          "loadMs": 11.7,
+          "fcpMs": 76,
+          "lcpMs": 76,
+          "cls": 0.374,
+          "longTaskCount": 0,
+          "longTaskTotalMs": 0,
+          "longTaskMaxMs": 0,
+          "domNodes": 218,
+          "bodyTextLength": 839,
+          "requestCount": 2,
+          "encodedBytes": 66764,
+          "decodedBytes": 65289,
+          "badResponses": [],
+          "ignoredResponses": [],
+          "failedRequests": [],
+          "externalRequests": [],
+          "webSockets": [],
+          "nonGetRequests": [],
+          "responses": [
+            {
+              "url": "http://127.0.0.1:61290/timeline",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "document",
+              "bodyBytes": 61824
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/entities",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 3465
+            }
+          ]
+        },
+        {
+          "route": "/timeline",
+          "sample": 3,
+          "status": 200,
+          "navigationError": "",
+          "wallMs": 873.604,
+          "ttfbMs": 3.7,
+          "domContentLoadedMs": 11.9,
+          "loadMs": 12.7,
+          "fcpMs": 80,
+          "lcpMs": 80,
+          "cls": 0.374,
+          "longTaskCount": 0,
+          "longTaskTotalMs": 0,
+          "longTaskMaxMs": 0,
+          "domNodes": 218,
+          "bodyTextLength": 839,
+          "requestCount": 2,
+          "encodedBytes": 66764,
+          "decodedBytes": 65289,
+          "badResponses": [],
+          "ignoredResponses": [],
+          "failedRequests": [],
+          "externalRequests": [],
+          "webSockets": [],
+          "nonGetRequests": [],
+          "responses": [
+            {
+              "url": "http://127.0.0.1:61290/timeline",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "document",
+              "bodyBytes": 61824
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/entities",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 3465
+            }
+          ]
+        }
+      ],
+      "aggregate": {
+        "route": "/timeline",
+        "samples": 3,
+        "statusErrors": 0,
+        "navigationErrors": 0,
+        "failedRequests": 0,
+        "badResponses": 0,
+        "externalRequests": 0,
+        "webSockets": 0,
+        "nonGetRequests": 0,
+        "ttfbMs": {
+          "min": 3.6,
+          "p50": 3.7,
+          "p95": 5.7,
+          "max": 5.7
+        },
+        "domContentLoadedMs": {
+          "min": 11.1,
+          "p50": 11.9,
+          "p95": 70.5,
+          "max": 70.5
+        },
+        "loadMs": {
+          "min": 11.7,
+          "p50": 12.7,
+          "p95": 71,
+          "max": 71
+        },
+        "fcpMs": {
+          "min": 76,
+          "p50": 80,
+          "p95": 92,
+          "max": 92
+        },
+        "lcpMs": {
+          "min": 76,
+          "p50": 80,
+          "p95": 92,
+          "max": 92
+        },
+        "cls": {
+          "min": 0.374,
+          "p50": 0.374,
+          "p95": 0.374,
+          "max": 0.374
+        },
+        "longTaskCount": {
+          "min": 0,
+          "p50": 0,
+          "p95": 1,
+          "max": 1
+        },
+        "longTaskTotalMs": {
+          "min": 0,
+          "p50": 0,
+          "p95": 53,
+          "max": 53
+        },
+        "longTaskMaxMs": {
+          "min": 0,
+          "p50": 0,
+          "p95": 53,
+          "max": 53
+        },
+        "requestCount": {
+          "min": 2,
+          "p50": 2,
+          "p95": 2,
+          "max": 2
+        },
+        "encodedBytes": {
+          "min": 66764,
+          "p50": 66764,
+          "p95": 66764,
+          "max": 66764
+        },
+        "decodedBytes": {
+          "min": 65289,
+          "p50": 65289,
+          "p95": 65289,
+          "max": 65289
+        },
+        "domNodes": {
+          "min": 218,
+          "p50": 218,
+          "p95": 218,
+          "max": 218
+        },
+        "bodyTextLength": {
+          "min": 839,
+          "p50": 839,
+          "p95": 839,
+          "max": 839
+        },
+        "wallMs": {
+          "min": 866.944,
+          "p50": 873.604,
+          "p95": 882.156,
+          "max": 882.156
+        }
+      }
+    },
+    {
+      "route": "/events",
+      "warmup": {
+        "route": "/events",
+        "sample": 0,
+        "status": 200,
+        "navigationError": "",
+        "wallMs": 884.574,
+        "ttfbMs": 4.1,
+        "domContentLoadedMs": 12.7,
+        "loadMs": 52.9,
+        "fcpMs": 128,
+        "lcpMs": 128,
+        "cls": 0,
+        "longTaskCount": 0,
+        "longTaskTotalMs": 0,
+        "longTaskMaxMs": 0,
+        "domNodes": 50,
+        "bodyTextLength": 178,
+        "requestCount": 3,
+        "encodedBytes": 56557,
+        "decodedBytes": 54405,
+        "badResponses": [],
+        "ignoredResponses": [],
+        "failedRequests": [],
+        "externalRequests": [],
+        "webSockets": [],
+        "nonGetRequests": [],
+        "responses": [
+          {
+            "url": "http://127.0.0.1:61290/events",
+            "status": 200,
+            "method": "GET",
+            "resourceType": "document",
+            "bodyBytes": 50566
+          },
+          {
+            "url": "http://127.0.0.1:61290/api/entities",
+            "status": 200,
+            "method": "GET",
+            "resourceType": "fetch",
+            "bodyBytes": 3465
+          },
+          {
+            "url": "http://127.0.0.1:61290/api/entities?type=event",
+            "status": 200,
+            "method": "GET",
+            "resourceType": "fetch",
+            "bodyBytes": 374
+          }
+        ]
+      },
+      "warmupErrors": 0,
+      "samples": [
+        {
+          "route": "/events",
+          "sample": 1,
+          "status": 200,
+          "navigationError": "",
+          "wallMs": 858.186,
+          "ttfbMs": 4,
+          "domContentLoadedMs": 12.3,
+          "loadMs": 45.2,
+          "fcpMs": 80,
+          "lcpMs": 80,
+          "cls": 0,
+          "longTaskCount": 0,
+          "longTaskTotalMs": 0,
+          "longTaskMaxMs": 0,
+          "domNodes": 50,
+          "bodyTextLength": 178,
+          "requestCount": 3,
+          "encodedBytes": 56557,
+          "decodedBytes": 54405,
+          "badResponses": [],
+          "ignoredResponses": [],
+          "failedRequests": [],
+          "externalRequests": [],
+          "webSockets": [],
+          "nonGetRequests": [],
+          "responses": [
+            {
+              "url": "http://127.0.0.1:61290/events",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "document",
+              "bodyBytes": 50566
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/entities",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 3465
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/entities?type=event",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 374
+            }
+          ]
+        },
+        {
+          "route": "/events",
+          "sample": 2,
+          "status": 200,
+          "navigationError": "",
+          "wallMs": 861.457,
+          "ttfbMs": 4,
+          "domContentLoadedMs": 46,
+          "loadMs": 46.6,
+          "fcpMs": 88,
+          "lcpMs": 88,
+          "cls": 0,
+          "longTaskCount": 0,
+          "longTaskTotalMs": 0,
+          "longTaskMaxMs": 0,
+          "domNodes": 50,
+          "bodyTextLength": 178,
+          "requestCount": 3,
+          "encodedBytes": 56557,
+          "decodedBytes": 54405,
+          "badResponses": [],
+          "ignoredResponses": [],
+          "failedRequests": [],
+          "externalRequests": [],
+          "webSockets": [],
+          "nonGetRequests": [],
+          "responses": [
+            {
+              "url": "http://127.0.0.1:61290/events",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "document",
+              "bodyBytes": 50566
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/entities",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 3465
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/entities?type=event",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 374
+            }
+          ]
+        },
+        {
+          "route": "/events",
+          "sample": 3,
+          "status": 200,
+          "navigationError": "",
+          "wallMs": 874.098,
+          "ttfbMs": 3.4,
+          "domContentLoadedMs": 44.1,
+          "loadMs": 44.8,
+          "fcpMs": 84,
+          "lcpMs": 84,
+          "cls": 0,
+          "longTaskCount": 0,
+          "longTaskTotalMs": 0,
+          "longTaskMaxMs": 0,
+          "domNodes": 50,
+          "bodyTextLength": 178,
+          "requestCount": 3,
+          "encodedBytes": 56557,
+          "decodedBytes": 54405,
+          "badResponses": [],
+          "ignoredResponses": [],
+          "failedRequests": [],
+          "externalRequests": [],
+          "webSockets": [],
+          "nonGetRequests": [],
+          "responses": [
+            {
+              "url": "http://127.0.0.1:61290/events",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "document",
+              "bodyBytes": 50566
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/entities",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 3465
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/entities?type=event",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 374
+            }
+          ]
+        }
+      ],
+      "aggregate": {
+        "route": "/events",
+        "samples": 3,
+        "statusErrors": 0,
+        "navigationErrors": 0,
+        "failedRequests": 0,
+        "badResponses": 0,
+        "externalRequests": 0,
+        "webSockets": 0,
+        "nonGetRequests": 0,
+        "ttfbMs": {
+          "min": 3.4,
+          "p50": 4,
+          "p95": 4,
+          "max": 4
+        },
+        "domContentLoadedMs": {
+          "min": 12.3,
+          "p50": 44.1,
+          "p95": 46,
+          "max": 46
+        },
+        "loadMs": {
+          "min": 44.8,
+          "p50": 45.2,
+          "p95": 46.6,
+          "max": 46.6
+        },
+        "fcpMs": {
+          "min": 80,
+          "p50": 84,
+          "p95": 88,
+          "max": 88
+        },
+        "lcpMs": {
+          "min": 80,
+          "p50": 84,
+          "p95": 88,
+          "max": 88
+        },
+        "cls": {
+          "min": 0,
+          "p50": 0,
+          "p95": 0,
+          "max": 0
+        },
+        "longTaskCount": {
+          "min": 0,
+          "p50": 0,
+          "p95": 0,
+          "max": 0
+        },
+        "longTaskTotalMs": {
+          "min": 0,
+          "p50": 0,
+          "p95": 0,
+          "max": 0
+        },
+        "longTaskMaxMs": {
+          "min": 0,
+          "p50": 0,
+          "p95": 0,
+          "max": 0
+        },
+        "requestCount": {
+          "min": 3,
+          "p50": 3,
+          "p95": 3,
+          "max": 3
+        },
+        "encodedBytes": {
+          "min": 56557,
+          "p50": 56557,
+          "p95": 56557,
+          "max": 56557
+        },
+        "decodedBytes": {
+          "min": 54405,
+          "p50": 54405,
+          "p95": 54405,
+          "max": 54405
+        },
+        "domNodes": {
+          "min": 50,
+          "p50": 50,
+          "p95": 50,
+          "max": 50
+        },
+        "bodyTextLength": {
+          "min": 178,
+          "p50": 178,
+          "p95": 178,
+          "max": 178
+        },
+        "wallMs": {
+          "min": 858.186,
+          "p50": 861.457,
+          "p95": 874.098,
+          "max": 874.098
+        }
+      }
+    },
+    {
+      "route": "/reports",
+      "warmup": {
+        "route": "/reports",
+        "sample": 0,
+        "status": 200,
+        "navigationError": "",
+        "wallMs": 867.909,
+        "ttfbMs": 3.9,
+        "domContentLoadedMs": 12.4,
+        "loadMs": 13.2,
+        "fcpMs": 112,
+        "lcpMs": 112,
+        "cls": 0,
+        "longTaskCount": 0,
+        "longTaskTotalMs": 0,
+        "longTaskMaxMs": 0,
+        "domNodes": 54,
+        "bodyTextLength": 133,
+        "requestCount": 4,
+        "encodedBytes": 51209,
+        "decodedBytes": 48385,
+        "badResponses": [],
+        "ignoredResponses": [],
+        "failedRequests": [],
+        "externalRequests": [],
+        "webSockets": [],
+        "nonGetRequests": [],
+        "responses": [
+          {
+            "url": "http://127.0.0.1:61290/reports",
+            "status": 200,
+            "method": "GET",
+            "resourceType": "document",
+            "bodyBytes": 48209
+          },
+          {
+            "url": "http://127.0.0.1:61290/api/reports?type=monthly&limit=12",
+            "status": 200,
+            "method": "GET",
+            "resourceType": "fetch",
+            "bodyBytes": 2
+          },
+          {
+            "url": "http://127.0.0.1:61290/api/reports?type=daily&limit=30",
+            "status": 200,
+            "method": "GET",
+            "resourceType": "fetch",
+            "bodyBytes": 172
+          },
+          {
+            "url": "http://127.0.0.1:61290/api/reports?type=weekly&limit=12",
+            "status": 200,
+            "method": "GET",
+            "resourceType": "fetch",
+            "bodyBytes": 2
+          }
+        ]
+      },
+      "warmupErrors": 0,
+      "samples": [
+        {
+          "route": "/reports",
+          "sample": 1,
+          "status": 200,
+          "navigationError": "",
+          "wallMs": 872.833,
+          "ttfbMs": 4.3,
+          "domContentLoadedMs": 52.5,
+          "loadMs": 53.1,
+          "fcpMs": 112,
+          "lcpMs": 112,
+          "cls": 0,
+          "longTaskCount": 0,
+          "longTaskTotalMs": 0,
+          "longTaskMaxMs": 0,
+          "domNodes": 54,
+          "bodyTextLength": 133,
+          "requestCount": 4,
+          "encodedBytes": 51209,
+          "decodedBytes": 48385,
+          "badResponses": [],
+          "ignoredResponses": [],
+          "failedRequests": [],
+          "externalRequests": [],
+          "webSockets": [],
+          "nonGetRequests": [],
+          "responses": [
+            {
+              "url": "http://127.0.0.1:61290/reports",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "document",
+              "bodyBytes": 48209
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/reports?type=daily&limit=30",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 172
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/reports?type=weekly&limit=12",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 2
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/reports?type=monthly&limit=12",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 2
+            }
+          ]
+        },
+        {
+          "route": "/reports",
+          "sample": 2,
+          "status": 200,
+          "navigationError": "",
+          "wallMs": 873.566,
+          "ttfbMs": 4.3,
+          "domContentLoadedMs": 49.8,
+          "loadMs": 50.4,
+          "fcpMs": 80,
+          "lcpMs": 80,
+          "cls": 0,
+          "longTaskCount": 0,
+          "longTaskTotalMs": 0,
+          "longTaskMaxMs": 0,
+          "domNodes": 54,
+          "bodyTextLength": 133,
+          "requestCount": 4,
+          "encodedBytes": 51209,
+          "decodedBytes": 48385,
+          "badResponses": [],
+          "ignoredResponses": [],
+          "failedRequests": [],
+          "externalRequests": [],
+          "webSockets": [],
+          "nonGetRequests": [],
+          "responses": [
+            {
+              "url": "http://127.0.0.1:61290/reports",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "document",
+              "bodyBytes": 48209
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/reports?type=daily&limit=30",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 172
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/reports?type=weekly&limit=12",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 2
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/reports?type=monthly&limit=12",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 2
+            }
+          ]
+        },
+        {
+          "route": "/reports",
+          "sample": 3,
+          "status": 200,
+          "navigationError": "",
+          "wallMs": 865.729,
+          "ttfbMs": 3.8,
+          "domContentLoadedMs": 11.3,
+          "loadMs": 12.2,
+          "fcpMs": 108,
+          "lcpMs": 108,
+          "cls": 0,
+          "longTaskCount": 0,
+          "longTaskTotalMs": 0,
+          "longTaskMaxMs": 0,
+          "domNodes": 54,
+          "bodyTextLength": 133,
+          "requestCount": 4,
+          "encodedBytes": 51209,
+          "decodedBytes": 48385,
+          "badResponses": [],
+          "ignoredResponses": [],
+          "failedRequests": [],
+          "externalRequests": [],
+          "webSockets": [],
+          "nonGetRequests": [],
+          "responses": [
+            {
+              "url": "http://127.0.0.1:61290/reports",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "document",
+              "bodyBytes": 48209
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/reports?type=daily&limit=30",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 172
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/reports?type=weekly&limit=12",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 2
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/reports?type=monthly&limit=12",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 2
+            }
+          ]
+        }
+      ],
+      "aggregate": {
+        "route": "/reports",
+        "samples": 3,
+        "statusErrors": 0,
+        "navigationErrors": 0,
+        "failedRequests": 0,
+        "badResponses": 0,
+        "externalRequests": 0,
+        "webSockets": 0,
+        "nonGetRequests": 0,
+        "ttfbMs": {
+          "min": 3.8,
+          "p50": 4.3,
+          "p95": 4.3,
+          "max": 4.3
+        },
+        "domContentLoadedMs": {
+          "min": 11.3,
+          "p50": 49.8,
+          "p95": 52.5,
+          "max": 52.5
+        },
+        "loadMs": {
+          "min": 12.2,
+          "p50": 50.4,
+          "p95": 53.1,
+          "max": 53.1
+        },
+        "fcpMs": {
+          "min": 80,
+          "p50": 108,
+          "p95": 112,
+          "max": 112
+        },
+        "lcpMs": {
+          "min": 80,
+          "p50": 108,
+          "p95": 112,
+          "max": 112
+        },
+        "cls": {
+          "min": 0,
+          "p50": 0,
+          "p95": 0,
+          "max": 0
+        },
+        "longTaskCount": {
+          "min": 0,
+          "p50": 0,
+          "p95": 0,
+          "max": 0
+        },
+        "longTaskTotalMs": {
+          "min": 0,
+          "p50": 0,
+          "p95": 0,
+          "max": 0
+        },
+        "longTaskMaxMs": {
+          "min": 0,
+          "p50": 0,
+          "p95": 0,
+          "max": 0
+        },
+        "requestCount": {
+          "min": 4,
+          "p50": 4,
+          "p95": 4,
+          "max": 4
+        },
+        "encodedBytes": {
+          "min": 51209,
+          "p50": 51209,
+          "p95": 51209,
+          "max": 51209
+        },
+        "decodedBytes": {
+          "min": 48385,
+          "p50": 48385,
+          "p95": 48385,
+          "max": 48385
+        },
+        "domNodes": {
+          "min": 54,
+          "p50": 54,
+          "p95": 54,
+          "max": 54
+        },
+        "bodyTextLength": {
+          "min": 133,
+          "p50": 133,
+          "p95": 133,
+          "max": 133
+        },
+        "wallMs": {
+          "min": 865.729,
+          "p50": 872.833,
+          "p95": 873.566,
+          "max": 873.566
+        }
+      }
+    },
+    {
+      "route": "/research",
+      "warmup": {
+        "route": "/research",
+        "sample": 0,
+        "status": 200,
+        "navigationError": "",
+        "wallMs": 843.983,
+        "ttfbMs": 3.8,
+        "domContentLoadedMs": 105.4,
+        "loadMs": 106,
+        "fcpMs": 132,
+        "lcpMs": 132,
+        "cls": 0,
+        "longTaskCount": 1,
+        "longTaskTotalMs": 81,
+        "longTaskMaxMs": 81,
+        "domNodes": 95,
+        "bodyTextLength": 319,
+        "requestCount": 1,
+        "encodedBytes": 73233,
+        "decodedBytes": 72436,
+        "badResponses": [],
+        "ignoredResponses": [],
+        "failedRequests": [],
+        "externalRequests": [],
+        "webSockets": [],
+        "nonGetRequests": [],
+        "responses": [
+          {
+            "url": "http://127.0.0.1:61290/research",
+            "status": 200,
+            "method": "GET",
+            "resourceType": "document",
+            "bodyBytes": 72436
+          }
+        ]
+      },
+      "warmupErrors": 0,
+      "samples": [
+        {
+          "route": "/research",
+          "sample": 1,
+          "status": 200,
+          "navigationError": "",
+          "wallMs": 827.863,
+          "ttfbMs": 4.4,
+          "domContentLoadedMs": 12.4,
+          "loadMs": 77.6,
+          "fcpMs": 92,
+          "lcpMs": 92,
+          "cls": 0,
+          "longTaskCount": 1,
+          "longTaskTotalMs": 65,
+          "longTaskMaxMs": 65,
+          "domNodes": 95,
+          "bodyTextLength": 319,
+          "requestCount": 1,
+          "encodedBytes": 73233,
+          "decodedBytes": 72436,
+          "badResponses": [],
+          "ignoredResponses": [],
+          "failedRequests": [],
+          "externalRequests": [],
+          "webSockets": [],
+          "nonGetRequests": [],
+          "responses": [
+            {
+              "url": "http://127.0.0.1:61290/research",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "document",
+              "bodyBytes": 72436
+            }
+          ]
+        },
+        {
+          "route": "/research",
+          "sample": 2,
+          "status": 200,
+          "navigationError": "",
+          "wallMs": 821.898,
+          "ttfbMs": 3.7,
+          "domContentLoadedMs": 12.5,
+          "loadMs": 81.4,
+          "fcpMs": 104,
+          "lcpMs": 104,
+          "cls": 0,
+          "longTaskCount": 1,
+          "longTaskTotalMs": 69,
+          "longTaskMaxMs": 69,
+          "domNodes": 95,
+          "bodyTextLength": 319,
+          "requestCount": 1,
+          "encodedBytes": 73233,
+          "decodedBytes": 72436,
+          "badResponses": [],
+          "ignoredResponses": [],
+          "failedRequests": [],
+          "externalRequests": [],
+          "webSockets": [],
+          "nonGetRequests": [],
+          "responses": [
+            {
+              "url": "http://127.0.0.1:61290/research",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "document",
+              "bodyBytes": 72436
+            }
+          ]
+        },
+        {
+          "route": "/research",
+          "sample": 3,
+          "status": 200,
+          "navigationError": "",
+          "wallMs": 828.241,
+          "ttfbMs": 3.7,
+          "domContentLoadedMs": 11.3,
+          "loadMs": 79.4,
+          "fcpMs": 100,
+          "lcpMs": 100,
+          "cls": 0,
+          "longTaskCount": 1,
+          "longTaskTotalMs": 68,
+          "longTaskMaxMs": 68,
+          "domNodes": 95,
+          "bodyTextLength": 319,
+          "requestCount": 1,
+          "encodedBytes": 73233,
+          "decodedBytes": 72436,
+          "badResponses": [],
+          "ignoredResponses": [],
+          "failedRequests": [],
+          "externalRequests": [],
+          "webSockets": [],
+          "nonGetRequests": [],
+          "responses": [
+            {
+              "url": "http://127.0.0.1:61290/research",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "document",
+              "bodyBytes": 72436
+            }
+          ]
+        }
+      ],
+      "aggregate": {
+        "route": "/research",
+        "samples": 3,
+        "statusErrors": 0,
+        "navigationErrors": 0,
+        "failedRequests": 0,
+        "badResponses": 0,
+        "externalRequests": 0,
+        "webSockets": 0,
+        "nonGetRequests": 0,
+        "ttfbMs": {
+          "min": 3.7,
+          "p50": 3.7,
+          "p95": 4.4,
+          "max": 4.4
+        },
+        "domContentLoadedMs": {
+          "min": 11.3,
+          "p50": 12.4,
+          "p95": 12.5,
+          "max": 12.5
+        },
+        "loadMs": {
+          "min": 77.6,
+          "p50": 79.4,
+          "p95": 81.4,
+          "max": 81.4
+        },
+        "fcpMs": {
+          "min": 92,
+          "p50": 100,
+          "p95": 104,
+          "max": 104
+        },
+        "lcpMs": {
+          "min": 92,
+          "p50": 100,
+          "p95": 104,
+          "max": 104
+        },
+        "cls": {
+          "min": 0,
+          "p50": 0,
+          "p95": 0,
+          "max": 0
+        },
+        "longTaskCount": {
+          "min": 1,
+          "p50": 1,
+          "p95": 1,
+          "max": 1
+        },
+        "longTaskTotalMs": {
+          "min": 65,
+          "p50": 68,
+          "p95": 69,
+          "max": 69
+        },
+        "longTaskMaxMs": {
+          "min": 65,
+          "p50": 68,
+          "p95": 69,
+          "max": 69
+        },
+        "requestCount": {
+          "min": 1,
+          "p50": 1,
+          "p95": 1,
+          "max": 1
+        },
+        "encodedBytes": {
+          "min": 73233,
+          "p50": 73233,
+          "p95": 73233,
+          "max": 73233
+        },
+        "decodedBytes": {
+          "min": 72436,
+          "p50": 72436,
+          "p95": 72436,
+          "max": 72436
+        },
+        "domNodes": {
+          "min": 95,
+          "p50": 95,
+          "p95": 95,
+          "max": 95
+        },
+        "bodyTextLength": {
+          "min": 319,
+          "p50": 319,
+          "p95": 319,
+          "max": 319
+        },
+        "wallMs": {
+          "min": 821.898,
+          "p50": 827.863,
+          "p95": 828.241,
+          "max": 828.241
+        }
+      }
+    },
+    {
+      "route": "/my",
+      "warmup": {
+        "route": "/my",
+        "sample": 0,
+        "status": 200,
+        "navigationError": "",
+        "wallMs": 817.443,
+        "ttfbMs": 3.9,
+        "domContentLoadedMs": 71.2,
+        "loadMs": 71.8,
+        "fcpMs": 80,
+        "lcpMs": 80,
+        "cls": 0,
+        "longTaskCount": 1,
+        "longTaskTotalMs": 59,
+        "longTaskMaxMs": 59,
+        "domNodes": 83,
+        "bodyTextLength": 316,
+        "requestCount": 1,
+        "encodedBytes": 67294,
+        "decodedBytes": 66497,
+        "badResponses": [],
+        "ignoredResponses": [],
+        "failedRequests": [],
+        "externalRequests": [],
+        "webSockets": [],
+        "nonGetRequests": [],
+        "responses": [
+          {
+            "url": "http://127.0.0.1:61290/my",
+            "status": 200,
+            "method": "GET",
+            "resourceType": "document",
+            "bodyBytes": 66497
+          }
+        ]
+      },
+      "warmupErrors": 0,
+      "samples": [
+        {
+          "route": "/my",
+          "sample": 1,
+          "status": 200,
+          "navigationError": "",
+          "wallMs": 827.43,
+          "ttfbMs": 3.9,
+          "domContentLoadedMs": 11.6,
+          "loadMs": 65.6,
+          "fcpMs": 76,
+          "lcpMs": 76,
+          "cls": 0,
+          "longTaskCount": 1,
+          "longTaskTotalMs": 54,
+          "longTaskMaxMs": 54,
+          "domNodes": 83,
+          "bodyTextLength": 316,
+          "requestCount": 1,
+          "encodedBytes": 67294,
+          "decodedBytes": 66497,
+          "badResponses": [],
+          "ignoredResponses": [],
+          "failedRequests": [],
+          "externalRequests": [],
+          "webSockets": [],
+          "nonGetRequests": [],
+          "responses": [
+            {
+              "url": "http://127.0.0.1:61290/my",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "document",
+              "bodyBytes": 66497
+            }
+          ]
+        },
+        {
+          "route": "/my",
+          "sample": 2,
+          "status": 200,
+          "navigationError": "",
+          "wallMs": 826.853,
+          "ttfbMs": 3.2,
+          "domContentLoadedMs": 66.7,
+          "loadMs": 67.2,
+          "fcpMs": 76,
+          "lcpMs": 76,
+          "cls": 0,
+          "longTaskCount": 1,
+          "longTaskTotalMs": 55,
+          "longTaskMaxMs": 55,
+          "domNodes": 83,
+          "bodyTextLength": 316,
+          "requestCount": 1,
+          "encodedBytes": 67294,
+          "decodedBytes": 66497,
+          "badResponses": [],
+          "ignoredResponses": [],
+          "failedRequests": [],
+          "externalRequests": [],
+          "webSockets": [],
+          "nonGetRequests": [],
+          "responses": [
+            {
+              "url": "http://127.0.0.1:61290/my",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "document",
+              "bodyBytes": 66497
+            }
+          ]
+        },
+        {
+          "route": "/my",
+          "sample": 3,
+          "status": 200,
+          "navigationError": "",
+          "wallMs": 830.637,
+          "ttfbMs": 4.3,
+          "domContentLoadedMs": 13,
+          "loadMs": 72.8,
+          "fcpMs": 80,
+          "lcpMs": 80,
+          "cls": 0,
+          "longTaskCount": 1,
+          "longTaskTotalMs": 60,
+          "longTaskMaxMs": 60,
+          "domNodes": 83,
+          "bodyTextLength": 316,
+          "requestCount": 1,
+          "encodedBytes": 67294,
+          "decodedBytes": 66497,
+          "badResponses": [],
+          "ignoredResponses": [],
+          "failedRequests": [],
+          "externalRequests": [],
+          "webSockets": [],
+          "nonGetRequests": [],
+          "responses": [
+            {
+              "url": "http://127.0.0.1:61290/my",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "document",
+              "bodyBytes": 66497
+            }
+          ]
+        }
+      ],
+      "aggregate": {
+        "route": "/my",
+        "samples": 3,
+        "statusErrors": 0,
+        "navigationErrors": 0,
+        "failedRequests": 0,
+        "badResponses": 0,
+        "externalRequests": 0,
+        "webSockets": 0,
+        "nonGetRequests": 0,
+        "ttfbMs": {
+          "min": 3.2,
+          "p50": 3.9,
+          "p95": 4.3,
+          "max": 4.3
+        },
+        "domContentLoadedMs": {
+          "min": 11.6,
+          "p50": 13,
+          "p95": 66.7,
+          "max": 66.7
+        },
+        "loadMs": {
+          "min": 65.6,
+          "p50": 67.2,
+          "p95": 72.8,
+          "max": 72.8
+        },
+        "fcpMs": {
+          "min": 76,
+          "p50": 76,
+          "p95": 80,
+          "max": 80
+        },
+        "lcpMs": {
+          "min": 76,
+          "p50": 76,
+          "p95": 80,
+          "max": 80
+        },
+        "cls": {
+          "min": 0,
+          "p50": 0,
+          "p95": 0,
+          "max": 0
+        },
+        "longTaskCount": {
+          "min": 1,
+          "p50": 1,
+          "p95": 1,
+          "max": 1
+        },
+        "longTaskTotalMs": {
+          "min": 54,
+          "p50": 55,
+          "p95": 60,
+          "max": 60
+        },
+        "longTaskMaxMs": {
+          "min": 54,
+          "p50": 55,
+          "p95": 60,
+          "max": 60
+        },
+        "requestCount": {
+          "min": 1,
+          "p50": 1,
+          "p95": 1,
+          "max": 1
+        },
+        "encodedBytes": {
+          "min": 67294,
+          "p50": 67294,
+          "p95": 67294,
+          "max": 67294
+        },
+        "decodedBytes": {
+          "min": 66497,
+          "p50": 66497,
+          "p95": 66497,
+          "max": 66497
+        },
+        "domNodes": {
+          "min": 83,
+          "p50": 83,
+          "p95": 83,
+          "max": 83
+        },
+        "bodyTextLength": {
+          "min": 316,
+          "p50": 316,
+          "p95": 316,
+          "max": 316
+        },
+        "wallMs": {
+          "min": 826.853,
+          "p50": 827.43,
+          "p95": 830.637,
+          "max": 830.637
+        }
+      }
+    },
+    {
+      "route": "/entity/openai",
+      "warmup": {
+        "route": "/entity/openai",
+        "sample": 0,
+        "status": 200,
+        "navigationError": "",
+        "wallMs": 902.6,
+        "ttfbMs": 3.5,
+        "domContentLoadedMs": 11.4,
+        "loadMs": 12,
+        "fcpMs": 88,
+        "lcpMs": 88,
+        "cls": 0,
+        "longTaskCount": 0,
+        "longTaskTotalMs": 0,
+        "longTaskMaxMs": 0,
+        "domNodes": 95,
+        "bodyTextLength": 424,
+        "requestCount": 4,
+        "encodedBytes": 60052,
+        "decodedBytes": 57226,
+        "badResponses": [],
+        "ignoredResponses": [],
+        "failedRequests": [],
+        "externalRequests": [],
+        "webSockets": [],
+        "nonGetRequests": [],
+        "responses": [
+          {
+            "url": "http://127.0.0.1:61290/entity/openai",
+            "status": 200,
+            "method": "GET",
+            "resourceType": "document",
+            "bodyBytes": 55820
+          },
+          {
+            "url": "http://127.0.0.1:61290/api/entities/openai",
+            "status": 200,
+            "method": "GET",
+            "resourceType": "fetch",
+            "bodyBytes": 808
+          },
+          {
+            "url": "http://127.0.0.1:61290/api/entities/openai/articles?limit=20",
+            "status": 200,
+            "method": "GET",
+            "resourceType": "fetch",
+            "bodyBytes": 596
+          },
+          {
+            "url": "http://127.0.0.1:61290/api/entities/openai/similar?limit=6",
+            "status": 200,
+            "method": "GET",
+            "resourceType": "fetch",
+            "bodyBytes": 2
+          }
+        ]
+      },
+      "warmupErrors": 0,
+      "samples": [
+        {
+          "route": "/entity/openai",
+          "sample": 1,
+          "status": 200,
+          "navigationError": "",
+          "wallMs": 884.905,
+          "ttfbMs": 3.8,
+          "domContentLoadedMs": 11.4,
+          "loadMs": 12,
+          "fcpMs": 92,
+          "lcpMs": 92,
+          "cls": 0.001,
+          "longTaskCount": 0,
+          "longTaskTotalMs": 0,
+          "longTaskMaxMs": 0,
+          "domNodes": 95,
+          "bodyTextLength": 424,
+          "requestCount": 4,
+          "encodedBytes": 60052,
+          "decodedBytes": 57226,
+          "badResponses": [],
+          "ignoredResponses": [],
+          "failedRequests": [],
+          "externalRequests": [],
+          "webSockets": [],
+          "nonGetRequests": [],
+          "responses": [
+            {
+              "url": "http://127.0.0.1:61290/entity/openai",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "document",
+              "bodyBytes": 55820
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/entities/openai",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 808
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/entities/openai/articles?limit=20",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 596
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/entities/openai/similar?limit=6",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 2
+            }
+          ]
+        },
+        {
+          "route": "/entity/openai",
+          "sample": 2,
+          "status": 200,
+          "navigationError": "",
+          "wallMs": 908.029,
+          "ttfbMs": 4.6,
+          "domContentLoadedMs": 13.7,
+          "loadMs": 14.3,
+          "fcpMs": 84,
+          "lcpMs": 84,
+          "cls": 0.001,
+          "longTaskCount": 0,
+          "longTaskTotalMs": 0,
+          "longTaskMaxMs": 0,
+          "domNodes": 95,
+          "bodyTextLength": 424,
+          "requestCount": 4,
+          "encodedBytes": 60052,
+          "decodedBytes": 57226,
+          "badResponses": [],
+          "ignoredResponses": [],
+          "failedRequests": [],
+          "externalRequests": [],
+          "webSockets": [],
+          "nonGetRequests": [],
+          "responses": [
+            {
+              "url": "http://127.0.0.1:61290/entity/openai",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "document",
+              "bodyBytes": 55820
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/entities/openai",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 808
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/entities/openai/similar?limit=6",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 2
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/entities/openai/articles?limit=20",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 596
+            }
+          ]
+        },
+        {
+          "route": "/entity/openai",
+          "sample": 3,
+          "status": 200,
+          "navigationError": "",
+          "wallMs": 879.472,
+          "ttfbMs": 3.6,
+          "domContentLoadedMs": 34.5,
+          "loadMs": 34.9,
+          "fcpMs": 72,
+          "lcpMs": 72,
+          "cls": 0.001,
+          "longTaskCount": 0,
+          "longTaskTotalMs": 0,
+          "longTaskMaxMs": 0,
+          "domNodes": 95,
+          "bodyTextLength": 424,
+          "requestCount": 4,
+          "encodedBytes": 60052,
+          "decodedBytes": 57226,
+          "badResponses": [],
+          "ignoredResponses": [],
+          "failedRequests": [],
+          "externalRequests": [],
+          "webSockets": [],
+          "nonGetRequests": [],
+          "responses": [
+            {
+              "url": "http://127.0.0.1:61290/entity/openai",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "document",
+              "bodyBytes": 55820
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/entities/openai",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 808
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/entities/openai/articles?limit=20",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 596
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/entities/openai/similar?limit=6",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 2
+            }
+          ]
+        }
+      ],
+      "aggregate": {
+        "route": "/entity/openai",
+        "samples": 3,
+        "statusErrors": 0,
+        "navigationErrors": 0,
+        "failedRequests": 0,
+        "badResponses": 0,
+        "externalRequests": 0,
+        "webSockets": 0,
+        "nonGetRequests": 0,
+        "ttfbMs": {
+          "min": 3.6,
+          "p50": 3.8,
+          "p95": 4.6,
+          "max": 4.6
+        },
+        "domContentLoadedMs": {
+          "min": 11.4,
+          "p50": 13.7,
+          "p95": 34.5,
+          "max": 34.5
+        },
+        "loadMs": {
+          "min": 12,
+          "p50": 14.3,
+          "p95": 34.9,
+          "max": 34.9
+        },
+        "fcpMs": {
+          "min": 72,
+          "p50": 84,
+          "p95": 92,
+          "max": 92
+        },
+        "lcpMs": {
+          "min": 72,
+          "p50": 84,
+          "p95": 92,
+          "max": 92
+        },
+        "cls": {
+          "min": 0.001,
+          "p50": 0.001,
+          "p95": 0.001,
+          "max": 0.001
+        },
+        "longTaskCount": {
+          "min": 0,
+          "p50": 0,
+          "p95": 0,
+          "max": 0
+        },
+        "longTaskTotalMs": {
+          "min": 0,
+          "p50": 0,
+          "p95": 0,
+          "max": 0
+        },
+        "longTaskMaxMs": {
+          "min": 0,
+          "p50": 0,
+          "p95": 0,
+          "max": 0
+        },
+        "requestCount": {
+          "min": 4,
+          "p50": 4,
+          "p95": 4,
+          "max": 4
+        },
+        "encodedBytes": {
+          "min": 60052,
+          "p50": 60052,
+          "p95": 60052,
+          "max": 60052
+        },
+        "decodedBytes": {
+          "min": 57226,
+          "p50": 57226,
+          "p95": 57226,
+          "max": 57226
+        },
+        "domNodes": {
+          "min": 95,
+          "p50": 95,
+          "p95": 95,
+          "max": 95
+        },
+        "bodyTextLength": {
+          "min": 424,
+          "p50": 424,
+          "p95": 424,
+          "max": 424
+        },
+        "wallMs": {
+          "min": 879.472,
+          "p50": 884.905,
+          "p95": 908.029,
+          "max": 908.029
+        }
+      }
+    },
+    {
+      "route": "/article/fixture-article-1",
+      "warmup": {
+        "route": "/article/fixture-article-1",
+        "sample": 0,
+        "status": 200,
+        "navigationError": "",
+        "wallMs": 858.045,
+        "ttfbMs": 3.6,
+        "domContentLoadedMs": 14.4,
+        "loadMs": 14.9,
+        "fcpMs": 44,
+        "lcpMs": 168,
+        "cls": 0,
+        "longTaskCount": 1,
+        "longTaskTotalMs": 98,
+        "longTaskMaxMs": 98,
+        "domNodes": 106,
+        "bodyTextLength": 364,
+        "requestCount": 2,
+        "encodedBytes": 64960,
+        "decodedBytes": 63486,
+        "badResponses": [],
+        "ignoredResponses": [],
+        "failedRequests": [],
+        "externalRequests": [],
+        "webSockets": [],
+        "nonGetRequests": [],
+        "responses": [
+          {
+            "url": "http://127.0.0.1:61290/article/fixture-article-1",
+            "status": 200,
+            "method": "GET",
+            "resourceType": "document",
+            "bodyBytes": 62507
+          },
+          {
+            "url": "http://127.0.0.1:61290/api/articles/fixture-article-1",
+            "status": 200,
+            "method": "GET",
+            "resourceType": "fetch",
+            "bodyBytes": 979
+          }
+        ]
+      },
+      "warmupErrors": 0,
+      "samples": [
+        {
+          "route": "/article/fixture-article-1",
+          "sample": 1,
+          "status": 200,
+          "navigationError": "",
+          "wallMs": 840.611,
+          "ttfbMs": 3.3,
+          "domContentLoadedMs": 34.7,
+          "loadMs": 34.9,
+          "fcpMs": 40,
+          "lcpMs": 112,
+          "cls": 0,
+          "longTaskCount": 1,
+          "longTaskTotalMs": 63,
+          "longTaskMaxMs": 63,
+          "domNodes": 106,
+          "bodyTextLength": 364,
+          "requestCount": 2,
+          "encodedBytes": 64960,
+          "decodedBytes": 63486,
+          "badResponses": [],
+          "ignoredResponses": [],
+          "failedRequests": [],
+          "externalRequests": [],
+          "webSockets": [],
+          "nonGetRequests": [],
+          "responses": [
+            {
+              "url": "http://127.0.0.1:61290/article/fixture-article-1",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "document",
+              "bodyBytes": 62507
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/articles/fixture-article-1",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 979
+            }
+          ]
+        },
+        {
+          "route": "/article/fixture-article-1",
+          "sample": 2,
+          "status": 200,
+          "navigationError": "",
+          "wallMs": 849.689,
+          "ttfbMs": 4.7,
+          "domContentLoadedMs": 12.1,
+          "loadMs": 12.6,
+          "fcpMs": 44,
+          "lcpMs": 112,
+          "cls": 0,
+          "longTaskCount": 1,
+          "longTaskTotalMs": 62,
+          "longTaskMaxMs": 62,
+          "domNodes": 106,
+          "bodyTextLength": 364,
+          "requestCount": 2,
+          "encodedBytes": 64960,
+          "decodedBytes": 63486,
+          "badResponses": [],
+          "ignoredResponses": [],
+          "failedRequests": [],
+          "externalRequests": [],
+          "webSockets": [],
+          "nonGetRequests": [],
+          "responses": [
+            {
+              "url": "http://127.0.0.1:61290/article/fixture-article-1",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "document",
+              "bodyBytes": 62507
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/articles/fixture-article-1",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 979
+            }
+          ]
+        },
+        {
+          "route": "/article/fixture-article-1",
+          "sample": 3,
+          "status": 200,
+          "navigationError": "",
+          "wallMs": 849.588,
+          "ttfbMs": 3.5,
+          "domContentLoadedMs": 11.4,
+          "loadMs": 11.9,
+          "fcpMs": 40,
+          "lcpMs": 108,
+          "cls": 0,
+          "longTaskCount": 1,
+          "longTaskTotalMs": 61,
+          "longTaskMaxMs": 61,
+          "domNodes": 106,
+          "bodyTextLength": 364,
+          "requestCount": 2,
+          "encodedBytes": 64960,
+          "decodedBytes": 63486,
+          "badResponses": [],
+          "ignoredResponses": [],
+          "failedRequests": [],
+          "externalRequests": [],
+          "webSockets": [],
+          "nonGetRequests": [],
+          "responses": [
+            {
+              "url": "http://127.0.0.1:61290/article/fixture-article-1",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "document",
+              "bodyBytes": 62507
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/articles/fixture-article-1",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 979
+            }
+          ]
+        }
+      ],
+      "aggregate": {
+        "route": "/article/fixture-article-1",
+        "samples": 3,
+        "statusErrors": 0,
+        "navigationErrors": 0,
+        "failedRequests": 0,
+        "badResponses": 0,
+        "externalRequests": 0,
+        "webSockets": 0,
+        "nonGetRequests": 0,
+        "ttfbMs": {
+          "min": 3.3,
+          "p50": 3.5,
+          "p95": 4.7,
+          "max": 4.7
+        },
+        "domContentLoadedMs": {
+          "min": 11.4,
+          "p50": 12.1,
+          "p95": 34.7,
+          "max": 34.7
+        },
+        "loadMs": {
+          "min": 11.9,
+          "p50": 12.6,
+          "p95": 34.9,
+          "max": 34.9
+        },
+        "fcpMs": {
+          "min": 40,
+          "p50": 40,
+          "p95": 44,
+          "max": 44
+        },
+        "lcpMs": {
+          "min": 108,
+          "p50": 112,
+          "p95": 112,
+          "max": 112
+        },
+        "cls": {
+          "min": 0,
+          "p50": 0,
+          "p95": 0,
+          "max": 0
+        },
+        "longTaskCount": {
+          "min": 1,
+          "p50": 1,
+          "p95": 1,
+          "max": 1
+        },
+        "longTaskTotalMs": {
+          "min": 61,
+          "p50": 62,
+          "p95": 63,
+          "max": 63
+        },
+        "longTaskMaxMs": {
+          "min": 61,
+          "p50": 62,
+          "p95": 63,
+          "max": 63
+        },
+        "requestCount": {
+          "min": 2,
+          "p50": 2,
+          "p95": 2,
+          "max": 2
+        },
+        "encodedBytes": {
+          "min": 64960,
+          "p50": 64960,
+          "p95": 64960,
+          "max": 64960
+        },
+        "decodedBytes": {
+          "min": 63486,
+          "p50": 63486,
+          "p95": 63486,
+          "max": 63486
+        },
+        "domNodes": {
+          "min": 106,
+          "p50": 106,
+          "p95": 106,
+          "max": 106
+        },
+        "bodyTextLength": {
+          "min": 364,
+          "p50": 364,
+          "p95": 364,
+          "max": 364
+        },
+        "wallMs": {
+          "min": 840.611,
+          "p50": 849.588,
+          "p95": 849.689,
+          "max": 849.689
+        }
+      }
+    },
+    {
+      "route": "/report/2026-07-16.md",
+      "warmup": {
+        "route": "/report/2026-07-16.md",
+        "sample": 0,
+        "status": 200,
+        "navigationError": "",
+        "wallMs": 848.012,
+        "ttfbMs": 3.8,
+        "domContentLoadedMs": 35.6,
+        "loadMs": 35.8,
+        "fcpMs": 40,
+        "lcpMs": 64,
+        "cls": 0,
+        "longTaskCount": 0,
+        "longTaskTotalMs": 0,
+        "longTaskMaxMs": 0,
+        "domNodes": 51,
+        "bodyTextLength": 112,
+        "requestCount": 2,
+        "encodedBytes": 76580,
+        "decodedBytes": 75106,
+        "badResponses": [],
+        "ignoredResponses": [],
+        "failedRequests": [],
+        "externalRequests": [],
+        "webSockets": [],
+        "nonGetRequests": [],
+        "responses": [
+          {
+            "url": "http://127.0.0.1:61290/report/2026-07-16.md",
+            "status": 200,
+            "method": "GET",
+            "resourceType": "document",
+            "bodyBytes": 74950
+          },
+          {
+            "url": "http://127.0.0.1:61290/api/report-content/2026-07-16.md",
+            "status": 200,
+            "method": "GET",
+            "resourceType": "fetch",
+            "bodyBytes": 156
+          }
+        ]
+      },
+      "warmupErrors": 0,
+      "samples": [
+        {
+          "route": "/report/2026-07-16.md",
+          "sample": 1,
+          "status": 200,
+          "navigationError": "",
+          "wallMs": 853.131,
+          "ttfbMs": 4.8,
+          "domContentLoadedMs": 15.3,
+          "loadMs": 15.9,
+          "fcpMs": 48,
+          "lcpMs": 56,
+          "cls": 0,
+          "longTaskCount": 0,
+          "longTaskTotalMs": 0,
+          "longTaskMaxMs": 0,
+          "domNodes": 51,
+          "bodyTextLength": 112,
+          "requestCount": 2,
+          "encodedBytes": 76580,
+          "decodedBytes": 75106,
+          "badResponses": [],
+          "ignoredResponses": [],
+          "failedRequests": [],
+          "externalRequests": [],
+          "webSockets": [],
+          "nonGetRequests": [],
+          "responses": [
+            {
+              "url": "http://127.0.0.1:61290/report/2026-07-16.md",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "document",
+              "bodyBytes": 74950
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/report-content/2026-07-16.md",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 156
+            }
+          ]
+        },
+        {
+          "route": "/report/2026-07-16.md",
+          "sample": 2,
+          "status": 200,
+          "navigationError": "",
+          "wallMs": 857.192,
+          "ttfbMs": 3.9,
+          "domContentLoadedMs": 13.1,
+          "loadMs": 13.7,
+          "fcpMs": 48,
+          "lcpMs": 56,
+          "cls": 0,
+          "longTaskCount": 0,
+          "longTaskTotalMs": 0,
+          "longTaskMaxMs": 0,
+          "domNodes": 51,
+          "bodyTextLength": 112,
+          "requestCount": 2,
+          "encodedBytes": 76580,
+          "decodedBytes": 75106,
+          "badResponses": [],
+          "ignoredResponses": [],
+          "failedRequests": [],
+          "externalRequests": [],
+          "webSockets": [],
+          "nonGetRequests": [],
+          "responses": [
+            {
+              "url": "http://127.0.0.1:61290/report/2026-07-16.md",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "document",
+              "bodyBytes": 74950
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/report-content/2026-07-16.md",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 156
+            }
+          ]
+        },
+        {
+          "route": "/report/2026-07-16.md",
+          "sample": 3,
+          "status": 200,
+          "navigationError": "",
+          "wallMs": 861.063,
+          "ttfbMs": 4.3,
+          "domContentLoadedMs": 12.8,
+          "loadMs": 13.3,
+          "fcpMs": 44,
+          "lcpMs": 52,
+          "cls": 0,
+          "longTaskCount": 0,
+          "longTaskTotalMs": 0,
+          "longTaskMaxMs": 0,
+          "domNodes": 51,
+          "bodyTextLength": 112,
+          "requestCount": 2,
+          "encodedBytes": 76580,
+          "decodedBytes": 75106,
+          "badResponses": [],
+          "ignoredResponses": [],
+          "failedRequests": [],
+          "externalRequests": [],
+          "webSockets": [],
+          "nonGetRequests": [],
+          "responses": [
+            {
+              "url": "http://127.0.0.1:61290/report/2026-07-16.md",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "document",
+              "bodyBytes": 74950
+            },
+            {
+              "url": "http://127.0.0.1:61290/api/report-content/2026-07-16.md",
+              "status": 200,
+              "method": "GET",
+              "resourceType": "fetch",
+              "bodyBytes": 156
+            }
+          ]
+        }
+      ],
+      "aggregate": {
+        "route": "/report/2026-07-16.md",
+        "samples": 3,
+        "statusErrors": 0,
+        "navigationErrors": 0,
+        "failedRequests": 0,
+        "badResponses": 0,
+        "externalRequests": 0,
+        "webSockets": 0,
+        "nonGetRequests": 0,
+        "ttfbMs": {
+          "min": 3.9,
+          "p50": 4.3,
+          "p95": 4.8,
+          "max": 4.8
+        },
+        "domContentLoadedMs": {
+          "min": 12.8,
+          "p50": 13.1,
+          "p95": 15.3,
+          "max": 15.3
+        },
+        "loadMs": {
+          "min": 13.3,
+          "p50": 13.7,
+          "p95": 15.9,
+          "max": 15.9
+        },
+        "fcpMs": {
+          "min": 44,
+          "p50": 48,
+          "p95": 48,
+          "max": 48
+        },
+        "lcpMs": {
+          "min": 52,
+          "p50": 56,
+          "p95": 56,
+          "max": 56
+        },
+        "cls": {
+          "min": 0,
+          "p50": 0,
+          "p95": 0,
+          "max": 0
+        },
+        "longTaskCount": {
+          "min": 0,
+          "p50": 0,
+          "p95": 0,
+          "max": 0
+        },
+        "longTaskTotalMs": {
+          "min": 0,
+          "p50": 0,
+          "p95": 0,
+          "max": 0
+        },
+        "longTaskMaxMs": {
+          "min": 0,
+          "p50": 0,
+          "p95": 0,
+          "max": 0
+        },
+        "requestCount": {
+          "min": 2,
+          "p50": 2,
+          "p95": 2,
+          "max": 2
+        },
+        "encodedBytes": {
+          "min": 76580,
+          "p50": 76580,
+          "p95": 76580,
+          "max": 76580
+        },
+        "decodedBytes": {
+          "min": 75106,
+          "p50": 75106,
+          "p95": 75106,
+          "max": 75106
+        },
+        "domNodes": {
+          "min": 51,
+          "p50": 51,
+          "p95": 51,
+          "max": 51
+        },
+        "bodyTextLength": {
+          "min": 112,
+          "p50": 112,
+          "p95": 112,
+          "max": 112
+        },
+        "wallMs": {
+          "min": 853.131,
+          "p50": 857.192,
+          "p95": 861.063,
+          "max": 861.063
+        }
+      }
+    }
+  ],
+  "apis": [
+    {
+      "endpoint": "/api/health",
+      "warmup": {
+        "sample": 0,
+        "url": "http://127.0.0.1:50556/api/health",
+        "method": "GET",
+        "durationMs": 23.098,
+        "status": 200,
+        "bodyBytes": 130,
+        "error": ""
+      },
+      "samples": [
+        {
+          "sample": 1,
+          "url": "http://127.0.0.1:50556/api/health",
+          "method": "GET",
+          "durationMs": 7.738,
+          "status": 200,
+          "bodyBytes": 130,
+          "error": ""
+        },
+        {
+          "sample": 2,
+          "url": "http://127.0.0.1:50556/api/health",
+          "method": "GET",
+          "durationMs": 13.181,
+          "status": 200,
+          "bodyBytes": 130,
+          "error": ""
+        },
+        {
+          "sample": 3,
+          "url": "http://127.0.0.1:50556/api/health",
+          "method": "GET",
+          "durationMs": 16.108,
+          "status": 200,
+          "bodyBytes": 130,
+          "error": ""
+        },
+        {
+          "sample": 4,
+          "url": "http://127.0.0.1:50556/api/health",
+          "method": "GET",
+          "durationMs": 14.052,
+          "status": 200,
+          "bodyBytes": 130,
+          "error": ""
+        },
+        {
+          "sample": 5,
+          "url": "http://127.0.0.1:50556/api/health",
+          "method": "GET",
+          "durationMs": 11.19,
+          "status": 200,
+          "bodyBytes": 130,
+          "error": ""
+        },
+        {
+          "sample": 6,
+          "url": "http://127.0.0.1:50556/api/health",
+          "method": "GET",
+          "durationMs": 16.916,
+          "status": 200,
+          "bodyBytes": 130,
+          "error": ""
+        },
+        {
+          "sample": 7,
+          "url": "http://127.0.0.1:50556/api/health",
+          "method": "GET",
+          "durationMs": 15.73,
+          "status": 200,
+          "bodyBytes": 130,
+          "error": ""
+        },
+        {
+          "sample": 8,
+          "url": "http://127.0.0.1:50556/api/health",
+          "method": "GET",
+          "durationMs": 14.87,
+          "status": 200,
+          "bodyBytes": 130,
+          "error": ""
+        },
+        {
+          "sample": 9,
+          "url": "http://127.0.0.1:50556/api/health",
+          "method": "GET",
+          "durationMs": 15.983,
+          "status": 200,
+          "bodyBytes": 130,
+          "error": ""
+        },
+        {
+          "sample": 10,
+          "url": "http://127.0.0.1:50556/api/health",
+          "method": "GET",
+          "durationMs": 15.956,
+          "status": 200,
+          "bodyBytes": 130,
+          "error": ""
+        },
+        {
+          "sample": 11,
+          "url": "http://127.0.0.1:50556/api/health",
+          "method": "GET",
+          "durationMs": 15.543,
+          "status": 200,
+          "bodyBytes": 130,
+          "error": ""
+        },
+        {
+          "sample": 12,
+          "url": "http://127.0.0.1:50556/api/health",
+          "method": "GET",
+          "durationMs": 7.852,
+          "status": 200,
+          "bodyBytes": 130,
+          "error": ""
+        },
+        {
+          "sample": 13,
+          "url": "http://127.0.0.1:50556/api/health",
+          "method": "GET",
+          "durationMs": 6.54,
+          "status": 200,
+          "bodyBytes": 130,
+          "error": ""
+        },
+        {
+          "sample": 14,
+          "url": "http://127.0.0.1:50556/api/health",
+          "method": "GET",
+          "durationMs": 15.397,
+          "status": 200,
+          "bodyBytes": 130,
+          "error": ""
+        },
+        {
+          "sample": 15,
+          "url": "http://127.0.0.1:50556/api/health",
+          "method": "GET",
+          "durationMs": 8.207,
+          "status": 200,
+          "bodyBytes": 130,
+          "error": ""
+        },
+        {
+          "sample": 16,
+          "url": "http://127.0.0.1:50556/api/health",
+          "method": "GET",
+          "durationMs": 16.195,
+          "status": 200,
+          "bodyBytes": 130,
+          "error": ""
+        },
+        {
+          "sample": 17,
+          "url": "http://127.0.0.1:50556/api/health",
+          "method": "GET",
+          "durationMs": 15.988,
+          "status": 200,
+          "bodyBytes": 130,
+          "error": ""
+        },
+        {
+          "sample": 18,
+          "url": "http://127.0.0.1:50556/api/health",
+          "method": "GET",
+          "durationMs": 10.024,
+          "status": 200,
+          "bodyBytes": 130,
+          "error": ""
+        },
+        {
+          "sample": 19,
+          "url": "http://127.0.0.1:50556/api/health",
+          "method": "GET",
+          "durationMs": 8.564,
+          "status": 200,
+          "bodyBytes": 130,
+          "error": ""
+        },
+        {
+          "sample": 20,
+          "url": "http://127.0.0.1:50556/api/health",
+          "method": "GET",
+          "durationMs": 15.174,
+          "status": 200,
+          "bodyBytes": 130,
+          "error": ""
+        }
+      ],
+      "aggregate": {
+        "samples": 20,
+        "warmupErrors": 0,
+        "errors": 0,
+        "durationMs": {
+          "min": 6.54,
+          "p50": 14.87,
+          "p95": 16.195,
+          "max": 16.916
+        },
+        "bodyBytes": {
+          "min": 130,
+          "p50": 130,
+          "p95": 130,
+          "max": 130
+        }
+      }
+    },
+    {
+      "endpoint": "/api/entities",
+      "warmup": {
+        "sample": 0,
+        "url": "http://127.0.0.1:50556/api/entities",
+        "method": "GET",
+        "durationMs": 16.425,
+        "status": 200,
+        "bodyBytes": 3465,
+        "error": ""
+      },
+      "samples": [
+        {
+          "sample": 1,
+          "url": "http://127.0.0.1:50556/api/entities",
+          "method": "GET",
+          "durationMs": 14.997,
+          "status": 200,
+          "bodyBytes": 3465,
+          "error": ""
+        },
+        {
+          "sample": 2,
+          "url": "http://127.0.0.1:50556/api/entities",
+          "method": "GET",
+          "durationMs": 11.276,
+          "status": 200,
+          "bodyBytes": 3465,
+          "error": ""
+        },
+        {
+          "sample": 3,
+          "url": "http://127.0.0.1:50556/api/entities",
+          "method": "GET",
+          "durationMs": 12.759,
+          "status": 200,
+          "bodyBytes": 3465,
+          "error": ""
+        },
+        {
+          "sample": 4,
+          "url": "http://127.0.0.1:50556/api/entities",
+          "method": "GET",
+          "durationMs": 16.35,
+          "status": 200,
+          "bodyBytes": 3465,
+          "error": ""
+        },
+        {
+          "sample": 5,
+          "url": "http://127.0.0.1:50556/api/entities",
+          "method": "GET",
+          "durationMs": 7.205,
+          "status": 200,
+          "bodyBytes": 3465,
+          "error": ""
+        },
+        {
+          "sample": 6,
+          "url": "http://127.0.0.1:50556/api/entities",
+          "method": "GET",
+          "durationMs": 6.02,
+          "status": 200,
+          "bodyBytes": 3465,
+          "error": ""
+        },
+        {
+          "sample": 7,
+          "url": "http://127.0.0.1:50556/api/entities",
+          "method": "GET",
+          "durationMs": 16.458,
+          "status": 200,
+          "bodyBytes": 3465,
+          "error": ""
+        },
+        {
+          "sample": 8,
+          "url": "http://127.0.0.1:50556/api/entities",
+          "method": "GET",
+          "durationMs": 15.381,
+          "status": 200,
+          "bodyBytes": 3465,
+          "error": ""
+        },
+        {
+          "sample": 9,
+          "url": "http://127.0.0.1:50556/api/entities",
+          "method": "GET",
+          "durationMs": 10.979,
+          "status": 200,
+          "bodyBytes": 3465,
+          "error": ""
+        },
+        {
+          "sample": 10,
+          "url": "http://127.0.0.1:50556/api/entities",
+          "method": "GET",
+          "durationMs": 16.339,
+          "status": 200,
+          "bodyBytes": 3465,
+          "error": ""
+        },
+        {
+          "sample": 11,
+          "url": "http://127.0.0.1:50556/api/entities",
+          "method": "GET",
+          "durationMs": 14.832,
+          "status": 200,
+          "bodyBytes": 3465,
+          "error": ""
+        },
+        {
+          "sample": 12,
+          "url": "http://127.0.0.1:50556/api/entities",
+          "method": "GET",
+          "durationMs": 15.529,
+          "status": 200,
+          "bodyBytes": 3465,
+          "error": ""
+        },
+        {
+          "sample": 13,
+          "url": "http://127.0.0.1:50556/api/entities",
+          "method": "GET",
+          "durationMs": 9.239,
+          "status": 200,
+          "bodyBytes": 3465,
+          "error": ""
+        },
+        {
+          "sample": 14,
+          "url": "http://127.0.0.1:50556/api/entities",
+          "method": "GET",
+          "durationMs": 10.828,
+          "status": 200,
+          "bodyBytes": 3465,
+          "error": ""
+        },
+        {
+          "sample": 15,
+          "url": "http://127.0.0.1:50556/api/entities",
+          "method": "GET",
+          "durationMs": 16.006,
+          "status": 200,
+          "bodyBytes": 3465,
+          "error": ""
+        },
+        {
+          "sample": 16,
+          "url": "http://127.0.0.1:50556/api/entities",
+          "method": "GET",
+          "durationMs": 17.494,
+          "status": 200,
+          "bodyBytes": 3465,
+          "error": ""
+        },
+        {
+          "sample": 17,
+          "url": "http://127.0.0.1:50556/api/entities",
+          "method": "GET",
+          "durationMs": 19.675,
+          "status": 200,
+          "bodyBytes": 3465,
+          "error": ""
+        },
+        {
+          "sample": 18,
+          "url": "http://127.0.0.1:50556/api/entities",
+          "method": "GET",
+          "durationMs": 14.668,
+          "status": 200,
+          "bodyBytes": 3465,
+          "error": ""
+        },
+        {
+          "sample": 19,
+          "url": "http://127.0.0.1:50556/api/entities",
+          "method": "GET",
+          "durationMs": 11.657,
+          "status": 200,
+          "bodyBytes": 3465,
+          "error": ""
+        },
+        {
+          "sample": 20,
+          "url": "http://127.0.0.1:50556/api/entities",
+          "method": "GET",
+          "durationMs": 16.033,
+          "status": 200,
+          "bodyBytes": 3465,
+          "error": ""
+        }
+      ],
+      "aggregate": {
+        "samples": 20,
+        "warmupErrors": 0,
+        "errors": 0,
+        "durationMs": {
+          "min": 6.02,
+          "p50": 14.832,
+          "p95": 17.494,
+          "max": 19.675
+        },
+        "bodyBytes": {
+          "min": 3465,
+          "p50": 3465,
+          "p95": 3465,
+          "max": 3465
+        }
+      }
+    },
+    {
+      "endpoint": "/api/articles?limit=10&min_score=0",
+      "warmup": {
+        "sample": 0,
+        "url": "http://127.0.0.1:50556/api/articles?limit=10&min_score=0",
+        "method": "GET",
+        "durationMs": 14.987,
+        "status": 200,
+        "bodyBytes": 1127,
+        "error": ""
+      },
+      "samples": [
+        {
+          "sample": 1,
+          "url": "http://127.0.0.1:50556/api/articles?limit=10&min_score=0",
+          "method": "GET",
+          "durationMs": 15.888,
+          "status": 200,
+          "bodyBytes": 1127,
+          "error": ""
+        },
+        {
+          "sample": 2,
+          "url": "http://127.0.0.1:50556/api/articles?limit=10&min_score=0",
+          "method": "GET",
+          "durationMs": 4.772,
+          "status": 200,
+          "bodyBytes": 1127,
+          "error": ""
+        },
+        {
+          "sample": 3,
+          "url": "http://127.0.0.1:50556/api/articles?limit=10&min_score=0",
+          "method": "GET",
+          "durationMs": 10.031,
+          "status": 200,
+          "bodyBytes": 1127,
+          "error": ""
+        },
+        {
+          "sample": 4,
+          "url": "http://127.0.0.1:50556/api/articles?limit=10&min_score=0",
+          "method": "GET",
+          "durationMs": 17.177,
+          "status": 200,
+          "bodyBytes": 1127,
+          "error": ""
+        },
+        {
+          "sample": 5,
+          "url": "http://127.0.0.1:50556/api/articles?limit=10&min_score=0",
+          "method": "GET",
+          "durationMs": 14.584,
+          "status": 200,
+          "bodyBytes": 1127,
+          "error": ""
+        },
+        {
+          "sample": 6,
+          "url": "http://127.0.0.1:50556/api/articles?limit=10&min_score=0",
+          "method": "GET",
+          "durationMs": 15.156,
+          "status": 200,
+          "bodyBytes": 1127,
+          "error": ""
+        },
+        {
+          "sample": 7,
+          "url": "http://127.0.0.1:50556/api/articles?limit=10&min_score=0",
+          "method": "GET",
+          "durationMs": 15.144,
+          "status": 200,
+          "bodyBytes": 1127,
+          "error": ""
+        },
+        {
+          "sample": 8,
+          "url": "http://127.0.0.1:50556/api/articles?limit=10&min_score=0",
+          "method": "GET",
+          "durationMs": 17.049,
+          "status": 200,
+          "bodyBytes": 1127,
+          "error": ""
+        },
+        {
+          "sample": 9,
+          "url": "http://127.0.0.1:50556/api/articles?limit=10&min_score=0",
+          "method": "GET",
+          "durationMs": 15.599,
+          "status": 200,
+          "bodyBytes": 1127,
+          "error": ""
+        },
+        {
+          "sample": 10,
+          "url": "http://127.0.0.1:50556/api/articles?limit=10&min_score=0",
+          "method": "GET",
+          "durationMs": 16.136,
+          "status": 200,
+          "bodyBytes": 1127,
+          "error": ""
+        },
+        {
+          "sample": 11,
+          "url": "http://127.0.0.1:50556/api/articles?limit=10&min_score=0",
+          "method": "GET",
+          "durationMs": 15.599,
+          "status": 200,
+          "bodyBytes": 1127,
+          "error": ""
+        },
+        {
+          "sample": 12,
+          "url": "http://127.0.0.1:50556/api/articles?limit=10&min_score=0",
+          "method": "GET",
+          "durationMs": 12.885,
+          "status": 200,
+          "bodyBytes": 1127,
+          "error": ""
+        },
+        {
+          "sample": 13,
+          "url": "http://127.0.0.1:50556/api/articles?limit=10&min_score=0",
+          "method": "GET",
+          "durationMs": 16.052,
+          "status": 200,
+          "bodyBytes": 1127,
+          "error": ""
+        },
+        {
+          "sample": 14,
+          "url": "http://127.0.0.1:50556/api/articles?limit=10&min_score=0",
+          "method": "GET",
+          "durationMs": 14.318,
+          "status": 200,
+          "bodyBytes": 1127,
+          "error": ""
+        },
+        {
+          "sample": 15,
+          "url": "http://127.0.0.1:50556/api/articles?limit=10&min_score=0",
+          "method": "GET",
+          "durationMs": 10.482,
+          "status": 200,
+          "bodyBytes": 1127,
+          "error": ""
+        },
+        {
+          "sample": 16,
+          "url": "http://127.0.0.1:50556/api/articles?limit=10&min_score=0",
+          "method": "GET",
+          "durationMs": 12.772,
+          "status": 200,
+          "bodyBytes": 1127,
+          "error": ""
+        },
+        {
+          "sample": 17,
+          "url": "http://127.0.0.1:50556/api/articles?limit=10&min_score=0",
+          "method": "GET",
+          "durationMs": 15.101,
+          "status": 200,
+          "bodyBytes": 1127,
+          "error": ""
+        },
+        {
+          "sample": 18,
+          "url": "http://127.0.0.1:50556/api/articles?limit=10&min_score=0",
+          "method": "GET",
+          "durationMs": 15.748,
+          "status": 200,
+          "bodyBytes": 1127,
+          "error": ""
+        },
+        {
+          "sample": 19,
+          "url": "http://127.0.0.1:50556/api/articles?limit=10&min_score=0",
+          "method": "GET",
+          "durationMs": 16.49,
+          "status": 200,
+          "bodyBytes": 1127,
+          "error": ""
+        },
+        {
+          "sample": 20,
+          "url": "http://127.0.0.1:50556/api/articles?limit=10&min_score=0",
+          "method": "GET",
+          "durationMs": 14.766,
+          "status": 200,
+          "bodyBytes": 1127,
+          "error": ""
+        }
+      ],
+      "aggregate": {
+        "samples": 20,
+        "warmupErrors": 0,
+        "errors": 0,
+        "durationMs": {
+          "min": 4.772,
+          "p50": 15.144,
+          "p95": 17.049,
+          "max": 17.177
+        },
+        "bodyBytes": {
+          "min": 1127,
+          "p50": 1127,
+          "p95": 1127,
+          "max": 1127
+        }
+      }
+    },
+    {
+      "endpoint": "/api/reports?type=daily&limit=5",
+      "warmup": {
+        "sample": 0,
+        "url": "http://127.0.0.1:50556/api/reports?type=daily&limit=5",
+        "method": "GET",
+        "durationMs": 9.532,
+        "status": 200,
+        "bodyBytes": 172,
+        "error": ""
+      },
+      "samples": [
+        {
+          "sample": 1,
+          "url": "http://127.0.0.1:50556/api/reports?type=daily&limit=5",
+          "method": "GET",
+          "durationMs": 15.554,
+          "status": 200,
+          "bodyBytes": 172,
+          "error": ""
+        },
+        {
+          "sample": 2,
+          "url": "http://127.0.0.1:50556/api/reports?type=daily&limit=5",
+          "method": "GET",
+          "durationMs": 15.846,
+          "status": 200,
+          "bodyBytes": 172,
+          "error": ""
+        },
+        {
+          "sample": 3,
+          "url": "http://127.0.0.1:50556/api/reports?type=daily&limit=5",
+          "method": "GET",
+          "durationMs": 15.88,
+          "status": 200,
+          "bodyBytes": 172,
+          "error": ""
+        },
+        {
+          "sample": 4,
+          "url": "http://127.0.0.1:50556/api/reports?type=daily&limit=5",
+          "method": "GET",
+          "durationMs": 4.662,
+          "status": 200,
+          "bodyBytes": 172,
+          "error": ""
+        },
+        {
+          "sample": 5,
+          "url": "http://127.0.0.1:50556/api/reports?type=daily&limit=5",
+          "method": "GET",
+          "durationMs": 11.418,
+          "status": 200,
+          "bodyBytes": 172,
+          "error": ""
+        },
+        {
+          "sample": 6,
+          "url": "http://127.0.0.1:50556/api/reports?type=daily&limit=5",
+          "method": "GET",
+          "durationMs": 4.582,
+          "status": 200,
+          "bodyBytes": 172,
+          "error": ""
+        },
+        {
+          "sample": 7,
+          "url": "http://127.0.0.1:50556/api/reports?type=daily&limit=5",
+          "method": "GET",
+          "durationMs": 19.57,
+          "status": 200,
+          "bodyBytes": 172,
+          "error": ""
+        },
+        {
+          "sample": 8,
+          "url": "http://127.0.0.1:50556/api/reports?type=daily&limit=5",
+          "method": "GET",
+          "durationMs": 16.74,
+          "status": 200,
+          "bodyBytes": 172,
+          "error": ""
+        },
+        {
+          "sample": 9,
+          "url": "http://127.0.0.1:50556/api/reports?type=daily&limit=5",
+          "method": "GET",
+          "durationMs": 15.041,
+          "status": 200,
+          "bodyBytes": 172,
+          "error": ""
+        },
+        {
+          "sample": 10,
+          "url": "http://127.0.0.1:50556/api/reports?type=daily&limit=5",
+          "method": "GET",
+          "durationMs": 4.665,
+          "status": 200,
+          "bodyBytes": 172,
+          "error": ""
+        },
+        {
+          "sample": 11,
+          "url": "http://127.0.0.1:50556/api/reports?type=daily&limit=5",
+          "method": "GET",
+          "durationMs": 9.587,
+          "status": 200,
+          "bodyBytes": 172,
+          "error": ""
+        },
+        {
+          "sample": 12,
+          "url": "http://127.0.0.1:50556/api/reports?type=daily&limit=5",
+          "method": "GET",
+          "durationMs": 13.799,
+          "status": 200,
+          "bodyBytes": 172,
+          "error": ""
+        },
+        {
+          "sample": 13,
+          "url": "http://127.0.0.1:50556/api/reports?type=daily&limit=5",
+          "method": "GET",
+          "durationMs": 16.594,
+          "status": 200,
+          "bodyBytes": 172,
+          "error": ""
+        },
+        {
+          "sample": 14,
+          "url": "http://127.0.0.1:50556/api/reports?type=daily&limit=5",
+          "method": "GET",
+          "durationMs": 16.318,
+          "status": 200,
+          "bodyBytes": 172,
+          "error": ""
+        },
+        {
+          "sample": 15,
+          "url": "http://127.0.0.1:50556/api/reports?type=daily&limit=5",
+          "method": "GET",
+          "durationMs": 13.245,
+          "status": 200,
+          "bodyBytes": 172,
+          "error": ""
+        },
+        {
+          "sample": 16,
+          "url": "http://127.0.0.1:50556/api/reports?type=daily&limit=5",
+          "method": "GET",
+          "durationMs": 15.833,
+          "status": 200,
+          "bodyBytes": 172,
+          "error": ""
+        },
+        {
+          "sample": 17,
+          "url": "http://127.0.0.1:50556/api/reports?type=daily&limit=5",
+          "method": "GET",
+          "durationMs": 14.71,
+          "status": 200,
+          "bodyBytes": 172,
+          "error": ""
+        },
+        {
+          "sample": 18,
+          "url": "http://127.0.0.1:50556/api/reports?type=daily&limit=5",
+          "method": "GET",
+          "durationMs": 15.729,
+          "status": 200,
+          "bodyBytes": 172,
+          "error": ""
+        },
+        {
+          "sample": 19,
+          "url": "http://127.0.0.1:50556/api/reports?type=daily&limit=5",
+          "method": "GET",
+          "durationMs": 14.916,
+          "status": 200,
+          "bodyBytes": 172,
+          "error": ""
+        },
+        {
+          "sample": 20,
+          "url": "http://127.0.0.1:50556/api/reports?type=daily&limit=5",
+          "method": "GET",
+          "durationMs": 14.962,
+          "status": 200,
+          "bodyBytes": 172,
+          "error": ""
+        }
+      ],
+      "aggregate": {
+        "samples": 20,
+        "warmupErrors": 0,
+        "errors": 0,
+        "durationMs": {
+          "min": 4.582,
+          "p50": 14.962,
+          "p95": 16.74,
+          "max": 19.57
+        },
+        "bodyBytes": {
+          "min": 172,
+          "p50": 172,
+          "p95": 172,
+          "max": 172
+        }
+      }
+    },
+    {
+      "endpoint": "/api/entities/openai",
+      "warmup": {
+        "sample": 0,
+        "url": "http://127.0.0.1:50556/api/entities/openai",
+        "method": "GET",
+        "durationMs": 19.17,
+        "status": 200,
+        "bodyBytes": 808,
+        "error": ""
+      },
+      "samples": [
+        {
+          "sample": 1,
+          "url": "http://127.0.0.1:50556/api/entities/openai",
+          "method": "GET",
+          "durationMs": 14.12,
+          "status": 200,
+          "bodyBytes": 808,
+          "error": ""
+        },
+        {
+          "sample": 2,
+          "url": "http://127.0.0.1:50556/api/entities/openai",
+          "method": "GET",
+          "durationMs": 16.004,
+          "status": 200,
+          "bodyBytes": 808,
+          "error": ""
+        },
+        {
+          "sample": 3,
+          "url": "http://127.0.0.1:50556/api/entities/openai",
+          "method": "GET",
+          "durationMs": 11.894,
+          "status": 200,
+          "bodyBytes": 808,
+          "error": ""
+        },
+        {
+          "sample": 4,
+          "url": "http://127.0.0.1:50556/api/entities/openai",
+          "method": "GET",
+          "durationMs": 13.844,
+          "status": 200,
+          "bodyBytes": 808,
+          "error": ""
+        },
+        {
+          "sample": 5,
+          "url": "http://127.0.0.1:50556/api/entities/openai",
+          "method": "GET",
+          "durationMs": 9.519,
+          "status": 200,
+          "bodyBytes": 808,
+          "error": ""
+        },
+        {
+          "sample": 6,
+          "url": "http://127.0.0.1:50556/api/entities/openai",
+          "method": "GET",
+          "durationMs": 7.667,
+          "status": 200,
+          "bodyBytes": 808,
+          "error": ""
+        },
+        {
+          "sample": 7,
+          "url": "http://127.0.0.1:50556/api/entities/openai",
+          "method": "GET",
+          "durationMs": 12.092,
+          "status": 200,
+          "bodyBytes": 808,
+          "error": ""
+        },
+        {
+          "sample": 8,
+          "url": "http://127.0.0.1:50556/api/entities/openai",
+          "method": "GET",
+          "durationMs": 15.339,
+          "status": 200,
+          "bodyBytes": 808,
+          "error": ""
+        },
+        {
+          "sample": 9,
+          "url": "http://127.0.0.1:50556/api/entities/openai",
+          "method": "GET",
+          "durationMs": 20.701,
+          "status": 200,
+          "bodyBytes": 808,
+          "error": ""
+        },
+        {
+          "sample": 10,
+          "url": "http://127.0.0.1:50556/api/entities/openai",
+          "method": "GET",
+          "durationMs": 14.45,
+          "status": 200,
+          "bodyBytes": 808,
+          "error": ""
+        },
+        {
+          "sample": 11,
+          "url": "http://127.0.0.1:50556/api/entities/openai",
+          "method": "GET",
+          "durationMs": 16.167,
+          "status": 200,
+          "bodyBytes": 808,
+          "error": ""
+        },
+        {
+          "sample": 12,
+          "url": "http://127.0.0.1:50556/api/entities/openai",
+          "method": "GET",
+          "durationMs": 12.93,
+          "status": 200,
+          "bodyBytes": 808,
+          "error": ""
+        },
+        {
+          "sample": 13,
+          "url": "http://127.0.0.1:50556/api/entities/openai",
+          "method": "GET",
+          "durationMs": 17.216,
+          "status": 200,
+          "bodyBytes": 808,
+          "error": ""
+        },
+        {
+          "sample": 14,
+          "url": "http://127.0.0.1:50556/api/entities/openai",
+          "method": "GET",
+          "durationMs": 14.396,
+          "status": 200,
+          "bodyBytes": 808,
+          "error": ""
+        },
+        {
+          "sample": 15,
+          "url": "http://127.0.0.1:50556/api/entities/openai",
+          "method": "GET",
+          "durationMs": 7.297,
+          "status": 200,
+          "bodyBytes": 808,
+          "error": ""
+        },
+        {
+          "sample": 16,
+          "url": "http://127.0.0.1:50556/api/entities/openai",
+          "method": "GET",
+          "durationMs": 21.917,
+          "status": 200,
+          "bodyBytes": 808,
+          "error": ""
+        },
+        {
+          "sample": 17,
+          "url": "http://127.0.0.1:50556/api/entities/openai",
+          "method": "GET",
+          "durationMs": 13.135,
+          "status": 200,
+          "bodyBytes": 808,
+          "error": ""
+        },
+        {
+          "sample": 18,
+          "url": "http://127.0.0.1:50556/api/entities/openai",
+          "method": "GET",
+          "durationMs": 15.613,
+          "status": 200,
+          "bodyBytes": 808,
+          "error": ""
+        },
+        {
+          "sample": 19,
+          "url": "http://127.0.0.1:50556/api/entities/openai",
+          "method": "GET",
+          "durationMs": 7.072,
+          "status": 200,
+          "bodyBytes": 808,
+          "error": ""
+        },
+        {
+          "sample": 20,
+          "url": "http://127.0.0.1:50556/api/entities/openai",
+          "method": "GET",
+          "durationMs": 24.103,
+          "status": 200,
+          "bodyBytes": 808,
+          "error": ""
+        }
+      ],
+      "aggregate": {
+        "samples": 20,
+        "warmupErrors": 0,
+        "errors": 0,
+        "durationMs": {
+          "min": 7.072,
+          "p50": 14.12,
+          "p95": 21.917,
+          "max": 24.103
+        },
+        "bodyBytes": {
+          "min": 808,
+          "p50": 808,
+          "p95": 808,
+          "max": 808
+        }
+      }
+    }
+  ],
+  "summary": {
+    "pageRoutes": 10,
+    "pageSamples": 30,
+    "apiEndpoints": 5,
+    "apiSamples": 100,
+    "pageErrors": 0,
+    "apiErrors": 0
+  },
+  "phaseEvidence": {
+    "pages": "pages/audit/audit.json",
+    "apis": "apis/audit/audit.json"
+  }
+}
