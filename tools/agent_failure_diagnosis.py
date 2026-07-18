@@ -9,6 +9,11 @@ import math
 from pathlib import Path
 from typing import Any
 
+try:  # 支持 `python tools/...py` 与作为 tests 中模块导入两种入口。
+    from tools.performance_arbitration import classify_summary as classify_performance_summary
+except ModuleNotFoundError:  # pragma: no cover - 仅脚本直接执行时触发。
+    from performance_arbitration import classify_summary as classify_performance_summary
+
 
 SAFE_COMMANDS = {
     "quality": "uv run --frozen python tools/quality_gate.py checkpoint",
@@ -90,13 +95,20 @@ def _require_run_metadata(summary: dict, gate: str) -> None:
         _nonempty_string(summary.get(key), f"{gate} 缺少 {key}")
 
 
-def _complete_arbitration_run(run: Any) -> dict:
+def _resolve_runner_summary(source_summary: Path, reported_path: str, evidence_root: Path | None) -> Path:
+    root = (evidence_root or source_summary.parent).resolve()
+    candidate = (root / reported_path).resolve()
+    _require(candidate.is_relative_to(root) and candidate.is_file(), "performance-arbitration Runner summary 不在受控证据目录中")
+    return candidate
+
+
+def _complete_arbitration_run(run: Any, source_summary: Path, evidence_root: Path | None) -> dict:
     evidence = _require_keys(
         run,
         ("summary_path", "summary_sha256", "classification", "fingerprints", "run_id", "status", "error"),
         "performance-arbitration Runner 缺少完整证据",
     )
-    _nonempty_string(evidence["summary_path"], "performance-arbitration Runner 缺少 summary_path")
+    reported_path = _nonempty_string(evidence["summary_path"], "performance-arbitration Runner 缺少 summary_path")
     digest = _nonempty_string(evidence["summary_sha256"], "performance-arbitration Runner 缺少 summary_sha256")
     _require(len(digest) == 64 and all(char in "0123456789abcdef" for char in digest.lower()), "performance-arbitration Runner SHA-256 无效")
     _nonempty_string(evidence["run_id"], "performance-arbitration Runner 缺少 run_id")
@@ -110,6 +122,14 @@ def _complete_arbitration_run(run: Any) -> dict:
         _require(evidence["status"] == "failed" and fingerprints, "performance-arbitration 预算回归 Runner 缺少指纹")
     else:
         _require(evidence["status"] == "failed" and evidence["error"], "performance-arbitration 基础设施异常 Runner 缺少错误")
+    runner_summary = _resolve_runner_summary(source_summary, reported_path, evidence_root)
+    _require(_sha256(runner_summary) == digest, "performance-arbitration Runner SHA-256 与内容不匹配")
+    classified = classify_performance_summary(runner_summary)
+    _require(classified.get("classification") == evidence["classification"], "performance-arbitration Runner 分类与原始证据不一致")
+    _require(classified.get("run_id") == evidence["run_id"] and classified.get("status") == evidence["status"], "performance-arbitration Runner 身份或状态与原始证据不一致")
+    _require(classified.get("fingerprints", []) == fingerprints, "performance-arbitration Runner 指纹与原始证据不一致")
+    if evidence["classification"] == "passed":
+        _require(diagnose("performance", runner_summary)["classification"] == "continue", "performance-arbitration 通过 Runner 未通过完整性能诊断")
     return evidence
 
 
@@ -167,6 +187,11 @@ def _diagnose_quality(result: dict, summary: dict) -> dict:
     _require(passed == (summary["exit_code"] == 0), "quality result 与 exit_code 不一致")
     if passed:
         _require(counts.get("passed", 0) > 0, "quality 通过结果缺少通过测试计数")
+        outcomes = sum(counts.get(key, 0) for key in ("passed", "failed", "errors", "skipped", "xfailed", "xpassed"))
+        _require("collected" not in counts or counts["collected"] == outcomes, "quality 测试计数不一致")
+        _require(not counts.get("failed", 0) and not counts.get("errors", 0) and not counts.get("xpassed", 0), "quality 通过结果包含失败测试计数")
+        _require(summary["git_digest_before"] == summary["git_digest_after"] and summary["runtime_digest_before"] == summary["runtime_digest_after"], "quality 通过结果的摘要发生变化")
+        _require(not summary["git_status_added"] and not summary["git_status_removed"], "quality 通过结果包含 Git 状态变化")
         _require(not fingerprints and not summary.get("git_content_changed") and not summary.get("runtime_content_changed"), "quality 通过结果包含失败证据")
         result.update(classification="continue", reason="质量门禁通过")
         return result
@@ -200,6 +225,7 @@ def _diagnose_browser(result: dict, summary: dict) -> dict:
         for screenshot in screenshots.values():
             _nonempty_string(screenshot, "browser 截图证据无效")
     if summary["status"] == "passed":
+        _require(all(case["passed"] and not case["failures"] for case in cases), "browser 通过结果包含失败 case")
         _require(exit_code == 0 and pollution.get("detected") is False and not summary.get("error"), "browser 通过结果包含失败证据")
         result.update(classification="continue", reason="浏览器门禁通过")
         return result
@@ -233,6 +259,9 @@ def _diagnose_accessibility(result: dict, summary: dict) -> dict:
     )
     fingerprints = _fingerprints(new)
     if summary["status"] == "passed":
+        _require(audit_summary["checks"] > 0 and audit_summary["infrastructureFailures"] == 0, "accessibility 通过结果的 audit 不完整")
+        _require(audit_summary["violations"] == len(known) + len(new), "accessibility audit 与比较明细不一致")
+        _require(baseline["violation_count"] == len(known) + len(resolved), "accessibility 基线与比较明细不一致")
         _require(exit_code == 0 and not fingerprints and pollution.get("detected") is False and not summary.get("error"), "accessibility 通过结果包含失败证据")
         result.update(classification="continue", reason="可访问性门禁通过")
         return result
@@ -257,19 +286,22 @@ def _diagnose_performance(result: dict, summary: dict) -> dict:
     _require(isinstance(summary.get("fixture"), dict), "performance 缺少夹具证据")
     fingerprints = _fingerprints(summary.get("violations"))
     if summary["status"] == "passed":
+        _require(audit_summary["pageErrors"] == 0 and audit_summary["apiErrors"] == 0, "performance 通过结果包含审计错误")
         _require(not fingerprints and pollution.get("detected") is False and not summary.get("error"), "performance 通过结果包含失败证据")
         result.update(classification="continue", reason="性能门禁通过")
         return result
+    if not fingerprints:
+        return _failed(result, "performance_infrastructure_error", str(summary.get("error") or "性能门禁缺少可仲裁的预算违规证据"), needs_human=True)
     return _failed(result, "stable_performance_regression", str(summary.get("error") or "稳定性能预算回归"), fingerprints, needs_human=True)
 
 
-def _diagnose_arbitration(result: dict, summary: dict) -> dict:
+def _diagnose_arbitration(result: dict, summary: dict, source_summary: Path, evidence_root: Path | None) -> dict:
     _require(summary.get("schema_version") == 1 and summary.get("status") in {"passed", "failed"}, "performance-arbitration summary 无效")
     expected, found = summary.get("expected_runs"), summary.get("found_runs")
     verdict = summary.get("verdict")
     runs = summary.get("runs")
     _require(expected == 3 and found == 3 and isinstance(runs, list) and len(runs) == found, "performance-arbitration Runner 证据无效")
-    validated_runs = [_complete_arbitration_run(run) for run in runs]
+    validated_runs = [_complete_arbitration_run(run, source_summary, evidence_root) for run in runs]
     _require(len({run["run_id"] for run in validated_runs}) == found, "performance-arbitration Runner run_id 不唯一")
     if summary["status"] == "passed":
         failures = summary.get("budget_regression_runs")
@@ -301,7 +333,7 @@ DIAGNOSERS = {
 }
 
 
-def diagnose(gate: str, summary_path: Path) -> dict[str, Any]:
+def diagnose(gate: str, summary_path: Path, *, evidence_root: Path | None = None) -> dict[str, Any]:
     _require(gate in DIAGNOSERS, f"未知门禁：{gate}")
     try:
         summary = json.loads(summary_path.read_text(encoding="utf-8"))
@@ -309,7 +341,10 @@ def diagnose(gate: str, summary_path: Path) -> dict[str, Any]:
         raise ValueError(f"无法读取 summary：{exc}") from exc
     _require(isinstance(summary, dict), "summary 必须是 JSON 对象")
     result = _base(gate, summary_path, summary)
-    result = DIAGNOSERS[gate](result, summary)
+    if gate == "performance-arbitration":
+        result = _diagnose_arbitration(result, summary, summary_path, evidence_root)
+    else:
+        result = DIAGNOSERS[gate](result, summary)
     for command in result["suggested_commands"]:
         _require(not any(token in command.lower() for token in UNSAFE_TOKENS), "诊断命令违反只读策略")
     return result
@@ -319,6 +354,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--gate", choices=GATES, required=True)
     parser.add_argument("--summary", type=Path, required=True)
+    parser.add_argument("--evidence-root", type=Path, help="仲裁 Runner 摘要所在的受控根目录")
     parser.add_argument("--output", type=Path, required=True)
     return parser.parse_args()
 
@@ -326,7 +362,7 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     try:
-        diagnosis = diagnose(args.gate, args.summary)
+        diagnosis = diagnose(args.gate, args.summary, evidence_root=args.evidence_root)
     except ValueError as exc:
         diagnosis = {"schema_version": 1, "status": "failed", "classification": "invalid_evidence", "reason": str(exc), "needs_human": True}
         exit_code = 1
