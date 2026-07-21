@@ -12,7 +12,7 @@ AI News — 主控管道
   python pipeline.py --no-cache           # 不使用去重缓存（开发调试用）
   python pipeline.py --hours 24           # 只处理 inbox 中近 24 小时的文章
   python pipeline.py --limit 10           # 只处理 10 篇（默认不限制）
-  python pipeline.py --only-unprocessed   # 跳过已有评分/摘要的文章
+  python pipeline.py --include-processed  # 包含已处理文章（调试用）
   python pipeline.py --concurrency 3      # AI 摘要并发数（默认 3）
   python pipeline.py --weekly             # 生成周报（汇总过去 7 天日报）
   python pipeline.py --monthly            # 生成月报（汇总过去 30 天日报）
@@ -98,7 +98,8 @@ def _parse_args() -> dict:
         "gen_dashboard": "--dashboard" in sys.argv,
         "gen_library": "--library" in sys.argv,
         "gen_timeline": "--timeline" in sys.argv,
-        "only_unprocessed": "--only-unprocessed" in sys.argv,
+        # --only-unprocessed is now the default; use --include-processed to opt out
+        "only_unprocessed": "--include-processed" not in sys.argv,
         "do_resume": "--resume" in sys.argv,
         "reset_checkpoint": "--reset-checkpoint" in sys.argv,
         "report_date": None,

@@ -101,18 +101,21 @@ INBOX_DIR = ROOT_DIR / "data"
 def append_inbox(articles: list[Article], inbox_path: Path | None = None) -> Path:
     """将文章追加写入 JSONL 文件（含持久化去重）。
 
-    写入前读取现有 inbox 中的 article_id，已存在则跳过。
-    确保同一 URL 的文章不会在 inbox 中出现多次（跨 Action 运行）。
+    写入前读取现有 inbox 中的 article_id 和标题，已存在则跳过。
+    确保同一 URL 和相似标题的文章不会在 inbox 中出现多次。
 
     返回写入后的 inbox 路径。
     """
+    from difflib import SequenceMatcher
+
     if inbox_path is None:
         inbox_path = INBOX_DIR / "inbox.jsonl"
     inbox_path = Path(inbox_path)
     inbox_path.parent.mkdir(parents=True, exist_ok=True)
 
-    # ── 读取现有 inbox 中的文章 ID ──
+    # ── 读取现有 inbox 中的文章 ID 和标题 ──
     existing_ids: set[str] = set()
+    existing_titles: list[str] = []
     if inbox_path.exists() and inbox_path.stat().st_size > 0:
         with open(inbox_path, "r", encoding="utf-8") as f:
             for line in f:
@@ -120,17 +123,40 @@ def append_inbox(articles: list[Article], inbox_path: Path | None = None) -> Pat
                 if not line:
                     continue
                 try:
-                    aid = json.loads(line).get("id", "")
+                    data = json.loads(line)
+                    aid = data.get("id", "")
+                    title = data.get("title", "")
                     if aid:
                         existing_ids.add(aid)
+                    if title:
+                        existing_titles.append(title.lower().strip())
                 except json.JSONDecodeError:
                     continue
 
-    # ── 过滤：只保留 inbox 中不存在的文章 ──
-    new_articles = [a for a in articles if a.id not in existing_ids]
-    skipped = len(articles) - len(new_articles)
-    if skipped:
-        log.info(f"Inbox 去重: 跳过 {skipped} 篇已存在 (现有 {len(existing_ids)} 条)")
+    # ── 过滤：ID 去重 + 标题相似度去重 ──
+    new_articles = []
+    skipped_id = 0
+    skipped_title = 0
+    for a in articles:
+        # 1. URL/ID 精确匹配
+        if a.id in existing_ids:
+            skipped_id += 1
+            continue
+        # 2. 标题相似度检测 (阈值 0.85，仅与最近 500 篇比较以保性能)
+        is_title_dup = False
+        cmp_title = a.title.lower().strip()
+        for et in existing_titles[-500:]:
+            if SequenceMatcher(None, cmp_title, et).ratio() >= 0.85:
+                skipped_title += 1
+                is_title_dup = True
+                break
+        if is_title_dup:
+            continue
+        new_articles.append(a)
+
+    if skipped_id or skipped_title:
+        log.info(f"Inbox 去重: 跳过 {skipped_id} 篇 ID重复 + {skipped_title} 篇标题重复 "
+                 f"(现有 {len(existing_ids)} 条)")
 
     if not new_articles:
         log.debug("Inbox 写入: 无新文章")
