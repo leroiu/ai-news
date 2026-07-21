@@ -112,6 +112,7 @@ def run_daily_pipeline(
             if before > len(articles):
                 log.info(f"  → 去重: {before} → {len(articles)} 篇 (移除 {before - len(articles)} 篇重复)")
             log.info(f"  → inbox 中 {len(articles)} 篇待分析")
+            fetched_count = len(articles)  # 修正：inbox 模式下也记录实际读取数
 
         _log_stage("fetch+dedup", _tick() - t_fetch)
         save_checkpoint("fetch+dedup", [a.id for a in articles], run_id)
