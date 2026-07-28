@@ -9,6 +9,11 @@ import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
 WORKFLOW_PATH = ROOT / ".github" / "workflows" / "quality-gate.yml"
+CHECKOUT_ACTION = "actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1"
+SETUP_NODE_ACTION = "actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e"
+SETUP_UV_ACTION = "astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b"
+UPLOAD_ACTION = "actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a"
+DOWNLOAD_ACTION = "actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c"
 
 
 def load_workflow() -> dict:
@@ -61,6 +66,7 @@ def test_quality_keeps_non_performance_gates_serial_and_mandatory():
     assert positions == sorted(positions)
     assert all("uv run --frozen" in commands[index] for index in positions)
     assert not any("tools/performance_gate.py" in command for command in commands)
+    assert any("uv run --frozen ruff check ." in command for command in commands)
 
 
 def test_each_performance_measurement_uses_frozen_toolchain_and_three_runners():
@@ -73,9 +79,9 @@ def test_each_performance_measurement_uses_frozen_toolchain_and_three_runners():
     assert performance["needs"] == "quality"
     assert performance["strategy"]["fail-fast"] == "false"
     assert matrix["runner"] == ["one", "two", "three"]
-    assert "actions/checkout@v7" in uses
-    assert "astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b" in uses
-    assert "actions/setup-node@v6" in uses
+    assert CHECKOUT_ACTION in uses
+    assert SETUP_UV_ACTION in uses
+    assert SETUP_NODE_ACTION in uses
     assert any("uv sync --frozen --all-groups" in command for command in commands)
     assert any("npm ci" in command for command in commands)
     assert any("playwright install chromium" in command for command in commands)
@@ -93,7 +99,7 @@ def test_arbitration_downloads_three_runner_evidence_and_is_final_performance_de
 
     assert arbitration["needs"] == ["quality", "performance"]
     assert arbitration["if"] == "${{ always() }}"
-    assert download["uses"] == "actions/download-artifact@v7"
+    assert download["uses"] == DOWNLOAD_ACTION
     assert download["continue-on-error"] == "true"
     assert "performance-gate-" in download["with"]["pattern"]
     assert any("tools/performance_arbitration.py" in command for command in commands)
@@ -111,7 +117,7 @@ def test_all_gate_evidence_is_immutable_and_uploaded_on_failure():
 
     assert len(uploads) == 3
     for upload in uploads:
-        assert upload["uses"] == "actions/upload-artifact@v7"
+        assert upload["uses"] == UPLOAD_ACTION
         assert upload["if"] == "${{ always() }}"
         assert upload["with"]["retention-days"] == "14"
         assert "github.run_id" in upload["with"]["name"]
@@ -122,6 +128,47 @@ def test_all_gate_evidence_is_immutable_and_uploaded_on_failure():
     )
     assert "matrix.runner" in performance_upload["with"]["name"]
     assert performance_upload["with"]["path"] == "output/performance-gate/"
+
+
+def test_toolchain_versions_are_pinned_and_actions_use_immutable_commits():
+    workflow = load_workflow()
+    action_uses = [
+        step["uses"]
+        for job in workflow["jobs"].values()
+        for step in job["steps"]
+        if "uses" in step
+    ]
+
+    assert all(
+        use.rsplit("@", 1)[-1].isalnum() and len(use.rsplit("@", 1)[-1]) == 40
+        for use in action_uses
+    )
+    for job_name in ("quality", "performance"):
+        uv_step = next(step for step in steps(job_name) if step.get("uses") == SETUP_UV_ACTION)
+        node_step = next(
+            step for step in steps(job_name) if step.get("uses") == SETUP_NODE_ACTION
+        )
+        assert uv_step["with"]["version"] == "0.11.32"
+        assert uv_step["with"]["python-version"] == "3.13.14"
+        assert node_step["with"]["node-version"] == "24.17.0"
+        assert any(
+            step.get("run") == "npm install --global npm@11.16.0"
+            for step in steps(job_name)
+        )
+
+
+def test_python_314_compatibility_is_visible_but_non_blocking():
+    job = load_workflow()["jobs"]["python-314-compatibility"]
+    setup = next(step for step in job["steps"] if step.get("uses") == SETUP_UV_ACTION)
+
+    assert job["runs-on"] == "ubuntu-latest"
+    assert job["continue-on-error"] == "true"
+    assert setup["with"]["version"] == "0.11.32"
+    assert setup["with"]["python-version"] == "3.14.6"
+    assert any(
+        step.get("run") == "uv run --frozen pytest tests -q --tb=short"
+        for step in job["steps"]
+    )
 
 
 def test_portable_baselines_bind_repo_relative_raw_evidence():

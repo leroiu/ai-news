@@ -18,6 +18,8 @@ build/
 # Cache & Temp
 cache/
 .pytest_cache/
+.uv-cache/
+.uv-cache-test/
 node_modules/
 test-results/
 playwright-report/
@@ -48,7 +50,10 @@ Thumbs.db
 Desktop.ini
 
 # Claude Code
-.claude/
+# 共享安全配置纳入版本控制；锁文件、个人技能和本机状态继续忽略。
+.claude/*
+!.claude/settings.json
+!.claude/settings.longrun.json
 .private/
 .reasonix/
 

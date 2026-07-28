@@ -9,7 +9,8 @@ from typing import Optional
 from fastapi import APIRouter, HTTPException, Depends
 from pydantic import BaseModel, Field
 import bcrypt
-from jose import jwt, JWTError
+import jwt
+from jwt import InvalidTokenError
 
 from src.engine.db_core import get_db
 
@@ -73,7 +74,7 @@ def create_access_token(user_id: int, username: str, role: str) -> str:
 def decode_token(token: str) -> Optional[dict]:
     try:
         return jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-    except JWTError:
+    except InvalidTokenError:
         return None
 
 

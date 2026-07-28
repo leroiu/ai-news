@@ -17,18 +17,25 @@ jobs:
   collect:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      PYTHONUTF8: "1"
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - name: Install uv
-        uses: astral-sh/setup-uv@v5
+      - name: Install pinned uv and Python
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          version: 0.11.32
+          python-version: 3.13.14
+          enable-cache: true
+          cache-dependency-glob: uv.lock
 
-      - name: Install dependencies
-        run: uv sync
+      - name: Restore frozen runtime dependencies
+        run: uv sync --frozen --no-dev
 
       - name: Run collector
-        run: uv run python collector.py
+        run: uv run --frozen --no-dev python collector.py
 
       - name: Commit and push changes
         run: |

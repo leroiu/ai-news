@@ -2,19 +2,20 @@
 name = "ai-news"
 version = "0.1.0"
 description = "AI-powered daily news digest — fetch, classify, summarize, score, and report"
-requires-python = ">=3.11"
+requires-python = ">=3.13,<3.15"
 dependencies = [
     "feedparser>=6.0",
     "pyyaml>=6.0",
-    "anthropic>=0.40.0",
     "python-dotenv>=1.0",
     "httpx>=0.28.0",
     "beautifulsoup4>=4.15.0",
-    "openai>=2.44.0",
-    "fastapi>=0.138.1",
-    "uvicorn>=0.49.0",
-    "python-jose[cryptography]>=3.5.0",
+    "openai>=2.46.0",
+    "fastapi>=0.139.2",
+    "uvicorn>=0.51.0",
+    "pyjwt>=2.13.0",
     "bcrypt>=5.0.0",
+    "pydantic>=2.13.4",
+    "starlette>=1.3.1",
 ]
 
 [project.scripts]
@@ -23,15 +24,28 @@ ai-news = "pipeline:main"
 [dependency-groups]
 dev = [
     "coverage>=7.6",
+    "pip-audit>=2.10.1,<3",
     "pytest>=8.0",
     "pytest-asyncio>=0.25",
+    "ruff>=0.15.22,<0.17",
 ]
+
+[tool.uv]
+required-version = "==0.11.32"
+exclude-newer = "1 week"
 
 [tool.pytest.ini_options]
 pythonpath = [".", "FileInbox"]
 filterwarnings = [
     "error::_pytest.warning_types.PytestUnraisableExceptionWarning",
 ]
+
+[tool.ruff]
+target-version = "py313"
+
+[tool.ruff.lint]
+# 首期只阻断确定性运行错误；存量风格问题分批清理后再扩展规则集。
+select = ["E9", "F63", "F7", "F82"]
 
 [tool.coverage.run]
 dynamic_context = "test_function"

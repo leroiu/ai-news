@@ -73,7 +73,8 @@ async function visibleLoadingStates(page) {
 async function main() {
   await fs.mkdir(path.join(outputDir, 'screenshots'), { recursive: true });
   await fs.mkdir(path.join(outputDir, 'cases'), { recursive: true });
-  const browser = await chromium.launch({ headless: true });
+  const executablePath = process.env.PLAYWRIGHT_EXECUTABLE_PATH || undefined;
+  const browser = await chromium.launch({ headless: true, executablePath });
   const cases = [];
 
   try {

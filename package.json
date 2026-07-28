@@ -1,6 +1,10 @@
 {
   "name": "ai-news-frontend-verification",
   "private": true,
+  "packageManager": "npm@11.16.0",
+  "engines": {
+    "node": "24.x"
+  },
   "devDependencies": {
     "@playwright/test": "1.61.1"
   }

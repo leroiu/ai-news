@@ -28,7 +28,8 @@ function fingerprint(violation) {
 
 async function main() {
   await fs.mkdir(path.join(outputDir, 'cases'), { recursive: true });
-  const browser = await chromium.launch({ headless: true });
+  const executablePath = process.env.PLAYWRIGHT_EXECUTABLE_PATH || undefined;
+  const browser = await chromium.launch({ headless: true, executablePath });
   const results = [];
   const infrastructureFailures = [];
 

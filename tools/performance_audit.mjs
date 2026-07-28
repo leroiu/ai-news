@@ -381,7 +381,8 @@ async function main() {
   const pageResults = [];
   let browserVersion = '';
   if (mode !== 'apis') {
-    const browser = await chromium.launch({ headless: true });
+    const executablePath = process.env.PLAYWRIGHT_EXECUTABLE_PATH || undefined;
+    const browser = await chromium.launch({ headless: true, executablePath });
     browserVersion = browser.version();
     try {
       for (const route of routes) {

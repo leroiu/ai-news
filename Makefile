@@ -1,4 +1,10 @@
-.PHONY: verify verify-dev verify-release visual-check quality-baseline quality-checkpoint test-snapshot test-plan test-changed browser-fixture browser-check browser-check-extended accessibility-baseline accessibility-check performance-baseline performance-check postdeploy-check acceptance-verify acceptance-finalize
+.PHONY: lint security-audit verify verify-dev verify-release visual-check quality-baseline quality-checkpoint test-snapshot test-plan test-changed browser-fixture browser-check browser-check-extended accessibility-baseline accessibility-check performance-baseline performance-check postdeploy-check acceptance-verify acceptance-finalize
+
+lint:
+	uv run --frozen ruff check .
+
+security-audit:
+	uv run --frozen pip-audit --local
 
 verify:
 	uv run python tools/verify_frontend.py
