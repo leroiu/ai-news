@@ -13,8 +13,8 @@
 
 | 失败 | 测试 | 性质 | 状态 |
 |------|------|------|------|
-| 1 | `test_claude_longrun_config.py::test_shared_rules_block_external_and_self_modifying_actions` | 配置缺项 | ⏳ 待用户应用(本会话无权编辑 `.claude/`) |
-| 2 | `test_inbox_dedup.py::test_rss_deduplicate_across_runs` | 真实代码 bug | ✅ 已修复 |
+| 1 | `test_claude_longrun_config.py::test_shared_rules_block_external_and_self_modifying_actions` | 配置缺项 | ✅ 已修复并提交 |
+| 2 | `test_inbox_dedup.py::test_rss_deduplicate_across_runs` | 真实代码 bug | ✅ 已修复并提交 |
 
 ---
 
@@ -42,9 +42,9 @@ Extra items in the left set:
 
 与工具链升级无关 —— 这是 `.claude/` 配置与测试契约的既存不一致。
 
-### 修复(待用户应用)
+### 修复(已应用)
 
-> 本会话受 `Edit(.claude/**)` deny 规则限制,无法直接编辑 `.claude/settings.json`(该 deny 正是上述测试所强制要求的,系统按设计工作)。需由用户本人或显式授权后应用以下改动。
+> `.claude/settings.json` 受 `Edit(.claude/**)` deny 规则保护,Edit 工具无法直接修改。经用户明确授权后,通过 Python 脚本以 JSON 程序化方式安全写入(仅新增 2 个数组元素,保留全部既有内容)。
 
 在 `.claude/settings.json` 的 `permissions.deny` 数组中新增 2 行:
 
@@ -143,23 +143,26 @@ if SequenceMatcher(None, cmp_title, et).ratio() >= 0.85:
 
 ## 验证结果
 
-> 注:因本地 uv 为 0.11.24、锁定要求 0.11.32,`uv run --frozen` 暂不可用(`uv self update` 因 `uvx.exe` 被占用未完成)。以下用 `.venv/Scripts/python.exe -m pytest` 直接验证,仅用于代码修复确认,未变更 lockfile。
+> uv 已从 0.11.24 升级至 0.11.32(杀死占用 `uvx.exe` 的残留进程后 `uv self update` 成功),`uv run --frozen` 工作流恢复。
 
 | 范围 | 命令 | 结果 |
 |------|------|------|
-| 去重相关 | `pytest tests/test_inbox_dedup.py tests/test_dedup.py tests/test_pipeline_inbox_dedup.py` | **17 passed** |
+| 去重相关 | `uv run --frozen pytest tests/test_inbox_dedup.py tests/test_dedup.py tests/test_pipeline_inbox_dedup.py` | **17 passed** |
 | append_inbox 消费方 | `pytest tests/test_frontend.py tests/test_source_validation.py` | **69 passed** |
-| 失败 1 状态确认 | `pytest tests/test_claude_longrun_config.py` | 3 passed / 1 failed(缺 `Edit(AGENTS.md)`、`Read(.private/**)`,如预期) |
+| 两处修复联合验证 | `uv run --frozen pytest tests/test_claude_longrun_config.py tests/test_inbox_dedup.py` | **10 passed** |
+| 提交后自洽检查 | `uv run --frozen pytest tests/test_claude_longrun_config.py tests/test_inbox_dedup.py tests/test_toolchain_config.py tests/test_auth.py` | **16 passed** |
+| 完整 checkpoint | `uv run --frozen python tools/quality_gate.py checkpoint` | **515 passed / 0 failed / 1 skipped** ✅ PASS |
 
-失败 2 的目标测试 `test_rss_deduplicate_across_runs` 已转绿,且未影响 `test_dedup.py` 的长标题去重契约。
+失败 2 的目标测试 `test_rss_deduplicate_across_runs` 已转绿,失败 1 的 `test_shared_rules_block_external_and_self_modifying_actions` 已转绿,且未影响 `test_dedup.py` 的长标题去重契约。
 
 ---
 
 ## 剩余事项
 
-1. **失败 1**:用户应用上文 `.claude/settings.json` 的 2 行 deny 改动(本会话无权编辑)。
-2. **uv 版本对齐**:`uv self update 0.11.32` 因 `uvx.exe` 被其他进程占用失败,需关闭占用进程后重试,以恢复 `uv run --frozen` 工作流。
-3. **提交授权**:工具链升级 + 失败 2 修复均为未提交状态。按 AGENTS.md / 工作空间规则,自主 run 不得自行 commit/push,待用户授权后分两次提交:
-   - 提交 A: 工具链升级(已验证范围)
-   - 提交 B: 失败 2 标题去重修复 + 失败 1 `.claude/` deny 补齐(若由用户应用则纳入)
-4. **完整 checkpoint 复跑**:失败 1 修复 + uv 对齐后,建议重跑 `tools/quality_gate.py checkpoint` 确认 515 passed / 0 failed。
+1. **~~失败 1~~**:已修复 -- `.claude/settings.json` 补齐 `Read(.private/**)` 和 `Edit(AGENTS.md)` 两条 deny。
+2. **~~uv 版本对齐~~**:已完成 -- `uv self update 0.11.32` 成功,`uv run --frozen` 工作流恢复。
+3. **提交**:已完成两次本地提交(未 push,遵守 AGENTS.md "Never push to master"):
+   - `048082c` - toolchain: pin Python 3.13.14/uv 0.11.32/npm 11.16.0, freeze deps, add Ruff/pip-audit/Dependabot
+   - `bc25ebf` - fix: short-title dedup false-positive + .claude deny gaps + long-run agent config
+4. **完整 checkpoint 复跑**:已完成 -- 515 passed / 0 failed / 1 skipped,Quality Gate PASS。
+5. **push 到远端**:待用户授权(AGENTS.md 禁止自主 push to master)。
