@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "deny": [
+      "Read(.env)",
+      "Read(.private/**)",
+      "Read(.private/**/.env)",
+      "Read(//**/.ssh/**)",
+      "Edit(.env)",
+      "Edit(.private/**/.env)",
+      "Edit(data/**)",
+      "Edit(reports/**)",
+      "Edit(cache/**)",
+      "Edit(logs/**)",
+      "Edit(.claude/**)",
+      "Edit(CLAUDE.md)",
+      "Edit(AGENTS.md)",
+      "Edit(docs/LONG_RUNNING_AGENT_MODE.md)",
+      "Edit(scripts/start-claude-longrun.ps1)",
+      "Edit(tools/claude_checkpoint.py)",
+      "PowerShell(git push *)",
+      "PowerShell(git merge *)",
+      "PowerShell(git rebase *)",
+      "PowerShell(git reset *)",
+      "PowerShell(git clean *)",
+      "PowerShell(git checkout -- *)",
+      "PowerShell(gh *)",
+      "PowerShell(ssh *)",
+      "PowerShell(scp *)",
+      "PowerShell(sftp *)",
+      "PowerShell(aliyun *)",
+      "PowerShell(fly *)",
+      "PowerShell(kubectl *)",
+      "PowerShell(terraform *)",
+      "PowerShell(Invoke-WebRequest *)",
+      "PowerShell(Invoke-RestMethod *)",
+      "PowerShell(Start-Process *)",
+      "PowerShell(Remove-Item *)",
+      "Bash(git push *)",
+      "Bash(git merge *)",
+      "Bash(git rebase *)",
+      "Bash(git reset *)",
+      "Bash(git clean *)",
+      "Bash(git checkout -- *)",
+      "Bash(gh *)",
+      "Bash(ssh *)",
+      "Bash(scp *)",
+      "Bash(sftp *)",
+      "Bash(aliyun *)",
+      "Bash(fly *)",
+      "Bash(kubectl *)",
+      "Bash(terraform *)",
+      "Bash(curl *)",
+      "Bash(wget *)",
+      "Bash(rm *)"
+    ]
+  },
+  "hooks": {
+    "PreCompact": [
+      {
+        "matcher": "auto|manual",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --frozen python tools/claude_checkpoint.py --event precompact",
+            "shell": "powershell",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "uv run --frozen python tools/claude_checkpoint.py --event stop",
+            "shell": "powershell",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

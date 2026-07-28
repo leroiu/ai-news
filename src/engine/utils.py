@@ -12,10 +12,13 @@ import os
 import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 import yaml
 from dotenv import load_dotenv
+
+if TYPE_CHECKING:
+    from .fetcher import Article
 
 # 项目根目录
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
@@ -137,6 +140,10 @@ def append_inbox(articles: list[Article], inbox_path: Path | None = None) -> Pat
     new_articles = []
     skipped_id = 0
     skipped_title = 0
+    # 短标题公共前缀占比高，SequenceMatcher 比率易虚高
+    # （如 "rss item 1" vs "rss item 3" = 0.90 ≥ 0.85 会误杀），
+    # 仅对长度 >= 15 的标题做模糊匹配，短标题只走 ID 精确去重。
+    MIN_TITLE_LEN_FOR_FUZZY = 15
     for a in articles:
         # 1. URL/ID 精确匹配
         if a.id in existing_ids:
@@ -145,11 +152,12 @@ def append_inbox(articles: list[Article], inbox_path: Path | None = None) -> Pat
         # 2. 标题相似度检测 (阈值 0.85，仅与最近 500 篇比较以保性能)
         is_title_dup = False
         cmp_title = a.title.lower().strip()
-        for et in existing_titles[-500:]:
-            if SequenceMatcher(None, cmp_title, et).ratio() >= 0.85:
-                skipped_title += 1
-                is_title_dup = True
-                break
+        if len(cmp_title) >= MIN_TITLE_LEN_FOR_FUZZY:
+            for et in existing_titles[-500:]:
+                if SequenceMatcher(None, cmp_title, et).ratio() >= 0.85:
+                    skipped_title += 1
+                    is_title_dup = True
+                    break
         if is_title_dup:
             continue
         new_articles.append(a)
