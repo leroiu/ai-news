@@ -16,11 +16,94 @@ from src.engine.knowledge import load_cards, match_cards, build_context
 from src.engine.concept_miner import mine_concepts, update_pool
 from src.engine.concept_agent import update_pool_with_agent
 from src.engine.cache import apply_cache, save_results
-from src.engine.database import init_db, insert_articles, insert_report
+from src.engine.database import (
+    init_db,
+    insert_articles,
+    insert_report,
+    record_article_stage_results,
+)
+from src.engine.processing_errors import ProcessingError, StageProcessingError
 from pipeline_utils import (
     _tick, _log_stage, _failed_articles,
     save_checkpoint, clear_checkpoint,
 )
+
+CRITICAL_AI_STAGES = {"classify", "summarize", "score"}
+
+
+def _failure_details(error: Exception | None) -> dict[str, tuple[str, str]]:
+    """把结构化阶段错误展开为 article_id -> (kind, message)。"""
+    details: dict[str, tuple[str, str]] = {}
+    failures = error.failures if isinstance(error, StageProcessingError) else [error]
+    for failure in failures:
+        if not isinstance(failure, ProcessingError):
+            continue
+        for article_id in failure.article_ids:
+            details[article_id] = (failure.failure_kind, str(failure))
+    return details
+
+
+def _finish_processing_stage(
+    stage: str,
+    candidates: list,
+    articles: list,
+    run_id: int,
+    success_predicate,
+    error: Exception | None,
+    *,
+    extra: dict | None = None,
+    blocked_predicate=None,
+) -> bool:
+    """记录文章级结果，并仅在全部候选成功时完成阶段断点。"""
+    details = _failure_details(error)
+    outcomes: dict[str, tuple[str, str, str]] = {}
+    failed_ids: list[str] = []
+    for article in candidates:
+        if success_predicate(article):
+            outcomes[article.id] = ("success", "", "")
+            continue
+        failed_ids.append(article.id)
+        if blocked_predicate and blocked_predicate(article):
+            outcomes[article.id] = (
+                "blocked", "incomplete_prior_stage",
+                f"{stage} 被前置阶段未完成阻塞",
+            )
+            continue
+        kind, message = details.get(
+            article.id,
+            (
+                "unexpected_error" if error else "incomplete_output",
+                str(error) if error else f"{stage} 未生成完整结果",
+            ),
+        )
+        outcomes[article.id] = ("failed", kind, message)
+
+    record_article_stage_results(run_id, stage, outcomes)
+    if failed_ids:
+        _failed_articles[stage] = [
+            f"{article_id}: {outcomes[article_id][1]}"
+            for article_id in failed_ids
+        ]
+    else:
+        _failed_articles.pop(stage, None)
+
+    save_checkpoint(
+        stage,
+        [article.id for article in articles],
+        run_id,
+        extra=extra,
+        articles=articles,
+        completed=not failed_ids,
+    )
+    return not failed_ids
+
+
+def _has_critical_failures() -> bool:
+    return any(stage in _failed_articles for stage in CRITICAL_AI_STAGES)
+
+
+def _is_publishable(article) -> bool:
+    return bool(article.categories and article.title_cn and 1 <= article.score <= 5)
 
 
 def run_trend_report(period: str) -> tuple[bool, str]:
@@ -87,6 +170,7 @@ def run_daily_pipeline(
                 log.warning("没有抓取到文章")
                 return articles, None, "success: 无文章"
             log.info(f"  → {len(articles)} 篇原始文章")
+            fetched_count = len(articles)
             articles = deduplicate(articles, skip_cache="--no-cache" in __import__("sys").argv)
             log.info(f"  → {len(articles)} 篇去重后")
         else:
@@ -115,7 +199,10 @@ def run_daily_pipeline(
             fetched_count = len(articles)  # 修正：inbox 模式下也记录实际读取数
 
         _log_stage("fetch+dedup", _tick() - t_fetch)
-        save_checkpoint("fetch+dedup", [a.id for a in articles], run_id)
+        save_checkpoint(
+            "fetch+dedup", [a.id for a in articles], run_id,
+            extra={"fetched_count": fetched_count}, articles=articles,
+        )
     else:
         log.info("⏭ [fetch+dedup] 已完成，跳过")
 
@@ -145,14 +232,18 @@ def run_daily_pipeline(
     if "classify" not in completed_stages:
         t1 = _tick()
         unclassified = [a for a in articles if not a.categories]
+        stage_error = None
         if unclassified:
             try:
                 classify(unclassified)
             except Exception as e:
+                stage_error = e
                 log.warning(f"  ⚠ 分类阶段部分失败: {e}，继续处理已分类的文章")
-                _failed_articles.setdefault("classify", []).append(str(e))
         _log_stage("classify", _tick() - t1)
-        save_checkpoint("classify", [a.id for a in articles], run_id)
+        _finish_processing_stage(
+            "classify", articles, articles, run_id,
+            lambda article: bool(article.categories), stage_error,
+        )
     else:
         log.info("⏭ [classify] 已完成，跳过")
 
@@ -170,8 +261,10 @@ def run_daily_pipeline(
             except Exception as e:
                 log.warning(f"  ⚠ 知识卡片匹配失败: {e}，使用空上下文")
         _log_stage("knowledge_match", _tick() - t1)
-        save_checkpoint("knowledge_match", [a.id for a in articles], run_id,
-                        extra={"knowledge_context": knowledge_context})
+        save_checkpoint(
+            "knowledge_match", [a.id for a in articles], run_id,
+            extra={"knowledge_context": knowledge_context}, articles=articles,
+        )
     else:
         log.info("⏭ [knowledge_match] 已完成，跳过")
         knowledge_context = (checkpoint or {}).get("knowledge_context", "")
@@ -180,40 +273,50 @@ def run_daily_pipeline(
     if "summarize" not in completed_stages:
         t1 = _tick()
         unsummarized = [a for a in articles if not a.title_cn]
+        stage_error = None
         if unsummarized:
             log.info(f"  需摘要: {len(unsummarized)}/{len(articles)} 篇")
             try:
                 summarize(unsummarized, knowledge_context=knowledge_context,
                           concurrency=concurrency)
             except Exception as e:
+                stage_error = e
                 log.warning(f"  ⚠ 摘要阶段异常: {e}")
-                _failed_articles.setdefault("summarize", []).append(str(e))
                 succeeded = sum(1 for a in unsummarized if a.title_cn)
                 log.info(f"  → {succeeded}/{len(unsummarized)} 摘要成功（其余跳过）")
         else:
             log.info(f"  摘要: 全部已缓存，跳过")
         _log_stage("summarize", _tick() - t1)
-        save_checkpoint("summarize", [a.id for a in articles], run_id)
+        _finish_processing_stage(
+            "summarize", articles, articles, run_id,
+            lambda article: bool(article.title_cn), stage_error,
+            extra={"knowledge_context": knowledge_context},
+        )
     else:
         log.info("⏭ [summarize] 已完成，跳过")
 
     # ── Stage 6: Score ──
     if "score" not in completed_stages:
         t1 = _tick()
-        unscored = [a for a in articles if a.score == 0]
+        unscored = [a for a in articles if a.score == 0 and a.title_cn]
+        stage_error = None
         if unscored:
             log.info(f"  需评分: {len(unscored)}/{len(articles)} 篇")
             try:
                 score(unscored)
             except Exception as e:
+                stage_error = e
                 log.warning(f"  ⚠ 评分阶段异常: {e}")
-                _failed_articles.setdefault("score", []).append(str(e))
                 succeeded = sum(1 for a in unscored if a.score > 0)
                 log.info(f"  → {succeeded}/{len(unscored)} 评分成功（其余保留0分）")
         else:
             log.info(f"  评分: 全部已缓存，跳过")
         _log_stage("score", _tick() - t1)
-        save_checkpoint("score", [a.id for a in articles], run_id)
+        _finish_processing_stage(
+            "score", articles, articles, run_id,
+            lambda article: 1 <= article.score <= 5, stage_error,
+            blocked_predicate=lambda article: not article.title_cn,
+        )
     else:
         log.info("⏭ [score] 已完成，跳过")
 
@@ -223,6 +326,7 @@ def run_daily_pipeline(
     # ── Stage 7: Concept Miner (★3+, 已处理跳过, Top-N, 跳过低权威来源) ──
     if "concept_mine" not in completed_stages:
         t1 = _tick()
+        concept_ok = True
         try:
             cm_cfg = load_config().get("concept_miner", {})
             min_cm_score = cm_cfg.get("min_score", 3)
@@ -258,10 +362,17 @@ def run_daily_pipeline(
             else:
                 log.info(f"  → 无 ★3+ 文章 (需 ≥3 分)")
         except Exception as e:
+            concept_ok = False
             log.warning(f"  ⚠ Concept Miner 失败: {e}，跳过")
-            _failed_articles.setdefault("concept_mine", []).append(str(e))
+            _failed_articles["concept_mine"] = [str(e)]
+        if concept_ok:
+            _failed_articles.pop("concept_mine", None)
         _log_stage("concept_mine", _tick() - t1)
-        save_checkpoint("concept_mine", [a.id for a in articles], run_id)
+        save_checkpoint(
+            "concept_mine", [a.id for a in articles], run_id,
+            articles=articles,
+            completed=concept_ok and not _has_critical_failures(),
+        )
     else:
         log.info("⏭ [concept_mine] 已完成，跳过")
 
@@ -270,11 +381,18 @@ def run_daily_pipeline(
         t1 = _tick()
         config = load_config()
         min_score = config.get("output", {}).get("min_score", 3)
-        report_path = generate_report(articles, fetched_count=fetched_count,
+        publishable_articles = [a for a in articles if _is_publishable(a)]
+        blocked_count = len(articles) - len(publishable_articles)
+        if blocked_count:
+            log.warning(f"  ⚠ {blocked_count} 篇处理不完整，不写入日报")
+        report_path = generate_report(publishable_articles, fetched_count=fetched_count,
                                       min_score=min_score, report_date=report_date)
         _log_stage("write_report", _tick() - t1)
-        save_checkpoint("write_report", [a.id for a in articles], run_id,
-                        extra={"report_path": str(report_path)})
+        save_checkpoint(
+            "write_report", [a.id for a in articles], run_id,
+            extra={"report_path": str(report_path)}, articles=articles,
+            completed=not blocked_count and not _has_critical_failures(),
+        )
     else:
         log.info("⏭ [write_report] 已完成，跳过")
         report_path = Path(checkpoint.get("report_path", ""))
@@ -282,24 +400,51 @@ def run_daily_pipeline(
     # ── Stage 8: Sync DB ──
     if "update_db" not in completed_stages:
         t1 = _tick()
+        publishable_articles = [a for a in articles if _is_publishable(a)]
+        blocked_articles = [a for a in articles if not _is_publishable(a)]
+        db_ok = True
+        db_error = ""
         try:
             init_db()
-            article_dicts = [a.to_dict() for a in articles]
+            article_dicts = [a.to_dict() for a in publishable_articles]
             insert_articles(article_dicts)
             report_date_str = report_date if report_date else datetime.now().strftime("%Y-%m-%d")
             insert_report(
                 date=report_date_str,
                 report_type="daily", path=str(report_path),
-                fetched=fetched_count, filtered=len(articles),
-                star5=sum(1 for a in articles if a.score == 5),
-                star4=sum(1 for a in articles if a.score == 4),
-                star3=sum(1 for a in articles if a.score == 3),
+                fetched=fetched_count, filtered=len(publishable_articles),
+                star5=sum(1 for a in publishable_articles if a.score == 5),
+                star4=sum(1 for a in publishable_articles if a.score == 4),
+                star3=sum(1 for a in publishable_articles if a.score == 3),
             )
         except Exception as e:
+            db_ok = False
+            db_error = str(e)
             log.warning(f"  ⚠ DB 同步失败: {e}")
-            _failed_articles.setdefault("update_db", []).append(str(e))
+            _failed_articles["update_db"] = [str(e)]
+        if db_ok:
+            _failed_articles.pop("update_db", None)
+        db_outcomes = {
+            article.id: (
+                ("success", "", "")
+                if db_ok else ("failed", "database_error", db_error)
+            )
+            for article in publishable_articles
+        }
+        db_outcomes.update({
+            article.id: (
+                "blocked", "incomplete_prior_stage",
+                "摘要、分类或评分结果不完整，未写入数据库",
+            )
+            for article in blocked_articles
+        })
+        record_article_stage_results(run_id, "update_db", db_outcomes)
         _log_stage("update_db", _tick() - t1)
-        save_checkpoint("update_db", [a.id for a in articles], run_id)
+        save_checkpoint(
+            "update_db", [a.id for a in articles], run_id,
+            articles=articles,
+            completed=db_ok and not blocked_articles and not _has_critical_failures(),
+        )
     else:
         log.info("⏭ [update_db] 已完成，跳过")
 
@@ -337,7 +482,19 @@ def run_daily_pipeline(
                 _failed_articles.setdefault(f"render_{name}", []).append(str(e))
         log.info(f"  → 页面生成: {pages_ok}/{pages_total} 成功")
         _log_stage("render_pages", _tick() - t1)
-        save_checkpoint("render_pages", [a.id for a in articles], run_id)
+        render_ok = pages_ok == pages_total
+        if render_ok:
+            for key in [key for key in _failed_articles if key.startswith("render_")]:
+                _failed_articles.pop(key, None)
+        save_checkpoint(
+            "render_pages", [a.id for a in articles], run_id,
+            articles=articles,
+            completed=(
+                render_ok
+                and not _has_critical_failures()
+                and "update_db" not in _failed_articles
+            ),
+        )
     else:
         log.info("⏭ [render_pages] 已完成，跳过")
 

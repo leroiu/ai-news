@@ -4,6 +4,7 @@ Classifier 测试 — mock AI 调用
 import pytest
 from unittest.mock import patch, MagicMock
 from src.engine.fetcher import Article
+from src.engine.processing_errors import ProcessingError
 from src.engine.classifier import classify, classify_batch, _build_system_prompt, _build_user_prompt
 
 
@@ -48,20 +49,24 @@ class TestClassifyBatch:
         assert result[1].categories == ["融资/商业"]
 
     @patch("src.engine.classifier.call_ai")
-    def test_api_failure_fallback(self, mock_call):
+    def test_api_failure_is_typed(self, mock_call):
         mock_call.return_value = None
         articles = [make_article("a1", "Some News")]
-        result = classify_batch(articles)
-        assert result[0].categories == ["未分类"]
+        with pytest.raises(ProcessingError) as exc:
+            classify_batch(articles)
+        assert exc.value.failure_kind == "ai_unavailable"
+        assert articles[0].categories == []
 
     @patch("src.engine.classifier.call_ai")
-    def test_missing_id_in_response(self, mock_call):
+    def test_missing_id_is_incomplete_response(self, mock_call):
         mock_call.return_value = [
             {"id": "different", "categories": ["Agent"]},
         ]
         articles = [make_article("a1", "Some News")]
-        result = classify_batch(articles)
-        assert result[0].categories == ["未分类"]
+        with pytest.raises(ProcessingError) as exc:
+            classify_batch(articles)
+        assert exc.value.failure_kind == "incomplete_response"
+        assert articles[0].categories == []
 
 
 class TestClassify:

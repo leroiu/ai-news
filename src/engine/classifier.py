@@ -7,6 +7,7 @@ AI News - AI 分类器
 from .fetcher import Article
 from .utils import log, load_config, ROOT_DIR, clean_html
 from .ai_client import call_ai
+from .processing_errors import ProcessingError, StageProcessingError
 
 
 def _build_system_prompt() -> str:
@@ -38,15 +39,34 @@ def classify_batch(articles: list[Article]) -> list[Article]:
     log.info(f"AI 分类: {len(articles)} 篇")
     results = call_ai(system, user, max_tokens=4096)
 
+    if results is None:
+        raise ProcessingError(
+            "classify", "ai_unavailable", [a.id for a in articles],
+            "分类模型调用失败或返回无法解析",
+        )
     if not results:
-        log.warning("分类失败，全部标记为'未分类'")
-        for a in articles:
-            a.categories = ["未分类"]
-        return articles
+        raise ProcessingError(
+            "classify", "empty_response", [a.id for a in articles],
+            "分类模型返回了空结果",
+        )
 
-    class_map = {item["id"]: item.get("categories", ["未分类"]) for item in results}
+    class_map = {
+        item.get("id"): item.get("categories")
+        for item in results
+        if isinstance(item, dict) and item.get("id")
+    }
+    failed_ids = []
     for a in articles:
-        a.categories = class_map.get(a.id, ["未分类"])
+        categories = class_map.get(a.id)
+        if (
+            not isinstance(categories, list)
+            or not categories
+            or not all(isinstance(category, str) and category.strip()
+                       for category in categories)
+        ):
+            failed_ids.append(a.id)
+            continue
+        a.categories = [category.strip() for category in categories]
 
     cat_counts: dict[str, int] = {}
     for a in articles:
@@ -54,6 +74,11 @@ def classify_batch(articles: list[Article]) -> list[Article]:
             cat_counts[c] = cat_counts.get(c, 0) + 1
     top = sorted(cat_counts.items(), key=lambda x: -x[1])[:5]
     log.info(f"分类完成, Top: {top}")
+    if failed_ids:
+        raise ProcessingError(
+            "classify", "incomplete_response", failed_ids,
+            f"分类结果缺少 {len(failed_ids)} 篇文章",
+        )
     return articles
 
 
@@ -62,9 +87,16 @@ def classify(articles: list[Article], batch_size: int = 25) -> list[Article]:
     if not articles:
         return articles
     result: list[Article] = []
+    failures: list[ProcessingError] = []
     total = (len(articles) - 1) // batch_size + 1
     for i in range(0, len(articles), batch_size):
         batch = articles[i:i + batch_size]
         log.info(f"分类 {i//batch_size + 1}/{total} ({len(batch)}篇)")
-        result.extend(classify_batch(batch))
+        try:
+            result.extend(classify_batch(batch))
+        except ProcessingError as e:
+            failures.append(e)
+            result.extend(batch)
+    if failures:
+        raise StageProcessingError("classify", failures)
     return result

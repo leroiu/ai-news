@@ -70,6 +70,60 @@ def update_pipeline_run(run_id: int, articles_processed: int = 0,
     conn.close()
 
 
+def record_article_stage_results(
+    run_id: int,
+    stage: str,
+    outcomes: dict[str, tuple[str, str, str]],
+) -> None:
+    """记录逐文章阶段结果。
+
+    ``outcomes`` 的值依次为 ``(status, failure_kind, error_message)``。
+    同一运行内重试会覆盖最新结果并累加 attempt_count。
+    """
+    if not outcomes:
+        return
+    allowed = {"success", "failed", "blocked"}
+    invalid = {status for status, _, _ in outcomes.values()} - allowed
+    if invalid:
+        raise ValueError(f"非法文章阶段状态: {sorted(invalid)}")
+
+    conn = get_db()
+    conn.executemany(
+        """
+        INSERT INTO article_stage_runs (
+            run_id, article_id, stage, status, failure_kind, error_message
+        ) VALUES (?, ?, ?, ?, ?, ?)
+        ON CONFLICT(run_id, article_id, stage) DO UPDATE SET
+            status=excluded.status,
+            failure_kind=excluded.failure_kind,
+            error_message=excluded.error_message,
+            attempt_count=article_stage_runs.attempt_count + 1,
+            updated_at=datetime('now')
+        """,
+        [
+            (run_id, article_id, stage, status, failure_kind, error_message)
+            for article_id, (status, failure_kind, error_message) in outcomes.items()
+        ],
+    )
+    conn.commit()
+    conn.close()
+
+
+def get_article_stage_results(run_id: int) -> list[dict]:
+    """获取一次 Pipeline 运行的逐文章阶段结果。"""
+    conn = get_db()
+    rows = conn.execute(
+        """
+        SELECT * FROM article_stage_runs
+        WHERE run_id=?
+        ORDER BY stage, article_id
+        """,
+        (run_id,),
+    ).fetchall()
+    conn.close()
+    return [dict(row) for row in rows]
+
+
 # ═══════════════════════════════════════════════════════════════
 # Collector Runs
 # ═══════════════════════════════════════════════════════════════

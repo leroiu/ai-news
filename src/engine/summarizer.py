@@ -10,6 +10,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from .fetcher import Article
 from .utils import log, ROOT_DIR, clean_html
 from .ai_client import call_ai
+from .processing_errors import ProcessingError, StageProcessingError
 
 
 def _build_system_prompt(knowledge_context: str = "") -> str:
@@ -39,17 +40,38 @@ def summarize_batch(articles: list[Article], knowledge_context: str = "") -> lis
 
     results = call_ai(system, user, max_tokens=8192)
 
+    if results is None:
+        raise ProcessingError(
+            "summarize", "ai_unavailable", [a.id for a in articles],
+            "摘要模型调用失败或返回无法解析",
+        )
     if not results:
-        log.warning("摘要失败")
-        return articles
+        raise ProcessingError(
+            "summarize", "empty_response", [a.id for a in articles],
+            "摘要模型返回了空结果",
+        )
 
-    result_map = {item["id"]: item for item in results}
+    result_map = {
+        item.get("id"): item
+        for item in results
+        if isinstance(item, dict) and item.get("id")
+    }
+    failed_ids = []
     for a in articles:
-        r = result_map.get(a.id, {})
-        a.title_cn = r.get("title_cn", "")
+        r = result_map.get(a.id)
+        title_cn = r.get("title_cn") if r else None
+        if not isinstance(title_cn, str) or not title_cn.strip():
+            failed_ids.append(a.id)
+            continue
+        a.title_cn = title_cn.strip()
         a.one_liner = r.get("one_liner", "")
         a.summary_points = r.get("summary_points", [])
 
+    if failed_ids:
+        raise ProcessingError(
+            "summarize", "incomplete_response", failed_ids,
+            f"摘要结果缺少 {len(failed_ids)} 篇文章",
+        )
     return articles
 
 
@@ -75,13 +97,21 @@ def summarize(
     if concurrency <= 1:
         # 串行（保持兼容）
         result: list[Article] = []
+        failures: list[ProcessingError] = []
         for idx, batch in enumerate(batches):
             log.info(f"  摘要 {idx + 1}/{total} ({len(batch)}篇)")
-            result.extend(summarize_batch(batch, knowledge_context))
+            try:
+                result.extend(summarize_batch(batch, knowledge_context))
+            except ProcessingError as e:
+                failures.append(e)
+                result.extend(batch)
+        if failures:
+            raise StageProcessingError("summarize", failures)
         return result
 
     # 并发模式
     result: list[Article] = []
+    failures: list[ProcessingError] = []
     completed = 0
     with ThreadPoolExecutor(max_workers=concurrency) as pool:
         futures = {
@@ -93,7 +123,16 @@ def summarize(
             try:
                 batch_result = future.result()
                 result.extend(batch_result)
+            except ProcessingError as e:
+                failures.append(e)
+                result.extend(batches[idx])
+                log.error(f"  摘要 batch {idx + 1} 异常: {e}")
             except Exception as e:
+                batch = batches[idx]
+                failures.append(ProcessingError(
+                    "summarize", "unexpected_error", [a.id for a in batch], str(e)
+                ))
+                result.extend(batch)
                 log.error(f"  摘要 batch {idx + 1} 异常: {e}")
             completed += 1
             log.info(f"  摘要 {completed}/{total} 完成")
@@ -102,4 +141,6 @@ def summarize(
     id_order = {a.id: i for i, a in enumerate(articles)}
     result.sort(key=lambda a: id_order.get(a.id, 99999))
     log.info(f"摘要完成: {len(result)} 篇")
+    if failures:
+        raise StageProcessingError("summarize", failures)
     return result

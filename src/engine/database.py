@@ -44,6 +44,7 @@ from .db_articles import (
 from .db_pipeline import (
     start_pipeline_run, finish_pipeline_run, log_collector_run,
     get_pipeline_runs, update_pipeline_run, get_health,
+    record_article_stage_results, get_article_stage_results,
 )
 
 # ── Queries ──
