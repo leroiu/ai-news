@@ -4,6 +4,7 @@ Scorer 测试 — mock AI 调用
 import pytest
 from unittest.mock import patch
 from src.engine.fetcher import Article
+from src.engine.processing_errors import ProcessingError
 from src.engine.scorer import score, score_batch, _build_system_prompt, _build_user_prompt
 
 
@@ -49,19 +50,22 @@ class TestScoreBatch:
         assert result[1].score == 3
 
     @patch("src.engine.scorer.call_ai")
-    def test_api_failure_defaults(self, mock_call):
+    def test_api_failure_is_typed(self, mock_call):
         mock_call.return_value = None
         articles = [make_article("a1", "News")]
-        result = score_batch(articles)
-        # When AI call fails completely, articles returned unchanged (score=0)
-        assert len(result) == 1
+        with pytest.raises(ProcessingError) as exc:
+            score_batch(articles)
+        assert exc.value.failure_kind == "ai_unavailable"
+        assert articles[0].score == 0
 
     @patch("src.engine.scorer.call_ai")
-    def test_missing_id_defaults(self, mock_call):
+    def test_missing_id_is_incomplete_response(self, mock_call):
         mock_call.return_value = [{"id": "different", "score": 5, "score_reason": "x"}]
         articles = [make_article("a1", "News")]
-        result = score_batch(articles)
-        assert result[0].score == 3  # default when no match
+        with pytest.raises(ProcessingError) as exc:
+            score_batch(articles)
+        assert exc.value.failure_kind == "incomplete_response"
+        assert articles[0].score == 0
 
     def test_empty_articles(self):
         assert score_batch([]) == []

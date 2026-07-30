@@ -142,6 +142,20 @@ def init_db():
         ended_at    TEXT DEFAULT ''
     );
 
+    -- 文章在各 Pipeline 阶段的结果；文章可能尚未写入 articles 表，因此不设 article_id 外键
+    CREATE TABLE IF NOT EXISTS article_stage_runs (
+        run_id       INTEGER NOT NULL,
+        article_id   TEXT NOT NULL,
+        stage        TEXT NOT NULL,
+        status       TEXT NOT NULL CHECK(status IN ('success', 'failed', 'blocked')),
+        failure_kind TEXT DEFAULT '',
+        error_message TEXT DEFAULT '',
+        attempt_count INTEGER NOT NULL DEFAULT 1,
+        updated_at   TEXT DEFAULT (datetime('now')),
+        PRIMARY KEY (run_id, article_id, stage),
+        FOREIGN KEY (run_id) REFERENCES pipeline_runs(id) ON DELETE CASCADE
+    );
+
     -- Collector 运行日志
     CREATE TABLE IF NOT EXISTS collector_runs (
         id          INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -172,6 +186,8 @@ def init_db():
 
     -- 索引
     CREATE INDEX IF NOT EXISTS idx_pipeline_runs_started ON pipeline_runs(started_at);
+    CREATE INDEX IF NOT EXISTS idx_article_stage_status
+        ON article_stage_runs(run_id, stage, status);
     CREATE INDEX IF NOT EXISTS idx_collector_runs_started ON collector_runs(started_at);
     CREATE INDEX IF NOT EXISTS idx_embeddings_id ON embeddings(id);
     CREATE INDEX IF NOT EXISTS idx_entities_type ON entities(type);

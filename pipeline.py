@@ -34,6 +34,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from src.engine.utils import log, setup_logging
+from src.engine.fetcher import Article
 from src.engine.database import (
     init_db, start_pipeline_run, finish_pipeline_run, update_pipeline_run,
 )
@@ -42,7 +43,7 @@ from src.frontend.library import generate_library
 from src.timeline import generate_timeline
 from pipeline_utils import (
     _tick, _log_stage, _stage_times, _failed_articles,
-    load_checkpoint, clear_checkpoint,
+    load_checkpoint, clear_checkpoint, reset_runtime_state,
 )
 from pipeline_stages import (
     run_trend_report, run_daily_pipeline,
@@ -149,6 +150,7 @@ def _parse_args() -> dict:
 
 def main() -> int:
     setup_logging("INFO")
+    reset_runtime_state()
     t0 = _tick()
     log.info("=" * 50)
     log.info("AI News Pipeline 启动")
@@ -207,10 +209,28 @@ def main() -> int:
         log.info("模式: DRY RUN (不调用 AI)")
         # Fall through to fetch+dedup only, then exit early in run_daily_pipeline
 
+    restored_articles = []
+    restored_fetched_count = 0
+    if checkpoint and "fetch+dedup" in checkpoint.get("completed_stages", []):
+        snapshots = checkpoint.get("articles")
+        if not snapshots:
+            log.error("断点缺少文章快照，无法安全续跑；请使用 --reset-checkpoint 重新开始")
+            return 1
+        try:
+            restored_articles = [Article.from_dict(item) for item in snapshots]
+        except (AttributeError, TypeError, ValueError) as e:
+            log.error(f"断点文章快照无效，无法安全续跑: {e}")
+            return 1
+        restored_fetched_count = checkpoint.get(
+            "fetched_count", len(restored_articles)
+        )
+        log.info(f"  ↪ 已从断点恢复 {len(restored_articles)} 篇文章")
+
     # ── Pipeline 运行追踪 ──
+    init_db()
     run_id = start_pipeline_run("daily")
-    articles = []
-    fetched_count = 0
+    articles = restored_articles
+    fetched_count = restored_fetched_count
 
     try:
         # ── 运行每日管道 ──
@@ -263,7 +283,10 @@ def main() -> int:
             log.info(f"  日报: {report_path}")
         log.info(f"  耗时明细: {' | '.join(f'{k}={v:.1f}s' for k, v in _stage_times.items())}")
 
-        clear_checkpoint()
+        if status == "success":
+            clear_checkpoint()
+        else:
+            log.warning("断点已保留；修复失败项后可使用 --resume 重试")
         finish_pipeline_run(run_id, status, len(articles), total,
                             error="; ".join(
                                 f"[{s}]: {e}"
@@ -271,7 +294,7 @@ def main() -> int:
                                 for e in errs[:2]
                             ) if _failed_articles else "")
         log.info("=" * 50)
-        return 0
+        return 0 if status == "success" else 2
 
     except Exception as e:
         # ── 致命错误处理 ──

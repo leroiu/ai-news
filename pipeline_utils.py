@@ -8,6 +8,7 @@ Pipeline 工具 — 断点系统 + 计时 + 容错执行器。
 import json
 import time
 import traceback
+from contextlib import contextmanager
 from datetime import datetime
 from pathlib import Path
 
@@ -39,32 +40,44 @@ def _log_stage(name: str, elapsed: float):
 # Checkpoint 系统
 # ═══════════════════════════════════════════════════════════════
 
-def save_checkpoint(stage: str, article_ids: list[str], run_id: int,
-                    extra: dict | None = None) -> None:
-    """保存断点：当前阶段 + 文章列表 + 已完成阶段 + 失败记录。"""
+def save_checkpoint(
+    stage: str,
+    article_ids: list[str],
+    run_id: int,
+    extra: dict | None = None,
+    *,
+    articles: list | None = None,
+    completed: bool = True,
+) -> None:
+    """原子保存断点；只有 ``completed=True`` 才把阶段标为已完成。"""
     try:
         existing = {}
         if CHECKPOINT_FILE.exists():
             existing = json.loads(CHECKPOINT_FILE.read_text(encoding="utf-8"))
-        completed = existing.get("completed_stages", [])
-        if stage not in completed:
-            completed.append(stage)
+        completed_stages = list(existing.get("completed_stages", []))
+        if completed and stage not in completed_stages:
+            completed_stages.append(stage)
         data = {
+            **existing,
             "run_id": run_id,
             "stage": stage,
             "article_ids": article_ids,
-            "completed_stages": completed,
+            "completed_stages": completed_stages,
             "failed_articles": _failed_articles,
             "stage_times": _stage_times,
             "started_at": existing.get("started_at", datetime.now().isoformat()),
             "updated_at": datetime.now().isoformat(),
         }
+        if articles is not None:
+            data["articles"] = [article.to_dict() for article in articles]
         if extra:
             data.update(extra)
         CHECKPOINT_FILE.parent.mkdir(parents=True, exist_ok=True)
-        CHECKPOINT_FILE.write_text(
+        temp_file = CHECKPOINT_FILE.with_suffix(CHECKPOINT_FILE.suffix + ".tmp")
+        temp_file.write_text(
             json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8"
         )
+        temp_file.replace(CHECKPOINT_FILE)
     except OSError as e:
         log.warning(f"保存断点失败: {e}")
 
@@ -75,9 +88,10 @@ def load_checkpoint() -> dict | None:
         return None
     try:
         data = json.loads(CHECKPOINT_FILE.read_text(encoding="utf-8"))
-        global _stage_times, _failed_articles
-        _stage_times = data.get("stage_times", {})
-        _failed_articles = data.get("failed_articles", {})
+        _stage_times.clear()
+        _stage_times.update(data.get("stage_times", {}))
+        _failed_articles.clear()
+        _failed_articles.update(data.get("failed_articles", {}))
         return data
     except (json.JSONDecodeError, OSError) as e:
         log.warning(f"断点文件损坏，忽略: {e}")
@@ -91,6 +105,12 @@ def clear_checkpoint() -> None:
             CHECKPOINT_FILE.unlink()
     except OSError:
         pass
+
+
+def reset_runtime_state() -> None:
+    """清空同一进程中上一次运行留下的计时和失败状态。"""
+    _stage_times.clear()
+    _failed_articles.clear()
 
 
 # ═══════════════════════════════════════════════════════════════
@@ -107,9 +127,10 @@ class FatalError(Exception):
     pass
 
 
+@contextmanager
 def run_stage(name: str, articles: list, run_id: int,
               checkpoint: bool = True,
-              allow_partial: bool = False) -> list:
+              allow_partial: bool = False):
     """执行一个阶段，带错误恢复和断点保存。
 
     - 非致命异常：记录到 _failed_articles，继续执行
@@ -118,7 +139,7 @@ def run_stage(name: str, articles: list, run_id: int,
     """
     article_ids = [a.id for a in articles] if articles else []
     if checkpoint and article_ids:
-        save_checkpoint(name, article_ids, run_id)
+        save_checkpoint(name, article_ids, run_id, completed=False)
 
     try:
         yield  # 让调用方执行阶段逻辑
@@ -133,6 +154,9 @@ def run_stage(name: str, articles: list, run_id: int,
             _failed_articles.setdefault(name, []).append(str(e))
             update_pipeline_run(run_id, error_message=f"[{name}] {e}")
         else:
-            save_checkpoint(name, article_ids, run_id)
+            save_checkpoint(name, article_ids, run_id, completed=False)
             update_pipeline_run(run_id, error_message=f"[{name}] {e}")
             raise StageError(f"阶段 [{name}] 失败: {e}")
+    else:
+        if checkpoint and article_ids:
+            save_checkpoint(name, article_ids, run_id)

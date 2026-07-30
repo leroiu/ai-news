@@ -65,7 +65,9 @@ def test_pipeline_inbox_stage_keeps_first_article_for_duplicate_id(monkeypatch):
     assert report_path.name == "daily.md"
     assert status == "success"
     save_checkpoint.assert_called_once_with(
-        "fetch+dedup", ["same-id", "distinct-id"], 42
+        "fetch+dedup", ["same-id", "distinct-id"], 42,
+        extra={"fetched_count": 2},
+        articles=[first, distinct],
     )
 
 
@@ -80,5 +82,7 @@ def test_pipeline_inbox_stage_preserves_all_distinct_article_ids(monkeypatch):
     assert result == [first, second]
     assert status == "success"
     save_checkpoint.assert_called_once_with(
-        "fetch+dedup", ["first-id", "second-id"], 42
+        "fetch+dedup", ["first-id", "second-id"], 42,
+        extra={"fetched_count": 2},
+        articles=[first, second],
     )

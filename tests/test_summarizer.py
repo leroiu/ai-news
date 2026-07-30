@@ -4,6 +4,7 @@ Summarizer 测试 — mock AI 调用
 import pytest
 from unittest.mock import patch
 from src.engine.fetcher import Article
+from src.engine.processing_errors import ProcessingError
 from src.engine.summarizer import summarize, summarize_batch, _build_system_prompt, _build_user_prompt
 
 
@@ -47,11 +48,20 @@ class TestSummarizeBatch:
         assert len(result[0].summary_points) == 3
 
     @patch("src.engine.summarizer.call_ai")
-    def test_api_failure_no_crash(self, mock_call):
+    def test_api_failure_is_typed(self, mock_call):
         mock_call.return_value = None
         articles = [make_article("a1", "News")]
-        result = summarize_batch(articles)
-        assert len(result) == 1  # articles still returned
+        with pytest.raises(ProcessingError) as exc:
+            summarize_batch(articles)
+        assert exc.value.failure_kind == "ai_unavailable"
+        assert exc.value.article_ids == ("a1",)
+
+    @patch("src.engine.summarizer.call_ai")
+    def test_valid_empty_response_is_distinct(self, mock_call):
+        mock_call.return_value = []
+        with pytest.raises(ProcessingError) as exc:
+            summarize_batch([make_article("a1", "News")])
+        assert exc.value.failure_kind == "empty_response"
 
     @patch("src.engine.summarizer.call_ai")
     def test_knowledge_context_passed(self, mock_call):
