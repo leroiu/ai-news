@@ -1,0 +1,42 @@
+id: llama-cpp
+name: llama.cpp
+type: tech
+aliases:
+- llama.cpp
+- llama-cpp
+- GGUF
+- 本地推理
+release_date: 2023-03
+status: active
+tags:
+- inference
+- local
+- llm
+- cpu
+- quantization
+- edge
+importance: 4
+confidence: confirmed
+summary: 'llama.cpp 是"无处不在"的 LLM 推理引擎（~75k GitHub stars），可在 CUDA、ROCm、Metal、Vulkan、CPU、WebAssembly 上运行。
+
+  GGUF 格式已成为本地模型分发的实际标准。'
+significance: |
+  核心特点：
+  - 无处不在：CPU、GPU、NPU、WebAssembly 全平台支持
+  - GGUF 格式：本地模型分发的事实标准
+  - 量化粒度：Q2_K 到 Q8_0 多级精度选择
+  - 可嵌入：Python、Rust、Node.js 绑定
+
+  新进展：
+  - 1-bit（ternary）权重格式实验分支
+  - SYCL backend 重大改进（Intel Arc 上 2x 性能）
+  - Vulkan compute shaders 重写，优化移动 GPU 兼容性
+
+  定位：本地/边缘部署不可避免的选择，但不适合高并发生产环境。
+  "最被低估的 AI 软件——它默默运行在无数设备上。"
+
+domain: AI Infrastructure / Local Inference
+related:
+  - ollama
+  - vllm
+  - quantization

@@ -1,0 +1,38 @@
+id: amazon-ai
+name: Amazon AI
+type: company
+aliases:
+- Amazon
+- AWS AI
+- Amazon Bedrock
+- Alexa AI
+release_date: 2026-07
+status: active
+tags:
+- cloud
+- ecommerce
+- ai-assistant
+- aws
+- bedrock
+- anthropic
+importance: 5
+confidence: confirmed
+summary: 'Amazon 的 AI 战略以 AWS Bedrock 为基础设施层、Alexa/AI Shopping Assistant 为应用层。
+
+  投资 Anthropic 最高 $25B，通过 Bedrock 分发 Claude 模型。
+
+  2026年5月推出 AWS Agentic Shopping Assistant，将 Alexa 购物技术授权给第三方零售商。'
+significance: |
+  三条 AI 主线：
+  1. AWS Bedrock：企业 AI 基础设施，Anthropic Claude 主要分发渠道
+  2. Alexa for Shopping：统一 AI 购物助手，覆盖 3 亿+用户，年驱动 ~$120亿 增量销售
+  3. AWS Agentic Shopping Assistant：将内部 AI 购物技术产品化，授权给 Kate Spade 等零售商
+
+  核心差异化："Customer Zero"模式——先在自己业务中验证，再对外输出。
+  与 Anthropic 的深度绑定使其在模型层有独特优势。
+
+domain: Cloud AI / E-commerce AI
+related:
+  - anthropic
+  - aws-bedrock
+  - alexa

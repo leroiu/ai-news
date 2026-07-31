@@ -1,0 +1,40 @@
+id: devin
+name: Devin
+type: product
+aliases:
+- Devin
+- Devin AI
+- Cognition AI
+- Devin Desktop
+release_date: 2025-03
+status: active
+tags:
+- ai-coding
+- agent
+- autonomous
+- software-development
+- dev-tool
+importance: 4
+confidence: confirmed
+summary: 'Devin 是 Cognition AI 推出的自主 AI 编程 Agent，能在沙箱环境中独立开发软件。
+
+  2025 年 12 月收购 Windsurf ($250M) 后更名为 Devin Desktop，2026 年 6 月发布，定价降至 $20/mo。'
+significance: |
+  发展历程：
+  - 2024 年首次亮相：被宣传为"首位 AI 软件工程师"
+  - 2025 年：面临实用性质疑，用户报告减少
+  - 2025 年 12 月：收购 Windsurf ($250M)，整合 IDE 能力
+  - 2026 年 6 月：推出 Devin Desktop，定价 $20/mo + $2.25/ACU
+
+  核心能力：
+  - 完整的沙箱开发环境
+  - 自主规划、编码、调试、部署
+  - 多文件协作和版本控制集成
+
+  教训：从 $500/mo 企业独占到 $20/mo 大众定价，反映 AI 编程工具市场的激烈竞争。
+
+domain: AI Coding / Developer Tools
+related:
+  - cursor
+  - claude-code
+  - windsurf

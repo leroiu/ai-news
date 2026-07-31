@@ -1,0 +1,38 @@
+id: vllm
+name: vLLM
+type: tech
+aliases:
+- vLLM
+- vllm
+- PagedAttention
+release_date: 2024-06
+status: active
+tags:
+- inference
+- serving
+- llm
+- open-source
+- production
+importance: 4
+confidence: confirmed
+summary: 'vLLM 是 LLM 推理引擎的事实标准，核心创新 PagedAttention 将 KV 缓存虚拟内存化。
+
+  ~50k GitHub stars，支持 continuous batching、FP8 量化、speculative decoding，是企业部署 LLM 的默认首选。'
+significance: |
+  核心创新：
+  - PagedAttention：KV 缓存作为虚拟内存页管理，类似操作系统的分页机制
+  - Continuous batching：动态批次组合，最大化 GPU 利用率
+  - OpenAI 兼容 API：无缝替代方案
+  - 支持 FP8 量化（Hopper GPU）、speculative decoding、prefix caching
+
+  性能（H100，Llama-70B）：1000-2000 tok/s
+  生态：被 Perplexity、xAI 等大规模使用
+  v0.7.3+ 新增自动 FP8 校准、Eagle-2 speculative decoding、Mamba/SSM 支持
+
+  RTX 5090 上 Nemotron 9B 可达 83 tok/s 单请求，630 tok/s 批处理（10 并发）
+
+domain: AI Infrastructure / Inference
+related:
+  - ollama
+  - tensorrt-llm
+  - sglang

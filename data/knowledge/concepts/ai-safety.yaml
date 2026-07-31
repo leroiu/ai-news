@@ -1,0 +1,50 @@
+id: ai-safety
+name: AI Safety
+type: concept
+aliases:
+- AI 安全
+- AI safety
+- alignment
+- 对齐
+- red-teaming
+- robustness
+release_date: 2022-01
+status: active
+tags:
+- safety
+- alignment
+- ethics
+- governance
+- robustness
+importance: 5
+confidence: confirmed
+summary: 'AI Safety 涵盖确保 AI 系统安全可靠的所有技术和方法论。
+
+  包括对齐（Alignment）、红队测试（Red Teaming）、鲁棒性（Robustness）、可解释性（Interpretability）等子领域。'
+significance: |
+  核心子领域：
+  - 对齐（Alignment）：确保 AI 的目标与人类价值观一致
+    - RLHF：基于人类反馈的强化学习
+    - DPO：直接偏好优化
+    - Constitutional AI：宪法 AI（Anthropic）
+  - 红队测试：系统化的对抗性测试
+  - 鲁棒性：对抗攻击、分布外泛化
+  - 可解释性：理解模型内部运作机制
+  - 监控与治理：使用监控、审计、合规
+
+  关键组织：
+  - Anthropic：Constitutional AI 和越狱防御
+  - OpenAI：Safety Research 团队
+  - DeepMind：AI Safety 研究
+  - MIRI / ARC：AI 对齐基础研究
+
+  法规背景：
+  - EU AI Act：按风险分类监管
+  - 中国生成式 AI 管理办法
+  - 美国 AI 行政令
+
+domain: AI / Ethics & Safety
+related:
+  - rlhf
+  - hallucination
+  - ai-alignment

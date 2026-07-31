@@ -1,0 +1,32 @@
+id: aidan-gomez
+name: Aidan Gomez
+type: person
+aliases:
+- Aidan Gomez
+- 艾丹·戈麦斯
+release_date: 2026-07
+status: active
+tags:
+- cohere
+- transformer
+- research
+- entrepreneur
+- ai-company
+importance: 4
+confidence: confirmed
+summary: 'Aidan Gomez 是 Cohere 的联合创始人兼CEO，Transformer 架构的共同发明人之一。
+
+  Cohere 专注于企业级 LLM，估值超 $5B，是加拿大最大的 AI 公司。'
+significance: |
+  关键贡献：
+  - 参与发明 Transformer 架构（"Attention Is All You Need"论文作者之一）
+  - 2019 年创立 Cohere，专注于企业级 AI 平台
+  - Cohere 提供 Command R/R+、Embed 等模型，强调企业安全、数据隐私和可定制性
+  - 从 Google、Oracle、NVIDIA 等融资超 $1B
+
+  研究背景：多伦多大学博士，Google Brain 实习期间参与 Transformer 研究。
+
+domain: AI Leadership / Enterprise AI
+related:
+  - cohere
+  - transformer

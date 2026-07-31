@@ -1,0 +1,37 @@
+id: groq
+name: Groq
+type: company
+aliases:
+- Groq
+- Groq AI
+- LPU
+release_date: 2026-07
+status: active
+tags:
+- ai-chips
+- inference
+- hardware
+- lpu
+- speed
+importance: 4
+confidence: confirmed
+summary: 'Groq 构建定制 AI 芯片（LPU - Language Processing Unit），针对超低延迟 LLM 推理优化，挑战 NVIDIA GPU 主导地位。
+
+  $640M D轮融资（2024年8月），估值 $2.8B，投资方包括 a16z、BlackRock。'
+significance: |
+  关键技术：
+  - LPU（Language Processing Unit）：专为 LLM 推理设计的架构
+  - 单芯片推理速度极快，毫秒级响应
+  - 专攻推理场景，不涉及训练
+
+  市场定位：
+  - NVIDIA 的替代选择，尤其适合对延迟敏感的推理场景
+  - 开发者社区认可度高的高速推理平台
+  - API 支持多种主流开源模型
+
+  挑战：生态系统成熟度不如 CUDA，训练场景仍需 NVIDIA GPU。
+
+domain: AI Hardware / Inference
+related:
+  - nvidia
+  - tensorrt-llm

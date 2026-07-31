@@ -1,0 +1,42 @@
+id: apple-intelligence
+name: Apple Intelligence
+type: company
+aliases:
+- Apple AI
+- Apple Intelligence
+- AFM
+- Apple Foundation Models
+release_date: 2026-07
+status: active
+tags:
+- consumer-ai
+- on-device
+- privacy
+- apple
+- siri
+- foundation-models
+importance: 5
+confidence: confirmed
+summary: 'Apple 的 AI 战略以"隐私优先的端侧 AI"为核心差异化，不追求前沿模型能力，而是深度集成个人数据。
+
+  WWDC 2026 发布 5 模型架构（AFM 3 Core/Core Advanced/Cloud/Cloud Pro/ADM），
+  与 Google Gemini + NVIDIA 达成 ~$10亿/年 合作，Siri 升级为操作系统级 Agent。'
+significance: |
+  核心战略：
+  - 5 模型架构：端侧 AFM 3 Core (~3B)、AFM 3 Core Advanced (20B MoE，激活 1-4B)、云端 AFM Cloud/Cloud Pro
+  - Privacy：Private Cloud Compute 三层硬件信任链（NVIDIA CC + Intel TDX + Google Titan）
+  - Siri AI：屏幕感知、个人上下文理解、跨 App 任务执行
+  - App Intents 框架：第三方 App 向 Siri 暴露功能，Apple 抽成 15-30%
+
+  关键事件：
+  - 2025 年 AI 团队重组，John Giannandrea 离开，Mike Rockwell 接管 Siri
+  - 从 OpenAI 转向 Google Gemini 合作（~$10亿/年）
+  - iOS 27 "Extensions" 系统：第三方 AI 可插件化接入 Siri
+
+  Apple 不做最强 AI，做"最了解你且最保护隐私"的 AI。
+
+domain: Consumer AI / On-device AI
+related:
+  - siri
+  - google-deepmind
+  - nvidia

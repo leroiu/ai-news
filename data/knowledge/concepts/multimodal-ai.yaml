@@ -1,0 +1,47 @@
+id: multimodal-ai
+name: Multimodal AI
+type: concept
+aliases:
+- 多模态 AI
+- multimodal
+- cross-modal
+- vision-language
+- audio-language
+- any-to-any
+release_date: 2023-06
+status: active
+tags:
+- multimodal
+- vision
+- audio
+- llm
+- foundation-model
+importance: 5
+confidence: confirmed
+summary: 'Multimodal AI 是能同时理解和生成文本、图像、音频、视频等多种模态的 AI 系统。
+
+  从 GPT-4V、Claude 3.5 Vision 到 GPT-5，多模态已成为前沿模型的标配能力。'
+significance: |
+  发展阶段：
+  - 第一代：单模态 LLM + 独立视觉/音频模型
+  - 第二代：视觉语言模型（VLM），如 GPT-4V、Claude Vision、Gemini
+  - 第三代：原生多模态训练，输入输出任意组合（GPT-5、Gemini 2.0）
+
+  关键能力：
+  - 图像理解：图表、文档、场景分析
+  - 音频理解：语音、音乐、环境声音
+  - 视频理解：时序视频内容分析
+  - 跨模态生成：文生图、文生视频、文生音频
+
+  应用场景：
+  - 文档分析和数据提取
+  - 医疗影像诊断
+  - 视频内容审核和摘要
+  - 多模态搜索和问答
+  - 具身智能和机器人
+
+domain: AI / Foundation Models
+related:
+  - gpt-5
+  - video-generation
+  - stable-diffusion

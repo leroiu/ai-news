@@ -1,0 +1,42 @@
+id: ollama
+name: Ollama
+type: tech
+aliases:
+- Ollama
+- ollama
+- local-llm
+release_date: 2024-03
+status: active
+tags:
+- inference
+- local
+- llm
+- developer-tools
+- open-source
+importance: 4
+confidence: confirmed
+summary: 'Ollama 是最流行的本地 LLM 运行工具（~120k GitHub stars），Go 封装 llama.cpp。
+
+  "ollama run llama3" 一条命令即可下载、量化、运行模型，是开发者探索 LLM 的首选。'
+significance: |
+  核心优势：
+  - 极致易用：一条命令运行任何开源模型
+  - 模型注册中心：自动下载和管理模型
+  - GGUF 格式支持：从 Q2_K 到 Q8_0 多级量化
+  - macOS/Linux/Windows 全平台
+
+  新功能（v0.6.0）：
+  - `ollama compose`：多模型 pipeline（类似 docker-compose）
+  - `ollama bench`：内置基准测试
+
+  关键限制：
+  - 无 continuous batching
+  - 无多 GPU tensor parallelism
+  - 不适合生产环境高并发
+  - 适合个人开发、实验、demos，不适合生产部署
+
+domain: AI Infrastructure / Local Inference
+related:
+  - vllm
+  - llama.cpp
+  - tensorrt-llm

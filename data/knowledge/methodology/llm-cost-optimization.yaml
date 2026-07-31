@@ -1,0 +1,52 @@
+id: llm-cost-optimization
+name: LLM 最小化调用架构
+type: methodology
+aliases:
+- LLM降本
+- LLM cost optimization
+- P0-P4
+- 规则优先
+- LLM最小化
+release_date: 2026-07
+status: active
+tags:
+- llm
+- cost
+- optimization
+- pipeline
+- rules
+- caching
+importance: 4
+confidence: confirmed
+summary: '按 P0-P4 分阶段将 Pipeline 中的 LLM 调用从"默认全调"降为"规则优先，LLM 兜底"。
+
+  最终效果：每日 80 篇文章的 Pipeline 从 19 次 LLM 调用降到 1-2 次，节省约 90% 成本。'
+
+significance: |
+  核心原则：
+  1. 默认不用 LLM — 能规则就不调 API
+  2. 只对候选文章调 LLM — 先用规则筛，Top N 才调
+  3. 增加缓存 — article_hash 复用，report_hash 复用
+  4. 高成本任务人工触发 — 月报、深度分析、专题复盘
+  5. 降级模式 — LLM 全挂时 pipeline 不崩溃
+
+  P0-P4 分阶段实施：
+  - P0 评分规则化：来源权重+关键词+时效性+权威来源四维评分
+  - P1 摘要 Top-N：只 Top N 调 LLM，其余 fallback
+  - P2 分类规则化：关键词规则命中即跳过 LLM
+  - P3 挖掘限流：Top N + 跳过已处理 + 跳过低权威来源
+  - P4 降级模式：LLM 全挂时仍生成基础日报
+
+  四维规则评分（替代 LLM 评分）：
+  - 来源权威性（30%）：source_scores 预定义分数
+  - 关键词匹配（30%）：标题/内容正则匹配
+  - 时效性（20%）：24h 内满分，线性衰减
+  - 高权威加成（20%）：核心来源额外加分
+
+domain: AI Engineering / ML Pipeline
+source_articles:
+  - "ai-news 项目 P0-P4 实战（2026-07-06）"
+related:
+  - rule-based-scoring
+  - token-budget-management
+  - pipeline-optimization

@@ -1,0 +1,40 @@
+id: lovable
+name: Lovable
+type: product
+aliases:
+- Lovable
+- Lovable AI
+- Lovable.dev
+- GPT Engineer
+release_date: 2025-06
+status: active
+tags:
+- vibe-coding
+- app-builder
+- no-code
+- full-stack
+- prototyping
+importance: 4
+confidence: confirmed
+summary: 'Lovable 是增长最快的 AI 应用构建平台，8 个月内达到 $100M ARR（软件史上最快）。
+
+  从 prompt 到完整全栈应用（UI + 数据库 + 后端 + 认证），月活 750K+ 应用。'
+significance: |
+  增长数据：
+  - $100M ARR in 8 months（软件行业最快记录）
+  - 单月 750K 应用构建
+  - 免费版 5 credits/天，Pro $25/mo
+
+  核心能力：
+  - Prompt-to-app：从描述生成完整应用
+  - Visual "Select Element" 编辑：可视化修改生成的应用
+  - Lovable Cloud：基于 Supabase 的全栈托管（含认证、文件存储）
+
+  适合：非技术创业者、创作者、小团队快速打造 MVP
+  局限：跨迭代数据 schema 不一致、AI 上下文保持问题
+
+domain: AI Coding / Vibe Coding
+related:
+  - bolt-new
+  - v0
+  - replit

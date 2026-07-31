@@ -1,0 +1,35 @@
+id: perplexity-ai
+name: Perplexity AI
+type: company
+aliases:
+- Perplexity
+- Perplexity AI
+- AI Search
+release_date: 2026-07
+status: active
+tags:
+- search
+- llm
+- consumer
+- real-time
+- citations
+importance: 4
+confidence: confirmed
+summary: 'Perplexity 是 AI 原生搜索引擎，结合实时网络搜索与 LLM 生成答案，并附带引用来源。
+
+  估值约 $3-5B，投资方包括 IVP、NEA、SoftBank、Jeff Bezos、NVIDIA。'
+significance: |
+  核心创新：将传统搜索引擎的实时性与 LLM 的生成能力结合，每次回答附带引用链接。
+  定位为 Google Search 的 AI 替代品，特别适合需要实时信息的研究和问答场景。
+
+  产品特色：
+  - 实时网络搜索 + LLM 生成
+  - 内置引用来源验证
+  - 支持多轮对话
+  - Pro 版本可使用多种前沿模型
+  - 企业版面向组织内部知识搜索
+
+domain: AI Search / Consumer AI
+related:
+  - chatgpt
+  - google-deepmind

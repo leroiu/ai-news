@@ -1,0 +1,35 @@
+id: mustafa-suleyman
+name: Mustafa Suleyman
+type: person
+aliases:
+- Mustafa Suleyman
+- 穆斯塔法·苏莱曼
+release_date: 2026-07
+status: active
+tags:
+- deepmind
+- inflection
+- microsoft-ai
+- entrepreneur
+- ai-safety
+importance: 4
+confidence: confirmed
+summary: 'Mustafa Suleyman 是 DeepMind 联合创始人、Inflection AI 创始人、现任 Microsoft AI CEO。
+
+  领导 Microsoft 面向消费者 AI 产品线，包括 Copilot、Bing AI 等。'
+significance: |
+  履历：
+  - 2010 年联合创立 DeepMind（2014 年被 Google 收购）
+  - 2022 年创立 Inflection AI，推出 Pi 聊天机器人
+  - 2024 年加入 Microsoft，担任 Microsoft AI CEO
+  - 领导 Microsoft 消费者 AI 战略：Copilot、Bing、Edge 等
+
+  核心观点：
+  - 倡导"AI 民主化"——让每个人都能使用 AI 工具
+  - 强调 AI 安全的重要性
+  - 推动 Microsoft 的 AI 产品从企业向消费者扩展
+
+domain: AI Leadership
+related:
+  - microsoft-ai
+  - deepmind
