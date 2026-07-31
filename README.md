@@ -26,7 +26,8 @@
 
 ```bash
 # 1. Install dependencies
-uv sync
+uv sync --frozen --all-groups
+npm ci
 
 # 2. Configure API keys
 cp .env.example .env
@@ -43,6 +44,8 @@ uv run pytest tests/ -q        # 249 passed
 ```
 
 Open http://127.0.0.1:8765 for the Dashboard.
+
+See [docs/TOOLCHAIN.md](./docs/TOOLCHAIN.md) for pinned runtime versions and the upgrade policy.
 
 ---
 
