@@ -27,7 +27,8 @@
 - If blocked, preserve state and report the exact missing authority or external dependency.
 
 ## Hard Boundaries
-- Never read or edit `.env`, `.private/`, SSH keys, credentials, or unrelated user files.
+- Never read or edit `.env`, SSH keys,credentials, or unrelated user files.
+- `.private/` is gitignored (not pushed to GitHub); AI may read and edit its contents for project context, but must not publish them outside the repo.
 - Never mutate `data/`, `reports/`, `cache/`, or `logs/` during tests.
 - Never deploy to production or access `121.43.80.221`; Preview Issue #5 remains draft until authorized.
 - Never purchase cloud resources, change IAM/networking, push to `master`, merge PRs, or force-push.

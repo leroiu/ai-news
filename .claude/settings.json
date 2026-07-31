@@ -3,7 +3,6 @@
   "permissions": {
     "deny": [
       "Read(.env)",
-      "Read(.private/**)",
       "Read(.private/**/.env)",
       "Read(//**/.ssh/**)",
       "Edit(.env)",

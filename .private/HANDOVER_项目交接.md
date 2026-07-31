@@ -1,55 +1,57 @@
 # AI Intelligence Platform — 项目交接文档
 
 > 任何新的 Claude 会话第一件事就是读这个文件。
-> 每次会话结束时自动更新。
 
 ## 项目定位
 
 AI 观察室 (AI Observatory) — AI 智能情报平台。News / Knowledge / Graph / Research。
-Knowledge Card 是整个系统的唯一事实来源（SSOT）。
 
-## 当前状态（2026-07-03 更新）
+## 当前状态（2026-07-31 更新）
 
-### 最近 3 次会话
+### 本会话摘要
 
-| 日期 | 内容 | Commit |
-|------|------|--------|
-| 2026-07-03 | **End-of-Session Sync 制度化** — HANDOVER压缩(513→97) + ENGINEERING §8-10 + 变更影响矩阵 | `fba5396` `cec2d95` |
-| 2026-07-03 | **定时任务创建** — Windows Task Scheduler (Daily 20:57 / Weekly 周日21:07 / Monthly 1日22:07) | — |
-| 2026-07-03 | **Concept Miner 四重优化** — ★3+过滤 + 去重 + 缓存 + 3并发 | `ee3062d` |
-| 2026-07-03 | **Topics 搜索稳定性** — 关键词即时匹配 + 语义搜索仅补充空结果 | `d1e2802` |
-| 2026-07-03 | **Codex V7.2.3 全站同步** — 暖石墨/纸白双主题 + 编辑型排版 + 16文件 | `8d6d492` |
-| 2026-07-03 | **后端 Timeline date 归一化** — int→str, YYYY/YYYY-MM/YYYY-MM-DD | `8d3a818` |
-| 2026-07-03 | **数据清理** — 删除 37 张占位符 + 42 条 2026 无效事件 | `2f271d9` |
-| 2026-07-03 | **文件拆分** — database.py(801→8文件) + pipeline.py(623→3文件) | `a0a1db5` `32e3f31` |
-| 2026-07-02 | **多源扩展** — Twitter/X v2 API + 微信 RSSHub 桥接 | — |
-| 2026-07-02 | **后端 P1+P2 API 补全** — Entity写API + Pipeline触发 + Pydantic + 分页 + 版本历史 | — |
-| 2026-07-02 | **3 个 Agent 全部交付** — Research + Concept Miner + Trend Reporter | — |
-| 2026-07-02 | **Card Writer + 收集流水线** — Research→AI撰写→YAML 三 Agent 完整闭环 | — |
+> **核心成果**: 分支整合 + 远程同步 + 权限调整
+> **操作**: fetch 远程 100 个提交（99 collector + 1 fix）合并到 master；cherry-pick `experiment-sync`（.agents/ + docs/BUG_* + scripts/deploy/）；cherry-pick `fix`（pipeline 故障可恢复 + processing_errors.py + 247 行可靠性测试）；从 `quality-gates-ci` 提取 30 张知识卡片；删除 3 个过时分支；push 到远程
+> **权限调整**: AGENTS.md + .claude/settings.json 放开 `.private/` 读写（保留 .env 禁止）
+> **测试**: 523 passed, 1 skipped, 0 failed
+> **Commit**: `777efa8` Merge remote-tracking branch 'origin/master'（master 已与远程同步）
 
-> 更早的会话历史见 `git log --oneline`。
+### 自动化链路确认
+
+```
+GitHub Actions (每小时 :07) -> collector -> git push master
+服务器 cron (每小时 :05)  -> git pull --rebase --autostash >> logs/cron-git.log
+服务器 cron (每天 9:00)   -> pipeline.py --only-unprocessed (DeepSeek)
+服务器 cron (每周日 10:00) -> pipeline.py --only-unprocessed --weekly
+```
 
 ### 当前数据
 
 | 指标 | 数值 |
 |------|------|
-| 文章 | 1,188 篇 |
-| 实体 | 162 张（company:20, model:61, tech:9, concept:9, product:17, person:16, methodology:17, event:13） |
-| 嵌入向量 | 162 个（SiliconFlow BGE 1024维） |
-| 关系 | 770 条 |
-| 数据源 | 16 RSS + GitHub Trending + Twitter/X v2 + 微信公众号 |
-| 页面 | 9 个 (Today / Topics / Entity / 2D/3D Graph / Timeline / Events / Research / My) |
-| 测试 | 357 passed, 1 known failure (test_direct_match) |
-| 定时任务 | AI-News-Daily (每天20:57) + Weekly (周日21:07) + Monthly (每月1日22:07) |
+| inbox | 7577 行（6/27 ~ 7/31 15:26） |
+| 知识卡片 | 634 张 YAML |
+| 测试 | 523 passed, 1 skipped |
+| 部署 | 阿里云 admin@121.43.80.221 |
+| AI Provider | DeepSeek (.env: AI_PROVIDER=deepseek) |
+| 采集器 | GitHub Actions US runner, 14源 |
+| pipeline | 支持故障可恢复（processing_errors.py + db_pipeline.py） |
+
+### 分支状态
+
+| 分支 | 状态 |
+|------|------|
+| `master` | ✅ 与 origin 同步 |
+| `codex/agent-failure-diagnosis` | worktree 占用，0 ahead，可清理 |
+| `fix` | worktree 占用，已 cherry-pick 到 master，可清理 |
+| `p3-ain-graph-nav-001` | worktree 占用 |
+| `experiment/pbd-v1-collector-outcome` | worktree 占用 |
 
 ### 当前问题
 
-- 📋 收藏系统为 localStorage MVP，无账号同步
-- 📋 methodology 卡爆增：Concept Miner 生成约 130+ 张草稿卡，需批量审核
-- ⚠ test_direct_match 预存失败（1/357）：methodology 卡数量变化导致 Jaccard 匹配漂移
-- ⚠ `docs/ARCHITECTURE.md` 576 行超过 L3 (>500)，下次相关开发时拆分
-- 📋 `docs/ENGINEERING.md` 新增 §8-10: 知识分层 / End-of-Session Sync / 减优于加
-- ✅ HANDOVER 已压缩 (513→97行)，历史会话归 git log
+- 📋 HTTPS/域名配置
+- ⚠ 评分体系偏斜 - ArXiv 论文最高 ★★★★
+- 📋 worktree 分支待清理（agent-failure-diagnosis / fix / p3-ain-graph-nav-001）
 
 ## 注意事项（快速参考）
 
@@ -68,6 +70,9 @@ Knowledge Card 是整个系统的唯一事实来源（SSOT）。
 - Concept Miner 优化: 仅处理 ★3+ 文章，已挖掘 ID 自动跳过，3 并发批处理
 - 定时任务: `schtasks /query /tn AI-News-Daily` 查看状态
 - 会话收尾: 说 "整理一下" / "收尾" / "sync up" → 自动按变更矩阵更新所有文档 (详见 ENGINEERING §9)
+- 故障定位: 遇到 bug 先看 `docs/BUG_CLASSIFICATION.md`（按症状定位模块），新 bug 记录到 `docs/BUG_LOG.md`
+- 目录导航: 找文件先看 `docs/PROJECT_LAYOUT.md`（目录地图 + 速查表）
+- 部署配置: `scripts/deploy/`（Dockerfile + fly.toml）
 
 ## 工程原则（详见 docs/ENGINEERING.md）
 
