@@ -1,5 +1,5 @@
 # AI 观察室 — Docker 部署 (uv + pyproject.toml)
-FROM python:3.13.14-slim
+FROM python:3.14.7-slim
 
 WORKDIR /app
 
