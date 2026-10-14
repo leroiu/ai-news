@@ -57,7 +57,7 @@ jobs:
         run: uv run --frozen python tools/accessibility_gate.py check
       - name: Upload quality evidence
         if: ${{ always() }}
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: quality-gate-${{ github.run_id }}-${{ github.run_attempt }}
           path: output/
@@ -107,7 +107,7 @@ jobs:
           exit 0
       - name: Upload performance evidence
         if: ${{ always() }}
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: performance-gate-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.runner }}
           path: output/performance-gate/
@@ -145,7 +145,7 @@ jobs:
         run: uv run --frozen python tools/performance_arbitration.py --input-dir performance-evidence --output output/performance-arbitration/summary.json
       - name: Upload arbitration evidence
         if: ${{ always() }}
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: performance-arbitration-${{ github.run_id }}-${{ github.run_attempt }}
           path: output/performance-arbitration/
